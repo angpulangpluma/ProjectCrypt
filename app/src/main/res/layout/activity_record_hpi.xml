@@ -1,0 +1,214 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/background"
+    tools:context="com.dlsu.getbetter.getbetter.activities.RecordHpiActivity">
+
+    <ImageView
+        android:id="@+id/getbetter_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/getbetter1"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/app_name"/>
+    
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:orientation="vertical"
+            android:layout_below="@id/getbetter_title">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="1200dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="2dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/history_of_present_illness"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:textSize="24sp"
+                    android:padding="8dp"/>
+
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="#c0c0c0"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:layout_marginBottom="10dp"-->
+                    <!--/>-->
+                
+            </android.support.v7.widget.CardView>
+
+           
+            <android.support.v7.widget.CardView
+                android:layout_width="1200dp"
+                android:layout_height="250dp"
+                app:cardCornerRadius="2dp"
+                android:layout_marginTop="2dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/record_hpi_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/audio_recording_icon"
+                            android:src="@drawable/ic_action_volume_on"
+                            />
+
+                        <TextView
+                            android:id="@+id/record_hpi_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/record_the_history_of_present_illness"
+                            android:textSize="24sp"
+                            android:textStyle="italic"
+                            android:textAllCaps="true"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/record_hpi_icon"/>
+
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center_horizontal">
+
+                        <Button
+                            android:id="@+id/hpi_record_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/record_label_btn"
+                            android:textColor="@color/cardBackground"
+                            android:background="@color/greenButton"
+                            style="?android:borderlessButtonStyle"/>
+
+                        <Button
+                            android:id="@+id/hpi_stop_record_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/stop_label_btn"
+                            android:textColor="@color/cardBackground"
+                            android:background="@color/redButton"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            style="?android:borderlessButtonStyle"/>
+
+                        <Button
+                            android:id="@+id/hpi_play_recorded_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/play_label_btn"
+                            android:textColor="@color/cardBackground"
+                            android:background="@color/blueButton"
+                            style="?android:borderlessButtonStyle"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="12dp">
+
+                        <TextView
+                            android:id="@+id/record_minutes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/recording_progress_zero"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/colon"
+                            android:textSize="24sp"/>
+
+                        <TextView
+                            android:id="@+id/record_seconds"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/recording_progress_zero"
+                            android:textSize="24sp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/recording_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/recording_status"
+                        android:layout_gravity="center"
+                        android:visibility="gone"
+                        android:textSize="24sp" />
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="2dp"
+                android:layout_marginTop="2dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp">
+
+                    <Button
+                        android:id="@+id/hpi_back_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:background="@color/redButton"
+                        android:text="@string/back_button_text"
+                        android:textColor="@color/cardBackground"
+                        android:paddingLeft="100dp"
+                        android:paddingRight="100dp"/>
+
+                    <Button
+                        android:id="@+id/hpi_next_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:background="@color/greenButton"
+                        android:text="@string/next_button_text"
+                        android:textColor="@color/cardBackground"
+                        android:paddingLeft="100dp"
+                        android:paddingRight="100dp"/>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+
+
+</RelativeLayout>

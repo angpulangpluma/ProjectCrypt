@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/background"
+    tools:context=".activities.UploadCaseRecordToServerActivity">
+
+    <ImageView
+        android:id="@+id/getbetter_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/getbetter1"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/app_name"/>
+
+    <!--<android.support.v7.widget.CardView-->
+        <!--android:id="@+id/user_label_container"-->
+        <!--android:layout_width="1200dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/getbetter_title"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--app:cardCornerRadius="2dp">-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:padding="10dp">-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/patient_label"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/patient_name_placeholder"-->
+                <!--android:textSize="18sp"-->
+                <!--android:textAllCaps="true"-->
+                <!--android:textStyle="bold"-->
+                <!--/>-->
+
+        <!--</LinearLayout>-->
+
+    <!--</android.support.v7.widget.CardView>-->
+
+    <android.support.v7.widget.CardView
+        android:layout_width="1200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/getbetter_title"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"
+        app:cardCornerRadius="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/case_record"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:textSize="24sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#c0c0c0"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="8dp"
+                />
+
+            <ListView
+                android:id="@+id/upload_page_case_record_list"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:divider="@drawable/divider">
+
+            </ListView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <Button
+                    android:id="@+id/upload_caserecord_back_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="60dp"
+                    android:paddingLeft="60dp"
+                    android:background="@color/redButton"
+                    android:text="@string/back_button_text"
+                    android:textColor="@color/cardBackground"/>
+
+                <Button
+                    android:id="@+id/upload_caserecord_upload_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/blueButton"
+                    android:paddingLeft="60dp"
+                    android:paddingRight="60dp"
+                    android:text="@string/upload_button_text"
+                    android:textColor="@color/cardBackground"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

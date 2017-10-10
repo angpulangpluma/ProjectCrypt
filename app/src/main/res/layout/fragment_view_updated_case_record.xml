@@ -1,0 +1,172 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="550dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DetailsFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/case_report"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/detail_control_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/control_number_placeholder"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="24dp"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#c0c0c0"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/detail_picture_display"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/profile_picture_placeholder"
+                android:contentDescription="@string/patient_profile_image"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                />
+
+            <LinearLayout
+                android:id="@+id/info_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="12dp"
+                android:layout_toEndOf="@id/detail_picture_display"
+                >
+
+                <TextView
+                    android:id="@+id/detail_patient_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/patient_name_placeholder"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:id="@+id/detail_age_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/age_gender_placeholder"
+                    android:layout_marginTop="8dp"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/chief_complaint_placeholder"
+                    android:textSize="16sp"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/detail_chief_complaint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chief_complaint_placeholder"
+                    android:textSize="14sp"
+                    android:layout_marginTop="4dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/info_box"
+                android:orientation="vertical"
+                android:layout_marginStart="32dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:text="@string/additional_notes_instructions"
+                    android:textAllCaps="true"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/detail_instruction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/lorem_ipsum"
+                    android:textSize="12sp"
+                    android:textAlignment="viewStart"
+                    android:lines="8"/>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/history_of_present_illness"
+            android:textAllCaps="true"
+            android:textSize="12sp"
+            android:layout_marginTop="4dp"
+            android:textStyle="bold"/>
+
+        <View
+            android:id="@+id/detail_hpi_media_player"
+            android:layout_width="520dp"
+            android:layout_height="80dp"
+            android:background="@color/cardBackground"
+            android:layout_marginTop="4dp"/>
+
+        <Button
+            android:id="@+id/detail_view_case_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/view_updated_case_record_button_text"
+            android:textSize="12sp"
+            android:background="@color/greenButton"
+            android:textColor="@color/cardBackground"
+            android:layout_marginTop="30dp"
+            />
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

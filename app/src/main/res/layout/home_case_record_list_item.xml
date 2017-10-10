@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="550dp"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:background="@drawable/list_status_drawable">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/home_case_record_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/home_case_record_profile_pic"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:src="@drawable/profile_picture_placeholder"
+                android:contentDescription="@string/patient_profile_image"
+                android:layout_marginEnd="20dp"/>
+
+            <TextView
+                android:id="@+id/home_case_record_patient_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/patient_name_placeholder"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/home_case_record_profile_pic"
+                />
+
+            <TextView
+                android:id="@+id/home_case_record_chief_complaint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chief_complaint_placeholder"
+                android:textSize="12sp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@id/home_case_record_patient_name" />
+
+
+            <TextView
+                android:id="@+id/home_case_record_updated_on"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date_placeholder"
+                android:textSize="12sp"
+                android:layout_toEndOf="@id/home_case_record_chief_complaint"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                />
+
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+
+
+</LinearLayout>

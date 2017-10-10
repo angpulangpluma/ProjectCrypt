@@ -1,0 +1,117 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.dlsu.getbetter.getbetter.RecordHpiFragment">
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="600dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/record_audio"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:textSize="24sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#c0c0c0"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/audio_recording_icon"
+                    android:src="@drawable/ic_action_volume_on"/>
+
+                <Button
+                    android:id="@+id/audio_record_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/record_label_btn"
+                    android:textColor="@color/cardBackground"
+                    android:background="@color/greenButton"
+                    style="?android:borderlessButtonStyle"
+                    android:layout_gravity="center"/>
+
+                <Button
+                    android:id="@+id/audio_stop_record_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/stop_label_btn"
+                    android:textColor="@color/cardBackground"
+                    android:background="@color/redButton"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    style="?android:borderlessButtonStyle"
+                    android:layout_gravity="center"/>
+
+                <Button
+                    android:id="@+id/audio_play_recorded_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/play_label_btn"
+                    android:textColor="@color/cardBackground"
+                    android:background="@color/blueButton"
+                    style="?android:borderlessButtonStyle"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_gravity="end"
+                >
+
+                <Button
+                    android:id="@+id/audio_record_cancel_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:text="@string/mdtp_cancel"
+                    android:textColor="@color/blueButton"
+                    style="?android:borderlessButtonStyle"
+                    android:layout_marginEnd="4dp"
+                    />
+
+                <Button
+                    android:id="@+id/audio_record_save_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_toEndOf="@id/audio_record_cancel_btn"
+                    android:text="@string/save"
+                    android:textColor="@color/blueButton"
+                    style="?android:borderlessButtonStyle"
+                    />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>

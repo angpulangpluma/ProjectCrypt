@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_summary"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/background"
+    tools:context="com.dlsu.getbetter.getbetter.activities.SummaryActivity">
+
+    <ImageView
+        android:id="@+id/getbetter_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/getbetter1"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/app_name"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/summary_page_record_sound_container"
+        android:layout_width="500dp"
+        android:layout_height="300dp"
+        android:visibility="gone"
+        app:cardCornerRadius="2dp"
+        app:cardBackgroundColor="@color/cardview_light_background"
+        app:cardElevation="24dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="30dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp"
+            >
+
+            <TextView
+                android:id="@+id/summary_page_record_sound_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/record_sound_title"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/mdtp_dark_gray"
+                android:textAllCaps="true"
+                android:layout_centerHorizontal="true"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="60dp"
+                android:layout_below="@id/summary_page_record_sound_title">
+
+                <Button
+                    android:id="@+id/summary_page_audio_record_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/record_label_btn"
+                    android:textColor="@color/cardBackground"
+                    android:background="@color/greenButton"
+                    style="?android:borderlessButtonStyle"/>
+
+                <Button
+                    android:id="@+id/summary_page_audio_stop_record_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/stop_label_btn"
+                    android:textColor="@color/cardBackground"
+                    android:background="@color/redButton"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    style="?android:borderlessButtonStyle"/>
+
+                <Button
+                    android:id="@+id/summary_page_audio_play_recorded_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/play_label_btn"
+                    android:textColor="@color/cardBackground"
+                    android:background="@color/blueButton"
+                    style="?android:borderlessButtonStyle"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:orientation="horizontal"
+
+                >
+
+                <Button
+                    android:id="@+id/summary_page_record_audio_cancel_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="24dp"
+                    android:padding="8dp"
+                    android:text="@string/mdtp_cancel"
+                    android:textColor="@color/blueButton"
+                    android:layout_marginEnd="4dp"
+                    style="?android:borderlessButtonStyle"
+                    />
+
+                <Button
+                    android:id="@+id/summary_page_record_audio_done_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="24dp"
+                    android:padding="8dp"
+                    android:text="@string/mdtp_done_label"
+                    android:textColor="@color/blueButton"
+                    style="?android:borderlessButtonStyle"
+                    />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:orientation="vertical"
+        android:layout_below="@+id/getbetter_title"
+        android:layout_alignParentStart="true">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="1200dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/case_record"
+                android:textAllCaps="true"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:padding="8dp" />
+
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:background="#c0c0c0"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:layout_marginBottom="10dp"-->
+                <!--/>-->
+
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false"
+            android:layout_marginTop="2dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="2dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/profile_picture_display"
+                            android:layout_width="255dp"
+                            android:layout_height="180dp"
+                            android:src="@drawable/ic_account_circle"
+                            android:contentDescription="@string/patient_profile_image"
+                            android:padding="8dp"
+                            app:civ_border_width="2dp"
+                            app:civ_border_color="@color/colorPrimary"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentStart="true" />
+
+                        <TextView
+                            android:id="@+id/summary_page_chief_complaint_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/chief_complaint_placeholder"
+                            android:textAllCaps="true"
+                            android:textStyle="bold"
+                            android:layout_below="@id/profile_picture_display"/>
+
+                        <TextView
+                            android:id="@+id/summary_page_chief_complaint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/summary_page_chief_complaint_label"
+                            android:text="@string/chief_complaint_placeholder"
+                            android:layout_marginTop="4dp"/>
+
+                        <TableLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_toEndOf="@+id/profile_picture_display">
+
+                            <TableRow>
+
+                                <TextView
+                                    android:id="@+id/summary_page_patient_name"
+                                    android:text="@string/patient_name_placeholder"
+                                    android:textStyle="bold"
+                                    android:textAllCaps="true"/>
+
+                            </TableRow>
+
+                            <TableRow>
+
+                                <TextView
+                                    android:id="@+id/summary_page_health_center"
+                                    android:text="@string/health_center_placeholder"
+                                    />
+
+                            </TableRow>
+
+                            <TableRow>
+
+                                <TextView
+                                    android:id="@+id/summary_page_age_gender"
+                                    android:text="@string/age_gender_placeholder"/>
+
+                            </TableRow>
+
+                            <TableRow android:layout_marginTop="10dp">
+
+                                <TextView
+                                    android:text="@string/height_cm"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:text="@string/weight_kg"
+                                    android:textStyle="bold"/>
+
+                            </TableRow>
+
+                            <TableRow android:layout_marginTop="5dp">
+
+                                <TextView
+                                    android:id="@+id/summary_page_height"
+                                    android:text="@string/zero_value_placeholder"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/summary_page_weight"
+                                    android:text="@string/zero_value_placeholder"
+                                    />
+
+
+                            </TableRow>
+
+                            <TableRow android:layout_marginTop="5dp">
+
+                                <TextView
+                                    android:text="@string/temperature_c"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:text="@string/pulse_rate"
+                                    android:textStyle="bold"/>
+
+                            </TableRow>
+
+                            <TableRow android:layout_marginTop="5dp">
+
+                                <TextView
+                                    android:id="@+id/summary_page_temp"
+                                    android:text="@string/zero_value_placeholder"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/summary_page_pulse_rate"
+                                    android:text="@string/zero_value_placeholder"
+                                    />
+
+
+                            </TableRow>
+
+                            <TableRow android:layout_marginTop="5dp">
+
+                                <TextView
+                                    android:text="@string/respiratory_rate"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:text="@string/blood_pressure"
+                                    android:textStyle="bold"/>
+
+                            </TableRow>
+
+                            <TableRow android:layout_marginTop="5dp">
+
+                                <TextView
+                                    android:id="@+id/summary_page_resp_rate"
+                                    android:text="@string/zero_value_placeholder"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/summary_page_blood_pressure"
+                                    android:text="@string/zero_value_placeholder"
+                                    />
+
+                            </TableRow>
+
+                        </TableLayout>
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="2dp"
+                    android:layout_marginTop="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:text="@string/files"
+                            android:textAllCaps="true"
+                            android:textStyle="bold"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#c0c0c0"
+                            android:layout_marginTop="4dp"
+                            />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/summary_page_files_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="170dp"
+                            android:scrollbars="vertical">
+
+
+                        </android.support.v7.widget.RecyclerView>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+            <!--<View-->
+            <!--android:layout_width="1dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="#c0c0c0"-->
+            <!--android:layout_marginRight="4dp"-->
+            <!--android:layout_marginEnd="4dp"-->
+            <!--android:layout_marginLeft="4dp"-->
+            <!--android:layout_marginStart="4dp"-->
+            <!--/>-->
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:orientation="vertical"
+                android:layout_marginStart="4dp">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/history_of_present_illness"
+                            android:textAllCaps="true"
+                            android:textStyle="bold"/>
+
+                        <View
+                            android:id="@+id/hpi_media_player"
+                            android:layout_width="520dp"
+                            android:layout_height="80dp"
+                            android:background="@color/cardBackground"
+                            android:layout_marginBottom="16dp"/>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="320dp"
+                    app:cardCornerRadius="2dp"
+                    android:layout_marginTop="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/attachments"
+                            android:textStyle="bold"
+                            android:textAllCaps="true"
+                            android:layout_marginBottom="4dp"
+                            />
+
+                        <View
+                            android:layout_width="wrap_content"
+                            android:layout_height="1dp"
+                            android:background="#c0c0c0"
+                            android:layout_marginBottom="8dp"
+                            />
+
+                        <Button
+                            android:id="@+id/summary_page_take_pic_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/attachment_button"
+                            android:drawableStart="@drawable/ic_add_a_photo"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="24dp"
+                            android:text="@string/take_picture_button_text"
+                            android:textSize="12sp"
+                            android:layout_marginBottom="8dp"
+                            />
+
+                        <Button
+                            android:id="@+id/summary_page_rec_video_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/attachment_button"
+                            android:drawableStart="@drawable/ic_action_video"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="24dp"
+                            android:text="@string/record_video"
+                            android:textSize="12sp"
+                            android:layout_marginBottom="8dp"/>
+
+                        <Button
+                            android:id="@+id/summary_page_rec_sound_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/attachment_button"
+                            android:drawableStart="@drawable/ic_audiotrack"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="24dp"
+                            android:text="@string/record_sound"
+                            android:textSize="12sp"
+                            android:layout_marginBottom="8dp"/>
+
+
+                        <Button
+                            android:id="@+id/summary_page_estethoscope_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/e_stethoscope"
+                            android:visibility="gone"
+                            android:textSize="12sp"/>
+
+                        <Button
+                            android:id="@+id/summary_page_take_pic_doc_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/attachment_button"
+                            android:text="@string/take_picture_document_button_text"
+                            android:drawableStart="@drawable/ic_action_document"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="24dp"
+                            android:textSize="12sp"/>
+
+                        <Button
+                            android:id="@+id/summary_page_select_file_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/attachment_button"
+                            android:text="@string/select_a_file_from_tablet"
+                            android:visibility="gone"
+                            android:textSize="12sp"/>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="2dp"
+            android:layout_marginTop="2dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp">
+
+                <Button
+                    android:id="@+id/summary_page_back_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="60dp"
+                    android:paddingLeft="60dp"
+                    android:background="@color/redButton"
+                    android:text="@string/back_button_text"
+                    android:textColor="@color/cardBackground" />
+
+                <!--<Button-->
+                <!--android:id="@+id/summary_update_patient_rec_btn"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@color/greenButton"-->
+                <!--android:text="@string/update_patient_record_button_text"-->
+                <!--android:textColor="@color/cardBackground"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:paddingLeft="10dp"-->
+                <!--android:paddingRight="10dp"-->
+                <!--android:layout_toRightOf="@id/summary_page_back_btn"-->
+                <!--/>-->
+
+                <Button
+                    android:id="@+id/summary_page_submit_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/blueButton"
+                    android:paddingLeft="60dp"
+                    android:paddingRight="60dp"
+                    android:text="@string/submit_button_text"
+                    android:textColor="@color/cardBackground"/>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+</RelativeLayout>

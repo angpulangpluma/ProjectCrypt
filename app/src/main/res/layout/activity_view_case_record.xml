@@ -1,0 +1,355 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/background"
+    tools:context=".activities.ViewCaseRecordActivity">
+
+    <ImageView
+        android:id="@+id/getbetter_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/getbetter1"
+        android:layout_marginBottom="8dp"/>
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="1200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/getbetter_title"
+        app:cardCornerRadius="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/case_record"
+                    android:textSize="24sp"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:id="@+id/view_case_control_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/control_number_placeholder"
+                    android:textAllCaps="true"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginStart="24dp"
+                    />
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#c0c0c0"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:baselineAligned="false">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginEnd="4dp"
+                    app:cardCornerRadius="2dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/profile_picture_display"
+                                android:layout_width="255dp"
+                                android:layout_height="200dp"
+                                android:src="@drawable/ic_account_circle"
+                                android:contentDescription="@string/patient_profile_image"
+                                android:padding="8dp"
+                                app:civ_border_width="2dp"
+                                app:civ_border_color="@color/colorPrimary"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                />
+
+                            <TableLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:layout_toRightOf="@id/profile_picture_display"
+                                android:layout_toEndOf="@id/profile_picture_display"
+                                android:layout_alignTop="@id/profile_picture_display">
+
+                                <TableRow>
+
+                                    <TextView
+                                        android:id="@+id/view_case_patient_name"
+                                        android:text="@string/patient_name_placeholder"
+                                        android:textStyle="bold"/>
+
+                                </TableRow>
+
+                                <TableRow>
+
+                                    <TextView
+                                        android:id="@+id/view_case_health_center"
+                                        android:text="Health Center Placeholder"
+                                        />
+
+                                </TableRow>
+
+                                <TableRow>
+
+                                    <TextView
+                                        android:id="@+id/view_case_age_gender"
+                                        android:text="Age Gender Placeholder"/>
+
+                                </TableRow>
+
+                                <TableRow android:layout_marginTop="10dp">
+
+                                    <TextView
+                                        android:text="Height (CM)"
+                                        android:textStyle="bold"/>
+
+                                    <TextView
+                                        android:text="Weight (KG)"
+                                        android:textStyle="bold"/>
+
+                                </TableRow>
+
+                                <TableRow android:layout_marginTop="5dp">
+
+                                    <TextView
+                                        android:id="@+id/view_case_height"
+                                        android:text="0"
+                                        />
+
+                                    <TextView
+                                        android:id="@+id/view_case_weight"
+                                        android:text="0"
+                                        />
+
+
+                                </TableRow>
+
+                                <TableRow android:layout_marginTop="5dp">
+
+                                    <TextView
+                                        android:text="Temperature (C)"
+                                        android:textStyle="bold"/>
+
+                                    <TextView
+                                        android:text="Pulse Rate"
+                                        android:textStyle="bold"/>
+
+                                </TableRow>
+
+                                <TableRow android:layout_marginTop="5dp">
+
+                                    <TextView
+                                        android:id="@+id/view_case_temp"
+                                        android:text="0"
+                                        />
+
+                                    <TextView
+                                        android:id="@+id/view_case_pulse_rate"
+                                        android:text="0"
+                                        />
+
+
+                                </TableRow>
+
+                                <TableRow android:layout_marginTop="5dp">
+
+                                    <TextView
+                                        android:text="Respiratory Rate"
+                                        android:textStyle="bold"/>
+
+                                    <TextView
+                                        android:text="Blood Pressure"
+                                        android:textStyle="bold"/>
+
+                                </TableRow>
+
+                                <TableRow android:layout_marginTop="5dp">
+
+                                    <TextView
+                                        android:id="@+id/view_case_resp_rate"
+                                        android:text="0"
+                                        />
+
+                                    <TextView
+                                        android:id="@+id/view_case_blood_pressure"
+                                        android:text="0"
+                                        />
+
+                                </TableRow>
+
+                            </TableLayout>
+
+                        </RelativeLayout>
+
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Chief Complaint"
+                            android:textSize="18sp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/view_case_chief_complaint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Chief Complaint placeholder"
+                            android:textSize="16sp"
+                            android:layout_marginTop="4dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="History of Present Illness"
+                            android:layout_marginTop="8dp"
+                            android:textStyle="bold"/>
+
+                        <View
+                            android:id="@+id/hpi_media_player"
+                            android:layout_width="520dp"
+                            android:layout_height="80dp"
+                            android:background="@color/cardBackground"
+                            android:layout_marginTop="4dp"/>
+
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginStart="4dp"
+                    app:cardCornerRadius="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/additional_notes"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:layout_marginBottom="12dp"
+                            android:text="@string/none"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:text="@string/files"
+                            android:textStyle="bold"/>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/view_case_files_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="260dp"
+                            android:scrollbars="vertical">
+
+                        </android.support.v7.widget.RecyclerView>
+
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                >
+
+                <Button
+                    android:id="@+id/view_case_back_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:background="@color/redButton"
+                    android:text="@string/back_button_text"
+                    android:textColor="@color/cardBackground"
+                    android:paddingLeft="100dp"
+                    android:paddingRight="100dp"/>
+
+                <Button
+                    android:id="@+id/update_case_record_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/blueButton"
+                    android:text="@string/update_case_record_button_text"
+                    android:textColor="@color/cardBackground"
+                    android:paddingRight="28dp"
+                    android:paddingLeft="28dp"/>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+
+    </android.support.v7.widget.CardView>
+
+
+</RelativeLayout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_view_video"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/background"
+    android:orientation="vertical"
+    tools:context="com.dlsu.getbetter.getbetter.activities.ViewVideoActivity">
+
+    <SurfaceView
+        android:id="@+id/view_video"
+        android:layout_width="match_parent"
+        android:layout_height="550dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/view_video_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/caption_this_image"
+            android:textSize="32sp"
+            android:textColor="@color/cardBackground"
+            android:padding="16dp"
+            />
+
+        <Button
+            android:id="@+id/play_video_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <Button
+            android:id="@+id/pause_video_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toEndOf="@id/play_video_button"/>
+
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/view_video_back_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/back_button_text"
+        android:textSize="24sp"
+        android:layout_marginStart="18dp"
+        android:textColor="@color/cardBackground"
+        android:background="@color/blueButton"/>
+
+</LinearLayout>

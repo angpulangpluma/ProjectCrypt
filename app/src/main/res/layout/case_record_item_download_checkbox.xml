@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/existing_caserecord_item_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <CheckBox
+                android:id="@+id/upload_caserecord_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/upload_control_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/control_number_placeholder"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@id/upload_caserecord_checkbox"
+                android:layout_toEndOf="@id/upload_caserecord_checkbox"/>
+
+            <TextView
+                android:id="@+id/upload_case_record_patient_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/patient_name_placeholder"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/upload_control_number"
+                android:layout_toEndOf="@id/upload_control_number"
+                android:layout_marginLeft="30dp"
+                />
+
+            <TextView
+                android:id="@+id/upload_caserecord_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@id/upload_case_record_patient_name"
+                android:layout_toEndOf="@id/upload_case_record_patient_name"/>
+
+            <TextView
+                android:id="@+id/upload_caserecord_chief_complaint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chief Complaint"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginStart="30dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/upload_caserecord_status" />
+
+            <TextView
+                android:id="@+id/upload_caserecord_health_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginStart="30dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/upload_caserecord_chief_complaint" />
+
+
+
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

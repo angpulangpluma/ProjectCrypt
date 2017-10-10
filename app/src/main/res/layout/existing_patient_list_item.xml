@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.balysv.materialripple.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:mrl_rippleOverlay="true"
+    app:mrl_rippleColor="@color/rippleColor">
+
+    <TableRow
+        android:id="@+id/existing_patient_item_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/upload_patient_item_profile_image"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_account_circle"
+            android:contentDescription="@string/patient_profile_image"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/colorPrimary"
+            android:padding="8dp"
+            android:layout_marginRight="100dp"
+            android:layout_marginEnd="100dp"/>
+
+        <LinearLayout
+            android:id="@+id/name_age_gender_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/upload_patient_item_name"
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:text="@string/patient_name_placeholder"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:paddingBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/existing_patient_item_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/age_gender_placeholder"
+                android:textSize="18sp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date_of_last_consultation"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingBottom="4dp" />
+
+            <TextView
+                android:id="@+id/existing_patient_date_last_consult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"/>
+
+
+        </LinearLayout>
+
+
+
+    </TableRow>
+
+</com.balysv.materialripple.MaterialRippleLayout>
