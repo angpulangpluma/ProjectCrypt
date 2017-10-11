@@ -38,7 +38,7 @@ public class CryptoFileService extends IntentService {
     // TODO: Rename parameters
     private static final String CRYPTO_FILE = "com.dlsu.getbetter.getbetter.cryptoGB.extra.FILE";
     private static final String CRYPTO_HCID = "com.dlsu.getbetter.getbetter.cryptoGB.extra.HCID";
-    private static final String CRYPTO_FNAME = "com.dlsu.getbetter.getbetter.cryptoGB.extra.FNAME";
+//    private static final String CRYPTO_FNAME = "com.dlsu.getbetter.getbetter.cryptoGB.extra.FNAME";
 
     public CryptoFileService() {
         super("CryptoFileService");
@@ -51,17 +51,12 @@ public class CryptoFileService extends IntentService {
      * @see IntentService
      */
     // TODO: Customize helper method
-    public void cryptoAskEncrypt(Context context, File sel, int hcID) {
+    public void cryptoAskEncrypt(Context context, String sel, int hcID) {
         Log.w("cryptoaskencrypt", "yes");
         Intent intent = new Intent(context, CryptoFileService.class);
         intent.setAction(ACTION_ENC);
-        try{
-            intent.putExtra(CRYPTO_FILE, read(sel));
-        } catch(Exception e){
-            e.printStackTrace();
-        }
         intent.putExtra(CRYPTO_HCID, hcID);
-        intent.putExtra(CRYPTO_FNAME, sel.getName());
+        intent.putExtra(CRYPTO_FILE, sel);
         context.startService(intent);
     }
 
@@ -72,16 +67,11 @@ public class CryptoFileService extends IntentService {
      * @see IntentService
      */
     // TODO: Customize helper method
-    public void cryptoAskDecrypt(Context context, File sel, int hcID) {
+    public void cryptoAskDecrypt(Context context, String sel, int hcID) {
         Intent intent = new Intent(context, CryptoFileService.class);
         intent.setAction(ACTION_DEC);
-        try{
-            intent.putExtra(CRYPTO_FILE, read(sel));
-        } catch(Exception e){
-            e.printStackTrace();
-        }
         intent.putExtra(CRYPTO_HCID, hcID);
-        intent.putExtra(CRYPTO_FNAME, sel.getName());
+        intent.putExtra(CRYPTO_FILE, sel);
         context.startService(intent);
     }
 
@@ -90,29 +80,21 @@ public class CryptoFileService extends IntentService {
         Log.w("cryptofilehandleintent", "yes");
         if (intent != null) {
             final String action = intent.getAction();
+            File src = new File(intent.getStringExtra(CRYPTO_FILE));
+            File in = new File(Environment.getExternalStoragePublicDirectory(DirectoryConstants.CRYPTO_FOLDER),
+                    src.getName());
+            try{
+                in.createNewFile();
+                OutputStream os = new FileOutputStream(in);
+                os.write(read(src));
+                os.close();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
             if (ACTION_ENC.equals(action)) {
-                File in = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
-                        intent.getStringExtra(CRYPTO_FNAME));
-                byte[] byt = intent.getByteArrayExtra(CRYPTO_FILE);
-                try{
-                    OutputStream os = new FileOutputStream(in);
-                    os.write(byt);
-                    os.close();
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
                 handleFileEncryption(in);
             } else if (ACTION_DEC.equals(action)) {
-                File in = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
-                        intent.getStringExtra(CRYPTO_FNAME));
-                byte[] byt = intent.getByteArrayExtra(CRYPTO_FILE);
-                try{
-                    OutputStream os = new FileOutputStream(in);
-                    os.write(byt);
-                    os.close();
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
                 handleFileDecryption(in);
             }
         }
