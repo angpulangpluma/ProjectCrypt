@@ -33,6 +33,7 @@ import android.widget.TextView;
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.adapters.FileAttachmentsAdapter;
+import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.objects.Attachment;
 import com.dlsu.getbetter.getbetter.objects.DividerItemDecoration;
@@ -122,7 +123,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
     private boolean isRecording;
     private int seconds, minutes, recordTime;
 
-
+    private CryptoFileService cserv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,6 +160,8 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
 
         caseRecordId = generateCaseRecordId();
         controlNumber = generateControlNumber(patientId);
+
+        cserv = new CryptoFileService();
 
     }
 
@@ -576,6 +579,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
             if(resultCode == Activity.RESULT_OK) {
 
                 editAttachmentName(MEDIA_TYPE_IMAGE);
+                cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1);
 
             } else if(resultCode == Activity.RESULT_CANCELED) {
 
@@ -587,6 +591,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
             if (resultCode == Activity.RESULT_OK) {
 
                 editAttachmentName(MEDIA_TYPE_VIDEO);
+                cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1);
 //                addVideoAttachment(videoAttachmentPath, "video", uploadedDate);
 
             } else if (resultCode == Activity.RESULT_CANCELED) {

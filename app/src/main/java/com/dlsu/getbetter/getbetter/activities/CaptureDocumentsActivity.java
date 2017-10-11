@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
+import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
 import com.dlsu.getbetter.getbetter.sessionmanagers.NewPatientSessionManager;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
@@ -89,6 +90,8 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
     private static final int REQUEST_CHIEF_COMPLAINT_IMAGE = 200;
     private static final int REQUEST_FAMILY_SOCIAL_IMAGE = 300;
 
+    private CryptoFileService cserv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,6 +124,8 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
             this.chiefComplaintActionButtons.setVisibility(View.VISIBLE);
             this.socialFamilyActionButtons.setVisibility(View.VISIBLE);
         }
+
+        cserv = new CryptoFileService();
 
     }
 
@@ -309,7 +314,8 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
                     setPic(this.patientInfoImage, this.patientInfoImagePath);
                     this.patientInfoActionButtons.setVisibility(View.VISIBLE);
                     this.capturePatientInfo.setVisibility(View.GONE);
-                    doSomethingCryptFile("enc", new File(this.patientInfoImagePath));
+                    cserv.cryptoAskEncrypt(this, this.patientInfoImagePath, 1);
+//                    doSomethingCryptFile("enc", new File(this.patientInfoImagePath));
                     Log.d("patientinfoimgenc", "yes");
                     break;
 
@@ -318,7 +324,8 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
                     setPic(this.chiefComplaintImage, this.chiefComplaintImagePath);
                     this.chiefComplaintActionButtons.setVisibility(View.VISIBLE);
                     this.captureChiefComplaint.setVisibility(View.GONE);
-                    doSomethingCryptFile("enc", new File(this.chiefComplaintImagePath));
+                    cserv.cryptoAskEncrypt(this, this.chiefComplaintImagePath, 1);
+//                    doSomethingCryptFile("enc", new File(this.chiefComplaintImagePath));
                     Log.d("chiefcompimgenc", "yes");
                     break;
 
@@ -327,7 +334,8 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
                     setPic(this.familySocialImage, this.familySocialHistoryImagePath);
                     this.socialFamilyActionButtons.setVisibility(View.VISIBLE);
                     this.captureFamilySocial.setVisibility(View.GONE);
-                    doSomethingCryptFile("enc", new File(this.familySocialHistoryImagePath));
+                    cserv.cryptoAskEncrypt(this, this.familySocialHistoryImagePath, 1);
+//                    doSomethingCryptFile("enc", new File(this.familySocialHistoryImagePath));
                     Log.d("famhistimgenc", "yes");
                     break;
             }
@@ -407,53 +415,53 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
         return captureDocumentsActivity;
     }
 
-    private byte[] read(File file) throws IOException{
-        byte[] buffer = new byte[(int) file.length()];
-        InputStream ios = null;
-        try{
-            ios = new FileInputStream(file);
-            if(ios.read(buffer)==-1){
-                throw new IOException(
-                        "EOF reached while trying to read the whole file.");
-            }
-        } finally{
-            try {
-                if (ios != null) ios.close();
-            } catch (IOException e){
-
-            }
-        }
-        return buffer;
-    }
-
-    private void doSomethingCryptFile(String dec, File input){
-
-        Log.d("service in", "yes");
-
-        file_aes mastercry = new file_aes();
-        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
-                DirectoryConstants.CRYPTO_FOLDER);
-        path.mkdirs();
-        File output = new File(path.getPath() +"/" + input.getName());
-        Log.d("output", output.getAbsolutePath());
-        try {
-            FileOutputStream fos = new FileOutputStream(output);
-            fos.write(read(input));
-            fos.flush();
-            fos.close();
-        } catch(Exception e){
-            Log.e("error", e.toString());
-        }
-        switch(dec){
-            case "enc":{
-                mastercry.encryptFile(output);
-                Log.d("Action", "enc");
-            }; break;
-            case "dec":{
-                mastercry.decryptFile(input);
-                Log.d("Action", "dec");
-            }; break;
-        }
+//    private byte[] read(File file) throws IOException{
+//        byte[] buffer = new byte[(int) file.length()];
+//        InputStream ios = null;
+//        try{
+//            ios = new FileInputStream(file);
+//            if(ios.read(buffer)==-1){
+//                throw new IOException(
+//                        "EOF reached while trying to read the whole file.");
+//            }
+//        } finally{
+//            try {
+//                if (ios != null) ios.close();
+//            } catch (IOException e){
 //
-    }
+//            }
+//        }
+//        return buffer;
+//    }
+//
+//    private void doSomethingCryptFile(String dec, File input){
+//
+//        Log.d("service in", "yes");
+//
+//        file_aes mastercry = new file_aes();
+//        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+//                DirectoryConstants.CRYPTO_FOLDER);
+//        path.mkdirs();
+//        File output = new File(path.getPath() +"/" + input.getName());
+//        Log.d("output", output.getAbsolutePath());
+//        try {
+//            FileOutputStream fos = new FileOutputStream(output);
+//            fos.write(read(input));
+//            fos.flush();
+//            fos.close();
+//        } catch(Exception e){
+//            Log.e("error", e.toString());
+//        }
+//        switch(dec){
+//            case "enc":{
+//                mastercry.encryptFile(output);
+//                Log.d("Action", "enc");
+//            }; break;
+//            case "dec":{
+//                mastercry.decryptFile(input);
+//                Log.d("Action", "dec");
+//            }; break;
+//        }
+////
+//    }
 }

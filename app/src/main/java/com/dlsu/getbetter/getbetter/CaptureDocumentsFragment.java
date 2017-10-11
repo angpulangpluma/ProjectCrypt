@@ -6,6 +6,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,6 +26,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
 import com.dlsu.getbetter.getbetter.sessionmanagers.NewPatientSessionManager;
 
 import java.io.File;
@@ -70,6 +72,9 @@ public class CaptureDocumentsFragment extends Fragment implements View.OnClickLi
 
     private NewPatientSessionManager newPatientSessionManager;
 
+    private CryptoFileService cserv;
+    private Context context;
+
     public CaptureDocumentsFragment() {
         // Required empty public constructor
     }
@@ -79,6 +84,7 @@ public class CaptureDocumentsFragment extends Fragment implements View.OnClickLi
         super.onCreate(savedInstanceState);
 
         newPatientSessionManager = new NewPatientSessionManager(getActivity());
+        cserv = new CryptoFileService();
     }
 
 
@@ -157,6 +163,7 @@ public class CaptureDocumentsFragment extends Fragment implements View.OnClickLi
                 case REQUEST_IMAGE1:
 
                     setPic(captureBasicInfoBtn, patientInfoImagePath);
+                    cserv.cryptoAskEncrypt(this.context, patientInfoImagePath, 1);
 //                    Bitmap photo = BitmapFactory.decodeFile(data.getExtras().get("output").toString());
 //                    captureBasicInfoBtn.setImageBitmap(photo);
 //                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -174,6 +181,7 @@ public class CaptureDocumentsFragment extends Fragment implements View.OnClickLi
                 case REQUEST_IMAGE2:
 
                     setPic(captureFamilyHistBtn, familySocialHistoryImagePath);
+                    cserv.cryptoAskEncrypt(this.context, familySocialHistoryImagePath, 1);
 //                    Bitmap photo2 = (Bitmap)data.getExtras().get("data");
 //                    captureFamilyHistBtn.setImageBitmap(photo2);
 //                    ByteArrayOutputStream baos2 = new ByteArrayOutputStream();
@@ -191,6 +199,7 @@ public class CaptureDocumentsFragment extends Fragment implements View.OnClickLi
                 case REQUEST_IMAGE3:
 
                     setPic(captureChiefComplaintBtn, chiefComplaintImagePath);
+                    cserv.cryptoAskEncrypt(this.context, patientInfoImagePath, 1);
 //                    Bitmap photo3 = (Bitmap)data.getExtras().get("data");
 //                    captureChiefComplaintBtn.setImageBitmap(photo3);
 //                    ByteArrayOutputStream baos3 = new ByteArrayOutputStream();

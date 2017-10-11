@@ -21,6 +21,7 @@ import android.widget.Spinner;
 
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
+import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.sessionmanagers.NewPatientSessionManager;
@@ -70,6 +71,8 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
 
     private static final String TAG = "debug";
 
+    private CryptoFileService cserv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +93,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         initBloodTypeAdapter(this);
         bindListeners(this);
 
+        cserv = new CryptoFileService();
     }
 
     private void bindViews(NewPatientInfoActivity activity) {
@@ -338,7 +342,8 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
 
         if(requestCode == REQUEST_IMAGE1 && resultCode == Activity.RESULT_OK) {
             setPic(profileImage, fileUri.getPath());
-            doSomethingCryptFile("enc", new File(fileUri.getPath()));
+            cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1);
+//            doSomethingCryptFile("enc", new File(fileUri.getPath()));
             Log.d("patientinfoimgenc", "yes");
         }
     }
@@ -433,53 +438,53 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         return new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault()).format(new Date());
     }
 
-    private byte[] read(File file) throws IOException {
-        byte[] buffer = new byte[(int) file.length()];
-        InputStream ios = null;
-        try{
-            ios = new FileInputStream(file);
-            if(ios.read(buffer)==-1){
-                throw new IOException(
-                        "EOF reached while trying to read the whole file.");
-            }
-        } finally{
-            try {
-                if (ios != null) ios.close();
-            } catch (IOException e){
-
-            }
-        }
-        return buffer;
-    }
-
-    private void doSomethingCryptFile(String dec, File input){
-
-        Log.d("service in", "yes");
-
-        file_aes mastercry = new file_aes();
-        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
-                DirectoryConstants.CRYPTO_FOLDER);
-        path.mkdirs();
-        File output = new File(path.getPath() +"/" + input.getName());
-        Log.d("output", output.getAbsolutePath());
-        try {
-            FileOutputStream fos = new FileOutputStream(output);
-            fos.write(read(input));
-            fos.flush();
-            fos.close();
-        } catch(Exception e){
-            Log.e("error", e.toString());
-        }
-        switch(dec){
-            case "enc":{
-                mastercry.encryptFile(output);
-                Log.d("Action", "enc");
-            }; break;
-            case "dec":{
-                mastercry.decryptFile(input);
-                Log.d("Action", "dec");
-            }; break;
-        }
+//    private byte[] read(File file) throws IOException {
+//        byte[] buffer = new byte[(int) file.length()];
+//        InputStream ios = null;
+//        try{
+//            ios = new FileInputStream(file);
+//            if(ios.read(buffer)==-1){
+//                throw new IOException(
+//                        "EOF reached while trying to read the whole file.");
+//            }
+//        } finally{
+//            try {
+//                if (ios != null) ios.close();
+//            } catch (IOException e){
 //
-    }
+//            }
+//        }
+//        return buffer;
+//    }
+//
+//    private void doSomethingCryptFile(String dec, File input){
+//
+//        Log.d("service in", "yes");
+//
+//        file_aes mastercry = new file_aes();
+//        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+//                DirectoryConstants.CRYPTO_FOLDER);
+//        path.mkdirs();
+//        File output = new File(path.getPath() +"/" + input.getName());
+//        Log.d("output", output.getAbsolutePath());
+//        try {
+//            FileOutputStream fos = new FileOutputStream(output);
+//            fos.write(read(input));
+//            fos.flush();
+//            fos.close();
+//        } catch(Exception e){
+//            Log.e("error", e.toString());
+//        }
+//        switch(dec){
+//            case "enc":{
+//                mastercry.encryptFile(output);
+//                Log.d("Action", "enc");
+//            }; break;
+//            case "dec":{
+//                mastercry.decryptFile(input);
+//                Log.d("Action", "dec");
+//            }; break;
+//        }
+////
+//    }
 }

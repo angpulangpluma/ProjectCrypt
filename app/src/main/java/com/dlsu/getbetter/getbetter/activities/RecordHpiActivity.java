@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
+import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
 import com.dlsu.getbetter.getbetter.sessionmanagers.NewPatientSessionManager;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
@@ -58,6 +59,8 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
 
     private android.os.Handler handler;
 
+    private CryptoFileService cserv;
+
     public RecordHpiActivity() {
         //empty constructor
     }
@@ -96,6 +99,8 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
         } else {
             initializeMediaRecorder();
         }
+
+        cserv = new CryptoFileService();
     }
 
     private void bindViews (RecordHpiActivity activity) {
@@ -302,53 +307,54 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
         return recordHpiActivity;
     }
 
-    private byte[] read(File file) throws IOException{
-        byte[] buffer = new byte[(int) file.length()];
-        InputStream ios = null;
-        try{
-            ios = new FileInputStream(file);
-            if(ios.read(buffer)==-1){
-                throw new IOException(
-                        "EOF reached while trying to read the whole file.");
-            }
-        } finally{
-            try {
-                if (ios != null) ios.close();
-            } catch (IOException e){
-
-            }
-        }
-        return buffer;
-    }
-
+//    private byte[] read(File file) throws IOException{
+//        byte[] buffer = new byte[(int) file.length()];
+//        InputStream ios = null;
+//        try{
+//            ios = new FileInputStream(file);
+//            if(ios.read(buffer)==-1){
+//                throw new IOException(
+//                        "EOF reached while trying to read the whole file.");
+//            }
+//        } finally{
+//            try {
+//                if (ios != null) ios.close();
+//            } catch (IOException e){
+//
+//            }
+//        }
+//        return buffer;
+//    }
+//
     private void doSomethingCryptFile(String dec, File input){
 
         Log.d("service in", "yes");
+        cserv.cryptoAskEncrypt(this, input.getPath(), 1);
 
-        file_aes mastercry = new file_aes();
-        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
-                DirectoryConstants.CRYPTO_FOLDER);
-        path.mkdirs();
-        File output = new File(path.getPath() +"/" + input.getName());
-        Log.d("output", output.getAbsolutePath());
-        try {
-            FileOutputStream fos = new FileOutputStream(output);
-            fos.write(read(input));
-            fos.flush();
-            fos.close();
-        } catch(Exception e){
-            Log.e("error", e.toString());
-        }
-        switch(dec){
-            case "enc":{
-                mastercry.encryptFile(output);
-                Log.d("Action", "enc");
-            }; break;
-            case "dec":{
-                mastercry.decryptFile(input);
-                Log.d("Action", "dec");
-            }; break;
-        }
+//        file_aes mastercry = new file_aes();
+//        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+//                DirectoryConstants.CRYPTO_FOLDER);
+//        path.mkdirs();
+//        File output = new File(path.getPath() +"/" + input.getName());
+//        Log.d("output", output.getAbsolutePath());
+//        try {
+//            FileOutputStream fos = new FileOutputStream(output);
+//            fos.write(read(input));
+//            fos.flush();
+//            fos.close();
+//        } catch(Exception e){
+//            Log.e("error", e.toString());
+//        }
+//        switch(dec){
+//            case "enc":{
+//                mastercry.encryptFile(output);
+//                Log.d("Action", "enc");
+//            }; break;
+//            case "dec":{
+//                mastercry.decryptFile(input);
+//                Log.d("Action", "dec");
+//            }; break;
+//        }
 //
     }
 }
