@@ -395,6 +395,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
             setPic(profileImage, fileUri.getPath());
             profilePicPath = fileUri.getPath();
             doSomethingCryptFile("enc", new File(profilePicPath));
+            Log.d("profile img enc", "yes");
         }
     }
 
