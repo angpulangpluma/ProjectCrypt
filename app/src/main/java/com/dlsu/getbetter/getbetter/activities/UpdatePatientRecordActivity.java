@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
+import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.objects.Patient;
@@ -77,7 +78,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
 
     private Uri fileUri;
 
-//    private BackProcessResponseReciever reciever;
+    private CryptoFileService cserv = new CryptoFileService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -338,55 +339,55 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         birthdateInput.setText(date);
     }
 
-    private byte[] read(File file) throws IOException{
-        byte[] buffer = new byte[(int) file.length()];
-        InputStream ios = null;
-        try{
-            ios = new FileInputStream(file);
-            if(ios.read(buffer)==-1){
-                throw new IOException(
-                        "EOF reached while trying to read the whole file.");
-            }
-        } finally{
-            try {
-                if (ios != null) ios.close();
-            } catch (IOException e){
-
-            }
-        }
-        return buffer;
-    }
-
-    private void doSomethingCryptFile(String dec, File input){
-
-        Log.d("service in", "yes");
-
-        file_aes mastercry = new file_aes();
-        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
-                    DirectoryConstants.CRYPTO_FOLDER);
-        path.mkdirs();
-        File output = new File(path.getPath() +"/" + input.getName());
-        Log.d("output", output.getAbsolutePath());
-        try {
-            FileOutputStream fos = new FileOutputStream(output);
-            fos.write(read(input));
-            fos.flush();
-            fos.close();
-        } catch(Exception e){
-            Log.e("error", e.toString());
-        }
-        switch(dec){
-            case "enc":{
-                mastercry.encryptFile(output);
-                Log.d("Action", "enc");
-            }; break;
-            case "dec":{
-                mastercry.decryptFile(input);
-                Log.d("Action", "dec");
-            }; break;
-        }
+//    private byte[] read(File file) throws IOException{
+//        byte[] buffer = new byte[(int) file.length()];
+//        InputStream ios = null;
+//        try{
+//            ios = new FileInputStream(file);
+//            if(ios.read(buffer)==-1){
+//                throw new IOException(
+//                        "EOF reached while trying to read the whole file.");
+//            }
+//        } finally{
+//            try {
+//                if (ios != null) ios.close();
+//            } catch (IOException e){
 //
-    }
+//            }
+//        }
+//        return buffer;
+//    }
+//
+//    private void doSomethingCryptFile(String dec, File input){
+//
+//        Log.d("service in", "yes");
+//
+//        file_aes mastercry = new file_aes();
+//        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+//                    DirectoryConstants.CRYPTO_FOLDER);
+//        path.mkdirs();
+//        File output = new File(path.getPath() +"/" + input.getName());
+//        Log.d("output", output.getAbsolutePath());
+//        try {
+//            FileOutputStream fos = new FileOutputStream(output);
+//            fos.write(read(input));
+//            fos.flush();
+//            fos.close();
+//        } catch(Exception e){
+//            Log.e("error", e.toString());
+//        }
+//        switch(dec){
+//            case "enc":{
+//                mastercry.encryptFile(output);
+//                Log.d("Action", "enc");
+//            }; break;
+//            case "dec":{
+//                mastercry.decryptFile(input);
+//                Log.d("Action", "dec");
+//            }; break;
+//        }
+////
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -394,7 +395,8 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         if(requestCode == REQUEST_IMAGE1 && resultCode == Activity.RESULT_OK) {
             setPic(profileImage, fileUri.getPath());
             profilePicPath = fileUri.getPath();
-            doSomethingCryptFile("enc", new File(profilePicPath));
+//            doSomethingCryptFile("enc", new File(profilePicPath));
+            cserv.cryptoAskEncrypt(this, new File(fileUri.getPath()), 1);
             Log.d("profile img enc", "yes");
         }
     }

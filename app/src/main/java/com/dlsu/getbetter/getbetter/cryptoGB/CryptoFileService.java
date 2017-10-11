@@ -3,11 +3,24 @@ package com.dlsu.getbetter.getbetter.cryptoGB;
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.Context;
+import android.icu.util.Output;
+import android.os.Environment;
+import android.util.Log;
 
+import com.dlsu.getbetter.getbetter.DirectoryConstants;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+
+import javax.crypto.spec.SecretKeySpec;
+
+import static android.os.Environment.DIRECTORY_DOCUMENTS;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -25,6 +38,7 @@ public class CryptoFileService extends IntentService {
     // TODO: Rename parameters
     private static final String CRYPTO_FILE = "com.dlsu.getbetter.getbetter.cryptoGB.extra.FILE";
     private static final String CRYPTO_HCID = "com.dlsu.getbetter.getbetter.cryptoGB.extra.HCID";
+    private static final String CRYPTO_FNAME = "com.dlsu.getbetter.getbetter.cryptoGB.extra.FNAME";
 
     public CryptoFileService() {
         super("CryptoFileService");
@@ -37,11 +51,16 @@ public class CryptoFileService extends IntentService {
      * @see IntentService
      */
     // TODO: Customize helper method
-    public static void cryptoAskEncrypt(Context context, File sel, int hcID) {
+    public void cryptoAskEncrypt(Context context, File sel, int hcID) {
         Intent intent = new Intent(context, CryptoFileService.class);
         intent.setAction(ACTION_ENC);
-        intent.putExtra(CRYPTO_FILE, sel);
+        try{
+            intent.putExtra(CRYPTO_FILE, read(sel));
+        } catch(Exception e){
+            e.printStackTrace();
+        }
         intent.putExtra(CRYPTO_HCID, hcID);
+        intent.putExtra(CRYPTO_FNAME, sel.getName());
         context.startService(intent);
     }
 
@@ -52,11 +71,16 @@ public class CryptoFileService extends IntentService {
      * @see IntentService
      */
     // TODO: Customize helper method
-    public static void cryptoAskDecrypt(Context context, File sel, int hcID) {
+    public void cryptoAskDecrypt(Context context, File sel, int hcID) {
         Intent intent = new Intent(context, CryptoFileService.class);
         intent.setAction(ACTION_DEC);
-        intent.putExtra(CRYPTO_FILE, sel);
+        try{
+            intent.putExtra(CRYPTO_FILE, read(sel));
+        } catch(Exception e){
+            e.printStackTrace();
+        }
         intent.putExtra(CRYPTO_HCID, hcID);
+        intent.putExtra(CRYPTO_FNAME, sel.getName());
         context.startService(intent);
     }
 
@@ -65,35 +89,80 @@ public class CryptoFileService extends IntentService {
         if (intent != null) {
             final String action = intent.getAction();
             if (ACTION_ENC.equals(action)) {
-//                final String param1 = intent.getStringExtra(EXTRA_PARAM1);
-//                final String param2 = intent.getStringExtra(EXTRA_PARAM2);
-//                handleActionFoo(param1, param2);
-
-
+                File in = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+                        intent.getStringExtra(CRYPTO_FNAME));
+                byte[] byt = intent.getByteArrayExtra(CRYPTO_FILE);
+                try{
+                    OutputStream os = new FileOutputStream(in);
+                    os.write(byt);
+                    os.close();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                handleFileEncryption(in);
             } else if (ACTION_DEC.equals(action)) {
-//                final String param1 = intent.getStringExtra(EXTRA_PARAM1);
-//                final String param2 = intent.getStringExtra(EXTRA_PARAM2);
-//                handleActionBaz(param1, param2);
+                File in = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+                        intent.getStringExtra(CRYPTO_FNAME));
+                byte[] byt = intent.getByteArrayExtra(CRYPTO_FILE);
+                try{
+                    OutputStream os = new FileOutputStream(in);
+                    os.write(byt);
+                    os.close();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                handleFileDecryption(in);
             }
         }
     }
 
     private void handleFileEncryption(File sel){
 
+        file_aes mastercry = new file_aes();
+        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+                DirectoryConstants.CRYPTO_FOLDER);
+        path.mkdirs();
+        File output = new File(path.getPath() +"/" + sel.getName());
+        Log.d("output", output.getAbsolutePath());
+        try {
+            FileOutputStream fos = new FileOutputStream(output);
+            fos.write(read(sel));
+            fos.flush();
+            fos.close();
+        } catch(Exception e){
+            Log.e("error", e.toString());
+        }
+        mastercry.encryptFile(output);
+        Log.w("enc", "done");
     }
 
     private void handleFileDecryption(File sel){
 
+        file_aes mastercry = new file_aes();
+        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+                DirectoryConstants.CRYPTO_FOLDER);
+        path.mkdirs();
+        File output = new File(path.getPath() +"/" + sel.getName());
+        Log.d("output", output.getAbsolutePath());
+        try {
+            FileOutputStream fos = new FileOutputStream(output);
+            fos.write(read(sel));
+            fos.flush();
+            fos.close();
+        } catch(Exception e){
+            Log.e("error", e.toString());
+        }
+        mastercry.decryptFile(output);
+        Log.w("dec", "done");
     }
 
-    private byte[] read(File file) throws IOException {
+    private static byte[] read(File file) throws IOException {
         byte[] buffer = new byte[(int) file.length()];
         InputStream ios = null;
         try{
             ios = new FileInputStream(file);
             if(ios.read(buffer)==-1){
-                throw new IOException(
-                        "EOF reached while trying to read the whole file.");
+                throw new IOException("EOF reached while trying to read the whole file.");
             }
         } finally{
             try {
@@ -105,23 +174,35 @@ public class CryptoFileService extends IntentService {
         return buffer;
     }
 
+    public void saveKey(String fileloc, SecretKeySpec secretkey) throws Exception {
+        //save key to file
+        System.out.println("Trying to save key in " + fileloc);
+        OutputStream output = null;
+        try {
+            System.out.println("Saving key in file");
+            output = new BufferedOutputStream(new FileOutputStream(fileloc));
+            output.write(secretkey.getEncoded());
+        } finally{
+            output.close();
+            System.out.println("Successfully saved key");
+        }
 
+    }
 
-//    /**
-//     * Handle action Foo in the provided background thread with the provided
-//     * parameters.
-//     */
-//    private void handleActionFoo(String param1, String param2) {
-//        // TODO: Handle action Foo
-//        throw new UnsupportedOperationException("Not yet implemented");
-//    }
-//
-//    /**
-//     * Handle action Baz in the provided background thread with the provided
-//     * parameters.
-//     */
-//    private void handleActionBaz(String param1, String param2) {
-//        // TODO: Handle action Baz
-//        throw new UnsupportedOperationException("Not yet implemented");
-//    }
+    public void getKey(String fileloc, int in) throws Exception {
+        //get key from file
+        System.out.println("Trying to get key from " + fileloc);
+        byte[] result = new byte[(int)new File(fileloc).length()];
+        try{
+            //TODO: get nth key from file
+            InputStream input = new BufferedInputStream(new FileInputStream(fileloc));
+            input.read(result);
+        } finally{
+
+//            this.secretkey = new SecretKeySpec(result, 0, result.length, "AES");
+//            System.out.println("Key successfully retrieved!");
+        }
+
+    }
+
 }

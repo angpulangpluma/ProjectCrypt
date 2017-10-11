@@ -42,13 +42,11 @@ public class aes {
     private SecretKeySpec secretkey;
     private Cipher cipher;
 
-//    public aes(SecretKeySpec key){
-//        this.secretkey = key;
-//    }
-//
-//    public aes(){
-//
-//    }
+    public aes(){ }
+
+    public aes(SecretKeySpec key){
+        this.secretkey = key;
+    }
 
     public void setKey(){
         try{
@@ -76,35 +74,6 @@ public class aes {
 
     public SecretKeySpec getKey(){
         return this.secretkey;
-    }
-
-    public void saveKey(String fileloc) throws Exception {
-        //save key to file
-        System.out.println("Trying to save key in " + fileloc);
-        OutputStream output = null;
-        try {
-            System.out.println("Saving key in file");
-            output = new BufferedOutputStream(new FileOutputStream(fileloc));
-            output.write(this.secretkey.getEncoded());
-        } finally{
-            output.close();
-            System.out.println("Successfully saved key");
-        }
-
-    }
-
-    public void retrieveKey(String fileloc) throws IOException{
-        //get key from file
-        System.out.println("Trying to get key from " + fileloc);
-        byte[] result = new byte[(int)new File(fileloc).length()];
-        try{
-         InputStream input = new BufferedInputStream(new FileInputStream(fileloc));
-         input.read(result);
-        } finally{
-            this.secretkey = new SecretKeySpec(result, 0, result.length, "AES");
-            System.out.println("Key successfully retrieved!");
-        }
-
     }
 
 }
