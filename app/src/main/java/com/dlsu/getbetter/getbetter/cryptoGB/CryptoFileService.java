@@ -52,6 +52,7 @@ public class CryptoFileService extends IntentService {
      */
     // TODO: Customize helper method
     public void cryptoAskEncrypt(Context context, File sel, int hcID) {
+        Log.w("cryptoaskencrypt", "yes");
         Intent intent = new Intent(context, CryptoFileService.class);
         intent.setAction(ACTION_ENC);
         try{
@@ -86,6 +87,7 @@ public class CryptoFileService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        Log.w("cryptofilehandleintent", "yes");
         if (intent != null) {
             final String action = intent.getAction();
             if (ACTION_ENC.equals(action)) {
@@ -117,7 +119,7 @@ public class CryptoFileService extends IntentService {
     }
 
     private void handleFileEncryption(File sel){
-
+    Log.w("file enc serv", "yes");
         file_aes mastercry = new file_aes();
         File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
                 DirectoryConstants.CRYPTO_FOLDER);

@@ -3,15 +3,6 @@
 
     <item
         is-multidex="false"
-        jar="C:\Users\student\.android\build-cache\cfd43bcbad473af8ff2dd36731c239fcee974612\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="15b049fedbd8e3926bf99d9e45dfc9b2a1043bb9">
-        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_3c83a6a43d40a1d3363f425a07b04ddfc8345c38.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="C:\Users\student\.android\build-cache\cb9a3cf78e8495b9316990fcacc6a3b5b9335143\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
@@ -21,12 +12,48 @@
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\student\.android\build-cache\9be5880f83417cfbc3545c1869ba9fb67ae6abce\output\jars\classes.jar"
+        jar="C:\Users\student\.android\build-cache\f3ed572dda006fb1d64f0b4e5ec6a26ebf294b71\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
-        revision="25.0.2"
-        sha1="a8ae156c2726ac9c56daaf4b49452ec2cdb7bba9">
-        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_0133a9b6ae1f44dc67ce5e7b092b1fb9b71467d5.jar" />
+        revision="26.0.2"
+        sha1="952944218ecedea1554a513dec0c14d570642843">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_442b239161a376a2eddbd327d3e1d619c407b4b1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\student\.android\build-cache\8575520a153e045127b85a99f87c43321929a553\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="2e92aa0163544a804a0b34f169ca61801770839a">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_6f5db7f0113af26328097aa9c14c10786c6fe797.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\student\.android\build-cache\53f309975c2ed09332cec802cd71da059c726aa8\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e176fd06c2ad5b50a2f5cb4de6000a83a7cb48f5">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_e237e4f9f314fbd15ba5ab42bc15f3edbf7d26b8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\student\.android\build-cache\a6c4c9c3b7e1add90985771d387d5db0b959bd19\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="c4f45092eee6cdf1a5dbd597b2b6819be652ce2e">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_11795e4fce8a76fa51bedb81b99006becf0b98a9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\student\.android\build-cache\11cc74087b0a6046614c4b7efdfc42d7d5d4ca7e\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="88246166d5afb106f532f6e6deae683c66b42c89">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_836681dcc385a845c38fdceff8c419cbf1cfe421.jar" />
     </item>
     <item
         is-multidex="false"
@@ -39,30 +66,21 @@
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\student\.android\build-cache\bf9efa07cb2d81bd98748ae73ece3cf1c5918d5c\output\jars\classes.jar"
+        jar="C:\Users\student\.android\build-cache\cb9a3cf78e8495b9316990fcacc6a3b5b9335143\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
-        revision="25.0.2"
-        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
-        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_2e4f475bb6035184852af53aec67f93ffd21861b.jar" />
+        revision="26.0.2"
+        sha1="537371d16320b4180928d5d4dded82b5458fe097">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_5c8740058ff76e0df7ad8aa7f7662859170815e7.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\student\.android\build-cache\9c24228cfc2b67bd49c4cdd919a5f8d0c9bacca6\output\jars\classes.jar"
+        jar="C:\Users\student\.android\build-cache\3e7b244777877b9d42526554cca1292903baff08\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
-        revision="25.0.2"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_75c6bfec2c08ee0bd05e127f2e94d1acb38a6cc7.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\student\.android\build-cache\4f0412796a844328ff41f1c18f622f6cdd5ff637\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="cd7951e04cfb9a8bf008d544a478d9a8d8192d38">
-        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_6daf64cdc81fc979e9ffc89aa894d0e575b2e19e.jar" />
+        revision="26.0.2"
+        sha1="18d31838aa4fcc768a8a0516e22cc13b94655d89">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_f89bb6fd8f7942935d9dea08b15060aaeaff2e9a.jar" />
     </item>
     <item
         is-multidex="false"
@@ -72,6 +90,33 @@
         revision="25.0.2"
         sha1="47471eb19df288158b00b8d9cfa41bce7373f5cc">
         <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_30c65310f9e6701166821d0ac9f3b0d25dbce6a7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\student\.android\build-cache\4c06889cf76a9408d93c9733cdd5b8ac09e31ba5\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="fcd01fd11233459f546c437ec927e9b61bf7caf1">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_255d2c72a0aa2bfd760a52191123138f8242527a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\student\.android\build-cache\018be283a10bf5d28e0986af82f73e7a5a8c7e7b\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_cecfc5126d04ce0df70e739465e52979bc6a03fb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\student\.android\build-cache\75fcff396cea6c2367bf4cb82793908c13e5c19a\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="9935891f23923f39d002087085d9696568a9f657">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_cb81fe3446df73bd1d447c922aa43abf4f1f2923.jar" />
     </item>
     <item
         is-multidex="false"
@@ -93,6 +138,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Users\student\Documents\GitHub\ProjectCrypt\app\libs\commons-codec-1.10\commons-codec-1.10.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="4b95f4897fa13f2cd904aee711aeafc0c5295cd8">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\commons-codec-1.10_90a0326c0dbcacd2a9df98ccd2e844311b79bec6.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\student\.android\build-cache\11cc74087b0a6046614c4b7efdfc42d7d5d4ca7e\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
@@ -102,21 +156,30 @@
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\student\.android\build-cache\c5733c6bb89552d091798eef712b4c1af53fcd99\output\jars\classes.jar"
+        jar="C:\Users\student\.android\build-cache\43f1996656d556667c2b5ab8ed348409f4f727ea\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
-        revision="25.0.2"
-        sha1="c9649557905bf7a80fca9e0d54cbcb7662627860">
-        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_ad7bc268b4d2a42c295bd7252aa5482f63ecdde6.jar" />
+        revision="26.0.2"
+        sha1="6a022bf00ccd0948a8180c505e8e458bbddd43a6">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_a5f3171c5301afd1f37fe2d56a0d5fd188cfd2e2.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\student\.android\build-cache\9f5fc45982d4fae2b32f2576a303984d6788913d\output\jars\classes.jar"
+        jar="C:\Users\student\.gradle\caches\modules-2\files-2.1\com.android.support\support-annotations\26.0.1\e1bb32b12b25e2f78e6786059ca7ea878f8345e0\support-annotations-26.0.1.jar"
         jumboMode="false"
         optimize="true"
-        revision="25.0.2"
-        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
-        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_fe7f48d538cc1b5b73cfc7177129aa1a19583eee.jar" />
+        revision="26.0.2"
+        sha1="e1bb32b12b25e2f78e6786059ca7ea878f8345e0">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\support-annotations-26.0.1_7d2d0f1ad0dd4249eff4c107017d74e89074230c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\student\.android\build-cache\f9a2228e2bbfa2e6c30041b0049db07967a3d628\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="47471eb19df288158b00b8d9cfa41bce7373f5cc">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_30c65310f9e6701166821d0ac9f3b0d25dbce6a7.jar" />
     </item>
     <item
         is-multidex="false"
@@ -138,21 +201,21 @@
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\student\.android\build-cache\c961f86939f586d3fd6afbaa7e538891a3de6b0a\output\jars\classes.jar"
+        jar="C:\Users\student\.android\build-cache\7a1e2f90361c1d7a498becf06b913addaf7c41ee\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
-        revision="25.0.2"
-        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
-        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_a835604a8343e930266d1dd8d7690dac01d48acc.jar" />
+        revision="26.0.2"
+        sha1="4bb84b5151d37c71269ea95911b6e271dffc5d2d">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_4ae99a0a26ffd28396a8b20117f0ed0f1ff08435.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\student\.android\build-cache\3262c2ddab649fc2f96682932631127666282e29\output\jars\classes.jar"
+        jar="C:\Users\student\.android\build-cache\a64e0e9236239fddc2b3d849b9d3c8eb4004199f\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
-        revision="25.0.2"
-        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
-        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_2c9d5017e1c5c0e7475900a228e8bba58a0e0d89.jar" />
+        revision="26.0.2"
+        sha1="8df0e365e40beb151bc42dee20817721a6cab7b0">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_79fcf8d7c56d67121744e79c31399ebb0f1788cf.jar" />
     </item>
     <item
         is-multidex="false"
@@ -162,6 +225,24 @@
         revision="25.0.2"
         sha1="b61cb56cd7cfb295e7b463a6ab2dab6649439eb3">
         <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\joda-time-v2.9.9_848d1011f2bc2153ae65fe7b36e89a880fe6260b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\student\.android\build-cache\287b08d757d0ac5d13e57ca174ef812b01216f36\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="cddcd0fb93bc70e27325f2f715b2710332004ebb">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_53a32bcac28f5baefc79e9ff9ffa46ed01820569.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\student\.gradle\caches\modules-2\files-2.1\cz.msebera.android\httpclient\4.3.6\526a9f794eab830eae4f23a62c572878b3f491ab\httpclient-4.3.6.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="526a9f794eab830eae4f23a62c572878b3f491ab">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\httpclient-4.3.6_463f25b6d9e5b7c33ed1c6be4e25ac4ed256d356.jar" />
     </item>
     <item
         is-multidex="false"
@@ -183,12 +264,57 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Users\student\.gradle\caches\modules-2\files-2.1\com.github.JodaOrg\joda-time\v2.9.9\b61cb56cd7cfb295e7b463a6ab2dab6649439eb3\joda-time-v2.9.9.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b61cb56cd7cfb295e7b463a6ab2dab6649439eb3">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\joda-time-v2.9.9_848d1011f2bc2153ae65fe7b36e89a880fe6260b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\student\.android\build-cache\b2bcf93dbacb71c1c409dd6781274edb0e05e520\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="6062811de7cd71d07a325c66c39f2df1d9de91a0">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_275d3a7fae21350fbaa0f2d9f68f72d5bc2b9d6f.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\student\.gradle\caches\modules-2\files-2.1\cz.msebera.android\httpclient\4.3.6\526a9f794eab830eae4f23a62c572878b3f491ab\httpclient-4.3.6.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="526a9f794eab830eae4f23a62c572878b3f491ab">
         <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\httpclient-4.3.6_463f25b6d9e5b7c33ed1c6be4e25ac4ed256d356.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\student\.android\build-cache\3b23cacbb1994b14e9f218acffcf5e25eb0ecea8\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="0b6136298d1a6405200a08e06c7e7cbf839deb54">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_47b7d6bf4f0165c5d1523d89c0073e3ee9352bab.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\student\Documents\GitHub\ProjectCrypt\app\libs\PhotoUtil.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="caf49e92eae4ca2805d530a92cb4777c1ef53f53">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\PhotoUtil_b7bb72ca2cf1f40996982894fe38987d5468566b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\student\.gradle\caches\modules-2\files-2.1\com.github.loopj\android-async-http\1.4.9\29328bf96b9ae3efc84271dbc170d99edf11ad7f\android-async-http-1.4.9.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="29328bf96b9ae3efc84271dbc170d99edf11ad7f">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\android-async-http-1.4.9_6529c0735b78bfe743637710c874b2219bbbb6bd.jar" />
     </item>
     <item
         is-multidex="false"
@@ -207,15 +333,6 @@
         revision="25.0.2"
         sha1="29328bf96b9ae3efc84271dbc170d99edf11ad7f">
         <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\android-async-http-1.4.9_6529c0735b78bfe743637710c874b2219bbbb6bd.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\student\.android\build-cache\243fd2ad8acd961002560d704ec35b189b4efc79\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
-        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_817bda2f4ffd8d2be0f0be846fa4e7da4b4c6ca7.jar" />
     </item>
 
 </items>

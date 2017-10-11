@@ -73,7 +73,7 @@
 
         <service
             android:name=".cryptoGB.CryptoFileService"
-            android:exported="false"></service>
+            android:exported="false" ></service>
     </application>
 
 </manifest>
