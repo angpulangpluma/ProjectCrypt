@@ -29,6 +29,7 @@ import android.widget.TextView;
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
+import com.dlsu.getbetter.getbetter.cryptoGB.KeySetter;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.objects.Patient;
@@ -46,6 +47,8 @@ import java.util.Locale;
 import java.util.StringTokenizer;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import static android.os.Environment.DIRECTORY_DOCUMENTS;
@@ -78,12 +81,14 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
 
     private Uri fileUri;
 
-    private CryptoFileService cserv = new CryptoFileService();
+    private CryptoFileService cserv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_patient_info);
+
+        SystemSessionManager systemSessionManager = ((KeySetter)getIntent().getSerializableExtra("ks")).getSSM();
 
         Bundle extras = getIntent().getExtras();
         patientId = 0;

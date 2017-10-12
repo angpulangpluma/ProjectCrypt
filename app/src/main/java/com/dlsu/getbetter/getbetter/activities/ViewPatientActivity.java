@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.adapters.CaseRecordAdapter;
+import com.dlsu.getbetter.getbetter.cryptoGB.KeySetter;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.objects.CaseRecord;
 import com.dlsu.getbetter.getbetter.objects.DividerItemDecoration;
@@ -45,7 +46,7 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_patient);
 
-        SystemSessionManager systemSessionManager = new SystemSessionManager(this);
+        SystemSessionManager systemSessionManager = ((KeySetter)getIntent().getSerializableExtra("sys")).getSSM();
         if(systemSessionManager.checkLogin())
             finish();
 
@@ -96,6 +97,7 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
                 Intent intent = new Intent(ViewPatientActivity.this, ViewCaseRecordActivity.class);
                 intent.putExtra("caseRecordId", selectedCaseRecordId);
                 intent.putExtra("patientId", patientId);
+                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
                 startActivity(intent);
             }
         });
@@ -203,6 +205,7 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
         } else if(id == R.id.view_patient_update_btn) {
 
             Intent intent = new Intent(this, UpdatePatientRecordActivity.class);
+            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             intent.putExtra("selectedPatient", patientId);
             startActivity(intent);
             finish();
@@ -210,6 +213,7 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
         } else if(id == R.id.view_patient_create_case_btn) {
 
             Intent intent = new Intent(this, CaptureDocumentsActivity.class);
+            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             startActivity(intent);
             finish();
 

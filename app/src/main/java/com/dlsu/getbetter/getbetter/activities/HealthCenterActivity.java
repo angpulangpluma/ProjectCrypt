@@ -8,12 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.activities.HomeActivity;
 import com.dlsu.getbetter.getbetter.adapters.HealthCenterListAdapter;
+import com.dlsu.getbetter.getbetter.cryptoGB.KeySetter;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.objects.DividerItemDecoration;
 import com.dlsu.getbetter.getbetter.objects.HealthCenter;
@@ -28,13 +30,14 @@ public class HealthCenterActivity extends AppCompatActivity {
     private DataAdapter getBetterDb;
     private SystemSessionManager systemSessionManager;
     private ArrayList<HealthCenter> healthCenters;
+    private KeySetter ks = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_center);
 
-        systemSessionManager = new SystemSessionManager(this);
+        systemSessionManager = new SystemSessionManager(getApplicationContext());
         if(systemSessionManager.checkLogin())
             finish();
 
@@ -59,6 +62,7 @@ public class HealthCenterActivity extends AppCompatActivity {
             healthCenterRecycler.addItemDecoration(dividerItemDecoration);
         }
 
+
         healthCenterListAdapter.SetOnItemClickListener(new HealthCenterListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -68,11 +72,25 @@ public class HealthCenterActivity extends AppCompatActivity {
 
                 systemSessionManager.setHealthCenter(healthCenterName, healthCenterId);
 
+                ks = new KeySetter(systemSessionManager, view.getContext());
+                ks.read(Integer.parseInt(systemSessionManager.getHealthCenter().get(SystemSessionManager.HEALTH_CENTER_ID)));
+//                ks.read(1);
+//                try{
+//                Log.w("printing", systemSessionManager.getHealthCenter().get("HEALTH_CENTER_ID"));
+//                } catch(Exception e) { Log.e("error", e.toString()); }
+
+//                ks.read(Integer.parseInt(systemSessionManager.getHealthCenter().get("HEALTH_CENTER_ID")));
+
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                intent.putExtra("sys", ks);
                 startActivity(intent);
                 finish();
             }
         });
+
+//        Log.w("key setter", "start");
+//        ks = new KeySetter(systemSessionManager, this);
+//        ks.init();
     }
 
     private void initializeDatabase () {

@@ -20,6 +20,7 @@ import com.dlsu.getbetter.getbetter.DetailsFragment;
 import com.dlsu.getbetter.getbetter.DiagnosedCaseFragment;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.UrgentCaseFragment;
+import com.dlsu.getbetter.getbetter.cryptoGB.KeySetter;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
 
@@ -41,7 +42,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        systemSessionManager = new SystemSessionManager(this);
+        systemSessionManager = ((KeySetter)getIntent().getSerializableExtra("sys")).getSSM();
         if(systemSessionManager.checkLogin())
             finish();
 
@@ -121,7 +122,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
 //            systemSessionManager.setHealthCenter(healthCenterName, String.valueOf(healthCenterId));
             Intent intent = new Intent(this, ExistingPatientActivity.class);
-
+            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             startActivity(intent);
 
 
@@ -131,6 +132,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
                 //            systemSessionManager.setHealthCenter(healthCenterName, String.valueOf(healthCenterId));
                 Intent intent = new Intent(this, DownloadContentActivity.class);
+                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
                 startActivity(intent);
 
             } else {
@@ -158,7 +160,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         } else if (id == R.id.change_health_center_btn) {
 
             Intent intent = new Intent(this, HealthCenterActivity.class);
-
+            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             startActivity(intent);
 
             finish();

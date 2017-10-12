@@ -5,18 +5,23 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.dlsu.getbetter.getbetter.activities.LoginActivity;
+import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 
+import java.io.Serializable;
 import java.util.HashMap;
+
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  * Created by mikedayupay on 17/02/2016.
  * GetBetter 2016
  */
-public class SystemSessionManager {
+public class SystemSessionManager{
 
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
     private Context _context;
+    private aes mscrypto;
 
     private static final String PREFER_NAME = "SystemPref";
 
@@ -100,6 +105,13 @@ public class SystemSessionManager {
     private boolean isUserLoggedIn() {
         return pref.getBoolean(IS_USER_LOGGED_IN, false);
     }
+
+    public void cryptoInit(String key){
+        mscrypto = new aes(new SecretKeySpec(key.getBytes(), 0, key.length(), "AES"));
+        mscrypto.setCipher();
+    }
+
+    public aes getCrypto(){ return mscrypto; }
 
 
 }

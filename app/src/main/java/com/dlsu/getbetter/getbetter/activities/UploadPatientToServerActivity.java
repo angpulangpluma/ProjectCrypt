@@ -15,6 +15,7 @@ import android.widget.ListView;
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.adapters.PatientUploadAdapter;
+import com.dlsu.getbetter.getbetter.cryptoGB.KeySetter;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.objects.Patient;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
@@ -62,7 +63,7 @@ public class UploadPatientToServerActivity extends AppCompatActivity implements 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_to_server);
 
-        SystemSessionManager systemSessionManager = new SystemSessionManager(this);
+        SystemSessionManager systemSessionManager = ((KeySetter)getIntent().getSerializableExtra("sys")).getSSM();
         if(systemSessionManager.checkLogin())
             finish();
 
@@ -199,6 +200,7 @@ public class UploadPatientToServerActivity extends AppCompatActivity implements 
         } else if (id == R.id.upload_patient_back_btn) {
 
             Intent intent = new Intent(this, ExistingPatientActivity.class);
+            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             startActivity(intent);
             finish();
         }

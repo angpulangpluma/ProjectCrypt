@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.adapters.CaseRecordUploadAdapter;
+import com.dlsu.getbetter.getbetter.cryptoGB.KeySetter;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.objects.Attachment;
 import com.dlsu.getbetter.getbetter.objects.CaseRecord;
@@ -71,7 +72,7 @@ public class UploadCaseRecordToServerActivity extends AppCompatActivity implemen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_case_record_to_server);
 
-        SystemSessionManager systemSessionManager = new SystemSessionManager(this);
+        SystemSessionManager systemSessionManager = ((KeySetter)getIntent().getSerializableExtra("sys")).getSSM();
 
         if(systemSessionManager.checkLogin())
             finish();
@@ -206,6 +207,7 @@ public class UploadCaseRecordToServerActivity extends AppCompatActivity implemen
         if(id == R.id.upload_caserecord_back_btn) {
 
             Intent intent = new Intent(this, ExistingPatientActivity.class);
+            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             startActivity(intent);
             finish();
 

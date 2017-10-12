@@ -34,6 +34,7 @@ import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.adapters.FileAttachmentsAdapter;
 import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
+import com.dlsu.getbetter.getbetter.cryptoGB.KeySetter;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.objects.Attachment;
 import com.dlsu.getbetter.getbetter.objects.DividerItemDecoration;
@@ -130,7 +131,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
 
-        SystemSessionManager systemSessionManager = new SystemSessionManager(this);
+        SystemSessionManager systemSessionManager = ((KeySetter)getIntent().getSerializableExtra("sys")).getSSM();
         if(systemSessionManager.checkLogin())
             finish();
 
@@ -161,7 +162,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         caseRecordId = generateCaseRecordId();
         controlNumber = generateControlNumber(patientId);
 
-        cserv = new CryptoFileService();
+        cserv = new CryptoFileService(systemSessionManager.getCrypto());
 
     }
 
@@ -228,6 +229,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
 
                 if(attachments.get(position).getAttachmentType() == 1) {
                     Intent intent = new Intent(SummaryActivity.this, ViewImageActivity.class);
+                    intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
                     intent.putExtra("imageUrl", attachments.get(position).getAttachmentPath());
                     intent.putExtra("imageTitle", attachments.get(position).getAttachmentDescription());
                     startActivity(intent);

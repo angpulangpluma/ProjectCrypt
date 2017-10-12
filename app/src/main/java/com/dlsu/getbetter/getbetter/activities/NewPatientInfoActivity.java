@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
+import com.dlsu.getbetter.getbetter.cryptoGB.KeySetter;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.sessionmanagers.NewPatientSessionManager;
@@ -79,7 +80,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         setContentView(R.layout.activity_new_patient_info);
 
 //        newPatientSessionManager = new NewPatientSessionManager(this);
-        SystemSessionManager systemSessionManager = new SystemSessionManager(this);
+        SystemSessionManager systemSessionManager = ((KeySetter)getIntent().getSerializableExtra("sys")).getSSM();
         if(systemSessionManager.checkLogin())
             finish();
 
@@ -93,7 +94,8 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         initBloodTypeAdapter(this);
         bindListeners(this);
 
-        cserv = new CryptoFileService();
+        Log.w("ks", Boolean.toString(systemSessionManager.getCrypto()==null));
+        cserv = new CryptoFileService(systemSessionManager.getCrypto());
     }
 
     private void bindViews(NewPatientInfoActivity activity) {
@@ -221,6 +223,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
             Intent intent = new Intent(NewPatientInfoActivity.this, ViewPatientActivity.class);
             intent.putExtra("patientId", patientId);
             Log.d(TAG, "onPostExecute: " + patientId);
+            intent.putExtra("sys", getIntent().getSerializableExtra("ks"));
             startActivity(intent);
             finish();
 

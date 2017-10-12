@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.adapters.FileAttachmentsAdapter;
+import com.dlsu.getbetter.getbetter.cryptoGB.KeySetter;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.objects.Attachment;
 import com.dlsu.getbetter.getbetter.objects.CaseRecord;
@@ -62,7 +63,7 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_case_record);
 
-        SystemSessionManager systemSessionManager = new SystemSessionManager(this);
+        SystemSessionManager systemSessionManager = ((KeySetter)getIntent().getSerializableExtra("sys")).getSSM();
         Bundle extras = getIntent().getExtras();
         int caseRecordId = extras.getInt("caseRecordId");
         long patientId = extras.getLong("patientId");
@@ -170,6 +171,7 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
 
                 if(caseAttachments.get(position).getAttachmentType() == 1) {
                     Intent intent = new Intent(ViewCaseRecordActivity.this, ViewImageActivity.class);
+                    intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
                     intent.putExtra("imageUrl", caseAttachments.get(position).getAttachmentPath());
                     intent.putExtra("imageTitle", caseAttachments.get(position).getAttachmentDescription());
                     startActivity(intent);

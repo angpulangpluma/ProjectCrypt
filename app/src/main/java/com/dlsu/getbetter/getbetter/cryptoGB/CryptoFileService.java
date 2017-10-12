@@ -40,9 +40,17 @@ public class CryptoFileService extends IntentService {
     private static final String CRYPTO_HCID = "com.dlsu.getbetter.getbetter.cryptoGB.extra.HCID";
 //    private static final String CRYPTO_FNAME = "com.dlsu.getbetter.getbetter.cryptoGB.extra.FNAME";
 
+    private aes master;
+
     public CryptoFileService() {
         super("CryptoFileService");
     }
+
+    public CryptoFileService(aes m){
+        super("CryptoFileService");
+        this.master = m;
+    }
+
 
     /**
      * Starts this service to perform action Foo with the given parameters. If
@@ -102,7 +110,7 @@ public class CryptoFileService extends IntentService {
 
     private void handleFileEncryption(File sel){
     Log.w("file enc serv", "yes");
-        file_aes mastercry = new file_aes();
+        file_aes mastercry = new file_aes(master);
         File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
                 DirectoryConstants.CRYPTO_FOLDER);
         path.mkdirs();
@@ -122,7 +130,7 @@ public class CryptoFileService extends IntentService {
 
     private void handleFileDecryption(File sel){
 
-        file_aes mastercry = new file_aes();
+        file_aes mastercry = new file_aes(master);
         File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
                 DirectoryConstants.CRYPTO_FOLDER);
         path.mkdirs();
