@@ -223,7 +223,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
             Intent intent = new Intent(NewPatientInfoActivity.this, ViewPatientActivity.class);
             intent.putExtra("patientId", patientId);
             Log.d(TAG, "onPostExecute: " + patientId);
-            intent.putExtra("sys", getIntent().getSerializableExtra("ks"));
+            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             startActivity(intent);
             finish();
 

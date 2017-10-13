@@ -88,7 +88,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_patient_info);
 
-        SystemSessionManager systemSessionManager = ((KeySetter)getIntent().getSerializableExtra("ks")).getSSM();
+        SystemSessionManager systemSessionManager = ((KeySetter)getIntent().getSerializableExtra("sys")).getSSM();
 
         Bundle extras = getIntent().getExtras();
         patientId = 0;
@@ -108,6 +108,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         showDatePlaceholder();
         bindListeners(this);
 
+        cserv = new CryptoFileService(systemSessionManager.getCrypto());
     }
 
     private void bindViews(UpdatePatientRecordActivity activity) {
