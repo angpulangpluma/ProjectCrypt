@@ -34,6 +34,7 @@ import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
 import com.dlsu.getbetter.getbetter.cryptoGB.KeySetter;
+import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
 import com.dlsu.getbetter.getbetter.sessionmanagers.NewPatientSessionManager;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
@@ -127,7 +128,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
             this.socialFamilyActionButtons.setVisibility(View.VISIBLE);
         }
 
-        cserv = new CryptoFileService(systemSessionManager.getCrypto());
+        cserv = new CryptoFileService((aes)getIntent().getSerializableExtra("sys"));
 
     }
 
@@ -192,7 +193,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
 
 //            zoomImageFromThumb(viewPatientInfoImage, patientInfoImagePath);
             Intent intent = new Intent(this, ViewImageActivity.class);
-//            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             intent.putExtra("imageUrl", this.patientInfoImagePath);
             intent.putExtra("imageTitle", PATIENT_INFO_FORM_TITLE);
             startActivity(intent);
@@ -202,7 +203,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
 
 //            zoomImageFromThumb(viewChiefComplaintImage, chiefComplaintImagePath);
             Intent intent = new Intent(this, ViewImageActivity.class);
-//            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             intent.putExtra("imageUrl", this.chiefComplaintImagePath);
             intent.putExtra("imageTitle", CHIEF_COMPLAINT_FORM_TITLE);
             startActivity(intent);
@@ -211,7 +212,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
 
 //            zoomImageFromThumb(viewSocialFamilyImage, familySocialHistoryImagePath);
             Intent intent = new Intent(this, ViewImageActivity.class);
-//            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             intent.putExtra("imageUrl", this.familySocialHistoryImagePath);
             intent.putExtra("imageTitle", FAMILY_SOCIAL_HISTORY_FORM_TITLE);
             startActivity(intent);
@@ -231,7 +232,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
         } else if(id == R.id.capture_document_back_btn) {
 
             Intent intent = new Intent(this, ExistingPatientActivity.class);
-//            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
 //            Intent intent = new Intent(this, ViewPatientActivity.class);
 //            Log.d(TAG, "" + newPatientSessionManager.getPatientInfo().get(NewPatientSessionManager.PATIENT_ID));
 //            intent.putExtra("patientId", newPatientSessionManager.getPatientInfo().get(NewPatientSessionManager.PATIENT_ID));
@@ -253,7 +254,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
                 newPatientSessionManager.setDocImages(this.patientInfoImagePath, this.familySocialHistoryImagePath, this.chiefComplaintImagePath,
                         PATIENT_INFO_FORM_TITLE, FAMILY_SOCIAL_HISTORY_FORM_TITLE, CHIEF_COMPLAINT_FORM_TITLE);
                 Intent intent = new Intent(this, RecordHpiActivity.class);
-//                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
                 startActivity(intent);
 
             }

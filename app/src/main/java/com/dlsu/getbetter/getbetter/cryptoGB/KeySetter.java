@@ -21,24 +21,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import javax.crypto.spec.SecretKeySpec;
+
 import static android.os.Environment.DIRECTORY_DOCUMENTS;
 
 /**
  * Created by student on 10/11/2017.
  */
 
-public class KeySetter implements Serializable{
+public class KeySetter{
 
-    private transient SystemSessionManager mngr;
+//    private transient SystemSessionManager mngr;
+    private transient aes mscrypto;
     private transient Context dCtxt;
 
-    public KeySetter(SystemSessionManager sys, Context c){
+    public KeySetter(Context c){
         Log.w("key setter", "set");
         this.dCtxt = c;
-        this.mngr = sys;
+//        this.mngr = sys;
+        this.mscrypto = null;
     }
 
-    public SystemSessionManager getSSM() { return this.mngr; }
+//    public SystemSessionManager getSSM() { return this.mngr; }
 
     public void init(){
         Log.w("key setter", "init start");
@@ -109,9 +113,16 @@ public class KeySetter implements Serializable{
             if (s.contains(Integer.toString(sel))){
                 String[] input = s.split(" ");
                 Log.w("key", input[1]);
-                mngr.cryptoInit(input[1]);
+                cryptoInit(input[1]);
             }
         }
     }
+
+    public void cryptoInit(String key){
+        mscrypto = new aes(new SecretKeySpec(key.getBytes(), 0, key.length(), "AES"));
+        mscrypto.setCipher();
+    }
+
+    public aes getCrypto(){ return mscrypto; }
 
 }

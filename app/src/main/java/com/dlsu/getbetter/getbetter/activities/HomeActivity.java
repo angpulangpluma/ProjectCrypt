@@ -45,10 +45,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-//        Log.w("sys", Boolean.toString(getIntent().getSerializableExtra("sys")!=null));
-//        Log.w("ks", Boolean.toString((KeySetter)getIntent().getSerializableExtra("sys")!=null));
-//        Log.w("ssm", Boolean.toString(((KeySetter)getIntent().getSerializableExtra("sys")).getSSM()!=null));
+//        Log.w("ks", Boolean.toString(getIntent().getSerializableExtra("sys")!=null));
+//        Log.w("ssm", Boolean.toString(((KeySetter)getIntent().getSerializableExtra("sys")).getCrypto()!=null));
 //        systemSessionManager = ((KeySetter)getIntent().getSerializableExtra("sys")).getSSM();
+        Log.w("sys", Boolean.toString(getIntent().getSerializableExtra("sys")!=null));
         systemSessionManager = new SystemSessionManager(getApplicationContext());
         if(systemSessionManager.checkLogin())
             finish();
@@ -131,7 +131,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
 //            systemSessionManager.setHealthCenter(healthCenterName, String.valueOf(healthCenterId));
             Intent intent = new Intent(this, ExistingPatientActivity.class);
-//            intent.putExtra("sys", ks);
+            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             startActivity(intent);
 
 
@@ -141,7 +141,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
                 //            systemSessionManager.setHealthCenter(healthCenterName, String.valueOf(healthCenterId));
                 Intent intent = new Intent(this, DownloadContentActivity.class);
-//                intent.putExtra("sys", ks);
+                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
                 startActivity(intent);
 
             } else {
@@ -169,7 +169,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         } else if (id == R.id.change_health_center_btn) {
 
             Intent intent = new Intent(this, HealthCenterActivity.class);
-//            intent.putExtra("sys", ks);
+//            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             startActivity(intent);
 
             finish();

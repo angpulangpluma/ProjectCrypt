@@ -21,7 +21,7 @@ public class SystemSessionManager{
     private transient SharedPreferences pref;
     private transient SharedPreferences.Editor editor;
     private transient Context _context;
-    private transient aes mscrypto;
+//    private transient aes mscrypto;
 
     private static final String PREFER_NAME = "SystemPref";
     public static final String LOGIN_USER_NAME = "loginUserName";
@@ -37,7 +37,7 @@ public class SystemSessionManager{
 
         editor = pref.edit();
 
-        this.mscrypto = null;
+//        this.mscrypto = null;
     }
 
     public void createUserSession (String userName) {
@@ -107,13 +107,6 @@ public class SystemSessionManager{
     private boolean isUserLoggedIn() {
         return pref.getBoolean(IS_USER_LOGGED_IN, false);
     }
-
-    public void cryptoInit(String key){
-        mscrypto = new aes(new SecretKeySpec(key.getBytes(), 0, key.length(), "AES"));
-        mscrypto.setCipher();
-    }
-
-    public aes getCrypto(){ return mscrypto; }
 
 
 }

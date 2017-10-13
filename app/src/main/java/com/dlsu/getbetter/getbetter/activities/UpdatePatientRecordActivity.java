@@ -30,6 +30,7 @@ import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
 import com.dlsu.getbetter.getbetter.cryptoGB.KeySetter;
+import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.objects.Patient;
@@ -109,7 +110,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         showDatePlaceholder();
         bindListeners(this);
 
-        cserv = new CryptoFileService(systemSessionManager.getCrypto());
+        cserv = new CryptoFileService((aes)getIntent().getSerializableExtra("sys"));
     }
 
     private void bindViews(UpdatePatientRecordActivity activity) {
@@ -257,6 +258,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
             }
 
             Intent intent = new Intent(UpdatePatientRecordActivity.this, ViewPatientActivity.class);
+            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             intent.putExtra("patientId", patientId);
             startActivity(intent);
             finish();

@@ -35,7 +35,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 
-public class aes {
+public class aes implements Serializable{
 
     private static final int AES_Key_Size = 256;
     private transient byte[] key;

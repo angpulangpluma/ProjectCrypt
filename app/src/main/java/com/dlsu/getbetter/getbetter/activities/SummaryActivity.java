@@ -35,6 +35,7 @@ import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.adapters.FileAttachmentsAdapter;
 import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
 import com.dlsu.getbetter.getbetter.cryptoGB.KeySetter;
+import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.objects.Attachment;
 import com.dlsu.getbetter.getbetter.objects.DividerItemDecoration;
@@ -163,7 +164,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         caseRecordId = generateCaseRecordId();
         controlNumber = generateControlNumber(patientId);
 
-        cserv = new CryptoFileService(systemSessionManager.getCrypto());
+        cserv = new CryptoFileService((aes)getIntent().getSerializableExtra("sys"));
 
     }
 

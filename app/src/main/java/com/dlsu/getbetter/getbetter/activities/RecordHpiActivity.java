@@ -20,6 +20,7 @@ import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
 import com.dlsu.getbetter.getbetter.cryptoGB.KeySetter;
+import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
 import com.dlsu.getbetter.getbetter.sessionmanagers.NewPatientSessionManager;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
@@ -102,7 +103,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
             initializeMediaRecorder();
         }
 
-        cserv = new CryptoFileService(systemSessionManager.getCrypto());
+        cserv = new CryptoFileService((aes)getIntent().getSerializableExtra("sys"));
     }
 
     private void bindViews (RecordHpiActivity activity) {
@@ -151,7 +152,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
 
             newPatientSessionManager.setHPIRecord(outputFile, chiefComplaintName);
             Intent intent = new Intent(this, SummaryActivity.class);
-//            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             startActivity(intent);
 
         } else if (id == R.id.hpi_back_btn) {

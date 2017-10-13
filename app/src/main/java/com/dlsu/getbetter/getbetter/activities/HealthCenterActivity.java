@@ -73,8 +73,9 @@ public class HealthCenterActivity extends AppCompatActivity {
 
                 systemSessionManager.setHealthCenter(healthCenterName, healthCenterId);
 
-                ks = new KeySetter(systemSessionManager, view.getContext());
+                ks = new KeySetter(view.getContext());
                 ks.read(Integer.parseInt(systemSessionManager.getHealthCenter().get(SystemSessionManager.HEALTH_CENTER_ID)));
+                Log.w("crypt", Boolean.toString(ks.getCrypto()!=null));
 //                ks.read(1);
 //                try{
 //                Log.w("printing", systemSessionManager.getHealthCenter().get("HEALTH_CENTER_ID"));
@@ -83,7 +84,7 @@ public class HealthCenterActivity extends AppCompatActivity {
 //                ks.read(Integer.parseInt(systemSessionManager.getHealthCenter().get("HEALTH_CENTER_ID")));
 
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                intent.putExtra("sys", ks);
+                intent.putExtra("sys", ks.getCrypto());
                 startActivity(intent);
                 finish();
             }

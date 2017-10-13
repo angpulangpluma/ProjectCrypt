@@ -23,6 +23,7 @@ import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
 import com.dlsu.getbetter.getbetter.cryptoGB.KeySetter;
+import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.sessionmanagers.NewPatientSessionManager;
@@ -95,8 +96,8 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         initBloodTypeAdapter(this);
         bindListeners(this);
 
-        Log.w("ks", Boolean.toString(systemSessionManager.getCrypto()==null));
-        cserv = new CryptoFileService(systemSessionManager.getCrypto());
+//        Log.w("ks", Boolean.toString(((KeySetter)getIntent().getSerializableExtra("sys")).getCrypto()==null));
+        cserv = new CryptoFileService((aes)getIntent().getSerializableExtra("sys"));
     }
 
     private void bindViews(NewPatientInfoActivity activity) {
