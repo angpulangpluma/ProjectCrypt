@@ -24,6 +24,7 @@ import com.dlsu.getbetter.getbetter.cryptoGB.KeySetter;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.HashMap;
 
@@ -33,8 +34,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         DiagnosedCaseFragment.OnCaseRecordSelected, UrgentCaseFragment.OnCaseRecordSelected,
         ClosedCaseFragment.OnCaseRecordSelected {
 
-    private SystemSessionManager systemSessionManager;
-    private DataAdapter getBetterDb;
+    private transient SystemSessionManager systemSessionManager;
+    private transient DataAdapter getBetterDb;
     private boolean isConnected;
 
     @Override

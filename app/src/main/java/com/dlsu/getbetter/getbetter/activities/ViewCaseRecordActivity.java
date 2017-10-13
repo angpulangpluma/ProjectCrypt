@@ -28,6 +28,7 @@ import com.dlsu.getbetter.getbetter.objects.Patient;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,25 +39,25 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
 
     private static final String TAG = "ViewCaseRecordActivity";
 
-    private TextView patientName;
-    private TextView healthCenterName;
-    private TextView ageGender;
-    private TextView chiefComplaint;
-    private TextView controlNumber;
-    private CircleImageView profilePic;
-    private Button backBtn;
-    private Button updateCaseBtn;
-    private RecyclerView attachmentList;
+    private transient TextView patientName;
+    private transient TextView healthCenterName;
+    private transient TextView ageGender;
+    private transient TextView chiefComplaint;
+    private transient TextView controlNumber;
+    private transient CircleImageView profilePic;
+    private transient Button backBtn;
+    private transient Button updateCaseBtn;
+    private transient RecyclerView attachmentList;
 
     private int healthCenterId;
-    private CaseRecord caseRecord;
-    private Patient patientInfo;
-    private ArrayList<Attachment> caseAttachments;
+    private transient CaseRecord caseRecord;
+    private transient Patient patientInfo;
+    private transient ArrayList<Attachment> caseAttachments;
 
-    private DataAdapter getBetterDb;
-    private MediaPlayer nMediaPlayer;
-    private MediaController nMediaController;
-    private Handler nHandler = new Handler();
+    private transient DataAdapter getBetterDb;
+    private transient MediaPlayer nMediaPlayer;
+    private transient MediaController nMediaController;
+    private transient Handler nHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

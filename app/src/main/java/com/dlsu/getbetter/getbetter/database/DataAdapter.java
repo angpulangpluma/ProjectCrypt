@@ -13,6 +13,7 @@ import com.dlsu.getbetter.getbetter.objects.HealthCenter;
 import com.dlsu.getbetter.getbetter.objects.Patient;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -21,14 +22,14 @@ import java.util.ArrayList;
  * GetBetter 2016
  * ADD: get encrypt key function, final value for encryption key
  */
-public class DataAdapter {
+public class DataAdapter{
 
     private static final String TAG = "DataAdapter";
 
     private int gOpenCounter;
 
-    private SQLiteDatabase getBetterDb;
-    private DatabaseHelper getBetterDatabaseHelper;
+    private transient SQLiteDatabase getBetterDb;
+    private transient DatabaseHelper getBetterDatabaseHelper;
 
     private static final String USER_TABLE = "tbl_users";
     private static final String USER_TABLE_UPLOAD = "tbl_users_upload";

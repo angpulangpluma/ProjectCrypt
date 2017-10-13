@@ -46,6 +46,7 @@ import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -86,28 +87,28 @@ public class SummaryPageFragment extends Fragment implements View.OnClickListene
     private int healthCenterId;
     private int userId;
 
-    private ArrayList<Attachment> attachments;
+    private transient ArrayList<Attachment> attachments;
 
-    private FileAttachmentsAdapter fileAdapter;
-    private RecyclerView.LayoutManager fileListLayoutManager;
-    private ImageView summaryProfileImage;
-    private CardView recordSoundContainer;
-    private Button recordSoundbBtn;
-    private Button stopRecordBtn;
-    private Button playSoundBtn;
-    private Button doneRecordBtn;
-    private Button cancelRecordBtn;
+    private transient FileAttachmentsAdapter fileAdapter;
+    private transient RecyclerView.LayoutManager fileListLayoutManager;
+    private transient ImageView summaryProfileImage;
+    private transient CardView recordSoundContainer;
+    private transient Button recordSoundbBtn;
+    private transient Button stopRecordBtn;
+    private transient Button playSoundBtn;
+    private transient Button doneRecordBtn;
+    private transient Button cancelRecordBtn;
 
-    private MediaRecorder hpiRecorder;
-    private MediaPlayer nMediaPlayer;
-    private MediaController nMediaController;
-    private Handler nHandler = new Handler();
+    private transient MediaRecorder hpiRecorder;
+    private transient MediaPlayer nMediaPlayer;
+    private transient MediaController nMediaController;
+    private transient Handler nHandler = new Handler();
 
-    private Uri fileUri;
+    private transient Uri fileUri;
     private String audioOutputFile;
 
-    private DataAdapter getBetterDb;
-    private NewPatientSessionManager newPatientDetails;
+    private transient DataAdapter getBetterDb;
+    private transient NewPatientSessionManager newPatientDetails;
 
     public SummaryPageFragment() {
         // Required empty public constructor

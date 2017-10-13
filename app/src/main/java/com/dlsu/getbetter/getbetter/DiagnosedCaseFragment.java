@@ -18,6 +18,7 @@ import com.dlsu.getbetter.getbetter.objects.DividerItemDecoration;
 import com.dlsu.getbetter.getbetter.objects.Patient;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,14 +27,14 @@ import java.util.HashMap;
 /**
  * A simple {@link Fragment} subclass.1
  */
-public class DiagnosedCaseFragment extends Fragment {
+public class DiagnosedCaseFragment extends Fragment{
 
 
-    private DataAdapter getBetterDb;
-    private OnCaseRecordSelected mCallback;
+    private transient DataAdapter getBetterDb;
+    private transient OnCaseRecordSelected mCallback;
 
-    private ArrayList<CaseRecord> diagnosedCases;
-    private UpdatedCaseRecordAdapter updatedCaseRecordAdapter;
+    private transient ArrayList<CaseRecord> diagnosedCases;
+    private transient UpdatedCaseRecordAdapter updatedCaseRecordAdapter;
     private int selectedCaseRecordId = 0;
 
     public DiagnosedCaseFragment() {

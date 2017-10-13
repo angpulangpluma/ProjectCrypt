@@ -1,12 +1,13 @@
 package com.dlsu.getbetter.getbetter.objects;
 
 import java.io.File;
+import java.io.Serializable;
 
 /**
  * Created by mikedayupay on 21/02/2016.
  * GetBetter 2016
  */
-public class Attachment {
+public class Attachment{
 
     private int caseRecordId;
     private String attachmentPath;
@@ -14,7 +15,7 @@ public class Attachment {
     private int attachmentType;
     private String uploadedDate;
     private int uploadedBy;
-    private File fileName;
+    private transient File fileName;
 
     public Attachment(String attachmentPath, String attachmentDescription, int attachmentType, String uploadedDate) {
         this.attachmentPath = attachmentPath;

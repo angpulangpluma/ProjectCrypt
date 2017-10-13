@@ -27,19 +27,21 @@ import com.dlsu.getbetter.getbetter.objects.DividerItemDecoration;
 import com.dlsu.getbetter.getbetter.objects.Patient;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class ExistingPatientActivity extends AppCompatActivity implements View.OnClickListener {
+public class ExistingPatientActivity extends AppCompatActivity
+        implements View.OnClickListener {
 
-    private DataAdapter getBetterDb;
+    private transient DataAdapter getBetterDb;
     private Long selectedPatientId;
     private String patientFirstName;
     private String patientLastName;
-    private ArrayList<Patient> existingPatients;
-    private ProgressDialog pDialog;
+    private transient ArrayList<Patient> existingPatients;
+    private transient ProgressDialog pDialog;
 
     private boolean isConnected;
 

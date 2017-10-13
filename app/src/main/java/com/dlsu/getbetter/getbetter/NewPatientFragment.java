@@ -31,6 +31,7 @@ import com.dlsu.getbetter.getbetter.sessionmanagers.NewPatientSessionManager;
 
 
 import java.io.File;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -42,24 +43,24 @@ import java.util.Locale;
  */
 public class NewPatientFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    private EditText firstNameInput;
-    private EditText middleNameInput;
-    private EditText lastNameInput;
-    private TextView displayBirthday;
-    private ImageView setProfilePicBtn;
-    private TextView profilePicPlaceholder;
+    private transient EditText firstNameInput;
+    private transient EditText middleNameInput;
+    private transient EditText lastNameInput;
+    private transient TextView displayBirthday;
+    private transient ImageView setProfilePicBtn;
+    private transient TextView profilePicPlaceholder;
 
     private int year, month, day;
     private String birthDate;
     private String genderSelected;
     private String civilStatusSelected;
 
-    private ArrayAdapter<CharSequence> genderAdapter;
-    private ArrayAdapter<CharSequence> civilStatusAdapter;
+    private transient ArrayAdapter<CharSequence> genderAdapter;
+    private transient ArrayAdapter<CharSequence> civilStatusAdapter;
 
     private static final int REQUEST_IMAGE1 = 100;
-    private NewPatientSessionManager newPatientSessionManager;
-    private Uri fileUri;
+    private transient NewPatientSessionManager newPatientSessionManager;
+    private transient Uri fileUri;
 
 
     public NewPatientFragment() {

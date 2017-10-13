@@ -1,12 +1,13 @@
 package com.dlsu.getbetter.getbetter.objects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by mikedayupay on 25/02/2016.
  * GetBetter 2016
  */
-public class CaseRecord {
+public class CaseRecord{
 
     private int caseRecordId;
     private int caseRecordStatusId;
@@ -21,7 +22,7 @@ public class CaseRecord {
     private String caseRecordStatus;
     private String caseRecordUpdatedOn;
     private int caseRecordUpdatedBy;
-    private ArrayList<Attachment> attachments;
+    private transient ArrayList<Attachment> attachments;
     private boolean checked = false;
 
     public CaseRecord() {

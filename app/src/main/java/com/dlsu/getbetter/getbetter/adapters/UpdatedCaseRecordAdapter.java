@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.objects.CaseRecord;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -21,16 +22,16 @@ import java.util.ArrayList;
  */
 public class UpdatedCaseRecordAdapter extends RecyclerView.Adapter<UpdatedCaseRecordAdapter.UpdatedCaseRecordViewHolder> {
 
-    private ArrayList<CaseRecord> caseRecordData;
-    private OnItemClickListener mItemClickListener;
+    private transient ArrayList<CaseRecord> caseRecordData;
+    private transient OnItemClickListener mItemClickListener;
     private int selectedItem = 0;
 
     class UpdatedCaseRecordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView patientName;
-        TextView complaint;
-        TextView updatedOn;
-        ImageView profilePic;
+        transient TextView patientName;
+        transient TextView complaint;
+        transient TextView updatedOn;
+        transient ImageView profilePic;
 
 
         UpdatedCaseRecordViewHolder(View itemView) {

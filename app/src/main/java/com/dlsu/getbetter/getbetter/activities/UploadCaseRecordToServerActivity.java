@@ -28,6 +28,8 @@ import com.loopj.android.http.TextHttpResponseHandler;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
+import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +39,7 @@ import java.util.Map;
 import cz.msebera.android.httpclient.Header;
 
 
-public class UploadCaseRecordToServerActivity extends AppCompatActivity implements View.OnClickListener {
+public class UploadCaseRecordToServerActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = "UPLOADCASERECORD";
 
@@ -59,13 +61,13 @@ public class UploadCaseRecordToServerActivity extends AppCompatActivity implemen
 
     private static final int TIMEOUT_VALUE = 60 * 1000;
 
-    private ArrayList<CaseRecord> caseRecordsUpload;
+    private transient ArrayList<CaseRecord> caseRecordsUpload;
     private int userId;
     private int healthCenterId;
-    private ProgressDialog pDialog = null;
+    private transient ProgressDialog pDialog = null;
 
-    private DataAdapter getBetterDb;
-    private Handler handler;
+    private transient DataAdapter getBetterDb;
+    private transient Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

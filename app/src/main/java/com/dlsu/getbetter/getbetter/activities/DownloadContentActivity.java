@@ -40,6 +40,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.SQLException;
@@ -48,7 +49,8 @@ import java.util.HashMap;
 
 import cz.msebera.android.httpclient.Header;
 
-public class DownloadContentActivity extends AppCompatActivity implements View.OnClickListener {
+public class DownloadContentActivity extends AppCompatActivity
+        implements View.OnClickListener {
 
     private static final String TAG_CASE_RECORD = "case_records";
     private static final String TAG_CASE_ATTACHMENTS = "case_attachments";
@@ -67,12 +69,12 @@ public class DownloadContentActivity extends AppCompatActivity implements View.O
 
     private String myJSON;
     private String myJSONAttachments;
-    private ArrayList<CaseRecord> caseRecordsData;
-    private ArrayList<Long> patientIds;
+    private transient ArrayList<CaseRecord> caseRecordsData;
+    private transient ArrayList<Long> patientIds;
 
-    private DataAdapter getBetterDb;
-    private ProgressDialog dDialog = null;
-    private ListView caseRecordList;
+    private transient DataAdapter getBetterDb;
+    private transient ProgressDialog dDialog = null;
+    private transient ListView caseRecordList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

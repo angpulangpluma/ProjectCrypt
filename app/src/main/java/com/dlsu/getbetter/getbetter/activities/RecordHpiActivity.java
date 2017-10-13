@@ -29,6 +29,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -39,28 +40,28 @@ import static android.os.Environment.DIRECTORY_DOCUMENTS;
 
 public class RecordHpiActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static RecordHpiActivity recordHpiActivity;
+    private transient static RecordHpiActivity recordHpiActivity;
 
-    private Button recordHpi;
-    private Button stopRecord;
-    private Button playRecord;
-    private Button backButton;
-    private Button nextButton;
-    private TextView minutesView;
-    private TextView secondsView;
-    private TextView recordingStatus;
+    private transient Button recordHpi;
+    private transient Button stopRecord;
+    private transient Button playRecord;
+    private transient Button backButton;
+    private transient Button nextButton;
+    private transient TextView minutesView;
+    private transient TextView secondsView;
+    private transient TextView recordingStatus;
     private boolean isRecording;
 
     private String outputFile;
     private String chiefComplaintName = "";
     private int seconds, minutes, recordTime, playTime;
-    private MediaRecorder hpiRecorder;
-    private MediaPlayer mp;
-    private NewPatientSessionManager newPatientSessionManager;
+    private transient MediaRecorder hpiRecorder;
+    private transient MediaPlayer mp;
+    private transient NewPatientSessionManager newPatientSessionManager;
 
-    private android.os.Handler handler;
+    private transient android.os.Handler handler;
 
-    private CryptoFileService cserv;
+    private transient CryptoFileService cserv;
 
     public RecordHpiActivity() {
         //empty constructor

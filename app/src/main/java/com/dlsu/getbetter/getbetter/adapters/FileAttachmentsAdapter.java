@@ -10,16 +10,17 @@ import android.widget.TextView;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.objects.Attachment;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by mikedayupay on 13/02/2016.
  * GetBetter 2016
  */
-public class FileAttachmentsAdapter extends RecyclerView.Adapter<FileAttachmentsAdapter.ViewHolder> {
+public class FileAttachmentsAdapter extends RecyclerView.Adapter<FileAttachmentsAdapter.ViewHolder>{
 
-    private ArrayList<Attachment> filesDataset;
-    private OnItemClickListener mItemClickListener;
+    private transient ArrayList<Attachment> filesDataset;
+    private transient OnItemClickListener mItemClickListener;
     private int selectedItem = 0;
 
     public FileAttachmentsAdapter(ArrayList<Attachment> filesDataset) {
@@ -29,8 +30,8 @@ public class FileAttachmentsAdapter extends RecyclerView.Adapter<FileAttachments
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView fileTitle;
-        ImageView typeIcon;
+        transient TextView fileTitle;
+        transient ImageView typeIcon;
 
 
         public ViewHolder(View v) {

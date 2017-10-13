@@ -29,6 +29,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.Years;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -39,15 +40,15 @@ import java.util.StringTokenizer;
  */
 public class DetailsFragment extends Fragment implements MediaController.MediaPlayerControl {
 
-    private DataAdapter getBetterDb;
-    private MediaPlayer nMediaPlayer;
-    private MediaController nMediaController;
-    private Handler nHandler = new Handler();
+    private transient DataAdapter getBetterDb;
+    private transient MediaPlayer nMediaPlayer;
+    private transient MediaController nMediaController;
+    private transient Handler nHandler = new Handler();
 
-    private CaseRecord caseRecord;
-    private ImageView profilePic;
-    private Patient patientInfo;
-    private ArrayList<Attachment> caseAttachments;
+    private transient CaseRecord caseRecord;
+    private transient ImageView profilePic;
+    private transient Patient patientInfo;
+    private transient ArrayList<Attachment> caseAttachments;
 
 
     public DetailsFragment() {

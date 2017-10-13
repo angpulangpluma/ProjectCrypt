@@ -29,8 +29,8 @@ import static android.os.Environment.DIRECTORY_DOCUMENTS;
 
 public class KeySetter implements Serializable{
 
-    private SystemSessionManager mngr;
-    private Context dCtxt;
+    private transient SystemSessionManager mngr;
+    private transient Context dCtxt;
 
     public KeySetter(SystemSessionManager sys, Context c){
         Log.w("key setter", "set");
@@ -61,7 +61,6 @@ public class KeySetter implements Serializable{
         ArrayList<HealthCenter> hcs = new ArrayList<HealthCenter>();
         hcs.addAll(gbDatabase.getHealthCenters());
         for (HealthCenter hc : hcs){
-            // TODO: for each health center, generate cryptography key
             master.setKey();
             on.println(hc.getHealthCenterId() + " " + master.getKey().getEncoded());
         }

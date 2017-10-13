@@ -17,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 
 import javax.crypto.spec.SecretKeySpec;
 
@@ -29,7 +30,7 @@ import static android.os.Environment.DIRECTORY_DOCUMENTS;
  * TODO: Customize class - update intent actions, extra parameters and static
  * helper methods.
  */
-public class CryptoFileService extends IntentService {
+public class CryptoFileService extends IntentService{
     // TODO: Rename actions, choose action names that describe tasks that this
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
     private static final String ACTION_ENC = "com.dlsu.getbetter.getbetter.cryptoGB.action.ENC";
@@ -40,7 +41,7 @@ public class CryptoFileService extends IntentService {
     private static final String CRYPTO_HCID = "com.dlsu.getbetter.getbetter.cryptoGB.extra.HCID";
 //    private static final String CRYPTO_FNAME = "com.dlsu.getbetter.getbetter.cryptoGB.extra.FNAME";
 
-    private aes master;
+    private transient aes master;
 
     public CryptoFileService() {
         super("CryptoFileService");

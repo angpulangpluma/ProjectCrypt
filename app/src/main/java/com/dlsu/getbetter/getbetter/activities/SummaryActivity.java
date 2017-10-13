@@ -44,6 +44,7 @@ import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -59,38 +60,38 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
 
     private static final String TAG = "SummaryActivity";
 
-    private TextView patientNameText;
-    private TextView healthCenter;
-    private TextView ageGender;
-    private TextView chiefComplaintText;
-    private CircleImageView profilePicture;
-    private RecyclerView attachmentLists;
-    private Button submitButton;
-    private Button backButton;
-    private Button takePicture;
-    private Button takeVideo;
-    private Button openRecordAudio;
-    private Button takePictureDocument;
-    private Button recordAudio;
-    private Button stopRecord;
-    private Button playRecordedAudio;
-    private Button cancelRecording;
-    private Button saveRecording;
-    private CardView recordAudioContainer;
-    private TextView secondsView;
-    private TextView minutesView;
+    private transient TextView patientNameText;
+    private transient TextView healthCenter;
+    private transient TextView ageGender;
+    private transient TextView chiefComplaintText;
+    private transient CircleImageView profilePicture;
+    private transient RecyclerView attachmentLists;
+    private transient Button submitButton;
+    private transient Button backButton;
+    private transient Button takePicture;
+    private transient Button takeVideo;
+    private transient Button openRecordAudio;
+    private transient Button takePictureDocument;
+    private transient Button recordAudio;
+    private transient Button stopRecord;
+    private transient Button playRecordedAudio;
+    private transient Button cancelRecording;
+    private transient Button saveRecording;
+    private transient CardView recordAudioContainer;
+    private transient TextView secondsView;
+    private transient TextView minutesView;
 
-    private NewPatientSessionManager newPatientDetails;
-    private MediaRecorder hpiRecorder;
-    private MediaPlayer nMediaPlayer;
-    private MediaPlayer mp;
-    private MediaController nMediaController;
-    private Handler nHandler = new Handler();
-    private Uri fileUri;
+    private transient NewPatientSessionManager newPatientDetails;
+    private transient MediaRecorder hpiRecorder;
+    private transient MediaPlayer nMediaPlayer;
+    private transient MediaPlayer mp;
+    private transient MediaController nMediaController;
+    private transient Handler nHandler = new Handler();
+    private transient Uri fileUri;
     private String audioOutputFile;
 
-    private DataAdapter getBetterDb;
-    private FileAttachmentsAdapter fileAdapter;
+    private transient DataAdapter getBetterDb;
+    private transient FileAttachmentsAdapter fileAdapter;
     private long patientId;
     private int caseRecordId;
     private int healthCenterId;
@@ -103,7 +104,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
     private String chiefComplaint;
     private String controlNumber;
     private String healthCenterName;
-    private ArrayList<Attachment> attachments;
+    private transient ArrayList<Attachment> attachments;
     private String attachmentName;
     private String recordedHpiOutputFile;
     private String patientInfoFormImage;
@@ -120,11 +121,11 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
     private static final int MEDIA_TYPE_VIDEO = 2;
     private static final int MEDIA_TYPE_AUDIO = 3;
 
-    private Handler handler;
+    private transient Handler handler;
     private boolean isRecording;
     private int seconds, minutes, recordTime;
 
-    private CryptoFileService cserv;
+    private transient CryptoFileService cserv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

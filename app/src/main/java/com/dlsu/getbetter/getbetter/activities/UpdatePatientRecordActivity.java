@@ -39,6 +39,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -57,19 +58,19 @@ import static android.os.Environment.DIRECTORY_DOCUMENTS;
 public class UpdatePatientRecordActivity extends AppCompatActivity implements View.OnClickListener,
         AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
 
-    private Button submitBtn;
-    private Button backBtn;
-    private CircleImageView profileImage;
-    private Spinner genderSpinner;
-    private Spinner civilStatusSpinner;
-    private Spinner bloodTypeSpinner;
-    private TextInputEditText firstNameInput;
-    private TextInputEditText middleNameInput;
-    private TextInputEditText lastNameInput;
-    private TextInputEditText birthdateInput;
+    private transient Button submitBtn;
+    private transient Button backBtn;
+    private transient CircleImageView profileImage;
+    private transient Spinner genderSpinner;
+    private transient Spinner civilStatusSpinner;
+    private transient Spinner bloodTypeSpinner;
+    private transient TextInputEditText firstNameInput;
+    private transient TextInputEditText middleNameInput;
+    private transient TextInputEditText lastNameInput;
+    private transient TextInputEditText birthdateInput;
 
-    private DataAdapter getBetterDb;
-    private Patient patient;
+    private transient DataAdapter getBetterDb;
+    private transient Patient patient;
     private long patientId;
     private String birthDate;
     private String genderSelected;
@@ -79,9 +80,9 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
 
     private static final int REQUEST_IMAGE1 = 100;
 
-    private Uri fileUri;
+    private transient Uri fileUri;
 
-    private CryptoFileService cserv;
+    private transient CryptoFileService cserv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -233,7 +234,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
 
     private class UpdatePatientInfoTask extends AsyncTask<String, Void, Integer> {
 
-        ProgressDialog progressDialog = new ProgressDialog(UpdatePatientRecordActivity.this);
+        transient ProgressDialog progressDialog = new ProgressDialog(UpdatePatientRecordActivity.this);
 
         @Override
         protected void onPreExecute() {

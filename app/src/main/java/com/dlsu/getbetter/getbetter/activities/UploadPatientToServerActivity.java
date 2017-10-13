@@ -25,6 +25,7 @@ import com.loopj.android.http.TextHttpResponseHandler;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,10 +53,10 @@ public class UploadPatientToServerActivity extends AppCompatActivity implements 
 
     private static final int TIMEOUT_VALUE = 60 * 1000;
 
-    private ArrayList<Patient> patientsUpload;
-    private DataAdapter getBetterDb;
+    private transient ArrayList<Patient> patientsUpload;
+    private transient DataAdapter getBetterDb;
     private int healthCenterId;
-    private ProgressDialog pDialog = null;
+    private transient ProgressDialog pDialog = null;
     private long newUserId;
 
     @Override

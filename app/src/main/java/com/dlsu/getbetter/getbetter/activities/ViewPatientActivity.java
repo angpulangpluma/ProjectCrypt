@@ -25,6 +25,7 @@ import com.dlsu.getbetter.getbetter.objects.Patient;
 import com.dlsu.getbetter.getbetter.sessionmanagers.NewPatientSessionManager;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -33,11 +34,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ViewPatientActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private DataAdapter getBetterDb;
+    private transient DataAdapter getBetterDb;
     private long patientId;
-    private ArrayList<CaseRecord> caseRecords;
-    private NewPatientSessionManager newPatientSessionManager;
-    private Patient patient;
+    private transient ArrayList<CaseRecord> caseRecords;
+    private transient NewPatientSessionManager newPatientSessionManager;
+    private transient Patient patient;
 
     private static final String TAG = "ViewPatient";
 

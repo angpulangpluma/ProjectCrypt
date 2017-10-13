@@ -43,6 +43,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -55,29 +56,29 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
     private static CaptureDocumentsActivity captureDocumentsActivity;
     private static final String TAG = "Capture";
 
-    private ImageView patientInfoImage;
-    private ImageView chiefComplaintImage;
-    private ImageView familySocialImage;
-    private Button viewPatientInfoImage;
-    private Button removePatientInfoImage;
-    private Button viewChiefComplaintImage;
-    private Button removeChiefComplaintImage;
-    private Button viewSocialFamilyImage;
-    private Button removeSocialFamilyImage;
-    private Button capturePatientInfo;
-    private Button captureChiefComplaint;
-    private Button captureFamilySocial;
-    private Button backButton;
-    private Button nextButton;
-    private LinearLayout patientInfoActionButtons;
-    private LinearLayout chiefComplaintActionButtons;
-    private LinearLayout socialFamilyActionButtons;
-    private Animator mCurrentAnimator;
+    private transient ImageView patientInfoImage;
+    private transient ImageView chiefComplaintImage;
+    private transient ImageView familySocialImage;
+    private transient Button viewPatientInfoImage;
+    private transient Button removePatientInfoImage;
+    private transient Button viewChiefComplaintImage;
+    private transient Button removeChiefComplaintImage;
+    private transient Button viewSocialFamilyImage;
+    private transient Button removeSocialFamilyImage;
+    private transient Button capturePatientInfo;
+    private transient Button captureChiefComplaint;
+    private transient Button captureFamilySocial;
+    private transient Button backButton;
+    private transient Button nextButton;
+    private transient LinearLayout patientInfoActionButtons;
+    private transient LinearLayout chiefComplaintActionButtons;
+    private transient LinearLayout socialFamilyActionButtons;
+    private transient Animator mCurrentAnimator;
     private int mShortAnimationDuration;
     private String patientInfoImagePath = "";
     private String familySocialHistoryImagePath = "";
     private String chiefComplaintImagePath = "";
-    private NewPatientSessionManager newPatientSessionManager;
+    private transient NewPatientSessionManager newPatientSessionManager;
 
     private static final String PATIENT_INFO_FORM_TITLE = "Patient Information Form";
     private static final String FAMILY_SOCIAL_HISTORY_FORM_TITLE = "Family and Social History Form";
@@ -91,7 +92,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
     private static final int REQUEST_CHIEF_COMPLAINT_IMAGE = 200;
     private static final int REQUEST_FAMILY_SOCIAL_IMAGE = 300;
 
-    private CryptoFileService cserv;
+    private transient CryptoFileService cserv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

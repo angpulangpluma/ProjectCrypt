@@ -18,17 +18,17 @@ import javax.crypto.spec.SecretKeySpec;
  */
 public class SystemSessionManager{
 
-    private SharedPreferences pref;
-    private SharedPreferences.Editor editor;
-    private Context _context;
-    private aes mscrypto;
+    private transient SharedPreferences pref;
+    private transient SharedPreferences.Editor editor;
+    private transient Context _context;
+    private transient aes mscrypto;
 
     private static final String PREFER_NAME = "SystemPref";
-
     public static final String LOGIN_USER_NAME = "loginUserName";
     private static final String IS_USER_LOGGED_IN = "isUserLoggedIn";
     public static final String HEALTH_CENTER_NAME = "healthCenterName";
     public static final String HEALTH_CENTER_ID = "healthCenterId";
+
     public SystemSessionManager (Context context) {
 
         this._context = context;

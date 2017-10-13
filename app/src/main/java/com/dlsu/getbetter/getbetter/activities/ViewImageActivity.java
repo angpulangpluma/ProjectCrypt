@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.dlsu.getbetter.getbetter.R;
 
+import java.io.Serializable;
+
 public class ViewImageActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override

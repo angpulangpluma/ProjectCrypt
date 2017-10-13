@@ -10,14 +10,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
+
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
 import javax.crypto.CipherOutputStream;
 import javax.crypto.spec.SecretKeySpec;
 
-public class file_aes {
+public class file_aes{
 
-    private aes filealgo;
+    private transient aes filealgo;
 //    private Cipher ciph;
 
     public file_aes(){

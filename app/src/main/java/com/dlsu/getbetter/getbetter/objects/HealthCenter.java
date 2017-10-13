@@ -1,10 +1,12 @@
 package com.dlsu.getbetter.getbetter.objects;
 
+import java.io.Serializable;
+
 /**
  * Created by mikedayupay on 17/02/2016.
  * GetBetter 2016
  */
-public class HealthCenter {
+public class HealthCenter{
 
     private int healthCenterId;
     private String healthCenterName;

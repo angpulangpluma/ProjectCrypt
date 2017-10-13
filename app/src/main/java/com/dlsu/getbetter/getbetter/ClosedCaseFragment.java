@@ -16,6 +16,7 @@ import com.dlsu.getbetter.getbetter.objects.CaseRecord;
 import com.dlsu.getbetter.getbetter.objects.Patient;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ClosedCaseFragment extends Fragment {
+public class ClosedCaseFragment extends Fragment implements Serializable{
 
     SystemSessionManager systemSessionManager;
     private DataAdapter getBetterDb;

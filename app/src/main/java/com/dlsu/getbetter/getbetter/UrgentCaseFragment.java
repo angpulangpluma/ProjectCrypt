@@ -17,6 +17,7 @@ import com.dlsu.getbetter.getbetter.objects.DividerItemDecoration;
 import com.dlsu.getbetter.getbetter.objects.Patient;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,11 +28,11 @@ import java.util.HashMap;
  */
 public class UrgentCaseFragment extends Fragment {
 
-    private DataAdapter getBetterDb;
-    private OnCaseRecordSelected mCallback;
+    private transient DataAdapter getBetterDb;
+    private transient OnCaseRecordSelected mCallback;
 
-    private ArrayList<CaseRecord> urgentCases;
-    private UpdatedCaseRecordAdapter updatedCaseRecordAdapter;
+    private transient ArrayList<CaseRecord> urgentCases;
+    private transient UpdatedCaseRecordAdapter updatedCaseRecordAdapter;
     private int selectedCaseRecordId = 0;
 
     public UrgentCaseFragment() {

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.objects.CaseRecord;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -21,8 +22,8 @@ import java.util.ArrayList;
  */
 public class CaseRecordUploadAdapter extends ArrayAdapter<CaseRecord> {
 
-    private ArrayList<CaseRecord> caseRecordsList;
-    private LayoutInflater inflater;
+    private transient ArrayList<CaseRecord> caseRecordsList;
+    private transient LayoutInflater inflater;
 
     public CaseRecordUploadAdapter(Context context, int textViewResourceId, ArrayList<CaseRecord> objects) {
         super(context, textViewResourceId, objects);
@@ -33,12 +34,12 @@ public class CaseRecordUploadAdapter extends ArrayAdapter<CaseRecord> {
 
     private class ViewHolder {
 
-        TextView controlNumber;
-        TextView patientName;
-        TextView complaint;
-        TextView caseStatus;
-        TextView dateUpdated;
-        CheckBox checkBox;
+        transient TextView controlNumber;
+        transient TextView patientName;
+        transient TextView complaint;
+        transient TextView caseStatus;
+        transient TextView dateUpdated;
+        transient CheckBox checkBox;
 
         public ViewHolder() {
 

@@ -7,17 +7,18 @@ import android.content.SharedPreferences.Editor;
 
 import com.dlsu.getbetter.getbetter.activities.ExistingPatientActivity;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
  * Created by mikedayupay on 02/02/2016.
  * GetBetter 2016
  */
-public class NewPatientSessionManager {
+public class NewPatientSessionManager{
 
-    private SharedPreferences pref;
-    private Editor editor;
-    private Context _context;
+    private transient SharedPreferences pref;
+    private transient Editor editor;
+    private transient Context _context;
 
     private static final String PREFER_NAME = "NewPatientPref";
 

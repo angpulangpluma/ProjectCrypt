@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.objects.Patient;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -23,17 +24,17 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class ExistingPatientAdapter extends RecyclerView.Adapter<ExistingPatientAdapter.ExistingPatientViewHolder> {
 
-    private ArrayList<Patient> existingPatients;
-    private OnItemClickListener mItemClickListener;
+    private transient ArrayList<Patient> existingPatients;
+    private transient OnItemClickListener mItemClickListener;
     private int selectedItem = 0;
 
 
     class ExistingPatientViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView patientName;
-        TextView patientDateLastConsult;
-        TextView patientGender;
-        CircleImageView patientImage;
+        transient TextView patientName;
+        transient TextView patientDateLastConsult;
+        transient TextView patientGender;
+        transient CircleImageView patientImage;
 
         ExistingPatientViewHolder(View itemView) {
             super(itemView);

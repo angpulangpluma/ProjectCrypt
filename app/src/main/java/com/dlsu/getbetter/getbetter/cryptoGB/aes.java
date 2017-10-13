@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.KeyFactory;
 import java.security.MessageDigest;
@@ -37,10 +38,10 @@ import org.apache.commons.codec.binary.Base64;
 public class aes {
 
     private static final int AES_Key_Size = 256;
-    private byte[] key;
+    private transient byte[] key;
 
-    private SecretKeySpec secretkey;
-    private Cipher cipher;
+    private transient SecretKeySpec secretkey;
+    private transient Cipher cipher;
 
     public aes(){ }
 

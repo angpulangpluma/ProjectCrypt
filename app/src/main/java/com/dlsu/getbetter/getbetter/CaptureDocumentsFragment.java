@@ -31,6 +31,7 @@ import com.dlsu.getbetter.getbetter.sessionmanagers.NewPatientSessionManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -41,9 +42,9 @@ import java.util.Locale;
  */
 public class CaptureDocumentsFragment extends Fragment implements View.OnClickListener {
 
-    private ImageView captureBasicInfoBtn;
-    private ImageView captureFamilyHistBtn;
-    private ImageView captureChiefComplaintBtn;
+    private transient ImageView captureBasicInfoBtn;
+    private transient ImageView captureFamilyHistBtn;
+    private transient ImageView captureChiefComplaintBtn;
 
     private static final int REQUEST_IMAGE1 = 100;
     private static final int REQUEST_IMAGE2 = 200;
@@ -63,17 +64,17 @@ public class CaptureDocumentsFragment extends Fragment implements View.OnClickLi
 
     // Hold a reference to the current animator,
     // so that it can be canceled mid-way.
-    private Animator mCurrentAnimator;
+    private transient Animator mCurrentAnimator;
 
     // The system "short" animation time duration, in milliseconds. This
     // duration is ideal for subtle animations or animations that occur
     // very frequently.
     private int mShortAnimationDuration;
 
-    private NewPatientSessionManager newPatientSessionManager;
+    private transient NewPatientSessionManager newPatientSessionManager;
 
-    private CryptoFileService cserv;
-    private Context context;
+    private transient CryptoFileService cserv;
+    private transient Context context;
 
     public CaptureDocumentsFragment() {
         // Required empty public constructor

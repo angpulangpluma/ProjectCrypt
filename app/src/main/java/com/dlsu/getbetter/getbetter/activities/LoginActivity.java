@@ -15,18 +15,20 @@ import com.dlsu.getbetter.getbetter.activities.HealthCenterActivity;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity
+        implements View.OnClickListener {
 
-    private TextInputEditText emailInput;
-    private TextInputEditText passwordInput;
-    private TextInputLayout emailInputLayout;
-    private TextInputLayout passwordInputLayout;
-    private Button registerUserBtn;
+    private transient TextInputEditText emailInput;
+    private transient TextInputEditText passwordInput;
+    private transient TextInputLayout emailInputLayout;
+    private transient TextInputLayout passwordInputLayout;
+    private transient Button registerUserBtn;
 
-    private SystemSessionManager systemSessionManager;
-    private DataAdapter getBetterDb;
+    private transient SystemSessionManager systemSessionManager;
+    private transient DataAdapter getBetterDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

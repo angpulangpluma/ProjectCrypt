@@ -10,6 +10,8 @@ import android.view.View;
 
 import com.dlsu.getbetter.getbetter.R;
 
+import java.io.Serializable;
+
 /**
  * Created by mikedayupay on 22/09/2016.
  * GetBetter 2016
@@ -17,7 +19,7 @@ import com.dlsu.getbetter.getbetter.R;
 
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
-    private Drawable mDivider;
+    private transient Drawable mDivider;
 
     public DividerItemDecoration(Context context) {
         mDivider = ContextCompat.getDrawable(context, R.drawable.divider);

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.objects.Patient;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -19,8 +20,8 @@ import java.util.ArrayList;
  */
 public class PatientUploadAdapter extends ArrayAdapter<Patient> {
 
-    private ArrayList<Patient> patients;
-    private LayoutInflater inflater;
+    private transient ArrayList<Patient> patients;
+    private transient LayoutInflater inflater;
 //    Context context;
 
 
@@ -35,9 +36,9 @@ public class PatientUploadAdapter extends ArrayAdapter<Patient> {
     }
 
     private class ViewHolder {
-        TextView patientName;
-        TextView patientId;
-        CheckBox checkBox;
+        transient TextView patientName;
+        transient TextView patientId;
+        transient CheckBox checkBox;
 
         public ViewHolder() {
 

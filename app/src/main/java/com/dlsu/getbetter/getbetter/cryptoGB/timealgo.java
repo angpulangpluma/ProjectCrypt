@@ -7,14 +7,15 @@ package com.dlsu.getbetter.getbetter.cryptoGB;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.Serializable;
 
 public class timealgo {
 
     //    private aes basealgo;
-    private text_aes textalgo;
-    private file_aes filealgo;
-    private FileWriter fw;
-    private BufferedWriter bw;
+    private transient text_aes textalgo;
+    private transient file_aes filealgo;
+    private transient FileWriter fw;
+    private transient BufferedWriter bw;
 
     public timealgo(){
         this.textalgo = null;

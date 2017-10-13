@@ -3,13 +3,14 @@ package com.dlsu.getbetter.getbetter.objects;
 import org.joda.time.LocalDate;
 import org.joda.time.Years;
 
+import java.io.Serializable;
 import java.util.StringTokenizer;
 
 /**
  * Created by mikedayupay on 27/01/2016.
  * GetBetter 2016
  */
-public class Patient {
+public class Patient{
 
     private long id;
     private String firstName;

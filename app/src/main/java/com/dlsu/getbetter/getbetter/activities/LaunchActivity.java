@@ -6,7 +6,9 @@ import android.os.Bundle;
 
 import com.dlsu.getbetter.getbetter.R;
 
-public class LaunchActivity extends AppCompatActivity {
+import java.io.Serializable;
+
+public class LaunchActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

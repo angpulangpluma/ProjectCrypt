@@ -21,18 +21,20 @@ import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.objects.CaseRecord;
 import com.dlsu.getbetter.getbetter.sessionmanagers.NewPatientSessionManager;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 // TODO: 05/05/2016 Update case record function
 
-public class CreateUpdateCaseRecordActivity extends AppCompatActivity implements View.OnClickListener {
+public class CreateUpdateCaseRecordActivity extends AppCompatActivity
+        implements View.OnClickListener {
 
     private long patientId;
     private String patientFirstName;
     private String patientLastName;
-    private DataAdapter getBetterDb;
-    private ArrayList<CaseRecord> caseRecords;
+    private transient DataAdapter getBetterDb;
+    private transient ArrayList<CaseRecord> caseRecords;
     private int selectedCaseRecordId = 0;
 
     @Override

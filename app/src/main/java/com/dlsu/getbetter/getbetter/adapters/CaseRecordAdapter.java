@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.objects.CaseRecord;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -19,18 +20,18 @@ import java.util.ArrayList;
  */
 public class CaseRecordAdapter extends RecyclerView.Adapter<CaseRecordAdapter.CaseRecordViewHolder> {
 
-    private ArrayList<CaseRecord> caseRecordData;
-    private OnItemClickListener mItemClickListener;
+    private transient ArrayList<CaseRecord> caseRecordData;
+    private transient OnItemClickListener mItemClickListener;
     private int selectedItem = 0;
 
 
     class CaseRecordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        CardView cardView;
-        TextView controlNumber;
-        TextView chiefComplaint;
-        TextView caseRecordStatus;
-        TextView date;
+        transient CardView cardView;
+        transient TextView controlNumber;
+        transient TextView chiefComplaint;
+        transient TextView caseRecordStatus;
+        transient TextView date;
 
         CaseRecordViewHolder (View itemView) {
             super(itemView);

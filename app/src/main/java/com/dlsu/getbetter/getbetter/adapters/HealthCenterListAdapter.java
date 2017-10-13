@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.objects.HealthCenter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.balysv.materialripple.MaterialRippleLayout;
@@ -22,13 +23,13 @@ import com.balysv.materialripple.MaterialRippleLayout;
  */
 public class HealthCenterListAdapter extends RecyclerView.Adapter<HealthCenterListAdapter.HealthCenterViewHolder> {
 
-    private ArrayList<HealthCenter> healthCenters;
-    private OnItemClickListener mItemClickListener;
+    private transient ArrayList<HealthCenter> healthCenters;
+    private transient OnItemClickListener mItemClickListener;
     private int selectedItem = 0;
 
     public class HealthCenterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView healthCenterName;
+        transient TextView healthCenterName;
 
         public HealthCenterViewHolder(View itemView) {
             super(itemView);

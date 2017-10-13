@@ -34,6 +34,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -48,31 +49,31 @@ import static android.os.Environment.DIRECTORY_DOCUMENTS;
 public class NewPatientInfoActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,
         View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    private CircleImageView profileImage;
-    private TextInputEditText firstNameInput;
-    private TextInputEditText middleNameInput;
-    private TextInputEditText lastNameInput;
-    private TextInputEditText birthdateInput;
-    private Button backBtn;
-    private Button nextBtn;
-    private Spinner genderChoice;
-    private Spinner civilStatusChoice;
-    private Spinner bloodTypeChoice;
+    private transient CircleImageView profileImage;
+    private transient TextInputEditText firstNameInput;
+    private transient TextInputEditText middleNameInput;
+    private transient TextInputEditText lastNameInput;
+    private transient TextInputEditText birthdateInput;
+    private transient Button backBtn;
+    private transient Button nextBtn;
+    private transient Spinner genderChoice;
+    private transient Spinner civilStatusChoice;
+    private transient Spinner bloodTypeChoice;
 
-    private NewPatientSessionManager newPatientSessionManager;
+    private transient NewPatientSessionManager newPatientSessionManager;
     private String genderSelected;
     private String civilStatusSelected;
     private String bloodTypeSelected;
     private String birthDate;
     private int healthCenterId;
-    private Uri fileUri;
-    private DataAdapter getBetterDb;
+    private transient Uri fileUri;
+    private transient DataAdapter getBetterDb;
 
     private static final int REQUEST_IMAGE1 = 100;
 
     private static final String TAG = "debug";
 
-    private CryptoFileService cserv;
+    private transient CryptoFileService cserv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,7 +194,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
 
     private class InsertPatientTask extends AsyncTask<String, Void, Long> {
 
-        ProgressDialog progressDialog = new ProgressDialog(NewPatientInfoActivity.this);
+        transient ProgressDialog progressDialog = new ProgressDialog(NewPatientInfoActivity.this);
 
         @Override
         protected void onPreExecute() {

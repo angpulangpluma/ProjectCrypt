@@ -7,7 +7,9 @@ import android.os.Bundle;
 import com.dlsu.getbetter.getbetter.NewPatientFragment;
 import com.dlsu.getbetter.getbetter.R;
 
-public class NewPatientRecordActivity extends AppCompatActivity {
+import java.io.Serializable;
+
+public class NewPatientRecordActivity extends AppCompatActivity{
 
     private String data;
 

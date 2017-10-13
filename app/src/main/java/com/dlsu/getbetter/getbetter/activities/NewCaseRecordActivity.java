@@ -7,7 +7,10 @@ import android.os.Bundle;
 import com.dlsu.getbetter.getbetter.CaptureDocumentsFragment;
 import com.dlsu.getbetter.getbetter.R;
 
-public class NewCaseRecordActivity extends AppCompatActivity {
+import java.io.Serializable;
+
+public class NewCaseRecordActivity extends AppCompatActivity
+    implements Serializable{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

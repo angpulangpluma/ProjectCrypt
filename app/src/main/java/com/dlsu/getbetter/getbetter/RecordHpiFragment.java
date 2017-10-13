@@ -24,6 +24,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
+import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -38,13 +40,13 @@ import static android.os.Environment.DIRECTORY_DOCUMENTS;
 
 public class RecordHpiFragment extends Fragment implements View.OnClickListener {
 
-    private Button stopRecBtn;
-    private Button playRecBtn;
-    private MediaRecorder hpiRecorder;
+    private transient Button stopRecBtn;
+    private transient Button playRecBtn;
+    private transient MediaRecorder hpiRecorder;
     private String outputFile;
     private String chiefComplaintName = "";
 
-    private NewPatientSessionManager newPatientSessionManager;
+    private transient NewPatientSessionManager newPatientSessionManager;
 
 
     public RecordHpiFragment() {

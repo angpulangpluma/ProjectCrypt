@@ -6,13 +6,15 @@ package com.dlsu.getbetter.getbetter.cryptoGB;
 
 import org.apache.commons.codec.binary.Base64;
 
+import java.io.Serializable;
 import java.security.MessageDigest;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
-public class text_aes {
-    private aes textalgo;
+public class text_aes{
+
+    private transient aes textalgo;
 //    private Cipher ciph;
 
     public text_aes() {

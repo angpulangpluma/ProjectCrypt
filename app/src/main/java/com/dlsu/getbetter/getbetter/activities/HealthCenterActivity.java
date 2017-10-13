@@ -21,16 +21,17 @@ import com.dlsu.getbetter.getbetter.objects.DividerItemDecoration;
 import com.dlsu.getbetter.getbetter.objects.HealthCenter;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class HealthCenterActivity extends AppCompatActivity {
 
-    private DataAdapter getBetterDb;
-    private SystemSessionManager systemSessionManager;
-    private ArrayList<HealthCenter> healthCenters;
-    private KeySetter ks = null;
+    private transient DataAdapter getBetterDb;
+    private transient SystemSessionManager systemSessionManager;
+    private transient ArrayList<HealthCenter> healthCenters;
+    private transient KeySetter ks = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

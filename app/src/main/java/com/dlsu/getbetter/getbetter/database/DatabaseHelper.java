@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.sql.SQLException;
 
 /**
@@ -25,9 +26,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     private static int DB_VERSION = 2;
 
-    private SQLiteDatabase getBetterDatabase;
+    private transient SQLiteDatabase getBetterDatabase;
 
-    private final Context myContext;
+    private transient final Context myContext;
 
     private static DatabaseHelper sInstance;
 

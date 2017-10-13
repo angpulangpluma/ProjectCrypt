@@ -11,16 +11,17 @@ import android.widget.TextView;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.objects.CaseRecord;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by mikedayupay on 14/05/2016.
  * GetBetter 2016
  */
-public class CaseRecordDownloadAdapter extends ArrayAdapter<CaseRecord>{
+public class CaseRecordDownloadAdapter extends ArrayAdapter<CaseRecord> {
 
-    private ArrayList<CaseRecord> caseRecordsList;
-    private LayoutInflater inflater;
+    private transient ArrayList<CaseRecord> caseRecordsList;
+    private transient LayoutInflater inflater;
 
     public CaseRecordDownloadAdapter(Context context, int textViewResourceId, ArrayList<CaseRecord> objects) {
         super(context, textViewResourceId, objects);
@@ -30,13 +31,13 @@ public class CaseRecordDownloadAdapter extends ArrayAdapter<CaseRecord>{
 
     private class ViewHolder {
 
-        TextView controlNumber;
-        TextView patientName;
-        TextView complaint;
-        TextView healthCenter;
-        TextView caseStatus;
-        TextView dateUpdated;
-        CheckBox checkBox;
+        transient TextView controlNumber;
+        transient TextView patientName;
+        transient TextView complaint;
+        transient TextView healthCenter;
+        transient TextView caseStatus;
+        transient TextView dateUpdated;
+        transient CheckBox checkBox;
 
         public ViewHolder() {
 
