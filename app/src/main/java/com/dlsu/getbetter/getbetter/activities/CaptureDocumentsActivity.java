@@ -53,7 +53,7 @@ import static android.os.Environment.DIRECTORY_DOCUMENTS;
 
 public class CaptureDocumentsActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static CaptureDocumentsActivity captureDocumentsActivity;
+    private transient static CaptureDocumentsActivity captureDocumentsActivity;
     private static final String TAG = "Capture";
 
     private transient ImageView patientInfoImage;
@@ -99,7 +99,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_capture_documents);
 
-        SystemSessionManager systemSessionManager = ((KeySetter)getIntent().getSerializableExtra("sys")).getSSM();
+        SystemSessionManager systemSessionManager = new SystemSessionManager(getApplicationContext());
         if(systemSessionManager.checkLogin())
             finish();
 
@@ -192,7 +192,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
 
 //            zoomImageFromThumb(viewPatientInfoImage, patientInfoImagePath);
             Intent intent = new Intent(this, ViewImageActivity.class);
-            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             intent.putExtra("imageUrl", this.patientInfoImagePath);
             intent.putExtra("imageTitle", PATIENT_INFO_FORM_TITLE);
             startActivity(intent);
@@ -202,7 +202,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
 
 //            zoomImageFromThumb(viewChiefComplaintImage, chiefComplaintImagePath);
             Intent intent = new Intent(this, ViewImageActivity.class);
-            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             intent.putExtra("imageUrl", this.chiefComplaintImagePath);
             intent.putExtra("imageTitle", CHIEF_COMPLAINT_FORM_TITLE);
             startActivity(intent);
@@ -211,7 +211,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
 
 //            zoomImageFromThumb(viewSocialFamilyImage, familySocialHistoryImagePath);
             Intent intent = new Intent(this, ViewImageActivity.class);
-            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             intent.putExtra("imageUrl", this.familySocialHistoryImagePath);
             intent.putExtra("imageTitle", FAMILY_SOCIAL_HISTORY_FORM_TITLE);
             startActivity(intent);
@@ -231,7 +231,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
         } else if(id == R.id.capture_document_back_btn) {
 
             Intent intent = new Intent(this, ExistingPatientActivity.class);
-            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
 //            Intent intent = new Intent(this, ViewPatientActivity.class);
 //            Log.d(TAG, "" + newPatientSessionManager.getPatientInfo().get(NewPatientSessionManager.PATIENT_ID));
 //            intent.putExtra("patientId", newPatientSessionManager.getPatientInfo().get(NewPatientSessionManager.PATIENT_ID));
@@ -253,7 +253,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
                 newPatientSessionManager.setDocImages(this.patientInfoImagePath, this.familySocialHistoryImagePath, this.chiefComplaintImagePath,
                         PATIENT_INFO_FORM_TITLE, FAMILY_SOCIAL_HISTORY_FORM_TITLE, CHIEF_COMPLAINT_FORM_TITLE);
                 Intent intent = new Intent(this, RecordHpiActivity.class);
-                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
                 startActivity(intent);
 
             }

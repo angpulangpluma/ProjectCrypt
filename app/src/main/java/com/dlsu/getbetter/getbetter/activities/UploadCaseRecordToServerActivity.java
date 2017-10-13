@@ -74,8 +74,7 @@ public class UploadCaseRecordToServerActivity extends AppCompatActivity implemen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_case_record_to_server);
 
-        SystemSessionManager systemSessionManager = ((KeySetter)getIntent().getSerializableExtra("sys")).getSSM();
-
+        SystemSessionManager systemSessionManager = new SystemSessionManager(getApplicationContext());
         if(systemSessionManager.checkLogin())
             finish();
 
@@ -209,7 +208,7 @@ public class UploadCaseRecordToServerActivity extends AppCompatActivity implemen
         if(id == R.id.upload_caserecord_back_btn) {
 
             Intent intent = new Intent(this, ExistingPatientActivity.class);
-            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             startActivity(intent);
             finish();
 

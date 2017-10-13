@@ -3,6 +3,7 @@ package com.dlsu.getbetter.getbetter.activities;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.icu.text.DateFormat;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.app.FragmentTabHost;
@@ -37,15 +38,22 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private transient SystemSessionManager systemSessionManager;
     private transient DataAdapter getBetterDb;
     private boolean isConnected;
+//    private KeySetter ks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        systemSessionManager = ((KeySetter)getIntent().getSerializableExtra("sys")).getSSM();
+//        Log.w("sys", Boolean.toString(getIntent().getSerializableExtra("sys")!=null));
+//        Log.w("ks", Boolean.toString((KeySetter)getIntent().getSerializableExtra("sys")!=null));
+//        Log.w("ssm", Boolean.toString(((KeySetter)getIntent().getSerializableExtra("sys")).getSSM()!=null));
+//        systemSessionManager = ((KeySetter)getIntent().getSerializableExtra("sys")).getSSM();
+        systemSessionManager = new SystemSessionManager(getApplicationContext());
         if(systemSessionManager.checkLogin())
             finish();
+//        ks = (KeySetter)getIntent().getSerializableExtra("sys");
+//        Log.w("mngr", Boolean.toString(systemSessionManager.getCrypto()!=null));
 
         HashMap<String, String> user = systemSessionManager.getUserDetails();
         HashMap<String, String> hc = systemSessionManager.getHealthCenter();
@@ -123,7 +131,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
 //            systemSessionManager.setHealthCenter(healthCenterName, String.valueOf(healthCenterId));
             Intent intent = new Intent(this, ExistingPatientActivity.class);
-            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//            intent.putExtra("sys", ks);
             startActivity(intent);
 
 
@@ -133,7 +141,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
                 //            systemSessionManager.setHealthCenter(healthCenterName, String.valueOf(healthCenterId));
                 Intent intent = new Intent(this, DownloadContentActivity.class);
-                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//                intent.putExtra("sys", ks);
                 startActivity(intent);
 
             } else {
@@ -161,7 +169,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         } else if (id == R.id.change_health_center_btn) {
 
             Intent intent = new Intent(this, HealthCenterActivity.class);
-            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//            intent.putExtra("sys", ks);
             startActivity(intent);
 
             finish();

@@ -72,7 +72,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_hpi);
 
-        SystemSessionManager systemSessionManager = ((KeySetter)getIntent().getSerializableExtra("sys")).getSSM();
+        SystemSessionManager systemSessionManager = new SystemSessionManager(getApplicationContext());
         if(systemSessionManager.checkLogin())
             finish();
 
@@ -151,7 +151,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
 
             newPatientSessionManager.setHPIRecord(outputFile, chiefComplaintName);
             Intent intent = new Intent(this, SummaryActivity.class);
-            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             startActivity(intent);
 
         } else if (id == R.id.hpi_back_btn) {

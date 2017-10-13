@@ -42,14 +42,17 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
 
     private static final String TAG = "ViewPatient";
 
+//    private KeySetter ks;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_patient);
 
-        SystemSessionManager systemSessionManager = ((KeySetter)getIntent().getSerializableExtra("sys")).getSSM();
+        SystemSessionManager systemSessionManager = new SystemSessionManager(getApplicationContext());
         if(systemSessionManager.checkLogin())
             finish();
+
 
         Bundle extras = getIntent().getExtras();
         if(extras != null)
@@ -98,7 +101,7 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
                 Intent intent = new Intent(ViewPatientActivity.this, ViewCaseRecordActivity.class);
                 intent.putExtra("caseRecordId", selectedCaseRecordId);
                 intent.putExtra("patientId", patientId);
-                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
                 startActivity(intent);
             }
         });
@@ -206,7 +209,7 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
         } else if(id == R.id.view_patient_update_btn) {
 
             Intent intent = new Intent(this, UpdatePatientRecordActivity.class);
-            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             intent.putExtra("selectedPatient", patientId);
             startActivity(intent);
             finish();
@@ -214,7 +217,7 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
         } else if(id == R.id.view_patient_create_case_btn) {
 
             Intent intent = new Intent(this, CaptureDocumentsActivity.class);
-            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             startActivity(intent);
             finish();
 

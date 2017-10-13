@@ -132,7 +132,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
 
-        SystemSessionManager systemSessionManager = ((KeySetter)getIntent().getSerializableExtra("sys")).getSSM();
+        SystemSessionManager systemSessionManager = new SystemSessionManager(getApplicationContext());
         if(systemSessionManager.checkLogin())
             finish();
 
@@ -230,7 +230,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
 
                 if(attachments.get(position).getAttachmentType() == 1) {
                     Intent intent = new Intent(SummaryActivity.this, ViewImageActivity.class);
-                    intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//                    intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
                     intent.putExtra("imageUrl", attachments.get(position).getAttachmentPath());
                     intent.putExtra("imageTitle", attachments.get(position).getAttachmentDescription());
                     startActivity(intent);

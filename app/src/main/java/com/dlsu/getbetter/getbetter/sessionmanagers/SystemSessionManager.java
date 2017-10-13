@@ -36,6 +36,8 @@ public class SystemSessionManager{
         pref = _context.getSharedPreferences(PREFER_NAME, PRIVATE_MODE);
 
         editor = pref.edit();
+
+        this.mscrypto = null;
     }
 
     public void createUserSession (String userName) {

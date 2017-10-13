@@ -34,8 +34,8 @@ public class KeySetter implements Serializable{
 
     public KeySetter(SystemSessionManager sys, Context c){
         Log.w("key setter", "set");
-        dCtxt = c;
-        mngr = sys;
+        this.dCtxt = c;
+        this.mngr = sys;
     }
 
     public SystemSessionManager getSSM() { return this.mngr; }

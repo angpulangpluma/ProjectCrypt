@@ -89,7 +89,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_patient_info);
 
-        SystemSessionManager systemSessionManager = ((KeySetter)getIntent().getSerializableExtra("sys")).getSSM();
+        SystemSessionManager systemSessionManager = new SystemSessionManager(getApplicationContext());
 
         Bundle extras = getIntent().getExtras();
         patientId = 0;

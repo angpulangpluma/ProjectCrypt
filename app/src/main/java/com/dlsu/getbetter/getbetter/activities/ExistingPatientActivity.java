@@ -45,14 +45,17 @@ public class ExistingPatientActivity extends AppCompatActivity
 
     private boolean isConnected;
 
+//    private KeySetter ks;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_existing_patient);
 
-        SystemSessionManager systemSessionManager = ((KeySetter)getIntent().getSerializableExtra("sys")).getSSM();
+        SystemSessionManager systemSessionManager = new SystemSessionManager(getApplicationContext());
         if(systemSessionManager.checkLogin())
             finish();
+//        ks = new KeySetter(systemSessionManager, this);
 
         HashMap<String, String> user = systemSessionManager.getUserDetails();
         HashMap<String, String> hc = systemSessionManager.getHealthCenter();
@@ -91,7 +94,7 @@ public class ExistingPatientActivity extends AppCompatActivity
                 selectedPatientId = existingPatients.get(position).getId();
                 Intent intent = new Intent(ExistingPatientActivity.this, ViewPatientActivity.class);
                 intent.putExtra("patientId", selectedPatientId);
-                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//                intent.putExtra("sys", ks);
                 startActivity(intent);
                 ExistingPatientActivity.this.finish();
 
@@ -161,14 +164,14 @@ public class ExistingPatientActivity extends AppCompatActivity
         if (id == R.id.create_new_patient_btn) {
 
             Intent intent = new Intent(this, NewPatientInfoActivity.class);
-            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//            intent.putExtra("sys", ks);
             startActivity(intent);
 
         } else if (id == R.id.upload_patient_record) {
 
             if(isConnected) {
                 Intent intent = new Intent(this, UploadPatientToServerActivity.class);
-                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//                intent.putExtra("sys", ks);
                 startActivity(intent);
                 finish();
             } else {
@@ -180,7 +183,7 @@ public class ExistingPatientActivity extends AppCompatActivity
 
             if(isConnected) {
                 Intent intent = new Intent(this, UploadCaseRecordToServerActivity.class);
-                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//                intent.putExtra("sys", ks);
                 startActivity(intent);
                 finish();
             } else {
