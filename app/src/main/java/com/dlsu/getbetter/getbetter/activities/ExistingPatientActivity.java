@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.adapters.ExistingPatientAdapter;
 import com.dlsu.getbetter.getbetter.cryptoGB.KeySetter;
+import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.objects.DividerItemDecoration;
 import com.dlsu.getbetter.getbetter.objects.Patient;
@@ -52,6 +53,7 @@ public class ExistingPatientActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_existing_patient);
 
+        Log.w("exstpatact", Boolean.toString((aes)getIntent().getSerializableExtra("sys")!=null));
         SystemSessionManager systemSessionManager = new SystemSessionManager(getApplicationContext());
         if(systemSessionManager.checkLogin())
             finish();
@@ -94,7 +96,7 @@ public class ExistingPatientActivity extends AppCompatActivity
                 selectedPatientId = existingPatients.get(position).getId();
                 Intent intent = new Intent(ExistingPatientActivity.this, ViewPatientActivity.class);
                 intent.putExtra("patientId", selectedPatientId);
-//                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
                 startActivity(intent);
                 ExistingPatientActivity.this.finish();
 

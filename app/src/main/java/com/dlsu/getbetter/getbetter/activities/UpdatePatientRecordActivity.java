@@ -110,7 +110,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         showDatePlaceholder();
         bindListeners(this);
 
-        cserv = new CryptoFileService((aes)getIntent().getSerializableExtra("sys"));
+        cserv = new CryptoFileService();
     }
 
     private void bindViews(UpdatePatientRecordActivity activity) {
@@ -405,7 +405,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
             setPic(profileImage, fileUri.getPath());
             profilePicPath = fileUri.getPath();
 //            doSomethingCryptFile("enc", new File(profilePicPath));
-            cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1);
+            cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1, (aes)data.getSerializableExtra("sys"));
             Log.d("profile img enc", "yes");
         }
     }
@@ -438,6 +438,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         fileUri = Uri.fromFile(img);
 
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+        intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
         startActivityForResult(intent, REQUEST_IMAGE1);
 
 

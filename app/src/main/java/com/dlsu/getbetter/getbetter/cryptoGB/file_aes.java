@@ -4,6 +4,8 @@ package com.dlsu.getbetter.getbetter.cryptoGB;
  * Created by YING LOPEZ on 9/28/2017.
  */
 
+import android.util.Log;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -23,15 +25,16 @@ public class file_aes{
 //    private Cipher ciph;
 
     public file_aes(){
-        filealgo = new aes();
-        filealgo.setKey();
-        filealgo.setCipher();
+        this.filealgo = new aes();
+        this.filealgo.setKey();
+        this.filealgo.setCipher();
 //        ciph = filealgo.getCipher();
     }
 
     public file_aes(aes enc){
+        Log.w("file_aes init", Boolean.toString(enc!=null));
         this.filealgo = enc;
-        filealgo.setCipher();
+        this.filealgo.setCipher();
 //        this.ciph = filealgo.getCipher();
     }
 

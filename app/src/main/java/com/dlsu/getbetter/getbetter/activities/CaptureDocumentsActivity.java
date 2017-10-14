@@ -54,7 +54,7 @@ import static android.os.Environment.DIRECTORY_DOCUMENTS;
 
 public class CaptureDocumentsActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private transient static CaptureDocumentsActivity captureDocumentsActivity;
+    private transient CaptureDocumentsActivity captureDocumentsActivity;
     private static final String TAG = "Capture";
 
     private transient ImageView patientInfoImage;
@@ -128,7 +128,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
             this.socialFamilyActionButtons.setVisibility(View.VISIBLE);
         }
 
-        cserv = new CryptoFileService((aes)getIntent().getSerializableExtra("sys"));
+        cserv = new CryptoFileService();
 
     }
 
@@ -322,7 +322,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
                     setPic(this.patientInfoImage, this.patientInfoImagePath);
                     this.patientInfoActionButtons.setVisibility(View.VISIBLE);
                     this.capturePatientInfo.setVisibility(View.GONE);
-                    cserv.cryptoAskEncrypt(this, this.patientInfoImagePath, 1);
+                    cserv.cryptoAskEncrypt(this, this.patientInfoImagePath, 1, (aes)getIntent().getSerializableExtra("sys"));
 //                    doSomethingCryptFile("enc", new File(this.patientInfoImagePath));
                     Log.d("patientinfoimgenc", "yes");
                     break;
@@ -332,7 +332,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
                     setPic(this.chiefComplaintImage, this.chiefComplaintImagePath);
                     this.chiefComplaintActionButtons.setVisibility(View.VISIBLE);
                     this.captureChiefComplaint.setVisibility(View.GONE);
-                    cserv.cryptoAskEncrypt(this, this.chiefComplaintImagePath, 1);
+                    cserv.cryptoAskEncrypt(this, this.chiefComplaintImagePath, 1, (aes)getIntent().getSerializableExtra("sys"));
 //                    doSomethingCryptFile("enc", new File(this.chiefComplaintImagePath));
                     Log.d("chiefcompimgenc", "yes");
                     break;
@@ -342,7 +342,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
                     setPic(this.familySocialImage, this.familySocialHistoryImagePath);
                     this.socialFamilyActionButtons.setVisibility(View.VISIBLE);
                     this.captureFamilySocial.setVisibility(View.GONE);
-                    cserv.cryptoAskEncrypt(this, this.familySocialHistoryImagePath, 1);
+                    cserv.cryptoAskEncrypt(this, this.familySocialHistoryImagePath, 1, (aes)getIntent().getSerializableExtra("sys"));
 //                    doSomethingCryptFile("enc", new File(this.familySocialHistoryImagePath));
                     Log.d("famhistimgenc", "yes");
                     break;
@@ -419,7 +419,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
         builder.show();
     }
 
-    public static CaptureDocumentsActivity getInstance() {
+    public CaptureDocumentsActivity getInstance() {
         return captureDocumentsActivity;
     }
 

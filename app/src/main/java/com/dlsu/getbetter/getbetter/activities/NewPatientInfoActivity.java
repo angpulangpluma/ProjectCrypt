@@ -75,6 +75,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
     private static final String TAG = "debug";
 
     private transient CryptoFileService cserv;
+    private boolean isCaptured;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +98,10 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         bindListeners(this);
 
 //        Log.w("ks", Boolean.toString(((KeySetter)getIntent().getSerializableExtra("sys")).getCrypto()==null));
-        cserv = new CryptoFileService((aes)getIntent().getSerializableExtra("sys"));
+        Log.w("newpatact", Boolean.toString((aes)getIntent().getSerializableExtra("sys")!=null));
+        cserv = new CryptoFileService();
+        isCaptured = false;
+        Log.w("iscapturedcheck", Boolean.toString(isCaptured));
     }
 
     private void bindViews(NewPatientInfoActivity activity) {
@@ -338,7 +342,15 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         fileUri = Uri.fromFile(createImageFile());
 
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+//        intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
         startActivityForResult(intent, REQUEST_IMAGE1);
+
+        Log.w("iscapturedcheck", Boolean.toString(isCaptured));
+        if (isCaptured) {
+//            Log.w("iscapturedcheck", Boolean.toString(isCaptured));
+            cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1, (aes)getIntent().getSerializableExtra("sys"));
+            isCaptured = false;
+        }
 
     }
 
@@ -347,7 +359,8 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
 
         if(requestCode == REQUEST_IMAGE1 && resultCode == Activity.RESULT_OK) {
             setPic(profileImage, fileUri.getPath());
-            cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1);
+            isCaptured = true;
+//            cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1, (aes)data.getSerializableExtra("sys"));
 //            doSomethingCryptFile("enc", new File(fileUri.getPath()));
             Log.d("patientinfoimgenc", "yes");
         }

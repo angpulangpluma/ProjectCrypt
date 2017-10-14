@@ -27,8 +27,6 @@ import static android.os.Environment.DIRECTORY_DOCUMENTS;
  * An {@link IntentService} subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
  * <p>
- * TODO: Customize class - update intent actions, extra parameters and static
- * helper methods.
  */
 public class CryptoFileService extends IntentService{
     // TODO: Rename actions, choose action names that describe tasks that this
@@ -39,18 +37,19 @@ public class CryptoFileService extends IntentService{
     // TODO: Rename parameters
     private static final String CRYPTO_FILE = "com.dlsu.getbetter.getbetter.cryptoGB.extra.FILE";
     private static final String CRYPTO_HCID = "com.dlsu.getbetter.getbetter.cryptoGB.extra.HCID";
-//    private static final String CRYPTO_FNAME = "com.dlsu.getbetter.getbetter.cryptoGB.extra.FNAME";
+    private static final String CRYPTO_SERV = "com.dlsu.getbetter.getbetter.cryptoGB.extra.SERV";
 
-    private transient aes master;
+//    private transient aes master;
 
     public CryptoFileService() {
         super("CryptoFileService");
     }
 
-    public CryptoFileService(aes m){
-        super("CryptoFileService");
-        this.master = m;
-    }
+//    public CryptoFileService(aes m){
+//        super("CryptoFileService");
+//        this.master = m;
+//        Log.w("init", Boolean.toString(m!=null));
+//    }
 
 
     /**
@@ -60,12 +59,13 @@ public class CryptoFileService extends IntentService{
      * @see IntentService
      */
     // TODO: Customize helper method
-    public void cryptoAskEncrypt(Context context, String sel, int hcID) {
+    public void cryptoAskEncrypt(Context context, String sel, int hcID, aes master) {
         Log.w("cryptoaskencrypt", "yes");
         Intent intent = new Intent(context, CryptoFileService.class);
         intent.setAction(ACTION_ENC);
         intent.putExtra(CRYPTO_HCID, hcID);
         intent.putExtra(CRYPTO_FILE, sel);
+        intent.putExtra(CRYPTO_SERV, master);
         context.startService(intent);
     }
 
@@ -76,11 +76,12 @@ public class CryptoFileService extends IntentService{
      * @see IntentService
      */
     // TODO: Customize helper method
-    public void cryptoAskDecrypt(Context context, String sel, int hcID) {
+    public void cryptoAskDecrypt(Context context, String sel, int hcID, aes master) {
         Intent intent = new Intent(context, CryptoFileService.class);
         intent.setAction(ACTION_DEC);
         intent.putExtra(CRYPTO_HCID, hcID);
         intent.putExtra(CRYPTO_FILE, sel);
+        intent.putExtra(CRYPTO_SERV, master);
         context.startService(intent);
     }
 
@@ -102,16 +103,16 @@ public class CryptoFileService extends IntentService{
             }
 
             if (ACTION_ENC.equals(action)) {
-                handleFileEncryption(in);
+                this.handleFileEncryption(in, (aes)intent.getSerializableExtra(CRYPTO_SERV));
             } else if (ACTION_DEC.equals(action)) {
-                handleFileDecryption(in);
+                this.handleFileDecryption(in, (aes)intent.getSerializableExtra(CRYPTO_SERV));
             }
         }
     }
 
-    private void handleFileEncryption(File sel){
+    protected void handleFileEncryption(File sel, aes m){
     Log.w("file enc serv", "yes");
-        file_aes mastercry = new file_aes(master);
+        file_aes mastercry = new file_aes(m);
         File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
                 DirectoryConstants.CRYPTO_FOLDER);
         path.mkdirs();
@@ -129,9 +130,9 @@ public class CryptoFileService extends IntentService{
         Log.w("enc", "done");
     }
 
-    private void handleFileDecryption(File sel){
+    private void handleFileDecryption(File sel, aes m){
 
-        file_aes mastercry = new file_aes(master);
+        file_aes mastercry = new file_aes(m);
         File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
                 DirectoryConstants.CRYPTO_FOLDER);
         path.mkdirs();

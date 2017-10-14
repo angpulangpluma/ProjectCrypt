@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
+import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.sessionmanagers.NewPatientSessionManager;
 
 import java.io.File;
@@ -164,7 +165,7 @@ public class CaptureDocumentsFragment extends Fragment implements View.OnClickLi
                 case REQUEST_IMAGE1:
 
                     setPic(captureBasicInfoBtn, patientInfoImagePath);
-                    cserv.cryptoAskEncrypt(this.context, patientInfoImagePath, 1);
+                    cserv.cryptoAskEncrypt(this.context, patientInfoImagePath, 1, (aes)data.getSerializableExtra("sys"));
 //                    Bitmap photo = BitmapFactory.decodeFile(data.getExtras().get("output").toString());
 //                    captureBasicInfoBtn.setImageBitmap(photo);
 //                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -182,7 +183,7 @@ public class CaptureDocumentsFragment extends Fragment implements View.OnClickLi
                 case REQUEST_IMAGE2:
 
                     setPic(captureFamilyHistBtn, familySocialHistoryImagePath);
-                    cserv.cryptoAskEncrypt(this.context, familySocialHistoryImagePath, 1);
+                    cserv.cryptoAskEncrypt(this.context, familySocialHistoryImagePath, 1, (aes)data.getSerializableExtra("sys"));
 //                    Bitmap photo2 = (Bitmap)data.getExtras().get("data");
 //                    captureFamilyHistBtn.setImageBitmap(photo2);
 //                    ByteArrayOutputStream baos2 = new ByteArrayOutputStream();
@@ -200,7 +201,7 @@ public class CaptureDocumentsFragment extends Fragment implements View.OnClickLi
                 case REQUEST_IMAGE3:
 
                     setPic(captureChiefComplaintBtn, chiefComplaintImagePath);
-                    cserv.cryptoAskEncrypt(this.context, patientInfoImagePath, 1);
+                    cserv.cryptoAskEncrypt(this.context, patientInfoImagePath, 1, (aes)data.getSerializableExtra("sys"));
 //                    Bitmap photo3 = (Bitmap)data.getExtras().get("data");
 //                    captureChiefComplaintBtn.setImageBitmap(photo3);
 //                    ByteArrayOutputStream baos3 = new ByteArrayOutputStream();

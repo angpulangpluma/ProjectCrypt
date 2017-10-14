@@ -41,7 +41,7 @@ import static android.os.Environment.DIRECTORY_DOCUMENTS;
 
 public class RecordHpiActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private transient static RecordHpiActivity recordHpiActivity;
+    private transient RecordHpiActivity recordHpiActivity;
 
     private transient Button recordHpi;
     private transient Button stopRecord;
@@ -103,7 +103,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
             initializeMediaRecorder();
         }
 
-        cserv = new CryptoFileService((aes)getIntent().getSerializableExtra("sys"));
+        cserv = new CryptoFileService();
     }
 
     private void bindViews (RecordHpiActivity activity) {
@@ -307,7 +307,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
         return new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(new Date());
     }
 
-    public static RecordHpiActivity getInstance() {
+    public RecordHpiActivity getInstance() {
         return recordHpiActivity;
     }
 
@@ -333,7 +333,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
     private void doSomethingCryptFile(String dec, File input){
 
         Log.d("service in", "yes");
-        cserv.cryptoAskEncrypt(this, input.getPath(), 1);
+        cserv.cryptoAskEncrypt(this, input.getPath(), 1, (aes)getIntent().getSerializableExtra("sys"));
 
 //        file_aes mastercry = new file_aes();
 //        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),

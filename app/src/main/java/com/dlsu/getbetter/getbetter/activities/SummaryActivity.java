@@ -164,7 +164,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         caseRecordId = generateCaseRecordId();
         controlNumber = generateControlNumber(patientId);
 
-        cserv = new CryptoFileService((aes)getIntent().getSerializableExtra("sys"));
+        cserv = new CryptoFileService();
 
     }
 
@@ -317,8 +317,8 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
 
             newPatientDetails.endSession();
 
-            CaptureDocumentsActivity.getInstance().finish();
-            RecordHpiActivity.getInstance().finish();
+//            CaptureDocumentsActivity.getInstance().finish();
+//            RecordHpiActivity.getInstance().finish();
             finish();
 
         } else if(id == R.id.summary_page_back_btn) {
@@ -573,6 +573,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
 
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+        intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
         startActivityForResult(intent, REQUEST_IMAGE_ATTACHMENT);
     }
 
@@ -583,7 +584,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
             if(resultCode == Activity.RESULT_OK) {
 
                 editAttachmentName(MEDIA_TYPE_IMAGE);
-                cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1);
+                cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1, (aes)data.getSerializableExtra("sys"));
 
             } else if(resultCode == Activity.RESULT_CANCELED) {
 
@@ -595,7 +596,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
             if (resultCode == Activity.RESULT_OK) {
 
                 editAttachmentName(MEDIA_TYPE_VIDEO);
-                cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1);
+                cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1, (aes)data.getSerializableExtra("sys"));
 //                addVideoAttachment(videoAttachmentPath, "video", uploadedDate);
 
             } else if (resultCode == Activity.RESULT_CANCELED) {
@@ -614,6 +615,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
 //        intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 5491520L);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+        intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
         startActivityForResult(intent, REQUEST_VIDEO_ATTACHMENT);
     }
 

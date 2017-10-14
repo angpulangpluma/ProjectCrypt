@@ -43,10 +43,14 @@ public class aes implements Serializable{
     private transient SecretKeySpec secretkey;
     private transient Cipher cipher;
 
-    public aes(){ }
+    public aes(){
+        this.setCipher();
+        this.setKey();
+    }
 
     public aes(SecretKeySpec key){
         this.secretkey = key;
+        this.setCipher();
     }
 
     public void setKey(){
@@ -63,7 +67,7 @@ public class aes implements Serializable{
 
     public void setCipher(){
         try {
-            cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
+            this.cipher = Cipher.getInstance("AES/OFM/PKCS5PADDING");
         }catch(Exception e){
             Log.e("error", e.toString());
         }

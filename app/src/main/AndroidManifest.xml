@@ -70,10 +70,9 @@
         <activity android:name=".activities.CaptureDocumentsActivity" />
         <activity android:name=".activities.RecordHpiActivity" />
         <activity android:name=".activities.SummaryActivity" />
-
         <service
             android:name=".cryptoGB.CryptoFileService"
-            android:exported="false" ></service>
+            android:exported="false" />
     </application>
 
 </manifest>
