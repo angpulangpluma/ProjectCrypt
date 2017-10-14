@@ -7,15 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.dlsu.getbetter.getbetter.R;
-import com.dlsu.getbetter.getbetter.activities.HealthCenterActivity;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
 
-import java.io.Serializable;
 import java.sql.SQLException;
 
 public class LoginActivity extends AppCompatActivity

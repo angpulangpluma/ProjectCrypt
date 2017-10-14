@@ -54,6 +54,10 @@ import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import static android.os.Environment.DIRECTORY_DOCUMENTS;
+import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.ACTION_ENC;
+import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_FILE;
+import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_HCID;
+import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_SERV;
 //import static com.dlsu.getbetter.getbetter.cryptoGB.BackProcessResponseReciever.ACTION_RESP;
 
 public class UpdatePatientRecordActivity extends AppCompatActivity implements View.OnClickListener,
@@ -83,7 +87,8 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
 
     private transient Uri fileUri;
 
-    private transient CryptoFileService cserv;
+//    private transient CryptoFileService cserv;
+    private boolean isCaptured;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +115,8 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         showDatePlaceholder();
         bindListeners(this);
 
-        cserv = new CryptoFileService();
+//        cserv = new CryptoFileService();
+        isCaptured = false;
     }
 
     private void bindViews(UpdatePatientRecordActivity activity) {
@@ -405,7 +411,8 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
             setPic(profileImage, fileUri.getPath());
             profilePicPath = fileUri.getPath();
 //            doSomethingCryptFile("enc", new File(profilePicPath));
-            cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1, (aes)data.getSerializableExtra("sys"));
+//            cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1, (aes)data.getSerializableExtra("sys"));
+            isCaptured = true;
             Log.d("profile img enc", "yes");
         }
     }
@@ -438,8 +445,18 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         fileUri = Uri.fromFile(img);
 
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-        intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//        intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
         startActivityForResult(intent, REQUEST_IMAGE1);
+
+        if (isCaptured){
+            Intent it = new Intent(this, CryptoFileService.class);
+            it.setAction(ACTION_ENC);
+            it.putExtra(CRYPTO_HCID, 1);
+            it.putExtra(CRYPTO_FILE, this.fileUri.getPath());
+            it.putExtra(CRYPTO_SERV, getIntent().getSerializableExtra("sys"));
+            this.startService(it);
+            isCaptured = false;
+        }
 
 
     }

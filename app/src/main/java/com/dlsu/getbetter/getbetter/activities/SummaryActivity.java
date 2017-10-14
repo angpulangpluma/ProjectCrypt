@@ -55,6 +55,11 @@ import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.ACTION_ENC;
+import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_FILE;
+import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_HCID;
+import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_SERV;
+
 // TODO: 06/12/2016 record audio function
 
 public class SummaryActivity extends AppCompatActivity implements View.OnClickListener, MediaController.MediaPlayerControl {
@@ -127,6 +132,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
     private int seconds, minutes, recordTime;
 
     private transient CryptoFileService cserv;
+    private boolean isCaptured;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -573,8 +579,19 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
 
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-        intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//        intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
         startActivityForResult(intent, REQUEST_IMAGE_ATTACHMENT);
+
+        Log.w("isCaptured", Boolean.toString(isCaptured));
+        if (isCaptured){
+            Intent it = new Intent(this, CryptoFileService.class);
+            it.setAction(ACTION_ENC);
+            it.putExtra(CRYPTO_HCID, 1);
+            it.putExtra(CRYPTO_FILE, this.fileUri.getPath());
+            it.putExtra(CRYPTO_SERV, getIntent().getSerializableExtra("sys"));
+            this.startService(it);
+            isCaptured = false;
+        }
     }
 
     @Override
@@ -584,7 +601,8 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
             if(resultCode == Activity.RESULT_OK) {
 
                 editAttachmentName(MEDIA_TYPE_IMAGE);
-                cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1, (aes)data.getSerializableExtra("sys"));
+                isCaptured = true;
+//                cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1, (aes)data.getSerializableExtra("sys"));
 
             } else if(resultCode == Activity.RESULT_CANCELED) {
 
@@ -596,7 +614,8 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
             if (resultCode == Activity.RESULT_OK) {
 
                 editAttachmentName(MEDIA_TYPE_VIDEO);
-                cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1, (aes)data.getSerializableExtra("sys"));
+                isCaptured = true;
+//                cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1, (aes)data.getSerializableExtra("sys"));
 //                addVideoAttachment(videoAttachmentPath, "video", uploadedDate);
 
             } else if (resultCode == Activity.RESULT_CANCELED) {
@@ -615,8 +634,20 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
 //        intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 5491520L);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-        intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//        intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
         startActivityForResult(intent, REQUEST_VIDEO_ATTACHMENT);
+
+        if (isCaptured){
+            Intent it = new Intent(this, CryptoFileService.class);
+            it.setAction(ACTION_ENC);
+            it.putExtra(CRYPTO_HCID, 1);
+            it.putExtra(CRYPTO_FILE, this.fileUri.getPath());
+            it.putExtra(CRYPTO_SERV, getIntent().getSerializableExtra("sys"));
+            this.startActivity(it);
+            isCaptured = false;
+        }
+
+
     }
 
     private void addPhotoAttachment (String path, String title, String uploadedOn) {

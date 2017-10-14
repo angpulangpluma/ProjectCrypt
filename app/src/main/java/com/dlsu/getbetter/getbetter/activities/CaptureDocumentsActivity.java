@@ -51,6 +51,10 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import static android.os.Environment.DIRECTORY_DOCUMENTS;
+import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.ACTION_ENC;
+import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_FILE;
+import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_HCID;
+import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_SERV;
 
 public class CaptureDocumentsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -93,7 +97,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
     private static final int REQUEST_CHIEF_COMPLAINT_IMAGE = 200;
     private static final int REQUEST_FAMILY_SOCIAL_IMAGE = 300;
 
-    private transient CryptoFileService cserv;
+//    private transient CryptoFileService cserv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +132,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
             this.socialFamilyActionButtons.setVisibility(View.VISIBLE);
         }
 
-        cserv = new CryptoFileService();
+//        cserv = new CryptoFileService();
 
     }
 
@@ -313,6 +317,8 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        Intent intent;
+
         if(resultCode == Activity.RESULT_OK) {
 
             switch (requestCode) {
@@ -322,8 +328,14 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
                     setPic(this.patientInfoImage, this.patientInfoImagePath);
                     this.patientInfoActionButtons.setVisibility(View.VISIBLE);
                     this.capturePatientInfo.setVisibility(View.GONE);
-                    cserv.cryptoAskEncrypt(this, this.patientInfoImagePath, 1, (aes)getIntent().getSerializableExtra("sys"));
+//                    cserv.cryptoAskEncrypt(this, this.patientInfoImagePath, 1, (aes)getIntent().getSerializableExtra("sys"));
 //                    doSomethingCryptFile("enc", new File(this.patientInfoImagePath));
+                    intent = new Intent(this, CryptoFileService.class);
+                    intent.setAction(ACTION_ENC);
+                    intent.putExtra(CRYPTO_HCID, 1);
+                    intent.putExtra(CRYPTO_FILE, this.patientInfoImagePath);
+                    intent.putExtra(CRYPTO_SERV, getIntent().getSerializableExtra("sys"));
+                    this.startService(intent);
                     Log.d("patientinfoimgenc", "yes");
                     break;
 
@@ -332,7 +344,12 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
                     setPic(this.chiefComplaintImage, this.chiefComplaintImagePath);
                     this.chiefComplaintActionButtons.setVisibility(View.VISIBLE);
                     this.captureChiefComplaint.setVisibility(View.GONE);
-                    cserv.cryptoAskEncrypt(this, this.chiefComplaintImagePath, 1, (aes)getIntent().getSerializableExtra("sys"));
+                    intent = new Intent(this, CryptoFileService.class);
+                    intent.setAction(ACTION_ENC);
+                    intent.putExtra(CRYPTO_HCID, 1);
+                    intent.putExtra(CRYPTO_FILE, this.chiefComplaintImagePath);
+                    intent.putExtra(CRYPTO_SERV, getIntent().getSerializableExtra("sys"));
+//                    cserv.cryptoAskEncrypt(this, this.chiefComplaintImagePath, 1, (aes)getIntent().getSerializableExtra("sys"));
 //                    doSomethingCryptFile("enc", new File(this.chiefComplaintImagePath));
                     Log.d("chiefcompimgenc", "yes");
                     break;
@@ -342,7 +359,12 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
                     setPic(this.familySocialImage, this.familySocialHistoryImagePath);
                     this.socialFamilyActionButtons.setVisibility(View.VISIBLE);
                     this.captureFamilySocial.setVisibility(View.GONE);
-                    cserv.cryptoAskEncrypt(this, this.familySocialHistoryImagePath, 1, (aes)getIntent().getSerializableExtra("sys"));
+                    intent = new Intent(this, CryptoFileService.class);
+                    intent.setAction(ACTION_ENC);
+                    intent.putExtra(CRYPTO_HCID, 1);
+                    intent.putExtra(CRYPTO_FILE, this.familySocialHistoryImagePath);
+                    intent.putExtra(CRYPTO_SERV, getIntent().getSerializableExtra("sys"));
+//                    cserv.cryptoAskEncrypt(this, this.familySocialHistoryImagePath, 1, (aes)getIntent().getSerializableExtra("sys"));
 //                    doSomethingCryptFile("enc", new File(this.familySocialHistoryImagePath));
                     Log.d("famhistimgenc", "yes");
                     break;

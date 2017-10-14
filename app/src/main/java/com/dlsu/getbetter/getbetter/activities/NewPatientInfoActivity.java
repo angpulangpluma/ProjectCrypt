@@ -46,6 +46,10 @@ import java.util.Locale;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.os.Environment.DIRECTORY_DOCUMENTS;
+import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.ACTION_ENC;
+import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_FILE;
+import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_HCID;
+import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_SERV;
 
 public class NewPatientInfoActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,
         View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -74,7 +78,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
 
     private static final String TAG = "debug";
 
-    private transient CryptoFileService cserv;
+//    private transient CryptoFileService cserv;
     private boolean isCaptured;
 
     @Override
@@ -99,7 +103,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
 
 //        Log.w("ks", Boolean.toString(((KeySetter)getIntent().getSerializableExtra("sys")).getCrypto()==null));
         Log.w("newpatact", Boolean.toString((aes)getIntent().getSerializableExtra("sys")!=null));
-        cserv = new CryptoFileService();
+//        cserv = new CryptoFileService();
         isCaptured = false;
         Log.w("iscapturedcheck", Boolean.toString(isCaptured));
     }
@@ -348,7 +352,13 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         Log.w("iscapturedcheck", Boolean.toString(isCaptured));
         if (isCaptured) {
 //            Log.w("iscapturedcheck", Boolean.toString(isCaptured));
-            cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1, (aes)getIntent().getSerializableExtra("sys"));
+//            cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1, (aes)getIntent().getSerializableExtra("sys"));
+            Intent it = new Intent(this, CryptoFileService.class);
+            it.setAction(ACTION_ENC);
+            it.putExtra(CRYPTO_HCID, 1);
+            it.putExtra(CRYPTO_FILE, this.fileUri.getPath());
+            it.putExtra(CRYPTO_SERV, getIntent().getSerializableExtra("sys"));
+            this.startActivity(it);
             isCaptured = false;
         }
 

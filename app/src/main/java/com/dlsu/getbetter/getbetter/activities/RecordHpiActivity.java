@@ -38,6 +38,10 @@ import java.util.Locale;
 import java.util.logging.Handler;
 
 import static android.os.Environment.DIRECTORY_DOCUMENTS;
+import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.ACTION_ENC;
+import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_FILE;
+import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_HCID;
+import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_SERV;
 
 public class RecordHpiActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -62,7 +66,8 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
 
     private transient android.os.Handler handler;
 
-    private transient CryptoFileService cserv;
+//    private transient CryptoFileService cserv;
+//    private boolean isCaptured;
 
     public RecordHpiActivity() {
         //empty constructor
@@ -103,7 +108,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
             initializeMediaRecorder();
         }
 
-        cserv = new CryptoFileService();
+//        cserv = new CryptoFileService();
     }
 
     private void bindViews (RecordHpiActivity activity) {
@@ -333,7 +338,13 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
     private void doSomethingCryptFile(String dec, File input){
 
         Log.d("service in", "yes");
-        cserv.cryptoAskEncrypt(this, input.getPath(), 1, (aes)getIntent().getSerializableExtra("sys"));
+        Intent it = new Intent(this, CryptoFileService.class);
+        it.setAction(ACTION_ENC);
+        it.putExtra(CRYPTO_HCID, 1);
+        it.putExtra(CRYPTO_FILE, input.getPath());
+        it.putExtra(CRYPTO_SERV, getIntent().getSerializableExtra("sys"));
+        this.startActivity(it);
+//        cserv.cryptoAskEncrypt(this, input.getPath(), 1, (aes)getIntent().getSerializableExtra("sys"));
 
 //        file_aes mastercry = new file_aes();
 //        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
