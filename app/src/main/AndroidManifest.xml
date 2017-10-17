@@ -62,17 +62,25 @@
         <activity
             android:name=".activities.DownloadContentActivity"
             android:screenOrientation="sensorLandscape" />
-        <activity android:name=".activities.ViewCaseRecordActivity" />
-        <activity android:name=".activities.ViewImageActivity" />
-        <activity android:name=".activities.HealthCenterActivity" />
-        <activity android:name=".activities.ViewPatientActivity" />
-        <activity android:name=".activities.NewPatientInfoActivity" />
-        <activity android:name=".activities.CaptureDocumentsActivity" />
-        <activity android:name=".activities.RecordHpiActivity" />
-        <activity android:name=".activities.SummaryActivity" />
+        <activity android:name=".activities.ViewCaseRecordActivity"
+            android:screenOrientation="sensorLandscape"/>
+        <activity android:name=".activities.ViewImageActivity"
+            android:screenOrientation="sensorLandscape"/>
+        <activity android:name=".activities.HealthCenterActivity"
+            android:screenOrientation="sensorLandscape"/>
+        <activity android:name=".activities.ViewPatientActivity"
+            android:screenOrientation="sensorLandscape"/>
+        <activity android:name=".activities.NewPatientInfoActivity"
+            android:screenOrientation="sensorLandscape"/>
+        <activity android:name=".activities.CaptureDocumentsActivity"
+            android:screenOrientation="sensorLandscape"/>
+        <activity android:name=".activities.RecordHpiActivity"
+            android:screenOrientation="sensorLandscape"/>
+        <activity android:name=".activities.SummaryActivity"
+            android:screenOrientation="sensorLandscape"/>
 
         <service
-            android:name=".cryptoGB.CryptoFileService"
+            android:name="com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService"
             android:exported="false" />
     </application>
 

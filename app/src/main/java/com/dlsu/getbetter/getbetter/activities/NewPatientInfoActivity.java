@@ -78,7 +78,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
 
     private static final String TAG = "debug";
 
-//    private transient CryptoFileService cserv;
+    private transient CryptoFileService cserv;
     private boolean isCaptured;
 
     @Override
@@ -103,7 +103,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
 
 //        Log.w("ks", Boolean.toString(((KeySetter)getIntent().getSerializableExtra("sys")).getCrypto()==null));
         Log.w("newpatact", Boolean.toString((aes)getIntent().getSerializableExtra("sys")!=null));
-//        cserv = new CryptoFileService();
+        cserv = new CryptoFileService();
         isCaptured = false;
         Log.w("iscapturedcheck", Boolean.toString(isCaptured));
     }
@@ -350,17 +350,17 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         startActivityForResult(intent, REQUEST_IMAGE1);
 
         Log.w("iscapturedcheck", Boolean.toString(isCaptured));
-        if (isCaptured) {
-//            Log.w("iscapturedcheck", Boolean.toString(isCaptured));
-//            cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1, (aes)getIntent().getSerializableExtra("sys"));
-            Intent it = new Intent(this, CryptoFileService.class);
-            it.setAction(ACTION_ENC);
-            it.putExtra(CRYPTO_HCID, 1);
-            it.putExtra(CRYPTO_FILE, this.fileUri.getPath());
-            it.putExtra(CRYPTO_SERV, getIntent().getSerializableExtra("sys"));
-            this.startActivity(it);
-            isCaptured = false;
-        }
+//        if (isCaptured) {
+////            Log.w("iscapturedcheck", Boolean.toString(isCaptured));
+////            cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1, (aes)getIntent().getSerializableExtra("sys"));
+//            Intent it = new Intent(this, CryptoFileService.class);
+//            it.setAction(ACTION_ENC);
+//            it.putExtra(CRYPTO_HCID, 1);
+//            it.putExtra(CRYPTO_FILE, this.fileUri.getPath());
+//            it.putExtra(CRYPTO_SERV, getIntent().getSerializableExtra("sys"));
+//            this.startActivity(it);
+//            isCaptured = false;
+//        }
 
     }
 
@@ -371,7 +371,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
             setPic(profileImage, fileUri.getPath());
             isCaptured = true;
 //            cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1, (aes)data.getSerializableExtra("sys"));
-//            doSomethingCryptFile("enc", new File(fileUri.getPath()));
+            doSomethingCryptFile("enc", new File(fileUri.getPath()));
             Log.d("patientinfoimgenc", "yes");
         }
     }
@@ -485,7 +485,10 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
 //        return buffer;
 //    }
 //
-//    private void doSomethingCryptFile(String dec, File input){
+    private void doSomethingCryptFile(String dec, File input){
+
+        Log.w("encrypt", "yes!");
+        cserv.cryptoAskEncrypt(this, input.getPath(), 1, (aes)getIntent().getSerializableExtra("sys"));
 //
 //        Log.d("service in", "yes");
 //
@@ -514,5 +517,5 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
 //            }; break;
 //        }
 ////
-//    }
+    }
 }

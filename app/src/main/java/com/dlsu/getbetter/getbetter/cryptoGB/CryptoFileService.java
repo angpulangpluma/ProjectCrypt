@@ -59,15 +59,15 @@ public class CryptoFileService extends IntentService{
      * @see IntentService
      */
     // TODO: Customize helper method
-//    public void cryptoAskEncrypt(Context context, String sel, int hcID, aes master) {
-//        Log.w("cryptoaskencrypt", "yes");
-//        Intent intent = new Intent(context, CryptoFileService.class);
-//        intent.setAction(ACTION_ENC);
-//        intent.putExtra(CRYPTO_HCID, hcID);
-//        intent.putExtra(CRYPTO_FILE, sel);
-//        intent.putExtra(CRYPTO_SERV, master);
-//        context.startService(intent);
-//    }
+    public void cryptoAskEncrypt(Context context, String sel, int hcID, aes master) {
+        Log.w("cryptoaskencrypt", "yes");
+        Intent intent = new Intent(context, CryptoFileService.class);
+        intent.setAction(ACTION_ENC);
+        intent.putExtra(CRYPTO_HCID, hcID);
+        intent.putExtra(CRYPTO_FILE, sel);
+        intent.putExtra(CRYPTO_SERV, master);
+        context.startService(intent);
+    }
 //
 //    /**
 //     * Starts this service to perform action Baz with the given parameters. If
@@ -94,7 +94,7 @@ public class CryptoFileService extends IntentService{
             File in = new File(Environment.getExternalStoragePublicDirectory(DirectoryConstants.CRYPTO_FOLDER),
                     src.getName());
             try{
-                in.createNewFile();
+//                in.createNewFile();
                 OutputStream os = new FileOutputStream(in);
                 os.write(read(src));
                 os.close();
