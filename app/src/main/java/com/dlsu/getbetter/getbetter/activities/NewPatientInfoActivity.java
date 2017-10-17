@@ -79,7 +79,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
     private static final String TAG = "debug";
 
     private transient CryptoFileService cserv;
-    private boolean isCaptured;
+//    private boolean isCaptured;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,8 +104,8 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
 //        Log.w("ks", Boolean.toString(((KeySetter)getIntent().getSerializableExtra("sys")).getCrypto()==null));
         Log.w("newpatact", Boolean.toString((aes)getIntent().getSerializableExtra("sys")!=null));
         cserv = new CryptoFileService();
-        isCaptured = false;
-        Log.w("iscapturedcheck", Boolean.toString(isCaptured));
+//        isCaptured = false;
+//        Log.w("iscapturedcheck", Boolean.toString(isCaptured));
     }
 
     private void bindViews(NewPatientInfoActivity activity) {
@@ -349,7 +349,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
 //        intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
         startActivityForResult(intent, REQUEST_IMAGE1);
 
-        Log.w("iscapturedcheck", Boolean.toString(isCaptured));
+//        Log.w("iscapturedcheck", Boolean.toString(isCaptured));
 //        if (isCaptured) {
 ////            Log.w("iscapturedcheck", Boolean.toString(isCaptured));
 ////            cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1, (aes)getIntent().getSerializableExtra("sys"));
@@ -369,7 +369,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
 
         if(requestCode == REQUEST_IMAGE1 && resultCode == Activity.RESULT_OK) {
             setPic(profileImage, fileUri.getPath());
-            isCaptured = true;
+//            isCaptured = true;
 //            cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1, (aes)data.getSerializableExtra("sys"));
             doSomethingCryptFile("enc", new File(fileUri.getPath()));
             Log.d("patientinfoimgenc", "yes");

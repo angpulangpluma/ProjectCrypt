@@ -79,8 +79,8 @@ public class CaptureDocumentsFragment extends Fragment implements View.OnClickLi
 
     private transient NewPatientSessionManager newPatientSessionManager;
 
-//    private transient CryptoFileService cserv;
-    private boolean isCaptured;
+    private transient CryptoFileService cserv;
+//    private boolean isCaptured;
 //    private transient Context context;
 
     public CaptureDocumentsFragment() {
@@ -92,8 +92,8 @@ public class CaptureDocumentsFragment extends Fragment implements View.OnClickLi
         super.onCreate(savedInstanceState);
 
         newPatientSessionManager = new NewPatientSessionManager(getActivity());
-//        cserv = new CryptoFileService();
-        isCaptured = false;
+        cserv = new CryptoFileService();
+//        isCaptured = false;
     }
 
 
@@ -172,7 +172,8 @@ public class CaptureDocumentsFragment extends Fragment implements View.OnClickLi
                 case REQUEST_IMAGE1:
 
                     setPic(captureBasicInfoBtn, patientInfoImagePath);
-                    isCaptured = true;
+                    doSomethingCryptFile("enc", new File(patientInfoImagePath));
+//                    isCaptured = true;
 //                    cserv.cryptoAskEncrypt(this.context, patientInfoImagePath, 1, (aes)data.getSerializableExtra("sys"));
 //                    Bitmap photo = BitmapFactory.decodeFile(data.getExtras().get("output").toString());
 //                    captureBasicInfoBtn.setImageBitmap(photo);
@@ -191,7 +192,8 @@ public class CaptureDocumentsFragment extends Fragment implements View.OnClickLi
                 case REQUEST_IMAGE2:
 
                     setPic(captureFamilyHistBtn, familySocialHistoryImagePath);
-                    isCaptured = true;
+                    doSomethingCryptFile("enc", new File(familySocialHistoryImagePath));
+//                    isCaptured = true;
 //                    cserv.cryptoAskEncrypt(this.context, familySocialHistoryImagePath, 1, (aes)data.getSerializableExtra("sys"));
 //                    Bitmap photo2 = (Bitmap)data.getExtras().get("data");
 //                    captureFamilyHistBtn.setImageBitmap(photo2);
@@ -210,7 +212,8 @@ public class CaptureDocumentsFragment extends Fragment implements View.OnClickLi
                 case REQUEST_IMAGE3:
 
                     setPic(captureChiefComplaintBtn, chiefComplaintImagePath);
-                    isCaptured = true;
+                    doSomethingCryptFile("enc", new File(chiefComplaintImagePath));
+//                    isCaptured = true;
 //                    cserv.cryptoAskEncrypt(this.context, patientInfoImagePath, 1, (aes)data.getSerializableExtra("sys"));
 //                    Bitmap photo3 = (Bitmap)data.getExtras().get("data");
 //                    captureChiefComplaintBtn.setImageBitmap(photo3);
@@ -227,6 +230,11 @@ public class CaptureDocumentsFragment extends Fragment implements View.OnClickLi
                     break;
             }
         }
+    }
+
+    private void doSomethingCryptFile(String sel, File input){
+        Log.w("service in", "yes!");
+        cserv.cryptoAskEncrypt(getContext(), input.getPath(), 1, (aes)getActivity().getIntent().getSerializableExtra("sys"));
     }
 
     @Override
@@ -336,15 +344,15 @@ public class CaptureDocumentsFragment extends Fragment implements View.OnClickLi
             startActivityForResult(intent, requestImage);
             Log.e("image path", imageFile.getAbsolutePath());
 
-            if (isCaptured){
-                Intent it = new Intent(getContext(), CryptoFileService.class);
-                it.setAction(ACTION_ENC);
-                it.putExtra(CRYPTO_HCID, 1);
-                it.putExtra(CRYPTO_FILE, imageFile.getPath());
-                it.putExtra(CRYPTO_SERV, getActivity().getIntent().getSerializableExtra("sys"));
-                getActivity().startService(it);
-                isCaptured = false;
-            }
+//            if (isCaptured){
+//                Intent it = new Intent(getContext(), CryptoFileService.class);
+//                it.setAction(ACTION_ENC);
+//                it.putExtra(CRYPTO_HCID, 1);
+//                it.putExtra(CRYPTO_FILE, imageFile.getPath());
+//                it.putExtra(CRYPTO_SERV, getActivity().getIntent().getSerializableExtra("sys"));
+//                getActivity().startService(it);
+//                isCaptured = false;
+//            }
         }
     }
 

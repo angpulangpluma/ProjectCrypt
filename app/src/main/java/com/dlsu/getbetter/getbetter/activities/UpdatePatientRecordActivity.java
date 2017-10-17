@@ -87,8 +87,8 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
 
     private transient Uri fileUri;
 
-//    private transient CryptoFileService cserv;
-    private boolean isCaptured;
+    private transient CryptoFileService cserv;
+//    private boolean isCaptured;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,8 +115,8 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         showDatePlaceholder();
         bindListeners(this);
 
-//        cserv = new CryptoFileService();
-        isCaptured = false;
+        cserv = new CryptoFileService();
+//        isCaptured = false;
     }
 
     private void bindViews(UpdatePatientRecordActivity activity) {
@@ -373,9 +373,10 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
 //        return buffer;
 //    }
 //
-//    private void doSomethingCryptFile(String dec, File input){
+    private void doSomethingCryptFile(String dec, File input){
 //
-//        Log.d("service in", "yes");
+        Log.d("service in", "yes");
+        cserv.cryptoAskEncrypt(this, input.getPath(), 1, (aes)getIntent().getSerializableExtra("sys"));
 //
 //        file_aes mastercry = new file_aes();
 //        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
@@ -402,7 +403,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
 //            }; break;
 //        }
 ////
-//    }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -410,9 +411,9 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         if(requestCode == REQUEST_IMAGE1 && resultCode == Activity.RESULT_OK) {
             setPic(profileImage, fileUri.getPath());
             profilePicPath = fileUri.getPath();
-//            doSomethingCryptFile("enc", new File(profilePicPath));
+            doSomethingCryptFile("enc", new File(profilePicPath));
 //            cserv.cryptoAskEncrypt(this, fileUri.getPath(), 1, (aes)data.getSerializableExtra("sys"));
-            isCaptured = true;
+//            isCaptured = true;
             Log.d("profile img enc", "yes");
         }
     }
@@ -448,15 +449,15 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
 //        intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
         startActivityForResult(intent, REQUEST_IMAGE1);
 
-        if (isCaptured){
-            Intent it = new Intent(this, CryptoFileService.class);
-            it.setAction(ACTION_ENC);
-            it.putExtra(CRYPTO_HCID, 1);
-            it.putExtra(CRYPTO_FILE, this.fileUri.getPath());
-            it.putExtra(CRYPTO_SERV, getIntent().getSerializableExtra("sys"));
-            this.startService(it);
-            isCaptured = false;
-        }
+//        if (isCaptured){
+//            Intent it = new Intent(this, CryptoFileService.class);
+//            it.setAction(ACTION_ENC);
+//            it.putExtra(CRYPTO_HCID, 1);
+//            it.putExtra(CRYPTO_FILE, this.fileUri.getPath());
+//            it.putExtra(CRYPTO_SERV, getIntent().getSerializableExtra("sys"));
+//            this.startService(it);
+//            isCaptured = false;
+//        }
 
 
     }
