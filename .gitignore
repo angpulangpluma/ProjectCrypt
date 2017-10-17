@@ -47,10 +47,10 @@ Temporary Items
 .apdisk
 
 #Directories within this folder
-.gradle
-.idea
-build
-gradle
+.gradle/
+.idea/
+build/
+gradle/
 gradlew
 gradlew.bat
 app/app.iml
