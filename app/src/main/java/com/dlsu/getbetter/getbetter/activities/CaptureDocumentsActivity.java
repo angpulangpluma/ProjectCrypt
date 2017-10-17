@@ -467,7 +467,10 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
     private void doSomethingCryptFile(String dec, File input){
 //
         Log.d("service in", "yes");
-        cserv.cryptoAskEncrypt(this, input.getPath(), 1, (aes)getIntent().getSerializableExtra("sys"));
+        switch(dec){
+            case "enc": cserv.cryptoAskEncrypt(this, input.getPath(), 1, (aes)getIntent().getSerializableExtra("sys")); break;
+            case "dec": cserv.cryptoAskDecrypt(this, input.getPath(), 1, (aes)getIntent().getSerializableExtra("sys")); break;
+        }
 //
 //        file_aes mastercry = new file_aes();
 //        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),

@@ -486,9 +486,12 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
 //    }
 //
     private void doSomethingCryptFile(String dec, File input){
-
-        Log.w("encrypt", "yes!");
-        cserv.cryptoAskEncrypt(this, input.getPath(), 1, (aes)getIntent().getSerializableExtra("sys"));
+//
+        Log.d("service in", "yes");
+        switch(dec){
+            case "enc": cserv.cryptoAskEncrypt(this, input.getPath(), 1, (aes)getIntent().getSerializableExtra("sys")); break;
+            case "dec": cserv.cryptoAskDecrypt(this, input.getPath(), 1, (aes)getIntent().getSerializableExtra("sys")); break;
+        }
 //
 //        Log.d("service in", "yes");
 //
