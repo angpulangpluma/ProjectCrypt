@@ -4,7 +4,9 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.content.Context;
 import android.icu.util.Output;
+import android.os.Bundle;
 import android.os.Environment;
+import android.os.ResultReceiver;
 import android.util.Log;
 
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
@@ -31,13 +33,19 @@ import static android.os.Environment.DIRECTORY_DOCUMENTS;
 public class CryptoFileService extends IntentService{
     // TODO: Rename actions, choose action names that describe tasks that this
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
-    public static final String ACTION_ENC = "com.dlsu.getbetter.getbetter.cryptoGB.action.ENC";
-    public static final String ACTION_DEC = "com.dlsu.getbetter.getbetter.cryptoGB.action.DEC";
+    private static final String ACTION_ENC = "com.dlsu.getbetter.getbetter.cryptoGB.action.ENC";
+    private static final String ACTION_DEC = "com.dlsu.getbetter.getbetter.cryptoGB.action.DEC";
 
     // TODO: Rename parameters
-    public static final String CRYPTO_FILE = "com.dlsu.getbetter.getbetter.cryptoGB.extra.FILE";
-    public static final String CRYPTO_HCID = "com.dlsu.getbetter.getbetter.cryptoGB.extra.HCID";
-    public static final String CRYPTO_SERV = "com.dlsu.getbetter.getbetter.cryptoGB.extra.SERV";
+    private static final String CRYPTO_FILE = "com.dlsu.getbetter.getbetter.cryptoGB.extra.FILE";
+    private static final String CRYPTO_HCID = "com.dlsu.getbetter.getbetter.cryptoGB.extra.HCID";
+    private static final String CRYPTO_SERV = "com.dlsu.getbetter.getbetter.cryptoGB.extra.SERV";
+
+    public static final int STATUS_RUNNING = 0;
+    public static final int STATUS_FINISHED = 1;
+    public static final int STATUS_ERROR = 2;
+
+    private static final String TAG = "CryptoFileService";
 
 //    private transient aes master;
 
@@ -57,6 +65,7 @@ public class CryptoFileService extends IntentService{
      * the service is already performing a task this action will be queued.
      *
      * @see IntentService
+     * TODO: send encrypted file back
      */
     public void cryptoAskEncrypt(Context context, String sel, int hcID, aes master) {
         Log.w("cryptoaskencrypt", "yes");
@@ -83,37 +92,57 @@ public class CryptoFileService extends IntentService{
         context.startService(intent);
     }
 
+    //TODO: send file name back, how to do this though?
     @Override
     protected void onHandleIntent(Intent intent) {
+
         Log.w("cryptofilehandleintent", "yes");
-        if (intent != null) {
-            final String action = intent.getAction();
-            File src = new File(intent.getStringExtra(CRYPTO_FILE));
-            File in = new File(Environment.getExternalStoragePublicDirectory(DirectoryConstants.CRYPTO_FOLDER),
-                    src.getName());
-            try{
+//        if (intent != null) {
+        final ResultReceiver receiver = intent.getParcelableExtra("receiver");
+        Bundle bund = new Bundle();
+
+        final String action = intent.getAction();
+        File src = new File(intent.getStringExtra(CRYPTO_FILE));
+        File in = new File(Environment.getExternalStoragePublicDirectory(DirectoryConstants.CRYPTO_FOLDER),
+                src.getName());
+        try{
 //                in.createNewFile();
-                OutputStream os = new FileOutputStream(in);
-                os.write(read(src));
-                os.close();
-            } catch (Exception e){
-                e.printStackTrace();
-            }
+            OutputStream os = new FileOutputStream(in);
+            os.write(read(src));
+            os.close();
 
             if (ACTION_ENC.equals(action)) {
-                this.handleFileEncryption(in, (aes)intent.getSerializableExtra(CRYPTO_SERV));
+                this.handleFileEncryption(in,
+                        (aes)intent.getSerializableExtra(CRYPTO_SERV),
+                        intent);
             } else if (ACTION_DEC.equals(action)) {
-                this.handleFileDecryption(in, (aes)intent.getSerializableExtra(CRYPTO_SERV));
+                this.handleFileDecryption(in,
+                        (aes)intent.getSerializableExtra(CRYPTO_SERV),
+                        intent);
             }
+
+        } catch (Exception e){
+//            e.printStackTrace();
+            bund.putString(Intent.EXTRA_TEXT, e.toString());
+            receiver.send(STATUS_ERROR, bund);
         }
+        //TODO: when to put receiver.send(STATUS_RUNNING, Bundle.EMPTY);
+        //TODO: when to put receiver.send(STATUS_FINISHED, bundle);
+
+
+//        }
     }
 
-    protected void handleFileEncryption(File sel, aes m){
+    //TODO: return file path
+    protected void handleFileEncryption(File sel, aes m, Intent i) throws Exception{
+        final ResultReceiver receiver = i.getParcelableExtra("receiver");
+        Bundle bund = new Bundle();
+
     Log.w("file enc serv", "yes");
         file_aes mastercry = new file_aes(m);
         File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
                 DirectoryConstants.CRYPTO_FOLDER);
-        path.mkdirs();
+//        path.mkdirs();
         File output = new File(path.getPath() +"/" + sel.getName());
         Log.d("output", output.getAbsolutePath());
         try {
@@ -126,14 +155,19 @@ public class CryptoFileService extends IntentService{
         }
         mastercry.encryptFile(output);
         Log.w("enc", "done");
+        bund.putString("result", output.getPath());
+        receiver.send(STATUS_FINISHED, bund);
     }
 
-    private void handleFileDecryption(File sel, aes m){
+    //TODO: return file path
+    private void handleFileDecryption(File sel, aes m, Intent i) throws Exception{
+        final ResultReceiver receiver = i.getParcelableExtra("receiver");
+        Bundle bund = new Bundle();
 
         file_aes mastercry = new file_aes(m);
         File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
                 DirectoryConstants.CRYPTO_FOLDER);
-        path.mkdirs();
+//        path.mkdirs();
         File output = new File(path.getPath() +"/" + sel.getName());
         Log.d("output", output.getAbsolutePath());
         try {
@@ -146,6 +180,8 @@ public class CryptoFileService extends IntentService{
         }
         mastercry.decryptFile(output);
         Log.w("dec", "done");
+        bund.putString("result", output.getPath());
+        receiver.send(STATUS_FINISHED, bund);
     }
 
     private static byte[] read(File file) throws IOException {

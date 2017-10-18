@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
+import com.dlsu.getbetter.getbetter.cryptoGB.CryptoServiceReciever;
 import com.dlsu.getbetter.getbetter.cryptoGB.KeySetter;
 import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
@@ -51,8 +52,10 @@ import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_FIL
 import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_HCID;
 import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_SERV;
 
+//TODO: update cryptofileservice stuff
 public class NewPatientInfoActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,
-        View.OnClickListener, AdapterView.OnItemSelectedListener {
+        View.OnClickListener, AdapterView.OnItemSelectedListener,
+        CryptoServiceReciever.Receiver {
 
     private transient CircleImageView profileImage;
     private transient TextInputEditText firstNameInput;
@@ -193,12 +196,21 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         Log.d(TAG, "savePatientInfo: " + genderSelected);
         Log.d(TAG, "savePatientInfo: " + civilStatusSelected);
 
+        //TODO: save encrypted patient picture
         long patientId = getBetterDb.insertPatientInfo(firstName, middleName, lastName, birthDate,
                 genderSelected, civilStatusSelected, bloodTypeSelected, fileUri.getPath(), healthCenterId);
 
         getBetterDb.closeDatabase();
 
         return patientId;
+    }
+
+    //TODO: finish this method
+    @Override
+    public void onReceiveResult(int resultCode, Bundle resultData) {
+        switch(resultCode){
+
+        }
     }
 
     private class InsertPatientTask extends AsyncTask<String, Void, Long> {
@@ -485,13 +497,15 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
 //        return buffer;
 //    }
 //
-    private void doSomethingCryptFile(String dec, File input){
+    private String doSomethingCryptFile(String dec, File input){
 //
+        String result = "";
         Log.d("service in", "yes");
         switch(dec){
             case "enc": cserv.cryptoAskEncrypt(this, input.getPath(), 1, (aes)getIntent().getSerializableExtra("sys")); break;
             case "dec": cserv.cryptoAskDecrypt(this, input.getPath(), 1, (aes)getIntent().getSerializableExtra("sys")); break;
         }
+        return result;
 //
 //        Log.d("service in", "yes");
 //

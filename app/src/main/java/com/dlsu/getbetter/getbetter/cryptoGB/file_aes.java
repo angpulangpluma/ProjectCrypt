@@ -24,14 +24,14 @@ public class file_aes{
     private transient aes filealgo;
 //    private Cipher ciph;
 
-    public file_aes(){
+    public file_aes() throws Exception{
         this.filealgo = new aes();
         this.filealgo.setKey();
         this.filealgo.setCipher();
 //        ciph = filealgo.getCipher();
     }
 
-    public file_aes(aes enc){
+    public file_aes(aes enc) throws Exception{
         Log.w("file_aes init", Boolean.toString(enc!=null));
         this.filealgo = enc;
         this.filealgo.setCipher();
@@ -42,11 +42,11 @@ public class file_aes{
         return filealgo;
     }
 
-    public void encryptFile(File file){
+    public void encryptFile(File file) throws Exception{
         File encrypted = new File(file.getPath() + "_encrypted."+returnFileExt(file));
         Cipher cp = filealgo.getCipher();
         SecretKeySpec k = filealgo.getKey();
-        try{
+//        try{
             FileInputStream in = new FileInputStream(file);
             cp.init(Cipher.ENCRYPT_MODE, k);
             CipherOutputStream os = new CipherOutputStream(new FileOutputStream(encrypted),
@@ -54,16 +54,16 @@ public class file_aes{
             copy(in, os);
             in.close();
             os.close();
-        } catch(Exception ex){
-            ex.printStackTrace();
-        }
+//        } catch(Exception ex){
+//            ex.printStackTrace();
+//        }
     }
 
-    public void decryptFile(File file){
+    public void decryptFile(File file) throws Exception{
         File decrypted = new File(file.getPath() + "//" + returnFileName(file)+"_decrypted."+returnFileExt(file));
         Cipher cp = filealgo.getCipher();
         SecretKeySpec k = filealgo.getKey();
-        try{
+//        try{
             FileOutputStream os = new FileOutputStream(decrypted);
             cp.init(Cipher.DECRYPT_MODE, k);
             CipherInputStream is = new CipherInputStream(new FileInputStream(file),
@@ -71,9 +71,9 @@ public class file_aes{
             copy(is, os);
             is.close();
             os.close();
-        } catch(Exception ex){
-            ex.printStackTrace();
-        }
+//        } catch(Exception ex){
+//            ex.printStackTrace();
+//        }
 
     }
 

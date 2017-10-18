@@ -46,13 +46,14 @@ public class KeySetter{
 
     public void init(){
         Log.w("key setter", "init start");
-        aes master = new aes();
+        aes master = null;
         File out = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
                 "tpyrc");
         DataAdapter gbDatabase = null;
         PrintWriter on = null;
 
         try {
+            master = new aes();
             on = new PrintWriter(out);
             gbDatabase = new DataAdapter(dCtxt);
             gbDatabase.createDatabase();
@@ -64,12 +65,12 @@ public class KeySetter{
 
         ArrayList<HealthCenter> hcs = new ArrayList<HealthCenter>();
         hcs.addAll(gbDatabase.getHealthCenters());
-        for (HealthCenter hc : hcs){
-            master.setKey();
-            on.println(hc.getHealthCenterId() + " " + master.getKey().getEncoded());
-        }
 
         try {
+            for (HealthCenter hc : hcs){
+                master.setKey();
+                on.println(hc.getHealthCenterId() + " " + master.getKey().getEncoded());
+            }
             on.close();
             Log.w("key setter", "finished");
         } catch(Exception e) { e.printStackTrace(); }
@@ -119,8 +120,12 @@ public class KeySetter{
     }
 
     public void cryptoInit(String key){
-        mscrypto = new aes(new SecretKeySpec(key.getBytes(), 0, key.length(), "AES"));
-        mscrypto.setCipher();
+        try {
+            mscrypto = new aes(new SecretKeySpec(key.getBytes(), 0, key.length(), "AES"));
+            mscrypto.setCipher();
+        } catch(Exception e){
+            Log.e("keysetter-cryptoinit", e.toString());
+        }
     }
 
     public aes getCrypto(){ return mscrypto; }

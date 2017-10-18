@@ -43,34 +43,30 @@ public class aes implements Serializable{
     private transient SecretKeySpec secretkey;
     private transient Cipher cipher;
 
-    public aes(){
+    public aes() throws Exception{
         this.setCipher();
         this.setKey();
     }
 
-    public aes(SecretKeySpec key){
+    public aes(SecretKeySpec key) throws Exception{
         this.secretkey = key;
         this.setCipher();
     }
 
-    public void setKey(){
-        try{
-            KeyGenerator kgen = KeyGenerator.getInstance("AES");
-            kgen.init(AES_Key_Size);
-            SecretKey aeskey = kgen.generateKey();
-            key = aeskey.getEncoded();
-            secretkey = new SecretKeySpec(key, "AES");
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+    public void setKey() throws Exception{
+        KeyGenerator kgen = KeyGenerator.getInstance("AES");
+        kgen.init(AES_Key_Size);
+        SecretKey aeskey = kgen.generateKey();
+        key = aeskey.getEncoded();
+        secretkey = new SecretKeySpec(key, "AES");
     }
 
-    public void setCipher(){
-        try {
+    public void setCipher() throws Exception{
+//        try {
             this.cipher = Cipher.getInstance("AES/OFM/PKCS5PADDING");
-        }catch(Exception e){
-            Log.e("error", e.toString());
-        }
+//        }catch(Exception e){
+//            Log.e("error", e.toString());
+//        }
     }
 
     public Cipher getCipher(){
