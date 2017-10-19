@@ -44,7 +44,7 @@ import java.util.Locale;
  * A simple {@link Fragment} subclass.
  */
 public class CaptureDocumentsFragment extends Fragment
-        implements View.OnClickListener, CryptoServiceReciever.Receiver {
+        implements View.OnClickListener, CryptoServiceReciever.ResultReceiver {
 
     private transient ImageView captureBasicInfoBtn;
     private transient ImageView captureFamilyHistBtn;

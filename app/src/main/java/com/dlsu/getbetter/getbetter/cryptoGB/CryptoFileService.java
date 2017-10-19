@@ -71,12 +71,12 @@ public class CryptoFileService extends IntentService{
     public void cryptoAskEncrypt(Context context, String sel, int hcID, aes master, CryptoServiceReciever receiver) {
         Log.w("cryptoaskencrypt", "yes");
 //        Intent intent = new Intent(context, CryptoFileService.class);
-        Intent intent = new Intent(Intent.ACTION_SYNC, null, this, CryptoFileService.class);
+        Intent intent = new Intent(Intent.ACTION_SYNC, null, context, CryptoFileService.class);
         intent.setAction(ACTION_ENC);
         intent.putExtra(CRYPTO_HCID, hcID);
         intent.putExtra(CRYPTO_FILE, sel);
         intent.putExtra(CRYPTO_SERV, master);
-        intent.putExtra(CRYPTO_RECV, receiver);
+        intent.putExtra(CryptoServiceReciever.RESULT_RECEIEVER_EXTRA, receiver);
         context.startService(intent);
     }
 
@@ -88,22 +88,21 @@ public class CryptoFileService extends IntentService{
      */
     public void cryptoAskDecrypt(Context context, String sel, int hcID, aes master, CryptoServiceReciever receiver) {
 //        Intent intent = new Intent(context, CryptoFileService.class);
-        Intent intent = new Intent(Intent.ACTION_SYNC, null, this, CryptoFileService.class);
+        Intent intent = new Intent(Intent.ACTION_SYNC, null, context, CryptoFileService.class);
         intent.setAction(ACTION_DEC);
         intent.putExtra(CRYPTO_HCID, hcID);
         intent.putExtra(CRYPTO_FILE, sel);
         intent.putExtra(CRYPTO_SERV, master);
-        intent.putExtra(CRYPTO_RECV, receiver);
+        intent.putExtra(CryptoServiceReciever.RESULT_RECEIEVER_EXTRA, receiver);
         context.startService(intent);
     }
 
-    //TODO: send file name back, how to do this though?
     @Override
     protected void onHandleIntent(Intent intent) {
 
         Log.w("cryptofilehandleintent", "yes");
 //        if (intent != null) {
-        final ResultReceiver receiver = intent.getParcelableExtra(CRYPTO_RECV);
+        final android.support.v4.os.ResultReceiver receiver = intent.getParcelableExtra(CryptoServiceReciever.RESULT_RECEIEVER_EXTRA);
         Bundle bund = new Bundle();
 
         final String action = intent.getAction();
@@ -138,7 +137,7 @@ public class CryptoFileService extends IntentService{
     }
 
     protected void handleFileEncryption(File sel, aes m, Intent i){
-        final ResultReceiver receiver = i.getParcelableExtra(CRYPTO_RECV);
+        final android.support.v4.os.ResultReceiver receiver = i.getParcelableExtra(CryptoServiceReciever.RESULT_RECEIEVER_EXTRA);
         Bundle bund = new Bundle();
 //        boolean result = false;
 
@@ -169,7 +168,7 @@ public class CryptoFileService extends IntentService{
     }
 
     private void handleFileDecryption(File sel, aes m, Intent i){
-        final ResultReceiver receiver = i.getParcelableExtra(CRYPTO_RECV);
+        final android.support.v4.os.ResultReceiver receiver = i.getParcelableExtra(CryptoServiceReciever.RESULT_RECEIEVER_EXTRA);
         Bundle bund = new Bundle();
 
         file_aes mastercry;

@@ -17,21 +17,24 @@ public class CryptoServiceReciever extends ResultReceiver {
      * @param handler
      */
 
-    private Receiver mRec;
+    private ResultReceiver mRec;
+
+    public static final String RESULT_RECEIEVER_EXTRA = "reciever";
+
     public CryptoServiceReciever(Handler handler) {
         super(handler);
     }
 
-    public void setReceiver(Receiver receiver){
+    public void setReceiver(ResultReceiver receiver){
         mRec = receiver;
     }
 
-    public interface Receiver{
+    public interface ResultReceiver{
         public void onReceiveResult(int resultCode, Bundle resultData);
     }
 
     @Override
     protected void onReceiveResult(int resultCode, Bundle resultData){
-        if(mRec!=null) mRec.onReceiveResult(resultCode, resultData);
+        if(mRec!=null) super.onReceiveResult(resultCode, resultData);
     }
 }

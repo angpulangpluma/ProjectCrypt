@@ -54,7 +54,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class CaptureDocumentsActivity extends AppCompatActivity
-        implements View.OnClickListener, CryptoServiceReciever.Receiver {
+        implements View.OnClickListener, CryptoServiceReciever.ResultReceiver {
 
     private transient CaptureDocumentsActivity captureDocumentsActivity;
     private static final String TAG = "Capture";

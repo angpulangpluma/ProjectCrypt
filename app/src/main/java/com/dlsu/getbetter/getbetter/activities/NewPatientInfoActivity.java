@@ -52,7 +52,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 //TODO: update cryptofileservice stuff
 public class NewPatientInfoActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,
         View.OnClickListener, AdapterView.OnItemSelectedListener,
-        CryptoServiceReciever.Receiver {
+        CryptoServiceReciever.ResultReceiver {
 
     private transient CircleImageView profileImage;
     private transient TextInputEditText firstNameInput;
