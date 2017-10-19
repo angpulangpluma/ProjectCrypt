@@ -32,7 +32,7 @@ public class file_aes{
     }
 
     public file_aes(aes enc) throws Exception{
-        Log.w("file_aes init", Boolean.toString(enc!=null));
+        Log.w("aes init", Boolean.toString(enc!=null));
         this.filealgo = enc;
         this.filealgo.setCipher();
 //        this.ciph = filealgo.getCipher();

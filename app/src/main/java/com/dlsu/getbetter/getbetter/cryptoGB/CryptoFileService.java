@@ -115,32 +115,32 @@ public class CryptoFileService extends IntentService{
         final String action = intent.getAction();
         File src = new File(intent.getStringExtra(CRYPTO_FILE));
         Log.w("input file size", Long.toString(src.length()));
-        File in = new File(Environment.getExternalStoragePublicDirectory(DirectoryConstants.CRYPTO_FOLDER),
-                src.getName());
-        try{
-            if(in.createNewFile()) {
-                receiver.send(STATUS_RUNNING, Bundle.EMPTY);
-                FileOutputStream os = new FileOutputStream(in);
-                os.write(read(src));
-                os.close();
-                Log.w("input file size", Long.toString(in.length()));
-                Log.w("input file loc", in.getPath());
-            } else throw new Exception("cannot create new file for storing");
-
-        } catch (Exception e){
-//            e.printStackTrace();
-            bund.putString(Intent.EXTRA_TEXT, e.toString());
-            receiver.send(STATUS_ERROR, bund);
-        }
+//        File in = new File(Environment.getExternalStoragePublicDirectory(DirectoryConstants.CRYPTO_FOLDER),
+//                src.getName());
+//        try{
+//            if(in.createNewFile()) {
+//                receiver.send(STATUS_RUNNING, Bundle.EMPTY);
+//                FileOutputStream os = new FileOutputStream(in);
+//                os.write(read(src));
+//                os.close();
+//                Log.w("input file size", Long.toString(in.length()));
+//                Log.w("input file loc", in.getPath());
+//            } else throw new Exception("cannot create new file for storing");
+//
+//        } catch (Exception e){
+////            e.printStackTrace();
+//            bund.putString(Intent.EXTRA_TEXT, e.toString());
+//            receiver.send(STATUS_ERROR, bund);
+//        }
 
         if (ACTION_ENC.equals(action)) {
             receiver.send(STATUS_RUNNING, Bundle.EMPTY);
-            this.handleFileEncryption(in,
+            this.handleFileEncryption(src,
                     (aes)intent.getSerializableExtra(CRYPTO_SERV),
                     intent);
         } else if (ACTION_DEC.equals(action)) {
             receiver.send(STATUS_RUNNING, Bundle.EMPTY);
-            this.handleFileDecryption(in,
+            this.handleFileDecryption(src,
                     (aes)intent.getSerializableExtra(CRYPTO_SERV),
                     intent);
         }
@@ -163,23 +163,47 @@ public class CryptoFileService extends IntentService{
 //        File output = new File(path.getPath() +"/" + sel.getName());
 //        Log.d("output", output.getAbsolutePath());
         Log.w("sel file size", Long.toString(sel.length()));
-        try {
-            receiver.send(STATUS_RUNNING, Bundle.EMPTY);
-            mastercry = new file_aes(m);
-            mastercry.encryptFile(sel);
-            handleFileDecryption(sel, m, i);
-        } catch(Exception e){
-            Log.e("error", e.toString());
-            bund.putString("result", null);
+//        final String action = intent.getAction();
+//        File src = new File(intent.getStringExtra(CRYPTO_FILE));
+//        Log.w("input file size", Long.toString(src.length()));
+        File in = new File(Environment.getExternalStoragePublicDirectory(DirectoryConstants.CRYPTO_FOLDER),
+                sel.getName());
+        try{
+            if(in.createNewFile()) {
+                receiver.send(STATUS_RUNNING, Bundle.EMPTY);
+                FileOutputStream os = new FileOutputStream(in);
+                os.write(read(sel));
+                os.close();
+                Log.w("input file size", Long.toString(in.length()));
+                Log.w("input file loc", in.getPath());
+                receiver.send(STATUS_RUNNING, Bundle.EMPTY);
+                mastercry = new file_aes(m);
+                mastercry.encryptFile(in);
+                handleFileDecryption(in, m, i);
+            } else throw new Exception("cannot create new file for storing");
+
+        } catch (Exception e){
+//            e.printStackTrace();
             bund.putString(Intent.EXTRA_TEXT, e.toString());
             receiver.send(STATUS_ERROR, bund);
-            CRYPTO_RSLT = null;
         }
+//        try {
+//            receiver.send(STATUS_RUNNING, Bundle.EMPTY);
+//            mastercry = new file_aes(m);
+//            mastercry.encryptFile(sel);
+//            handleFileDecryption(sel, m, i);
+//        } catch(Exception e){
+//            Log.e("error", e.toString());
+//            bund.putString("result", null);
+//            bund.putString(Intent.EXTRA_TEXT, e.toString());
+//            receiver.send(STATUS_ERROR, bund);
+//            CRYPTO_RSLT = null;
+//        }
         Log.w("enc", "done");
-        bund.putString("result", sel.getPath());
+        bund.putString("result", in.getPath());
         receiver.send(STATUS_FINISHED, bund);
-        CRYPTO_RSLT = sel.getPath();
-        Log.w("result", sel.getPath());
+        CRYPTO_RSLT = in.getPath();
+        Log.w("result", in.getPath());
     }
 
     private void handleFileDecryption(File sel, aes m, Intent i){
@@ -190,35 +214,30 @@ public class CryptoFileService extends IntentService{
 
         file_aes mastercry;
         Log.w("sel file size", Long.toString(sel.length()));
-        try {
-            receiver.send(STATUS_RUNNING, Bundle.EMPTY);
-            mastercry = new file_aes(m);
-            mastercry.decryptFile(sel);
-        } catch(Exception e){
-            Log.e("error", e.toString());
-            bund.putString("result", null);
+        File in = new File(Environment.getExternalStoragePublicDirectory(DirectoryConstants.CRYPTO_TEST),
+                sel.getName());
+        try{
+            if(in.createNewFile()) {
+                receiver.send(STATUS_RUNNING, Bundle.EMPTY);
+                FileOutputStream os = new FileOutputStream(in);
+                os.write(read(sel));
+                os.close();
+                Log.w("input file size", Long.toString(in.length()));
+                Log.w("input file loc", in.getPath());
+                receiver.send(STATUS_RUNNING, Bundle.EMPTY);
+                mastercry = new file_aes(m);
+                mastercry.decryptFile(in);
+            } else throw new Exception("cannot create new file for storing");
+
+        } catch (Exception e){
+//            e.printStackTrace();
             bund.putString(Intent.EXTRA_TEXT, e.toString());
             receiver.send(STATUS_ERROR, bund);
-            CRYPTO_RSLT = null;
         }
-        Log.w("enc", "done");
-        bund.putString("result", sel.getPath());
-        receiver.send(STATUS_FINISHED, bund);
-        CRYPTO_RSLT = sel.getPath();
-        Log.w("result", sel.getPath());
-//        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
-//                DirectoryConstants.CRYPTO_TEST);
-////        path.mkdirs();
-//        File output = new File(path.getPath() +"/" + sel.getName());
-//        Log.d("output", output.getAbsolutePath());
 //        try {
 //            receiver.send(STATUS_RUNNING, Bundle.EMPTY);
-////            FileOutputStream fos = new FileOutputStream(output);
-////            fos.write(read(sel));
-////            fos.flush();
-////            fos.close();
 //            mastercry = new file_aes(m);
-//            mastercry.decryptFile(output);
+//            mastercry.decryptFile(sel);
 //        } catch(Exception e){
 //            Log.e("error", e.toString());
 //            bund.putString("result", null);
@@ -226,11 +245,11 @@ public class CryptoFileService extends IntentService{
 //            receiver.send(STATUS_ERROR, bund);
 //            CRYPTO_RSLT = null;
 //        }
-//        Log.w("enc", "done");
-//        bund.putString("result", output.getPath());
-//        receiver.send(STATUS_FINISHED, bund);
-//        CRYPTO_RSLT = output.getPath();
-//        Log.w("result", output.getPath());
+        Log.w("enc", "done");
+        bund.putString("result", in.getPath());
+        receiver.send(STATUS_FINISHED, bund);
+        CRYPTO_RSLT = in.getPath();
+        Log.w("result", in.getPath());
     }
 
     private static byte[] read(File file) throws IOException {
