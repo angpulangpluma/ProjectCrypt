@@ -43,34 +43,50 @@ public class file_aes{
     }
 
     public void encryptFile(File file) throws Exception{
-        File encrypted = new File(file.getPath() + "_encrypted."+returnFileExt(file));
+//        File encrypted = new File(file.getPath() + "_encrypted."+returnFileExt(file));
         Cipher cp = filealgo.getCipher();
         SecretKeySpec k = filealgo.getKey();
 //        try{
             FileInputStream in = new FileInputStream(file);
             cp.init(Cipher.ENCRYPT_MODE, k);
-            CipherOutputStream os = new CipherOutputStream(new FileOutputStream(encrypted),
-                    cp);
-            copy(in, os);
+            byte[] inputBytes = new byte[(int)file.length()];
+            in.read(inputBytes);
             in.close();
-            os.close();
+
+            byte[] outputBytes = cp.doFinal(inputBytes);
+            FileOutputStream outputStream = new FileOutputStream(file);
+            outputStream.write(outputBytes);
+            outputStream.close();
+//            CipherOutputStream os = new CipherOutputStream(new FileOutputStream(encrypted), cp);
+////            copy(in, os);
+//            in.close();
+//            os.close();
 //        } catch(Exception ex){
 //            ex.printStackTrace();
 //        }
     }
 
     public void decryptFile(File file) throws Exception{
-        File decrypted = new File(file.getPath() + "//" + returnFileName(file)+"_decrypted."+returnFileExt(file));
+//        File decrypted = new File(file.getPath() + "//" + returnFileName(file)+"_decrypted."+returnFileExt(file));
         Cipher cp = filealgo.getCipher();
         SecretKeySpec k = filealgo.getKey();
 //        try{
-            FileOutputStream os = new FileOutputStream(decrypted);
-            cp.init(Cipher.DECRYPT_MODE, k);
-            CipherInputStream is = new CipherInputStream(new FileInputStream(file),
-                    cp);
-            copy(is, os);
-            is.close();
-            os.close();
+//            FileOutputStream os = new FileOutputStream(decrypted);
+        FileInputStream in = new FileInputStream(file);
+        cp.init(Cipher.DECRYPT_MODE, k);
+        byte[] inputBytes = new byte[(int)file.length()];
+        in.read(inputBytes);
+        in.close();
+
+        byte[] outputBytes = cp.doFinal(inputBytes);
+        FileOutputStream outputStream = new FileOutputStream(file);
+        outputStream.write(outputBytes);
+        outputStream.close();
+//            CipherInputStream is = new CipherInputStream(new FileInputStream(file),
+//                    cp);
+//            copy(is, os);
+//            is.close();
+//            os.close();
 //        } catch(Exception ex){
 //            ex.printStackTrace();
 //        }
@@ -93,19 +109,19 @@ public class file_aes{
         return filename;
     }
 
-    /*
-    Implementation for copy() from www.macs.hw.ac.uk/~ml355/lore/FileEncryption.java
-    */
-    private void copy(InputStream is, OutputStream os){
-        int i;
-        byte[] b = new byte[1024];
-        try{
-            while((i=is.read(b))!=-1) {
-                os.write(b, 0, i);
-            }
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-    }
+//    /*
+//    Implementation for copy() from www.macs.hw.ac.uk/~ml355/lore/FileEncryption.java
+//    */
+//    private void copy(InputStream is, OutputStream os){
+//        int i;
+//        byte[] b = new byte[1024];
+//        try{
+//            while((i=is.read(b))!=-1) {
+//                os.write(b, 0, i);
+//            }
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        }
+//    }
 
 }

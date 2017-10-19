@@ -62,7 +62,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SummaryActivity extends AppCompatActivity
         implements View.OnClickListener, MediaController.MediaPlayerControl,
-        CryptoServiceReciever.ResultReceiver{
+        CryptoServiceReciever.Receiver{
 
     private static final String TAG = "SummaryActivity";
 

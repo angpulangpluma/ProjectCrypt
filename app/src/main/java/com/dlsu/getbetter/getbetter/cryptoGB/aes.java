@@ -63,7 +63,7 @@ public class aes implements Serializable{
 
     public void setCipher() throws Exception{
 //        try {
-            this.cipher = Cipher.getInstance("AES/OFM/PKCS5PADDING");
+            this.cipher = Cipher.getInstance("AES/CFB/PKCS5PADDING");
 //        }catch(Exception e){
 //            Log.e("error", e.toString());
 //        }

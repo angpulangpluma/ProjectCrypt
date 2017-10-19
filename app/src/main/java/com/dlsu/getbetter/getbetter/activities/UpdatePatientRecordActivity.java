@@ -58,7 +58,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 public class UpdatePatientRecordActivity extends AppCompatActivity implements View.OnClickListener,
         AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener,
-        CryptoServiceReciever.ResultReceiver{
+        CryptoServiceReciever.Receiver{
 
     private transient Button submitBtn;
     private transient Button backBtn;

@@ -62,26 +62,44 @@
         <activity
             android:name=".activities.DownloadContentActivity"
             android:screenOrientation="sensorLandscape" />
-        <activity android:name=".activities.ViewCaseRecordActivity"
-            android:screenOrientation="sensorLandscape"/>
-        <activity android:name=".activities.ViewImageActivity"
-            android:screenOrientation="sensorLandscape"/>
-        <activity android:name=".activities.HealthCenterActivity"
-            android:screenOrientation="sensorLandscape"/>
-        <activity android:name=".activities.ViewPatientActivity"
-            android:screenOrientation="sensorLandscape"/>
-        <activity android:name=".activities.NewPatientInfoActivity"
-            android:screenOrientation="sensorLandscape"/>
-        <activity android:name=".activities.CaptureDocumentsActivity"
-            android:screenOrientation="sensorLandscape"/>
-        <activity android:name=".activities.RecordHpiActivity"
-            android:screenOrientation="sensorLandscape"/>
-        <activity android:name=".activities.SummaryActivity"
-            android:screenOrientation="sensorLandscape"/>
+        <activity
+            android:name=".activities.ViewCaseRecordActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".activities.ViewImageActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".activities.HealthCenterActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".activities.ViewPatientActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".activities.NewPatientInfoActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".activities.CaptureDocumentsActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".activities.RecordHpiActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".activities.SummaryActivity"
+            android:screenOrientation="sensorLandscape" />
 
         <service
-            android:name="com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService"
+            android:name=".cryptoGB.CryptoFileService"
+            android:enabled="true"
             android:exported="false" />
+
+        <receiver
+            android:name=".cryptoGB.CryptoBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true" />
+        <receiver
+            android:name=".cryptoGB.ActivityBroadcastReciever"
+            android:enabled="true"
+            android:exported="true"></receiver>
     </application>
 
 </manifest>

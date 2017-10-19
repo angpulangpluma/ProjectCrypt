@@ -3,12 +3,165 @@
 
     <item
         is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\c5b84d3b79f37c303a5a3d2d1a3b7a3283e2350b\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="6062811de7cd71d07a325c66c39f2df1d9de91a0">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_0178614e0fab62b7abaabb9e04bbb115c7407ecb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\d9c1f3603cedffd00deab903a486ccd08f41d413\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="18d31838aa4fcc768a8a0516e22cc13b94655d89">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_d69d041a0656ad3b5d1aa17f7df23a267f70b2b0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\89fb26ff414ec21682743a31c01c480e6988c06a\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="e176fd06c2ad5b50a2f5cb4de6000a83a7cb48f5">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_9210a0c5cc6ab5842a95de99422c5099a3f52298.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.gradle\caches\modules-2\files-2.1\cz.msebera.android\httpclient\4.3.6\526a9f794eab830eae4f23a62c572878b3f491ab\httpclient-4.3.6.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="526a9f794eab830eae4f23a62c572878b3f491ab">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\httpclient-4.3.6_2c7d807cc0901f9ac71c36004bb301e4ae95a814.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\6925acf3b7252ffae71b899197c886071507aa66\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="8df0e365e40beb151bc42dee20817721a6cab7b0">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_349fbbf2345174cec7a743b5fab590761e651bad.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\a14862cd783e9ed942e4e7a766cc1916525fbb0e\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="cddcd0fb93bc70e27325f2f715b2710332004ebb">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_ccf2f44bb052836cd10df0bd0e8f09a762360ea1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.gradle\caches\modules-2\files-2.1\com.dropbox.core\dropbox-core-sdk\3.0.5\851b5909dd0e199a264295f3add611c6318375e9\dropbox-core-sdk-3.0.5.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="851b5909dd0e199a264295f3add611c6318375e9">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\dropbox-core-sdk-3.0.5_41a718af9fa0ef4639167217b5212429961feaba.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\a624da7c8f4b87b334f4ac61f23967968ccb1d44\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="2e92aa0163544a804a0b34f169ca61801770839a">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_c324bb2fa783889816db1e9e69f90260627da564.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\Documents\mlopez\ProjectCrypt\app\libs\commons-codec-1.10\commons-codec-1.10.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="4b95f4897fa13f2cd904aee711aeafc0c5295cd8">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\commons-codec-1.10_ec7e48be803a916fac114527b5721f5998f0d8e1.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\User\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.7.4\b8f38a249116b66d804a5ca2b14a3459b7913a94\jackson-core-2.7.4.jar"
         jumboMode="false"
         optimize="true"
         revision="26.0.2"
         sha1="b8f38a249116b66d804a5ca2b14a3459b7913a94">
         <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\jackson-core-2.7.4_cd962805ee2dff5283e25750faf43dbef880c9c2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\39a7e985b44b53e4fd2e2d812ba1be40fab14eb0\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="fcd01fd11233459f546c437ec927e9b61bf7caf1">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_b1be7fbbcd6f455c077ea317cb392ac9bbf8f14f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\db7e30918c83d8bbc76ff27330d4562481e85e4a\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="4bb84b5151d37c71269ea95911b6e271dffc5d2d">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_d53d61be127a2749945067470ecfc8ac4322ec36.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\0360a47c7221b49304e7e655ab59441e91a35dac\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="952944218ecedea1554a513dec0c14d570642843">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_e94f6858ef9211654d542a4f84e97a4fee2e4875.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\ef1946df92fe608dad3f0aa5dc88be53242c7c98\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="537371d16320b4180928d5d4dded82b5458fe097">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_babb044fad13f46355dc3d0314a8ca592dbdb76b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\Documents\mlopez\ProjectCrypt\app\libs\PhotoUtil.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="caf49e92eae4ca2805d530a92cb4777c1ef53f53">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\PhotoUtil_7ee4910d91e5dfe96a2573eefd3e08842af48556.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\e58e57d0aae924c0c606d221cf965704339603f8\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="47471eb19df288158b00b8d9cfa41bce7373f5cc">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_08b869a59cb114937db820f8215d185e46409aeb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\32fe8d0109f2870a95945321cb91390837e71c13\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="c4f45092eee6cdf1a5dbd597b2b6819be652ce2e">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_e627096ce28b227f5a12567017240713ed31ed84.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\40a0f01d769165ec3ab1114d20cf30cab32fe9ab\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_e29dd3752576c6e30c7ed5a0047d66f636aeedb5.jar" />
     </item>
     <item
         is-multidex="false"
@@ -21,6 +174,51 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Users\User\.gradle\caches\modules-2\files-2.1\com.android.support\support-annotations\26.0.1\e1bb32b12b25e2f78e6786059ca7ea878f8345e0\support-annotations-26.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="e1bb32b12b25e2f78e6786059ca7ea878f8345e0">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\support-annotations-26.0.1_d3424d3e4d3185f348dc8c5780d9f19726e5d889.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.gradle\caches\modules-2\files-2.1\com.github.JodaOrg\joda-time\v2.9.9\b61cb56cd7cfb295e7b463a6ab2dab6649439eb3\joda-time-v2.9.9.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="b61cb56cd7cfb295e7b463a6ab2dab6649439eb3">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\joda-time-v2.9.9_b87a454393ff5ad1a734c40b042d307bf7042f51.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\0b4fe7b199879eea4adab1d487591310238df0c6\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="0b6136298d1a6405200a08e06c7e7cbf839deb54">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_bc17b2813be73c465a17bba72f50204a8fffcb82.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.gradle\caches\modules-2\files-2.1\com.github.loopj\android-async-http\1.4.9\29328bf96b9ae3efc84271dbc170d99edf11ad7f\android-async-http-1.4.9.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="29328bf96b9ae3efc84271dbc170d99edf11ad7f">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\android-async-http-1.4.9_562c29f3660ac448d6d45d5a0945b076e9e86d8e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.7.4\b8f38a249116b66d804a5ca2b14a3459b7913a94\jackson-core-2.7.4.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="b8f38a249116b66d804a5ca2b14a3459b7913a94">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\jackson-core-2.7.4_cd962805ee2dff5283e25750faf43dbef880c9c2.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\User\Documents\mlopez\ProjectCrypt\app\libs\commons-codec-1.10\commons-codec-1.10.jar"
         jumboMode="false"
         optimize="true"
@@ -30,12 +228,48 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\4c1e60902cd2b2154a951afd1ec436800b8d4192\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="6a022bf00ccd0948a8180c505e8e458bbddd43a6">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_bd0e821515476c99d4a551b60fd1360ac32852fa.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\Documents\mlopez\ProjectCrypt\app\libs\commons-io-2.5.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="2852e6e05fbb95076fc091f6d1780f1f8fe35e0f">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\commons-io-2.5_9e163d2a5d160f9d4f5e6f46184140aa47aed978.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\User\Documents\mlopez\ProjectCrypt\app\libs\PhotoUtil.jar"
         jumboMode="false"
         optimize="true"
         revision="26.0.2"
         sha1="caf49e92eae4ca2805d530a92cb4777c1ef53f53">
         <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\PhotoUtil_7ee4910d91e5dfe96a2573eefd3e08842af48556.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\e0d5e28d5975e923bd2058823155e380c2806aca\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="88246166d5afb106f532f6e6deae683c66b42c89">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_a80aa496e590da61ca9c0905ee34ae3a68873205.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\c0dd2a9ae1b2f79989c677e176d51a083c5aa1ee\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="9935891f23923f39d002087085d9696568a9f657">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_be160a260e447d5e147aaf0b2f82720e9ac9f6d4.jar" />
     </item>
 
 </items>

@@ -39,7 +39,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class RecordHpiActivity extends AppCompatActivity
-        implements View.OnClickListener, CryptoServiceReciever.ResultReceiver {
+        implements View.OnClickListener, CryptoServiceReciever.Receiver {
 
     private transient RecordHpiActivity recordHpiActivity;
 

@@ -3,6 +3,7 @@ package com.dlsu.getbetter.getbetter.cryptoGB;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.os.ResultReceiver;
+import android.util.Log;
 
 /**
  * Created by User on 10/18/2017.
@@ -17,7 +18,7 @@ public class CryptoServiceReciever extends ResultReceiver {
      * @param handler
      */
 
-    private ResultReceiver mRec;
+    private Receiver mRec;
 
     public static final String RESULT_RECEIEVER_EXTRA = "reciever";
 
@@ -25,16 +26,20 @@ public class CryptoServiceReciever extends ResultReceiver {
         super(handler);
     }
 
-    public void setReceiver(ResultReceiver receiver){
+    public void setReceiver(Receiver receiver){
         mRec = receiver;
     }
 
-    public interface ResultReceiver{
+    public Receiver getReceiver(){ return this.mRec; }
+
+    public interface Receiver{
         public void onReceiveResult(int resultCode, Bundle resultData);
     }
 
     @Override
     protected void onReceiveResult(int resultCode, Bundle resultData){
-        if(mRec!=null) super.onReceiveResult(resultCode, resultData);
+        if(mRec!=null)
+            super.onReceiveResult(resultCode, resultData);
+        else Log.w("result?", "none, receiver null");
     }
 }

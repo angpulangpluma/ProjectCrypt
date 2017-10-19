@@ -95,7 +95,7 @@ public class KeySetter{
         BufferedReader ins = null;
         int total = 0;
         int nRead = 0;
-        ArrayList<String> info = new ArrayList<String>();
+        ArrayList<String> info = new ArrayList<>();
         try {
             fr = new FileReader(src);
             ins = new BufferedReader(fr);

@@ -3,6 +3,7 @@ package com.dlsu.getbetter.getbetter.activities;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -24,6 +25,8 @@ import android.widget.Toast;
 
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
+import com.dlsu.getbetter.getbetter.cryptoGB.ActivityBroadcastReciever;
+import com.dlsu.getbetter.getbetter.cryptoGB.CryptoBroadcastReceiver;
 import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
 import com.dlsu.getbetter.getbetter.cryptoGB.CryptoServiceReciever;
 import com.dlsu.getbetter.getbetter.cryptoGB.KeySetter;
@@ -52,7 +55,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 //TODO: update cryptofileservice stuff
 public class NewPatientInfoActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,
         View.OnClickListener, AdapterView.OnItemSelectedListener,
-        CryptoServiceReciever.ResultReceiver {
+        CryptoServiceReciever.Receiver {
 
     private transient CircleImageView profileImage;
     private transient TextInputEditText firstNameInput;
@@ -80,6 +83,8 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
 
     private transient CryptoFileService cserv;
     private transient CryptoServiceReciever cryptoReceiver;
+    private transient CryptoBroadcastReceiver cryptoBroadcaster;
+    private transient ActivityBroadcastReciever activityBroadcaster;
 //    private boolean isCaptured;
 
     @Override
@@ -111,8 +116,45 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         cryptoReceiver = new CryptoServiceReciever(new Handler());
         cryptoReceiver.setReceiver(this);
 
+//        cryptoBroadcast = new CryptoBroadcastReceiver(cryptoReceiver);
+
 //        isCaptured = false;
 //        Log.w("iscapturedcheck", Boolean.toString(isCaptured));
+    }
+
+    @Override
+    protected void onStart(){
+//        activityBroadcast = new ActivityBroadcastReciever();
+//        IntentFilter intentFilter = new IntentFilter();
+//        intentFilter.addAction(CryptoFileService.ACTION_ENC);
+//        intentFilter.addAction(CryptoFileService.ACTION_DEC);
+//        registerReceiver(cryptoBroadcast, intentFilter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume(){
+        Log.w("app resume", "yes");
+        cryptoReceiver.setReceiver(this);
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause(){
+        Log.w("app pause", "yes");
+        cryptoReceiver.setReceiver(null);
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop(){
+//        unregisterReceiver(cryptoBroadcast);
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
     }
 
     private void bindViews(NewPatientInfoActivity activity) {
@@ -207,26 +249,6 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         getBetterDb.closeDatabase();
 
         return patientId;
-    }
-
-    @Override
-    public void onReceiveResult(int resultCode, Bundle resultData) {
-        Log.w("onrecieveresult", "ooooh");
-        switch(resultCode){
-            case CryptoFileService.STATUS_RUNNING:
-                setProgressBarIndeterminateVisibility(true);
-                Log.w("still running", "yes");
-                break;
-            case CryptoFileService.STATUS_FINISHED:
-                setProgressBarIndeterminateVisibility(false);
-                //TODO: set encrypted/decrypted file
-                Log.w("file output", resultData.getString("result"));
-                break;
-            case CryptoFileService.STATUS_ERROR:
-                String error = resultData.getString(Intent.EXTRA_TEXT);
-                Toast.makeText(this, error, Toast.LENGTH_LONG).show();
-                Log.w("cryptoerror", error);
-        }
     }
 
     private class InsertPatientTask extends AsyncTask<String, Void, Long> {
@@ -513,20 +535,45 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
 //        return buffer;
 //    }
 //
+    @Override
+    public void onReceiveResult(int resultCode, Bundle resultData) {
+        Log.w("onrecieveresult", "ooooh");
+        switch(resultCode){
+            case CryptoFileService.STATUS_RUNNING:
+                setProgressBarIndeterminateVisibility(true);
+                Log.w("still running", "yes");
+                break;
+            case CryptoFileService.STATUS_FINISHED:
+                setProgressBarIndeterminateVisibility(false);
+                //TODO: set encrypted/decrypted file
+                Log.w("file output", resultData.getString("result"));
+                break;
+            case CryptoFileService.STATUS_ERROR:
+                String error = resultData.getString(Intent.EXTRA_TEXT);
+                Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+                Log.w("cryptoerror", error);
+        }
+    }
+
     private void doSomethingCryptFile(String dec, File input){
 //
 //        String result = "";
         Log.d("service in", "yes");
         switch(dec){
             case "enc":
+                cryptoReceiver.setReceiver(this);
+                Log.w("before enc", Boolean.toString(cryptoReceiver.getReceiver()!=null));
                 cserv.cryptoAskEncrypt(this, input.getPath(), 1,
                     (aes)getIntent().getSerializableExtra("sys"),
                     cryptoReceiver);
+//                Log.w("result", cserv.getCryptoFile());
                 break;
             case "dec":
+                cryptoReceiver.setReceiver(this);
                 cserv.cryptoAskDecrypt(this, input.getPath(), 1,
                     (aes)getIntent().getSerializableExtra("sys")
                         , cryptoReceiver);
+//                Log.w("result", cserv.getCryptoFile());
                 break;
         }
 //        return result;
