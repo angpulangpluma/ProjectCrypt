@@ -180,12 +180,13 @@ public class CryptoFileService extends IntentService{
                 mastercry = new file_aes(m);
                 mastercry.encryptFile(in);
                 handleFileDecryption(in, m, i);
-            } else throw new Exception("cannot create new file for storing");
+            }
 
         } catch (Exception e){
 //            e.printStackTrace();
             bund.putString(Intent.EXTRA_TEXT, e.toString());
             receiver.send(STATUS_ERROR, bund);
+            Log.w("error", e.toString());
         }
 //        try {
 //            receiver.send(STATUS_RUNNING, Bundle.EMPTY);
@@ -227,7 +228,7 @@ public class CryptoFileService extends IntentService{
                 receiver.send(STATUS_RUNNING, Bundle.EMPTY);
                 mastercry = new file_aes(m);
                 mastercry.decryptFile(in);
-            } else throw new Exception("cannot create new file for storing");
+            }
 
         } catch (Exception e){
 //            e.printStackTrace();
