@@ -8,16 +8,19 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
@@ -45,12 +48,6 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static android.os.Environment.DIRECTORY_DOCUMENTS;
-import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.ACTION_ENC;
-import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_FILE;
-import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_HCID;
-import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_SERV;
 
 //TODO: update cryptofileservice stuff
 public class NewPatientInfoActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,
@@ -82,14 +79,17 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
     private static final String TAG = "debug";
 
     private transient CryptoFileService cserv;
+    private transient CryptoServiceReciever cryptoReceiver;
 //    private boolean isCaptured;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_patient_info);
 
 //        newPatientSessionManager = new NewPatientSessionManager(this);
+
         SystemSessionManager systemSessionManager = new SystemSessionManager(getApplicationContext());
         if(systemSessionManager.checkLogin())
             finish();
@@ -105,8 +105,12 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         bindListeners(this);
 
 //        Log.w("ks", Boolean.toString(((KeySetter)getIntent().getSerializableExtra("sys")).getCrypto()==null));
-        Log.w("newpatact", Boolean.toString((aes)getIntent().getSerializableExtra("sys")!=null));
+//        Log.w("newpatact", Boolean.toString((aes)getIntent().getSerializableExtra("sys")!=null));
         cserv = new CryptoFileService();
+
+        cryptoReceiver = new CryptoServiceReciever(new Handler());
+        cryptoReceiver.setReceiver(this);
+
 //        isCaptured = false;
 //        Log.w("iscapturedcheck", Boolean.toString(isCaptured));
     }
@@ -205,11 +209,23 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         return patientId;
     }
 
-    //TODO: finish this method
     @Override
     public void onReceiveResult(int resultCode, Bundle resultData) {
+        Log.w("onrecieveresult", "ooooh");
         switch(resultCode){
-
+            case CryptoFileService.STATUS_RUNNING:
+                setProgressBarIndeterminateVisibility(true);
+                Log.w("still running", "yes");
+                break;
+            case CryptoFileService.STATUS_FINISHED:
+                setProgressBarIndeterminateVisibility(false);
+                //TODO: set encrypted/decrypted file
+                Log.w("file output", resultData.getString("result"));
+                break;
+            case CryptoFileService.STATUS_ERROR:
+                String error = resultData.getString(Intent.EXTRA_TEXT);
+                Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+                Log.w("cryptoerror", error);
         }
     }
 
@@ -497,15 +513,23 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
 //        return buffer;
 //    }
 //
-    private String doSomethingCryptFile(String dec, File input){
+    private void doSomethingCryptFile(String dec, File input){
 //
-        String result = "";
+//        String result = "";
         Log.d("service in", "yes");
         switch(dec){
-            case "enc": cserv.cryptoAskEncrypt(this, input.getPath(), 1, (aes)getIntent().getSerializableExtra("sys")); break;
-            case "dec": cserv.cryptoAskDecrypt(this, input.getPath(), 1, (aes)getIntent().getSerializableExtra("sys")); break;
+            case "enc":
+                cserv.cryptoAskEncrypt(this, input.getPath(), 1,
+                    (aes)getIntent().getSerializableExtra("sys"),
+                    cryptoReceiver);
+                break;
+            case "dec":
+                cserv.cryptoAskDecrypt(this, input.getPath(), 1,
+                    (aes)getIntent().getSerializableExtra("sys")
+                        , cryptoReceiver);
+                break;
         }
-        return result;
+//        return result;
 //
 //        Log.d("service in", "yes");
 //

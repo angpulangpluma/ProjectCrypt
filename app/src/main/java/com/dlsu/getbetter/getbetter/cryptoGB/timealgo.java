@@ -117,25 +117,35 @@ public class timealgo {
         long starttime = 0;
         long endtime = 0;
 
-        switch(n){
-            case 21: //aes encryption - text
-            {
-                starttime = System.currentTimeMillis();
-                textalgo.getEncString(string);
-                endtime = System.currentTimeMillis();
-            }; break;
-            case 22: //hash encryption - text
-            {
-                starttime = System.currentTimeMillis();
-                textalgo.getHashedString(string);
-                endtime = System.currentTimeMillis();
-            }; break;
-            case 3: //aes encryption - file
-            {
-                starttime = System.currentTimeMillis();
-                filealgo.encryptFile(file);
-                endtime = System.currentTimeMillis();
-            }; break;
+        try {
+            switch (n) {
+                case 21: //aes encryption - text
+                {
+                    starttime = System.currentTimeMillis();
+                    textalgo.getEncString(string);
+                    endtime = System.currentTimeMillis();
+                }
+                ;
+                break;
+                case 22: //hash encryption - text
+                {
+                    starttime = System.currentTimeMillis();
+                    textalgo.getHashedString(string);
+                    endtime = System.currentTimeMillis();
+                }
+                ;
+                break;
+                case 3: //aes encryption - file
+                {
+                    starttime = System.currentTimeMillis();
+                    filealgo.encryptFile(file);
+                    endtime = System.currentTimeMillis();
+                }
+                ;
+                break;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
         }
 
         return endtime - starttime;
@@ -146,19 +156,25 @@ public class timealgo {
         long starttime = 0;
         long endtime = 0;
 
-        switch(n){
-            case 2:
-            {
-                starttime = System.currentTimeMillis();
-                textalgo.getDecString(string);
-                endtime = System.currentTimeMillis();
-            }; break;
-            case 3:
-            {
-                starttime = System.currentTimeMillis();
-                filealgo.decryptFile(file);
-                endtime = System.currentTimeMillis();
-            }; break;
+        try {
+            switch (n) {
+                case 2: {
+                    starttime = System.currentTimeMillis();
+                    textalgo.getDecString(string);
+                    endtime = System.currentTimeMillis();
+                }
+                ;
+                break;
+                case 3: {
+                    starttime = System.currentTimeMillis();
+                    filealgo.decryptFile(file);
+                    endtime = System.currentTimeMillis();
+                }
+                ;
+                break;
+            }
+        } catch(Exception e){
+            e.printStackTrace();
         }
 
         return endtime - starttime;

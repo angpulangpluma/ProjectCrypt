@@ -17,14 +17,15 @@ public class text_aes{
     private transient aes textalgo;
 //    private Cipher ciph;
 
-    public text_aes() {
+    public text_aes() throws Exception{
         textalgo = new aes();
         textalgo.setKey();
-//        ciph = textalgo.getCipher();
+        textalgo.setCipher();
     }
 
-    public text_aes(aes enc){
+    public text_aes(aes enc) throws Exception{
         this.textalgo = enc;
+        textalgo.setCipher();
 //        this.ciph = textalgo.getCipher();
     }
 

@@ -15,18 +15,21 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
+import com.dlsu.getbetter.getbetter.cryptoGB.CryptoServiceReciever;
 import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.sessionmanagers.NewPatientSessionManager;
 
@@ -37,16 +40,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.ACTION_ENC;
-import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_FILE;
-import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_HCID;
-import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_SERV;
-
-
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CaptureDocumentsFragment extends Fragment implements View.OnClickListener {
+public class CaptureDocumentsFragment extends Fragment
+        implements View.OnClickListener, CryptoServiceReciever.Receiver {
 
     private transient ImageView captureBasicInfoBtn;
     private transient ImageView captureFamilyHistBtn;
@@ -80,6 +78,7 @@ public class CaptureDocumentsFragment extends Fragment implements View.OnClickLi
     private transient NewPatientSessionManager newPatientSessionManager;
 
     private transient CryptoFileService cserv;
+    private transient CryptoServiceReciever cryptoReceiver;
 //    private boolean isCaptured;
 //    private transient Context context;
 
@@ -89,10 +88,14 @@ public class CaptureDocumentsFragment extends Fragment implements View.OnClickLi
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        getActivity().requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
 
         newPatientSessionManager = new NewPatientSessionManager(getActivity());
         cserv = new CryptoFileService();
+
+        cryptoReceiver = new CryptoServiceReciever(new Handler());
+        cryptoReceiver.setReceiver(this);
 //        isCaptured = false;
     }
 
@@ -232,9 +235,21 @@ public class CaptureDocumentsFragment extends Fragment implements View.OnClickLi
         }
     }
 
-    private void doSomethingCryptFile(String sel, File input){
-        Log.w("service in", "yes!");
-        cserv.cryptoAskEncrypt(getContext(), input.getPath(), 1, (aes)getActivity().getIntent().getSerializableExtra("sys"));
+    private void doSomethingCryptFile(String dec, File input) {
+//
+        Log.d("service in", "yes");
+        switch (dec) {
+            case "enc":
+                cserv.cryptoAskEncrypt(getActivity(), input.getPath(), 1,
+                        (aes)getActivity().getIntent().getSerializableExtra("sys"),
+                        cryptoReceiver);
+                break;
+            case "dec":
+                cserv.cryptoAskDecrypt(getActivity(), input.getPath(), 1,
+                        (aes)getActivity().getIntent().getSerializableExtra("sys"),
+                        cryptoReceiver);
+                break;
+        }
     }
 
     @Override
@@ -539,4 +554,22 @@ public class CaptureDocumentsFragment extends Fragment implements View.OnClickLi
         });
     }
 
+    @Override
+    public void onReceiveResult(int resultCode, Bundle resultData) {
+        switch(resultCode){
+            case CryptoFileService.STATUS_RUNNING:
+                getActivity().setProgressBarIndeterminateVisibility(true);
+                Log.w("still running", "yes");
+                break;
+            case CryptoFileService.STATUS_FINISHED:
+                getActivity().setProgressBarIndeterminateVisibility(false);
+                //TODO: set encrypted/decrypted file
+                Log.w("file output", resultData.getString("result"));
+                break;
+            case CryptoFileService.STATUS_ERROR:
+                String error = resultData.getString(Intent.EXTRA_TEXT);
+//                Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+                Log.w("cryptoerror", error);
+        }
+    }
 }

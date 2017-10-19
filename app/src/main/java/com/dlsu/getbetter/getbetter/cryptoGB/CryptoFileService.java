@@ -40,6 +40,7 @@ public class CryptoFileService extends IntentService{
     private static final String CRYPTO_FILE = "com.dlsu.getbetter.getbetter.cryptoGB.extra.FILE";
     private static final String CRYPTO_HCID = "com.dlsu.getbetter.getbetter.cryptoGB.extra.HCID";
     private static final String CRYPTO_SERV = "com.dlsu.getbetter.getbetter.cryptoGB.extra.SERV";
+    private static final String CRYPTO_RECV = "com.dlsu.getbetter.getbetter.cryptoGB.extra.RECV";
 
     public static final int STATUS_RUNNING = 0;
     public static final int STATUS_FINISHED = 1;
@@ -67,13 +68,15 @@ public class CryptoFileService extends IntentService{
      * @see IntentService
      * TODO: send encrypted file back
      */
-    public void cryptoAskEncrypt(Context context, String sel, int hcID, aes master) {
+    public void cryptoAskEncrypt(Context context, String sel, int hcID, aes master, CryptoServiceReciever receiver) {
         Log.w("cryptoaskencrypt", "yes");
-        Intent intent = new Intent(context, CryptoFileService.class);
+//        Intent intent = new Intent(context, CryptoFileService.class);
+        Intent intent = new Intent(Intent.ACTION_SYNC, null, this, CryptoFileService.class);
         intent.setAction(ACTION_ENC);
         intent.putExtra(CRYPTO_HCID, hcID);
         intent.putExtra(CRYPTO_FILE, sel);
         intent.putExtra(CRYPTO_SERV, master);
+        intent.putExtra(CRYPTO_RECV, receiver);
         context.startService(intent);
     }
 
@@ -83,12 +86,14 @@ public class CryptoFileService extends IntentService{
      *
      * @see IntentService
      */
-    public void cryptoAskDecrypt(Context context, String sel, int hcID, aes master) {
-        Intent intent = new Intent(context, CryptoFileService.class);
+    public void cryptoAskDecrypt(Context context, String sel, int hcID, aes master, CryptoServiceReciever receiver) {
+//        Intent intent = new Intent(context, CryptoFileService.class);
+        Intent intent = new Intent(Intent.ACTION_SYNC, null, this, CryptoFileService.class);
         intent.setAction(ACTION_DEC);
         intent.putExtra(CRYPTO_HCID, hcID);
         intent.putExtra(CRYPTO_FILE, sel);
         intent.putExtra(CRYPTO_SERV, master);
+        intent.putExtra(CRYPTO_RECV, receiver);
         context.startService(intent);
     }
 
@@ -98,7 +103,7 @@ public class CryptoFileService extends IntentService{
 
         Log.w("cryptofilehandleintent", "yes");
 //        if (intent != null) {
-        final ResultReceiver receiver = intent.getParcelableExtra("receiver");
+        final ResultReceiver receiver = intent.getParcelableExtra(CRYPTO_RECV);
         Bundle bund = new Bundle();
 
         final String action = intent.getAction();
@@ -107,79 +112,87 @@ public class CryptoFileService extends IntentService{
                 src.getName());
         try{
 //                in.createNewFile();
+            receiver.send(STATUS_RUNNING, Bundle.EMPTY);
             OutputStream os = new FileOutputStream(in);
             os.write(read(src));
             os.close();
-
-            if (ACTION_ENC.equals(action)) {
-                this.handleFileEncryption(in,
-                        (aes)intent.getSerializableExtra(CRYPTO_SERV),
-                        intent);
-            } else if (ACTION_DEC.equals(action)) {
-                this.handleFileDecryption(in,
-                        (aes)intent.getSerializableExtra(CRYPTO_SERV),
-                        intent);
-            }
 
         } catch (Exception e){
 //            e.printStackTrace();
             bund.putString(Intent.EXTRA_TEXT, e.toString());
             receiver.send(STATUS_ERROR, bund);
         }
-        //TODO: when to put receiver.send(STATUS_RUNNING, Bundle.EMPTY);
-        //TODO: when to put receiver.send(STATUS_FINISHED, bundle);
 
+        if (ACTION_ENC.equals(action)) {
+            receiver.send(STATUS_RUNNING, Bundle.EMPTY);
+            this.handleFileEncryption(in,
+                    (aes)intent.getSerializableExtra(CRYPTO_SERV),
+                    intent);
+        } else if (ACTION_DEC.equals(action)) {
+            receiver.send(STATUS_RUNNING, Bundle.EMPTY);
+            this.handleFileDecryption(in,
+                    (aes)intent.getSerializableExtra(CRYPTO_SERV),
+                    intent);
+        }
 
-//        }
     }
 
-    //TODO: return file path
-    protected void handleFileEncryption(File sel, aes m, Intent i) throws Exception{
-        final ResultReceiver receiver = i.getParcelableExtra("receiver");
+    protected void handleFileEncryption(File sel, aes m, Intent i){
+        final ResultReceiver receiver = i.getParcelableExtra(CRYPTO_RECV);
         Bundle bund = new Bundle();
+//        boolean result = false;
 
     Log.w("file enc serv", "yes");
-        file_aes mastercry = new file_aes(m);
+        file_aes mastercry = null;
         File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
                 DirectoryConstants.CRYPTO_FOLDER);
 //        path.mkdirs();
         File output = new File(path.getPath() +"/" + sel.getName());
         Log.d("output", output.getAbsolutePath());
         try {
+            receiver.send(STATUS_RUNNING, Bundle.EMPTY);
             FileOutputStream fos = new FileOutputStream(output);
             fos.write(read(sel));
             fos.flush();
             fos.close();
+            mastercry = new file_aes(m);
+            mastercry.encryptFile(output);
         } catch(Exception e){
             Log.e("error", e.toString());
+            bund.putString("result", null);
+            bund.putString(Intent.EXTRA_TEXT, e.toString());
+            receiver.send(STATUS_ERROR, bund);
         }
-        mastercry.encryptFile(output);
         Log.w("enc", "done");
         bund.putString("result", output.getPath());
         receiver.send(STATUS_FINISHED, bund);
     }
 
-    //TODO: return file path
-    private void handleFileDecryption(File sel, aes m, Intent i) throws Exception{
-        final ResultReceiver receiver = i.getParcelableExtra("receiver");
+    private void handleFileDecryption(File sel, aes m, Intent i){
+        final ResultReceiver receiver = i.getParcelableExtra(CRYPTO_RECV);
         Bundle bund = new Bundle();
 
-        file_aes mastercry = new file_aes(m);
+        file_aes mastercry;
         File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
                 DirectoryConstants.CRYPTO_FOLDER);
 //        path.mkdirs();
         File output = new File(path.getPath() +"/" + sel.getName());
         Log.d("output", output.getAbsolutePath());
         try {
+            receiver.send(STATUS_RUNNING, Bundle.EMPTY);
             FileOutputStream fos = new FileOutputStream(output);
             fos.write(read(sel));
             fos.flush();
             fos.close();
+            mastercry = new file_aes(m);
+            mastercry.encryptFile(output);
         } catch(Exception e){
             Log.e("error", e.toString());
+            bund.putString("result", null);
+            bund.putString(Intent.EXTRA_TEXT, e.toString());
+            receiver.send(STATUS_ERROR, bund);
         }
-        mastercry.decryptFile(output);
-        Log.w("dec", "done");
+        Log.w("enc", "done");
         bund.putString("result", output.getPath());
         receiver.send(STATUS_FINISHED, bund);
     }

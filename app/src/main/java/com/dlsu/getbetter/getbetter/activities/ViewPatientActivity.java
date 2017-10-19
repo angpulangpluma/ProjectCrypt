@@ -80,6 +80,7 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
         getCaseRecords();
         createPatientSession(this);
 
+        //TODO: set decryption
         setPic(profileImage, patient.getProfileImageBytes());
         patientName.setText(patientFullName(patient.getLastName() + ", ", patient.getFirstName(), patient.getMiddleName()));
         age.append(": " + patient.getAge() + " Years Old");
@@ -235,6 +236,7 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void setPic(ImageView mImageView, String mCurrentPhotoPath) {
+
         // Get the dimensions of the View
         int targetW = 300;//mImageView.getWidth();
         int targetH = 250;//mImageView.getHeight();
@@ -243,7 +245,9 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
         // Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         bmOptions.inJustDecodeBounds = true;
+        //TODO: get decrypted pic
         BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+//        BitmapFactory.decodeByteArray();
         int photoW = bmOptions.outWidth;
         int photoH = bmOptions.outHeight;
 

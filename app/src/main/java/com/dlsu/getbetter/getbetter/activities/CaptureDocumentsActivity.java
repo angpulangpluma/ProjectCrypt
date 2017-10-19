@@ -15,6 +15,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.DecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -33,6 +35,7 @@ import android.widget.Toast;
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
+import com.dlsu.getbetter.getbetter.cryptoGB.CryptoServiceReciever;
 import com.dlsu.getbetter.getbetter.cryptoGB.KeySetter;
 import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
@@ -50,13 +53,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
-import static android.os.Environment.DIRECTORY_DOCUMENTS;
-import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.ACTION_ENC;
-import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_FILE;
-import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_HCID;
-import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_SERV;
-
-public class CaptureDocumentsActivity extends AppCompatActivity implements View.OnClickListener {
+public class CaptureDocumentsActivity extends AppCompatActivity
+        implements View.OnClickListener, CryptoServiceReciever.Receiver {
 
     private transient CaptureDocumentsActivity captureDocumentsActivity;
     private static final String TAG = "Capture";
@@ -98,9 +96,11 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
     private static final int REQUEST_FAMILY_SOCIAL_IMAGE = 300;
 
     private transient CryptoFileService cserv;
+    private transient CryptoServiceReciever cryptoReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_capture_documents);
 
@@ -133,6 +133,9 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
         }
 
         cserv = new CryptoFileService();
+
+        cryptoReceiver = new CryptoServiceReciever(new Handler());
+        cryptoReceiver.setReceiver(this);
 
     }
 
@@ -415,6 +418,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
 
                 } else if (type == REQUEST_CHIEF_COMPLAINT_IMAGE) {
 
+
                     chiefComplaintImage.setImageResource(R.drawable.ic_insert_photo);
                     chiefComplaintImagePath = "";
                     chiefComplaintActionButtons.setVisibility(View.GONE);
@@ -466,10 +470,11 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
 //
     private void doSomethingCryptFile(String dec, File input){
 //
-        Log.d("service in", "yes");
+        Log.w("service in", "yes");
+        Log.w("aes", Boolean.toString((aes)getIntent().getSerializableExtra("sys")!=null));
         switch(dec){
-            case "enc": cserv.cryptoAskEncrypt(this, input.getPath(), 1, (aes)getIntent().getSerializableExtra("sys")); break;
-            case "dec": cserv.cryptoAskDecrypt(this, input.getPath(), 1, (aes)getIntent().getSerializableExtra("sys")); break;
+            case "enc": cserv.cryptoAskEncrypt(this, input.getPath(), 1, (aes)getIntent().getSerializableExtra("sys"), cryptoReceiver); break;
+            case "dec": cserv.cryptoAskDecrypt(this, input.getPath(), 1, (aes)getIntent().getSerializableExtra("sys"), cryptoReceiver); break;
         }
 //
 //        file_aes mastercry = new file_aes();
@@ -497,5 +502,24 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
 //            }; break;
 //        }
 ////
+    }
+
+    @Override
+    public void onReceiveResult(int resultCode, Bundle resultData) {
+        switch(resultCode){
+            case CryptoFileService.STATUS_RUNNING:
+                setProgressBarIndeterminateVisibility(true);
+                Log.w("still running", "yes");
+                break;
+            case CryptoFileService.STATUS_FINISHED:
+                setProgressBarIndeterminateVisibility(false);
+                //TODO: set encrypted/decrypted file
+                Log.w("file output", resultData.getString("result"));
+                break;
+            case CryptoFileService.STATUS_ERROR:
+                String error = resultData.getString(Intent.EXTRA_TEXT);
+                Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+                Log.w("cryptoerror", error);
+        }
     }
 }

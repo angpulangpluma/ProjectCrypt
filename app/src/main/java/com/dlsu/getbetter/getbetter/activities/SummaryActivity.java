@@ -24,16 +24,19 @@ import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.adapters.FileAttachmentsAdapter;
 import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
+import com.dlsu.getbetter.getbetter.cryptoGB.CryptoServiceReciever;
 import com.dlsu.getbetter.getbetter.cryptoGB.KeySetter;
 import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
@@ -55,14 +58,11 @@ import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.ACTION_ENC;
-import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_FILE;
-import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_HCID;
-import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_SERV;
-
 // TODO: 06/12/2016 record audio function
 
-public class SummaryActivity extends AppCompatActivity implements View.OnClickListener, MediaController.MediaPlayerControl {
+public class SummaryActivity extends AppCompatActivity
+        implements View.OnClickListener, MediaController.MediaPlayerControl,
+        CryptoServiceReciever.Receiver{
 
     private static final String TAG = "SummaryActivity";
 
@@ -132,10 +132,12 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
     private int seconds, minutes, recordTime;
 
     private transient CryptoFileService cserv;
+    private transient CryptoServiceReciever cryptoReceiver;
 //    private boolean isCaptured;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
 
@@ -171,6 +173,8 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         controlNumber = generateControlNumber(patientId);
 
         cserv = new CryptoFileService();
+        cryptoReceiver = new CryptoServiceReciever(new android.os.Handler());
+        cryptoReceiver.setReceiver(this);
 
     }
 
@@ -725,10 +729,14 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         Log.d("service in", "yes");
         switch (dec) {
             case "enc":
-                cserv.cryptoAskEncrypt(this, input.getPath(), 1, (aes) getIntent().getSerializableExtra("sys"));
+                cserv.cryptoAskEncrypt(this, input.getPath(), 1,
+                        (aes)getIntent().getSerializableExtra("sys"),
+                        cryptoReceiver);
                 break;
             case "dec":
-                cserv.cryptoAskDecrypt(this, input.getPath(), 1, (aes) getIntent().getSerializableExtra("sys"));
+                cserv.cryptoAskDecrypt(this, input.getPath(), 1,
+                        (aes) getIntent().getSerializableExtra("sys"),
+                        cryptoReceiver);
                 break;
         }
     }
@@ -834,6 +842,25 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         }
 
         getBetterDb.closeDatabase();
+    }
+
+    @Override
+    public void onReceiveResult(int resultCode, Bundle resultData) {
+        switch(resultCode){
+            case CryptoFileService.STATUS_RUNNING:
+                setProgressBarIndeterminateVisibility(true);
+                Log.w("still running", "yes");
+                break;
+            case CryptoFileService.STATUS_FINISHED:
+                setProgressBarIndeterminateVisibility(false);
+                //TODO: set encrypted/decrypted file
+                Log.w("file output", resultData.getString("result"));
+                break;
+            case CryptoFileService.STATUS_ERROR:
+                String error = resultData.getString(Intent.EXTRA_TEXT);
+                Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+                Log.w("cryptoerror", error);
+        }
     }
 
 

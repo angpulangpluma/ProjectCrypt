@@ -20,15 +20,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
+import com.dlsu.getbetter.getbetter.cryptoGB.CryptoServiceReciever;
 import com.dlsu.getbetter.getbetter.cryptoGB.KeySetter;
 import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
@@ -53,15 +56,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import static android.os.Environment.DIRECTORY_DOCUMENTS;
-import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.ACTION_ENC;
-import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_FILE;
-import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_HCID;
-import static com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService.CRYPTO_SERV;
-//import static com.dlsu.getbetter.getbetter.cryptoGB.BackProcessResponseReciever.ACTION_RESP;
-
 public class UpdatePatientRecordActivity extends AppCompatActivity implements View.OnClickListener,
-        AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
+        AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener,
+        CryptoServiceReciever.Receiver{
 
     private transient Button submitBtn;
     private transient Button backBtn;
@@ -88,10 +85,12 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
     private transient Uri fileUri;
 
     private transient CryptoFileService cserv;
+    private transient CryptoServiceReciever cryptoReceiver;
 //    private boolean isCaptured;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_patient_info);
 
@@ -116,6 +115,8 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         bindListeners(this);
 
         cserv = new CryptoFileService();
+        cryptoReceiver = new CryptoServiceReciever(new android.os.Handler());
+        cryptoReceiver.setReceiver(this);
 //        isCaptured = false;
     }
 
@@ -237,6 +238,25 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
 
         return result;
 
+    }
+
+    @Override
+    public void onReceiveResult(int resultCode, Bundle resultData) {
+        switch(resultCode){
+            case CryptoFileService.STATUS_RUNNING:
+                setProgressBarIndeterminateVisibility(true);
+                Log.w("still running", "yes");
+                break;
+            case CryptoFileService.STATUS_FINISHED:
+                setProgressBarIndeterminateVisibility(false);
+                //TODO: set encrypted/decrypted file
+                Log.w("file output", resultData.getString("result"));
+                break;
+            case CryptoFileService.STATUS_ERROR:
+                String error = resultData.getString(Intent.EXTRA_TEXT);
+                Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+                Log.w("cryptoerror", error);
+        }
     }
 
     private class UpdatePatientInfoTask extends AsyncTask<String, Void, Integer> {
@@ -377,8 +397,12 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
     //
         Log.d("service in", "yes");
         switch(dec){
-            case "enc": cserv.cryptoAskEncrypt(this, input.getPath(), 1, (aes)getIntent().getSerializableExtra("sys")); break;
-            case "dec": cserv.cryptoAskDecrypt(this, input.getPath(), 1, (aes)getIntent().getSerializableExtra("sys")); break;
+            case "enc": cserv.cryptoAskEncrypt(this, input.getPath(), 1,
+                    (aes)getIntent().getSerializableExtra("sys"),
+                    cryptoReceiver); break;
+            case "dec": cserv.cryptoAskDecrypt(this, input.getPath(), 1,
+                    (aes)getIntent().getSerializableExtra("sys"),
+                    cryptoReceiver); break;
         }
 //
 //        file_aes mastercry = new file_aes();
