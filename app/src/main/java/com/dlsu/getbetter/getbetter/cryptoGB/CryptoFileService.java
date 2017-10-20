@@ -157,8 +157,8 @@ public class CryptoFileService extends IntentService{
 //    Log.w("file enc serv", "yes");
 //        Log.w("sel size", Long.toString(sel.length()));
         file_aes mastercry = null;
-//        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
-//                DirectoryConstants.CRYPTO_FOLDER);
+        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+                DirectoryConstants.CRYPTO_FOLDER);
 ////        path.mkdirs();
 //        File output = new File(path.getPath() +"/" + sel.getName());
 //        Log.d("output", output.getAbsolutePath());
@@ -166,10 +166,9 @@ public class CryptoFileService extends IntentService{
 //        final String action = intent.getAction();
 //        File src = new File(intent.getStringExtra(CRYPTO_FILE));
 //        Log.w("input file size", Long.toString(src.length()));
-        File in = new File(Environment.getExternalStoragePublicDirectory(DirectoryConstants.CRYPTO_FOLDER),
-                sel.getName());
+        File in = new File(path, sel.getName());
         try{
-            if(in.createNewFile()) {
+            if( path.mkdirs() && in.createNewFile()) {
                 receiver.send(STATUS_RUNNING, Bundle.EMPTY);
                 FileOutputStream os = new FileOutputStream(in);
                 os.write(read(sel));
@@ -215,10 +214,11 @@ public class CryptoFileService extends IntentService{
 
         file_aes mastercry;
         Log.w("sel file size", Long.toString(sel.length()));
-        File in = new File(Environment.getExternalStoragePublicDirectory(DirectoryConstants.CRYPTO_TEST),
-                sel.getName());
+        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+                DirectoryConstants.CRYPTO_TEST);
+        File in = new File(path, sel.getName());
         try{
-            if(in.createNewFile()) {
+            if(path.mkdirs() && in.createNewFile()) {
                 receiver.send(STATUS_RUNNING, Bundle.EMPTY);
                 FileOutputStream os = new FileOutputStream(in);
                 os.write(read(sel));
