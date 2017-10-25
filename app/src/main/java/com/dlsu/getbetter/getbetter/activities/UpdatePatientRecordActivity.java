@@ -28,6 +28,8 @@ import android.widget.TextView;
 
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
+import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
+import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.objects.Patient;
@@ -78,6 +80,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
     private Uri fileUri;
 
 //    private BackProcessResponseReciever reciever;
+    private CryptoFileService cserv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +105,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         showDatePlaceholder();
         bindListeners(this);
 
+        cserv = new CryptoFileService();
     }
 
     private void bindViews(UpdatePatientRecordActivity activity) {
@@ -360,32 +364,22 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
     private void doSomethingCryptFile(String dec, File input){
 
         Log.d("service in", "yes");
-
-        file_aes mastercry = new file_aes();
-        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
-                    DirectoryConstants.CRYPTO_FOLDER);
-        path.mkdirs();
-        File output = new File(path.getPath() +"/" + input.getName());
-        Log.d("output", output.getAbsolutePath());
-        try {
-            FileOutputStream fos = new FileOutputStream(output);
-            fos.write(read(input));
-            fos.flush();
-            fos.close();
-        } catch(Exception e){
-            Log.e("error", e.toString());
-        }
         switch(dec){
-            case "enc":{
-                mastercry.encryptFile(output);
-                Log.d("Action", "enc");
-            }; break;
-            case "dec":{
-                mastercry.decryptFile(input);
-                Log.d("Action", "dec");
-            }; break;
+            case "enc":
+//                cserv.cryptoAskEncrypt(this, input.getPath(), 1,
+//                    (aes)getIntent().getSerializableExtra("sys"),
+//                    cryptoReceiver);
+                cserv.cryptoAskEncrypt(this, input.getPath(), 1,
+                        new aes());
+                break;
+            case "dec":
+//                cserv.cryptoAskDecrypt(this, input.getPath(), 1,
+//                    (aes)getIntent().getSerializableExtra("sys"),
+//                    cryptoReceiver);
+                cserv.cryptoAskEncrypt(this, input.getPath(), 1,
+                        new aes());
+                break;
         }
-//
     }
 
     @Override

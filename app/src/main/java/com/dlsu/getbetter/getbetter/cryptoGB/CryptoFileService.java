@@ -125,6 +125,7 @@ public class CryptoFileService extends IntentService{
         boolean isFileUnlocked = false;
 
         if (path.mkdirs()){
+            Log.w("file?", "yes");
             f = new File(path, src.getName());
             try {
                 if (f.createNewFile()){
@@ -150,7 +151,7 @@ public class CryptoFileService extends IntentService{
 //                e.printStackTrace();
                 Log.w("error", e.getMessage());
             }
-        }
+        } else Log.w("file?", "no");
 //        File srcnew = new File(src.getPath());
 
         if (isFileUnlocked){

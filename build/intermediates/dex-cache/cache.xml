@@ -3,12 +3,30 @@
 
     <item
         is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\e9704601561180000892bc9e8d74244e9abf8417\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_c9a445335b65c5a708b3d65d7317b76b72beb288.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\User\.android\build-cache\eddaec331722f972d5f63d27d465ca91710569b0\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="26.0.2"
         sha1="15b049fedbd8e3926bf99d9e45dfc9b2a1043bb9">
         <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_7a5050a135284d1c0eb2f433f778472284f80ab0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\781a3a605ce9ee74e3aed462454ab19b710c2dff\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_44f6989bf85fa1beb6b81b34a1f7045422479767.jar" />
     </item>
     <item
         is-multidex="false"
@@ -27,6 +45,24 @@
         revision="26.0.2"
         sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
         <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_492a01aaf9fec883fa718a3015c89957d484018f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\4e776ca6da5030b7082e58d167b83705ff845144\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_1f843464831368f6434790edf14a305d8a4a8a3c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\93902ddf09ab782682480ccfec80cdcc2370dc0d\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_64bf60b810ed57d98c1621463db4b2a1a980ecd9.jar" />
     </item>
     <item
         is-multidex="false"
@@ -66,48 +102,12 @@
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\User\.android\build-cache\54ddfecd777e46ef97695017a3ba60622904f45b\output\jars\classes.jar"
+        jar="C:\Users\User\Documents\mlopez\ProjectCrypt\app\libs\commons-io-2.5.jar"
         jumboMode="false"
         optimize="true"
         revision="26.0.2"
-        sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
-        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_95e0e3f1a5aa1bcbd3a6683641bd4ee64f7a1cac.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\User\.android\build-cache\e9704601561180000892bc9e8d74244e9abf8417\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
-        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_c9a445335b65c5a708b3d65d7317b76b72beb288.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\User\.android\build-cache\781a3a605ce9ee74e3aed462454ab19b710c2dff\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
-        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_44f6989bf85fa1beb6b81b34a1f7045422479767.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\User\.android\build-cache\4e776ca6da5030b7082e58d167b83705ff845144\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
-        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_1f843464831368f6434790edf14a305d8a4a8a3c.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\User\.android\build-cache\93902ddf09ab782682480ccfec80cdcc2370dc0d\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
-        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_64bf60b810ed57d98c1621463db4b2a1a980ecd9.jar" />
+        sha1="2852e6e05fbb95076fc091f6d1780f1f8fe35e0f">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\commons-io-2.5_9e163d2a5d160f9d4f5e6f46184140aa47aed978.jar" />
     </item>
     <item
         is-multidex="false"
@@ -126,6 +126,15 @@
         revision="26.0.2"
         sha1="caf49e92eae4ca2805d530a92cb4777c1ef53f53">
         <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\PhotoUtil_7ee4910d91e5dfe96a2573eefd3e08842af48556.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\54ddfecd777e46ef97695017a3ba60622904f45b\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
+        <dex dex="C:\Users\User\Documents\mlopez\ProjectCrypt\app\build\intermediates\pre-dexed\debug\classes_95e0e3f1a5aa1bcbd3a6683641bd4ee64f7a1cac.jar" />
     </item>
     <item
         is-multidex="false"

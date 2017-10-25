@@ -71,6 +71,9 @@
         <activity android:name=".activities.CaptureDocumentsActivity" />
         <activity android:name=".activities.RecordHpiActivity" />
         <activity android:name=".activities.SummaryActivity" />
+        <service android:enabled="true"
+            android:name="com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService"
+            android:exported="false"/>
     </application>
 
 </manifest>
