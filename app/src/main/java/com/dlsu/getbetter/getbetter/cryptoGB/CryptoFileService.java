@@ -99,6 +99,8 @@ public class CryptoFileService extends IntentService{
         intent.setAction(ACTION_DEC);
         intent.putExtra(CRYPTO_HCID, hcID);
         intent.putExtra(CRYPTO_FILE, sel);
+        String f = sel;
+        Log.w("file", f);
         checkPermissions(context);
         context.startService(intent);
     }
@@ -117,46 +119,49 @@ public class CryptoFileService extends IntentService{
         String fi = intent.getStringExtra(CRYPTO_FILE);
         Log.w("file", fi);
         File src = new File(fi);
-        File path = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS),
-                DirectoryConstants.CRYPTO_TEST);
-        File f = null;
-        InputStream in;
-        OutputStream out;
-        boolean isFileUnlocked = false;
-
-        if (path.mkdirs()){
-            Log.w("file?", "yes");
-            f = new File(path, src.getName());
-            try {
-                if (f.createNewFile()){
-                    in = new FileInputStream(src);
-                    out = new FileOutputStream(f);
-                    IOUtils.copy(in, out);
-                    out.close();
-                    in.close();
-                    if(f.setReadable(true)){
-                        Log.w("exists?", "yes");
-                        try {
-                            long lastmod = f.lastModified();
-                            Log.w("last modified", Long.toString(lastmod));
-                            org.apache.commons.io.FileUtils.touch(f);
-                            isFileUnlocked = true;
-                        } catch (IOException e) {
-//                            isFileUnlocked = false;
-                            Log.w("error", e.getMessage());
-                        }
-                    } else Log.w("exists?", "no");
-                } else Log.w("exists?", "no");
-            } catch (IOException e) {
-//                e.printStackTrace();
-                Log.w("error", e.getMessage());
-            }
-        } else Log.w("file?", "no");
-//        File srcnew = new File(src.getPath());
-
-        if (isFileUnlocked){
-            Log.w("got it?", "yes");
-        } else Log.w("got it?", "no");
+        if (src.canRead() && src.canWrite()){
+            Log.w("file?", "yes!");
+        } else Log.w("file?", "no!");
+//        File path = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS),
+//                DirectoryConstants.CRYPTO_TEST);
+//        File f = null;
+//        InputStream in;
+//        OutputStream out;
+//        boolean isFileUnlocked = false;
+//
+//        if (path.mkdirs()){
+//            Log.w("file?", "yes");
+//            f = new File(path, src.getName());
+//            try {
+//                if (f.createNewFile()){
+//                    in = new FileInputStream(src);
+//                    out = new FileOutputStream(f);
+//                    IOUtils.copy(in, out);
+//                    out.close();
+//                    in.close();
+//                    if(f.setReadable(true)){
+//                        Log.w("exists?", "yes");
+//                        try {
+//                            long lastmod = f.lastModified();
+//                            Log.w("last modified", Long.toString(lastmod));
+//                            org.apache.commons.io.FileUtils.touch(f);
+//                            isFileUnlocked = true;
+//                        } catch (IOException e) {
+////                            isFileUnlocked = false;
+//                            Log.w("error", e.getMessage());
+//                        }
+//                    } else Log.w("exists?", "no");
+//                } else Log.w("exists?", "no");
+//            } catch (IOException e) {
+////                e.printStackTrace();
+//                Log.w("error", e.getMessage());
+//            }
+//        } else Log.w("file?", "no");
+////        File srcnew = new File(src.getPath());
+//
+//        if (isFileUnlocked){
+//            Log.w("got it?", "yes");
+//        } else Log.w("got it?", "no");
 //        InputStream in;
 //        try{
 //            in = new FileInputStream(src);
@@ -165,7 +170,7 @@ public class CryptoFileService extends IntentService{
 //            Log.w("got it?", "no");
 //            Log.w("error", e.getMessage());
 //        }
-        Log.w("input file size", Long.toString(src.length()));
+//        Log.w("input file size", Long.toString(src.length()));
 
 
 //        File in = new File(Environment.getExternalStoragePublicDirectory(DirectoryConstants.CRYPTO_FOLDER),
@@ -210,8 +215,8 @@ public class CryptoFileService extends IntentService{
 //    Log.w("file enc serv", "yes");
 //        Log.w("sel size", Long.toString(sel.length()));
         file_aes mastercry = null;
-        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
-                DirectoryConstants.CRYPTO_FOLDER);
+//        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+//                DirectoryConstants.CRYPTO_FOLDER);
 ////        path.mkdirs();
 //        File output = new File(path.getPath() +"/" + sel.getName());
 //        Log.d("output", output.getAbsolutePath());
@@ -219,27 +224,27 @@ public class CryptoFileService extends IntentService{
 //        final String action = intent.getAction();
 //        File src = new File(intent.getStringExtra(CRYPTO_FILE));
 //        Log.w("input file size", Long.toString(src.length()));
-        File in = new File(path, sel.getName());
-        try{
-            if( path.mkdirs() && in.createNewFile()) {
+//        File in = new File(path, sel.getName());
+//        try{
+//            if( path.mkdirs() && in.createNewFile()) {
+////                receiver.send(STATUS_RUNNING, Bundle.EMPTY);
+//                FileOutputStream os = new FileOutputStream(in);
+//                os.write(read(sel));
+//                os.close();
+//                Log.w("input file size", Long.toString(in.length()));
+//                Log.w("input file loc", in.getPath());
 //                receiver.send(STATUS_RUNNING, Bundle.EMPTY);
-                FileOutputStream os = new FileOutputStream(in);
-                os.write(read(sel));
-                os.close();
-                Log.w("input file size", Long.toString(in.length()));
-                Log.w("input file loc", in.getPath());
-//                receiver.send(STATUS_RUNNING, Bundle.EMPTY);
-//                mastercry = new file_aes(m);
-//                mastercry.encryptFile(in);
-//                handleFileDecryption(in, m, i);
-            }
+                mastercry = new file_aes(m);
+                mastercry.encryptFile(sel);
+//                handleFileDecryption(sel, m, i);
+//            }
 
-        } catch (Exception e){
-//            e.printStackTrace();
-//            bund.putString(Intent.EXTRA_TEXT, e.toString());
-//            receiver.send(STATUS_ERROR, bund);
-            Log.w("error", e.toString());
-        }
+//        } catch (Exception e){
+////            e.printStackTrace();
+////            bund.putString(Intent.EXTRA_TEXT, e.toString());
+////            receiver.send(STATUS_ERROR, bund);
+//            Log.w("error", e.toString());
+//        }
 //        try {
 //            receiver.send(STATUS_RUNNING, Bundle.EMPTY);
 //            mastercry = new file_aes(m);
@@ -252,43 +257,43 @@ public class CryptoFileService extends IntentService{
 //            receiver.send(STATUS_ERROR, bund);
 //            CRYPTO_RSLT = null;
 //        }
-        Log.w("enc", "done");
+//        Log.w("enc", "done");
 //        bund.putString("result", in.getPath());
 //        receiver.send(STATUS_FINISHED, bund);
-        CRYPTO_RSLT = in.getPath();
-        Log.w("result", in.getPath());
+//        CRYPTO_RSLT = in.getPath();
+//        Log.w("result", in.getPath());
     }
 
     private void handleFileDecryption(File sel, aes m, Intent i){
 //        final android.support.v4.os.ResultReceiver receiver = i.getParcelableExtra(CryptoServiceReciever.RESULT_RECEIEVER_EXTRA);
-        Bundle bund = new Bundle();
+//        Bundle bund = new Bundle();
 
 //        Log.w("cryptofiledecryption", Boolean.toString(receiver!=null));
 
         file_aes mastercry;
-        Log.w("sel file size", Long.toString(sel.length()));
-        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
-                DirectoryConstants.CRYPTO_TEST);
-        File in = new File(path, sel.getName());
-        try{
-            if(path.mkdirs() && in.createNewFile()) {
-//                receiver.send(STATUS_RUNNING, Bundle.EMPTY);
-                FileOutputStream os = new FileOutputStream(in);
-                os.write(read(sel));
-                os.close();
-                Log.w("input file size", Long.toString(in.length()));
-                Log.w("input file loc", in.getPath());
+//        Log.w("sel file size", Long.toString(sel.length()));
+//        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+//                DirectoryConstants.CRYPTO_TEST);
+//        File in = new File(path, sel.getName());
+//        try{
+//            if(path.mkdirs() && in.createNewFile()) {
+////                receiver.send(STATUS_RUNNING, Bundle.EMPTY);
+//                FileOutputStream os = new FileOutputStream(in);
+//                os.write(read(sel));
+//                os.close();
+//                Log.w("input file size", Long.toString(in.length()));
+//                Log.w("input file loc", in.getPath());
 //                receiver.send(STATUS_RUNNING, Bundle.EMPTY);
                 mastercry = new file_aes(m);
-                mastercry.decryptFile(in);
-            }
-
-        } catch (Exception e){
-//            e.printStackTrace();
-//            bund.putString(Intent.EXTRA_TEXT, e.toString());
-//            receiver.send(STATUS_ERROR, bund);
-            Log.w("error", e.getMessage());
-        }
+                mastercry.decryptFile(sel);
+//            }
+//
+//        } catch (Exception e){
+////            e.printStackTrace();
+////            bund.putString(Intent.EXTRA_TEXT, e.toString());
+////            receiver.send(STATUS_ERROR, bund);
+//            Log.w("error", e.getMessage());
+//        }
 //        try {
 //            receiver.send(STATUS_RUNNING, Bundle.EMPTY);
 //            mastercry = new file_aes(m);
@@ -303,8 +308,8 @@ public class CryptoFileService extends IntentService{
         Log.w("enc", "done");
 //        bund.putString("result", in.getPath());
 //        receiver.send(STATUS_FINISHED, bund);
-        CRYPTO_RSLT = in.getPath();
-        Log.w("result", in.getPath());
+//        CRYPTO_RSLT = in.getPath();
+//        Log.w("result", in.getPath());
     }
 
     private static byte[] read(File file) throws IOException {

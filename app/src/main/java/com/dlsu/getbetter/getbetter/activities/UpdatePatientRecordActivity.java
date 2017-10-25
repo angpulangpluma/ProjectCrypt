@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
@@ -16,6 +17,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +41,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -48,6 +51,9 @@ import java.util.StringTokenizer;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 
 import static android.os.Environment.DIRECTORY_DOCUMENTS;
 //import static com.dlsu.getbetter.getbetter.cryptoGB.BackProcessResponseReciever.ACTION_RESP;
@@ -376,7 +382,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
 //                cserv.cryptoAskDecrypt(this, input.getPath(), 1,
 //                    (aes)getIntent().getSerializableExtra("sys"),
 //                    cryptoReceiver);
-                cserv.cryptoAskEncrypt(this, input.getPath(), 1,
+                cserv.cryptoAskDecrypt(this, input.getPath(), 1,
                         new aes());
                 break;
         }
@@ -388,7 +394,18 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         if(requestCode == REQUEST_IMAGE1 && resultCode == Activity.RESULT_OK) {
             setPic(profileImage, fileUri.getPath());
             profilePicPath = fileUri.getPath();
-            doSomethingCryptFile("enc", new File(profilePicPath));
+            File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+                    DirectoryConstants.CRYPTO_FOLDER);
+            if(path.mkdirs()){
+                File set = createFileDuplicate(path.getPath(),
+                    FilenameUtils.getBaseName(profilePicPath),
+                        fileUri.getPath()
+                );
+                if (set!=null)
+                    doSomethingCryptFile("enc", set);
+                else Log.w("enc file?", "no");
+            }
+
         }
     }
 
@@ -521,4 +538,63 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         }
     }
 
+    private File createFileDuplicate(String path, String newname, String oldfile){
+        checkPermissions(this);
+        File f = null;
+        InputStream in;
+        OutputStream out;
+        boolean isFileUnlocked = false;
+        try {
+            f = new File(path, newname + "." +
+                    FilenameUtils.getExtension(oldfile));
+            if(f.createNewFile()) {
+                Log.w("file?", "yes");
+                in = new FileInputStream(new File(oldfile));
+                out = new FileOutputStream(f);
+                if (IOUtils.copy(in, out)>-1) {
+                    Log.w("copy?", "yes");
+                    out.close();
+                    in.close();
+                    if (f.canRead()) {
+                        Log.w("exists?", "yes");
+                        try {
+                            long lastmod = f.lastModified();
+                            Log.w("last modified", Long.toString(lastmod));
+                            org.apache.commons.io.FileUtils.touch(f);
+                            isFileUnlocked = true;
+                        } catch (IOException e) {
+                            //                            isFileUnlocked = false;
+                            Log.w("error", e.getMessage());
+                        }
+                    } else Log.w("exists?", "no");
+                } else Log.w("copy?", "no");
+            } else {
+                f = null;
+                Log.w("file?", "no");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return f;
+    }
+
+    private void checkPermissions(Context context){
+        int readStuff = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+        int writeStuff = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+//        Log.w("read?", Integer.toString(readStuff));
+//        Log.w("write?", Integer.toString(writeStuff));
+        //for read stuff
+        if(readStuff == PackageManager.PERMISSION_GRANTED)
+            Log.w("read?", "yes");
+        else if(readStuff == PackageManager.PERMISSION_DENIED)
+            Log.w("read?", "no");
+
+        //for write stuff
+        if(writeStuff == PackageManager.PERMISSION_GRANTED)
+            Log.w("write?", "yes");
+        else if(writeStuff == PackageManager.PERMISSION_DENIED)
+            Log.w("write?", "no");
+    }
 }
