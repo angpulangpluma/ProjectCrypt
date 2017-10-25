@@ -42,13 +42,13 @@ public class aes {
     private SecretKeySpec secretkey;
     private Cipher cipher;
 
-//    public aes(SecretKeySpec key){
-//        this.secretkey = key;
-//    }
+    public aes(SecretKeySpec key){
+        this.secretkey = key;
+    }
 //
-//    public aes(){
-//
-//    }
+    public aes(){
+
+    }
 
     public void setKey(){
         try{

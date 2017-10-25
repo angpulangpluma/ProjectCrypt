@@ -30,4 +30,6 @@ public class DirectoryConstants {
 
     public static final String CRYPTO_FOLDER = "crypto";
 
+    public static final String CRYPTO_TEST = "decrypt";
+
 }
