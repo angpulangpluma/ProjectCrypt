@@ -394,17 +394,18 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         if(requestCode == REQUEST_IMAGE1 && resultCode == Activity.RESULT_OK) {
             setPic(profileImage, fileUri.getPath());
             profilePicPath = fileUri.getPath();
-            File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
-                    DirectoryConstants.CRYPTO_FOLDER);
-            if(path.mkdirs()){
-                File set = createFileDuplicate(path.getPath(),
+//            File path = ;
+//            if(path.mkdirs()){
+                File set = createFileDuplicate(
+                        new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+                                DirectoryConstants.CRYPTO_FOLDER).getPath(),
                     FilenameUtils.getBaseName(profilePicPath),
                         fileUri.getPath()
                 );
                 if (set!=null)
                     doSomethingCryptFile("enc", set);
                 else Log.w("enc file?", "no");
-            }
+//            }
 
         }
     }
