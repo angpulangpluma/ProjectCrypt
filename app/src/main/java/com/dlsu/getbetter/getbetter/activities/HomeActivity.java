@@ -41,6 +41,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        Log.w("sys", Boolean.toString(getIntent().getSerializableExtra("sys")!=null));
         systemSessionManager = new SystemSessionManager(this);
         if(systemSessionManager.checkLogin())
             finish();

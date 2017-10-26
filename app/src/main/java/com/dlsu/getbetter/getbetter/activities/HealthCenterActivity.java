@@ -8,17 +8,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.activities.HomeActivity;
 import com.dlsu.getbetter.getbetter.adapters.HealthCenterListAdapter;
+import com.dlsu.getbetter.getbetter.cryptoGB.KeySetter;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.objects.DividerItemDecoration;
 import com.dlsu.getbetter.getbetter.objects.HealthCenter;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +31,7 @@ public class HealthCenterActivity extends AppCompatActivity {
     private DataAdapter getBetterDb;
     private SystemSessionManager systemSessionManager;
     private ArrayList<HealthCenter> healthCenters;
+    private KeySetter ks = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +72,12 @@ public class HealthCenterActivity extends AppCompatActivity {
 
                 systemSessionManager.setHealthCenter(healthCenterName, healthCenterId);
 
+                ks = new KeySetter(view.getContext());
+                ks.read(Integer.parseInt(systemSessionManager.getHealthCenter().get(SystemSessionManager.HEALTH_CENTER_ID)));
+                Log.w("crypt", Boolean.toString(ks.getCrypto()!=null));
+
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                intent.putExtra("sys", ks.getCrypto());
                 startActivity(intent);
                 finish();
             }
