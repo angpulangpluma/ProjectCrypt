@@ -94,6 +94,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_capture_documents);
 
+        Log.w("sys", Boolean.toString(getIntent().getSerializableExtra("sys")!=null));
         SystemSessionManager systemSessionManager = new SystemSessionManager(this);
         if(systemSessionManager.checkLogin())
             finish();
@@ -224,6 +225,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
 //            Intent intent = new Intent(this, ViewPatientActivity.class);
 //            Log.d(TAG, "" + newPatientSessionManager.getPatientInfo().get(NewPatientSessionManager.PATIENT_ID));
 //            intent.putExtra("patientId", newPatientSessionManager.getPatientInfo().get(NewPatientSessionManager.PATIENT_ID));
+            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             newPatientSessionManager.endSession();
             startActivity(intent);
 
