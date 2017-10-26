@@ -311,15 +311,18 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
 
             newPatientDetails.endSession();
 
-            CaptureDocumentsActivity.getInstance().finish();
-            RecordHpiActivity.getInstance().finish();
-            finish();
             Intent intent = new Intent(this, ExistingPatientActivity.class);
             intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             startActivity(intent);
+            CaptureDocumentsActivity.getInstance().finish();
+            RecordHpiActivity.getInstance().finish();
+            finish();
 
         } else if(id == R.id.summary_page_back_btn) {
 
+            Intent intent = new Intent(this, ViewPatientActivity.class);
+            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+            startActivity(intent);
             finish();
 
         } else if(id == R.id.summary_page_take_pic_btn) {

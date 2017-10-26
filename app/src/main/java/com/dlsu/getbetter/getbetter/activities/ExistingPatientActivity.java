@@ -187,6 +187,9 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
 
 
         } else if (id == R.id.existing_patient_back_btn) {
+            Intent intent = new Intent(this, HomeActivity.class);
+            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+            startActivity(intent);
             finish();
         }
     }

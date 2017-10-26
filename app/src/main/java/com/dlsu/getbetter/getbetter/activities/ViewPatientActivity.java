@@ -198,8 +198,9 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
         if(id == R.id.view_patient_back_btn) {
 
             newPatientSessionManager.endSession();
-//            Intent intent = new Intent(ViewPatientActivity.this, ExistingPatientActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(ViewPatientActivity.this, ExistingPatientActivity.class);
+            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+            startActivity(intent);
             finish();
 
         } else if(id == R.id.view_patient_update_btn) {
