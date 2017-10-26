@@ -75,6 +75,7 @@ public class HealthCenterActivity extends AppCompatActivity {
                 ks = new KeySetter(view.getContext());
                 ks.read(Integer.parseInt(systemSessionManager.getHealthCenter().get(SystemSessionManager.HEALTH_CENTER_ID)));
                 Log.w("crypt", Boolean.toString(ks.getCrypto()!=null));
+                Log.w("key", String.valueOf(ks.getCrypto().getKey().getEncoded()));
 
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 intent.putExtra("sys", ks.getCrypto());

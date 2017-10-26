@@ -48,6 +48,7 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
         setContentView(R.layout.activity_existing_patient);
 
         Log.w("sys", Boolean.toString(getIntent().getSerializableExtra("sys")!=null));
+
         SystemSessionManager systemSessionManager = new SystemSessionManager(this);
         if(systemSessionManager.checkLogin())
             finish();

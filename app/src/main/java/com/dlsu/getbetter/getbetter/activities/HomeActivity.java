@@ -20,6 +20,7 @@ import com.dlsu.getbetter.getbetter.DetailsFragment;
 import com.dlsu.getbetter.getbetter.DiagnosedCaseFragment;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.UrgentCaseFragment;
+import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
 
@@ -42,6 +43,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_home);
 
         Log.w("sys", Boolean.toString(getIntent().getSerializableExtra("sys")!=null));
+        Log.w("key", String.valueOf(((aes)getIntent().getSerializableExtra("sys")).getKey().getEncoded()));
         systemSessionManager = new SystemSessionManager(this);
         if(systemSessionManager.checkLogin())
             finish();
