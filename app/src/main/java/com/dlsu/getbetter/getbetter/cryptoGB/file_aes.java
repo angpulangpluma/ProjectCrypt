@@ -42,10 +42,13 @@ public class file_aes {
 
     public void encryptFile(File file){
         File encrypted = new File(file.getPath() + file.getName() +"_encrypted."+FilenameUtils.getExtension(file.getPath()));
+//        if(encrypted.canWrite() && encrypted.canRead())
+//            Log.w("encrypt file?", "yes!");
+//        else Log.w("encrypt file?", "no!");
         Cipher cp = filealgo.getCipher();
         SecretKeySpec k = filealgo.getKey();
         try{
-            FileInputStream in = new FileInputStream(file);
+            FileInputStream in = new FileInputStream(encrypted);
             cp.init(Cipher.ENCRYPT_MODE, k);
             CipherOutputStream os = new CipherOutputStream(new FileOutputStream(encrypted),
                     cp);
