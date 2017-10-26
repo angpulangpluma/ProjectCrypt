@@ -62,6 +62,7 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_case_record);
 
+        Log.w("sys", Boolean.toString(getIntent().getSerializableExtra("sys")!=null));
         SystemSessionManager systemSessionManager = new SystemSessionManager(this);
         Bundle extras = getIntent().getExtras();
         int caseRecordId = extras.getInt("caseRecordId");
