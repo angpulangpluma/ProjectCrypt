@@ -45,3 +45,19 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+#this project's list
+/.gradle
+/.idea
+/build
+/app/build
+/app/app.iml
+/app/proguard-rules.pro
+/app/src/androidTest
+/app/src/test
+Cryptography-Project.iml
+gradle.properties
+gradle
+gradlew
+gradlew.bat
+ProjectCrypt.iml
