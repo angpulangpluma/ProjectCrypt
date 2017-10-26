@@ -4,6 +4,10 @@ package com.dlsu.getbetter.getbetter.cryptoGB;
  * Created by YING LOPEZ on 9/28/2017.
  */
 
+import android.util.Log;
+
+import org.apache.commons.io.FilenameUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -37,7 +41,7 @@ public class file_aes {
     }
 
     public void encryptFile(File file){
-        File encrypted = new File(file.getPath() + "_encrypted."+returnFileExt(file));
+        File encrypted = new File(file.getPath() + file.getName() +"_encrypted."+FilenameUtils.getExtension(file.getPath()));
         Cipher cp = filealgo.getCipher();
         SecretKeySpec k = filealgo.getKey();
         try{
@@ -49,12 +53,12 @@ public class file_aes {
             in.close();
             os.close();
         } catch(Exception ex){
-            ex.printStackTrace();
+            Log.w("error", ex.toString());
         }
     }
 
     public void decryptFile(File file){
-        File decrypted = new File(file.getPath() + "//" + returnFileName(file)+"_decrypted."+returnFileExt(file));
+        File decrypted = new File(file.getPath() + "//" + file.getName()+"_decrypted."+FilenameUtils.getExtension(file.getPath()));
         Cipher cp = filealgo.getCipher();
         SecretKeySpec k = filealgo.getKey();
         try{
@@ -66,26 +70,26 @@ public class file_aes {
             is.close();
             os.close();
         } catch(Exception ex){
-            ex.printStackTrace();
+            Log.w("error", ex.toString());
         }
 
     }
 
-    private String returnFileExt(File file){
-        String ext = "";
-        int i = file.getName().lastIndexOf('.');
-        if (i >= 0)
-            ext = file.getName().substring(i+1);
-        return ext;
-    }
+//    private String returnFileExt(File file){
+//        String ext = "";
+//        int i = file.getName().lastIndexOf('.');
+//        if (i >= 0)
+//            ext = file.getName().substring(i+1);
+//        return ext;
+//    }
 
-    private String returnFileName(File file){
-        String filename = "";
-        int i = file.getName().lastIndexOf('.');
-        if (i >= 0)
-            filename = file.getName().substring(0, i);
-        return filename;
-    }
+//    private String returnFileName(File file){
+//        String filename = "";
+//        int i = file.getName().lastIndexOf('.');
+//        if (i >= 0)
+//            filename = file.getName().substring(0, i);
+//        return filename;
+//    }
 
     /*
     Implementation for copy() from www.macs.hw.ac.uk/~ml355/lore/FileEncryption.java
@@ -98,7 +102,7 @@ public class file_aes {
                 os.write(b, 0, i);
             }
         }catch(IOException e){
-            e.printStackTrace();
+            Log.w("error", e.toString());
         }
     }
 

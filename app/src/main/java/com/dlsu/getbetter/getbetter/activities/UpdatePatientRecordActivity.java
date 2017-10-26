@@ -373,18 +373,16 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         Log.d("service in", "yes");
         switch(dec){
             case "enc":
-//                cserv.cryptoAskEncrypt(this, input.getPath(), 1,
-//                    (aes)getIntent().getSerializableExtra("sys"),
-//                    cryptoReceiver);
                 cserv.cryptoAskEncrypt(this, input.getPath(), 1,
-                        new aes());
+                    (aes)getIntent().getSerializableExtra("sys"));
+//                cserv.cryptoAskEncrypt(this, input.getPath(), 1,
+//                        new aes());
                 break;
             case "dec":
-//                cserv.cryptoAskDecrypt(this, input.getPath(), 1,
-//                    (aes)getIntent().getSerializableExtra("sys"),
-//                    cryptoReceiver);
                 cserv.cryptoAskDecrypt(this, input.getPath(), 1,
-                        new aes());
+                    (aes)getIntent().getSerializableExtra("sys"));
+//                cserv.cryptoAskDecrypt(this, input.getPath(), 1,
+//                        new aes());
                 break;
         }
     }
