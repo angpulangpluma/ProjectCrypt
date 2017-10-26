@@ -62,6 +62,7 @@ public class UploadPatientToServerActivity extends AppCompatActivity implements 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_to_server);
 
+        Log.w("sys", Boolean.toString(getIntent().getSerializableExtra("sys")!=null));
         SystemSessionManager systemSessionManager = new SystemSessionManager(this);
         if(systemSessionManager.checkLogin())
             finish();
@@ -199,6 +200,7 @@ public class UploadPatientToServerActivity extends AppCompatActivity implements 
         } else if (id == R.id.upload_patient_back_btn) {
 
             Intent intent = new Intent(this, ExistingPatientActivity.class);
+            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             startActivity(intent);
             finish();
         }
