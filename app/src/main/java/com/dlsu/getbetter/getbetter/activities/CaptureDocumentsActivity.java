@@ -244,6 +244,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
                 newPatientSessionManager.setDocImages(this.patientInfoImagePath, this.familySocialHistoryImagePath, this.chiefComplaintImagePath,
                         PATIENT_INFO_FORM_TITLE, FAMILY_SOCIAL_HISTORY_FORM_TITLE, CHIEF_COMPLAINT_FORM_TITLE);
                 Intent intent = new Intent(this, RecordHpiActivity.class);
+                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
                 startActivity(intent);
 
             }
