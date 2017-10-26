@@ -129,6 +129,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
 
+        Log.w("sys", Boolean.toString(getIntent().getSerializableExtra("sys")!=null));
         SystemSessionManager systemSessionManager = new SystemSessionManager(this);
         if(systemSessionManager.checkLogin())
             finish();
@@ -313,6 +314,9 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
             CaptureDocumentsActivity.getInstance().finish();
             RecordHpiActivity.getInstance().finish();
             finish();
+            Intent intent = new Intent(this, ExistingPatientActivity.class);
+            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+            startActivity(intent);
 
         } else if(id == R.id.summary_page_back_btn) {
 
