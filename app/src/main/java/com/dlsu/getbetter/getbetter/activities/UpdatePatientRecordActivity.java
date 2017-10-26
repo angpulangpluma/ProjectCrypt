@@ -30,7 +30,9 @@ import android.widget.TextView;
 
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
+import com.dlsu.getbetter.getbetter.cryptoGB.CryptFile;
 import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
+import com.dlsu.getbetter.getbetter.cryptoGB.TaskListener;
 import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
@@ -52,14 +54,19 @@ import java.util.StringTokenizer;
 import de.hdodenhof.circleimageview.CircleImageView;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 import static android.os.Environment.DIRECTORY_DOCUMENTS;
 //import static com.dlsu.getbetter.getbetter.cryptoGB.BackProcessResponseReciever.ACTION_RESP;
 
 public class UpdatePatientRecordActivity extends AppCompatActivity implements View.OnClickListener,
-        AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
+        AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener,
+        TaskListener{
 
     private Button submitBtn;
     private Button backBtn;
@@ -374,18 +381,42 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         Log.d("service in", "yes");
         switch(dec){
             case "enc":
-                cserv.cryptoAskEncrypt(this, input.getPath(), 1,
-                    (aes)getIntent().getSerializableExtra("sys"));
+                new CryptFile(this)
+                    .execute(
+                        input.getPath(),
+                        getCrypt(((aes)getIntent().getSerializableExtra("sys")).getKey()),
+                        "enc");
+//                cserv.cryptoAskEncrypt(this, input.getPath(), 1,
+//                    (aes)getIntent().getSerializableExtra("sys"));
 //                cserv.cryptoAskEncrypt(this, input.getPath(), 1,
 //                        new aes());
                 break;
             case "dec":
-                cserv.cryptoAskDecrypt(this, input.getPath(), 1,
-                    (aes)getIntent().getSerializableExtra("sys"));
+                new CryptFile(this)
+                        .execute(
+                                input.getPath(),
+                                getCrypt(((aes)getIntent().getSerializableExtra("sys")).getKey()),
+                                "dec");
+//                cserv.cryptoAskDecrypt(this, input.getPath(), 1,
+//                    (aes)getIntent().getSerializableExtra("sys"));
 //                cserv.cryptoAskDecrypt(this, input.getPath(), 1,
 //                        new aes());
                 break;
         }
+    }
+
+    private String getCrypt(SecretKeySpec sk){
+        return Base64.encodeBase64(sk.getEncoded()).toString();
+    }
+
+    @Override
+    public void onTaskStarted() {
+        Log.w("process?", "start!");
+    }
+
+    @Override
+    public void onTaskFinished(String result) {
+        Log.w("process?", result);
     }
 
     @Override
@@ -548,7 +579,14 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         try {
             f = new File(path, newname + "." +
                     FilenameUtils.getExtension(oldfile));
-            if(f.createNewFile()) {
+            if(!f.exists()) {
+                try {
+                    if (f.createNewFile())
+                        Log.w("file?", "new!");
+                } catch(IOException e) {
+                    Log.w("error", e.getMessage());
+                }
+            } else{
                 Log.w("file?", "yes");
                 in = new FileInputStream(new File(oldfile));
                 out = new FileOutputStream(f);
@@ -569,10 +607,10 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
                         }
                     } else Log.w("exists?", "no");
                 } else Log.w("copy?", "no");
-            } else {
-                f = null;
-                Log.w("file?", "no");
-            }
+            } //else {
+//                f = null;
+//                Log.w("file?", "no");
+//            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -598,4 +636,5 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         else if(writeStuff == PackageManager.PERMISSION_DENIED)
             Log.w("write?", "no");
     }
+
 }

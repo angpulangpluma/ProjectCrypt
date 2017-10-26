@@ -40,40 +40,60 @@ public class file_aes {
         return filealgo;
     }
 
-    public void encryptFile(File file){
-        File encrypted = new File(file.getPath() + file.getName() +"_encrypted."+FilenameUtils.getExtension(file.getPath()));
+    public void encryptFile(File file) {
+        File encrypted = new File(file.getPath() + file.getName() + "_encrypted." + FilenameUtils.getExtension(file.getPath()));
+        if (!encrypted.exists()) {
+            try {
+                if (encrypted.createNewFile())
+                    Log.w("file?", "new!");
+            } catch (IOException e) {
+                Log.w("error", e.getMessage());
+            }
+
+        } else {
 //        if(encrypted.canWrite() && encrypted.canRead())
 //            Log.w("encrypt file?", "yes!");
 //        else Log.w("encrypt file?", "no!");
-        Cipher cp = filealgo.getCipher();
-        SecretKeySpec k = filealgo.getKey();
-        try{
-            FileInputStream in = new FileInputStream(encrypted);
-            cp.init(Cipher.ENCRYPT_MODE, k);
-            CipherOutputStream os = new CipherOutputStream(new FileOutputStream(encrypted),
-                    cp);
-            copy(in, os);
-            in.close();
-            os.close();
-        } catch(Exception ex){
-            Log.w("error", ex.toString());
+            Cipher cp = filealgo.getCipher();
+            SecretKeySpec k = filealgo.getKey();
+            try {
+                FileInputStream in = new FileInputStream(encrypted);
+                cp.init(Cipher.ENCRYPT_MODE, k);
+                CipherOutputStream os = new CipherOutputStream(new FileOutputStream(encrypted),
+                        cp);
+                copy(in, os);
+                in.close();
+                os.close();
+            } catch (Exception ex) {
+                Log.w("error", ex.toString());
+            }
         }
     }
 
     public void decryptFile(File file){
         File decrypted = new File(file.getPath() + "//" + file.getName()+"_decrypted."+FilenameUtils.getExtension(file.getPath()));
-        Cipher cp = filealgo.getCipher();
-        SecretKeySpec k = filealgo.getKey();
-        try{
-            FileOutputStream os = new FileOutputStream(decrypted);
-            cp.init(Cipher.DECRYPT_MODE, k);
-            CipherInputStream is = new CipherInputStream(new FileInputStream(file),
-                    cp);
-            copy(is, os);
-            is.close();
-            os.close();
-        } catch(Exception ex){
-            Log.w("error", ex.toString());
+        if(!decrypted.exists()) {
+            try {
+                if (decrypted.createNewFile())
+                    Log.w("file?", "new!");
+            } catch(IOException e) {
+                Log.w("error", e.getMessage());
+            }
+
+        } else {
+            Cipher cp = filealgo.getCipher();
+            SecretKeySpec k = filealgo.getKey();
+            try {
+                FileOutputStream os = new FileOutputStream(decrypted);
+                cp.init(Cipher.DECRYPT_MODE, k);
+                CipherInputStream is = new CipherInputStream(new FileInputStream(file),
+                        cp);
+                copy(is, os);
+                is.close();
+                os.close();
+            } catch (Exception ex) {
+                Log.w("error", ex.toString());
+            }
         }
 
     }
