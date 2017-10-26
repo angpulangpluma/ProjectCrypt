@@ -260,6 +260,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
             }
 
             Intent intent = new Intent(UpdatePatientRecordActivity.this, ViewPatientActivity.class);
+            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             intent.putExtra("patientId", patientId);
             startActivity(intent);
             finish();
