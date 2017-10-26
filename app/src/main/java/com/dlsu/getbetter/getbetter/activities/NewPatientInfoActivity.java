@@ -69,6 +69,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         setContentView(R.layout.activity_new_patient_info);
 
 //        newPatientSessionManager = new NewPatientSessionManager(this);
+        Log.w("sys", Boolean.toString(getIntent().getSerializableExtra("sys")!=null));
         SystemSessionManager systemSessionManager = new SystemSessionManager(this);
         if(systemSessionManager.checkLogin())
             finish();
