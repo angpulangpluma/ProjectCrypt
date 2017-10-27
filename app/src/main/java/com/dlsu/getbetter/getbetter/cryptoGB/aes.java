@@ -35,9 +35,14 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
 
 import static android.util.Base64.DEFAULT;
+import static org.apache.commons.codec.binary.Hex.decodeHex;
+import static org.apache.commons.codec.binary.Hex.encodeHex;
+import static org.apache.commons.io.FileUtils.readFileToByteArray;
+import static org.apache.commons.io.FileUtils.writeStringToFile;
 
 public class aes implements Serializable {
 
@@ -46,6 +51,7 @@ public class aes implements Serializable {
 
     private SecretKey secretkey;
     private transient Cipher cipher;
+    private static final String ALGO = "AES";
 
     public aes(SecretKey key){
         this.AES_Key_Size = 256;
@@ -88,34 +94,40 @@ public class aes implements Serializable {
         return this.secretkey;
     }
 
-//    public void saveKey(String fileloc) throws Exception {
-//        //save key to file
-//        System.out.println("Trying to save key in " + fileloc);
-//        OutputStream output = null;
-//        try {
-//            System.out.println("Saving key in file");
-//            output = new BufferedOutputStream(new FileOutputStream(fileloc));
-//            output.write(this.secretkey.getEncoded());
-//        } finally{
-//            output.close();
-//            System.out.println("Successfully saved key");
-//        }
-//
-//    }
-//
-//    public void retrieveKey(String fileloc) throws IOException{
-//        //get key from file
-//        System.out.println("Trying to get key from " + fileloc);
-//        byte[] result = new byte[(int)new File(fileloc).length()];
-//        try{
-//         InputStream input = new BufferedInputStream(new FileInputStream(fileloc));
-//         input.read(result);
-//        } finally{
-//            this.secretkey = new SecretKeySpec(result, 0, result.length, "AES");
-//            System.out.println("Key successfully retrieved!");
-//        }
-//
-//    }
+    /*
+    * @author stuinzuri
+    * @source https://github.com/stuinzuri/SimpleJavaKeyStore/blob/master/src/ch/geekomatic/sjks/KeyStoreUtils.java
+    */
+    public static void saveKey(SecretKey key, File file) throws IOException
+    {
+        byte[] encoded = key.getEncoded();
+        char[] hex = encodeHex(encoded);
+        String data = String.valueOf(hex);
+        writeStringToFile(file, data);
+    }
+
+    /*
+    * @author stuinzuri
+    * @source https://github.com/stuinzuri/SimpleJavaKeyStore/blob/master/src/ch/geekomatic/sjks/KeyStoreUtils.java
+    */
+    public static SecretKey loadKey(File file) throws IOException
+    {
+        String data = new String(readFileToByteArray(file));
+        char[] hex = data.toCharArray();
+        byte[] encoded;
+        try
+        {
+            encoded = decodeHex(hex);
+        }
+        catch (DecoderException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        }
+        SecretKey key = new SecretKeySpec(encoded, ALGO);
+        return key;
+    }
 
     private void writeObject(ObjectOutputStream out) throws IOException{
         Log.w("serial?", "writing!");
