@@ -47,7 +47,7 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_existing_patient);
 
-        Log.w("sys", Boolean.toString(getIntent().getSerializableExtra("sys")!=null));
+//        Log.w("sys", Boolean.toString(getIntent().getSerializableExtra("sys")!=null));
 
         SystemSessionManager systemSessionManager = new SystemSessionManager(this);
         if(systemSessionManager.checkLogin())
@@ -89,7 +89,7 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
 
                 selectedPatientId = existingPatients.get(position).getId();
                 Intent intent = new Intent(ExistingPatientActivity.this, ViewPatientActivity.class);
-                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
                 intent.putExtra("patientId", selectedPatientId);
                 startActivity(intent);
                 ExistingPatientActivity.this.finish();
@@ -160,14 +160,14 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
         if (id == R.id.create_new_patient_btn) {
 
             Intent intent = new Intent(this, NewPatientInfoActivity.class);
-            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             startActivity(intent);
 
         } else if (id == R.id.upload_patient_record) {
 
             if(isConnected) {
                 Intent intent = new Intent(this, UploadPatientToServerActivity.class);
-                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
                 startActivity(intent);
                 finish();
             } else {
@@ -179,7 +179,7 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
 
             if(isConnected) {
                 Intent intent = new Intent(this, UploadCaseRecordToServerActivity.class);
-                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
                 startActivity(intent);
                 finish();
             } else {
