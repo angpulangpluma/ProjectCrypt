@@ -48,6 +48,7 @@ public class aes implements Serializable {
     public aes(SecretKeySpec key){
         this.AES_Key_Size = 256;
         this.secretkey = key;
+        this.key = secretkey.getEncoded();
     }
 //
     public aes(){
