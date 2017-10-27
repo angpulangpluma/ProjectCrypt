@@ -31,6 +31,7 @@ import android.widget.TextView;
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
+import com.dlsu.getbetter.getbetter.cryptoGB.Serializator;
 import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
@@ -86,7 +87,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
     private Uri fileUri;
 
 //    private BackProcessResponseReciever reciever;
-    private CryptoFileService cserv;
+//    private CryptoFileService cserv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +112,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         showDatePlaceholder();
         bindListeners(this);
 
-        cserv = new CryptoFileService();
+//        cserv = new CryptoFileService();
     }
 
     private void bindViews(UpdatePatientRecordActivity activity) {
@@ -370,22 +371,32 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
     private void doSomethingCryptFile(String dec, File input){
 
         Log.d("service in", "yes");
-        switch(dec){
-            case "enc":
-//                cserv.cryptoAskEncrypt(this, input.getPath(), 1,
-//                    (aes)getIntent().getSerializableExtra("sys"),
-//                    cryptoReceiver);
-                cserv.cryptoAskEncrypt(this, input.getPath(), 1,
-                        new aes());
-                break;
-            case "dec":
-//                cserv.cryptoAskDecrypt(this, input.getPath(), 1,
-//                    (aes)getIntent().getSerializableExtra("sys"),
-//                    cryptoReceiver);
-                cserv.cryptoAskDecrypt(this, input.getPath(), 1,
-                        new aes());
-                break;
+
+        file_aes mastercry = new file_aes(cryptoInit());
+        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+                DirectoryConstants.CRYPTO_FOLDER);
+        path.mkdirs();
+        File output = new File(path.getPath() +"/" + input.getName());
+        Log.d("output", output.getAbsolutePath());
+        try {
+            FileOutputStream fos = new FileOutputStream(output);
+            fos.write(read(input));
+            fos.flush();
+            fos.close();
+        } catch(Exception e){
+            Log.e("error", e.toString());
         }
+        switch(dec){
+            case "enc":{
+                mastercry.encryptFile(output);
+                Log.d("Action", "enc");
+            }; break;
+            case "dec":{
+                mastercry.decryptFile(input);
+                Log.d("Action", "dec");
+            }; break;
+        }
+//
     }
 
     @Override
@@ -537,6 +548,58 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
                 break;
 
         }
+    }
+
+    private aes cryptoInit(){
+//        Serializator str = new Serializator();
+        checkPermissions(this);
+        File set = null;
+        aes mstr = null;
+        set = createFile(this, "datadb.dat");
+        if(set!=null){
+            mstr = Serializator.deserialize(set.getPath(), aes.class);
+            Log.w("crypto", Boolean.toString(mstr!=null));
+            Log.w("key", String.valueOf(mstr.getKey().getEncoded()));
+        }
+        return mstr;
+    }
+
+    private File createFile(Context con, String newname){
+        checkPermissions(this);
+        File f = null;
+        InputStream in;
+        OutputStream out;
+        boolean isFileUnlocked = false;
+        try {
+            f = con.getFileStreamPath(newname);
+            if (!f.exists()) {
+                if (f.createNewFile()) {
+                    Log.w("file?", "new");
+                    in = new FileInputStream(f);
+                    out = new FileOutputStream(f);
+                    if (IOUtils.copy(in, out)>0) {
+                        Log.w("copy?", "yes");
+                        out.close();
+                        in.close();
+                        if (f.canRead()) {
+                            Log.w("read?", "yes");
+                            try {
+                                long lastmod = f.lastModified();
+                                Log.w("last modified", Long.toString(lastmod));
+                                org.apache.commons.io.FileUtils.touch(f);
+                                isFileUnlocked = true;
+                            } catch (IOException e) {
+                                //                            isFileUnlocked = false;
+                                Log.w("error", e.getMessage());
+                            }
+                        } else Log.w("read?", "no");
+                    } else Log.w("copy?", "no");
+                } else Log.w("file?", "no");
+            } else Log.w("exists?", "yes");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return f;
     }
 
     private File createFileDuplicate(String path, String newname, String oldfile){
