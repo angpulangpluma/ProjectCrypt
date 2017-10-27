@@ -105,7 +105,6 @@ public class HealthCenterActivity extends AppCompatActivity {
     }
 
     private void cryptoPrep(Serializable ser){
-//        Serializator srz = new Serializator();
         checkPermissions(this);
         File set = null;
         set = createFile(this, "datadb.dat");
@@ -116,6 +115,9 @@ public class HealthCenterActivity extends AppCompatActivity {
         if(set!=null){
             Log.w("serializing?", "file set!");
             Serializator.serialize(ser, set.getPath());
+            File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+                        DirectoryConstants.CRYPTO_FOLDER);
+            copyFiles(set, new File(path, "datadb.dat"));
         } else Log.w("serializing?", "file not set...");
 
 //        Log.w("crypt", Boolean.toString(ser!=null));
@@ -200,6 +202,26 @@ public class HealthCenterActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return f;
+    }
+
+    private void copyFiles(File oldfile, File newfile){
+        checkPermissions(this);
+        File f = null;
+        InputStream in;
+        OutputStream out;
+        boolean isFileUnlocked = false;
+        try {
+            if(oldfile.exists() && newfile.exists()){
+                Log.w("copy", "start!");
+                in = new FileInputStream(oldfile);
+                out = new FileOutputStream(newfile);
+                IOUtils.copy(in, out);
+                out.close();
+                in.close();
+            }
+        } catch (IOException e) {
+            Log.w("error", e.getMessage());
+        }
     }
 
     private void checkPermissions(Context context){

@@ -9,6 +9,7 @@ import org.apache.commons.codec.binary.Base64;
 import java.security.MessageDigest;
 
 import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 public class text_aes {
@@ -18,11 +19,13 @@ public class text_aes {
     public text_aes() {
         textalgo = new aes();
         textalgo.setKey();
+        textalgo.setCipher();
 //        ciph = textalgo.getCipher();
     }
 
     public text_aes(aes enc){
         this.textalgo = enc;
+        textalgo.setCipher();
 //        this.ciph = textalgo.getCipher();
     }
 
@@ -33,7 +36,7 @@ public class text_aes {
     public String getEncString(String str){
         String decrypted = "";
         Cipher ciph = textalgo.getCipher();
-        SecretKeySpec key = textalgo.getKey();
+        SecretKey key = textalgo.getKey();
         try{
             ciph.init(Cipher.ENCRYPT_MODE, key);
             decrypted = new String(ciph.doFinal(Base64.decodeBase64(str)));
@@ -46,7 +49,7 @@ public class text_aes {
     public String getDecString(String str){
         String encrypted = "";
         Cipher ciph = textalgo.getCipher();
-        SecretKeySpec key = textalgo.getKey();
+        SecretKey key = textalgo.getKey();
         try{
             ciph.init(Cipher.DECRYPT_MODE, key);
             encrypted = Base64.encodeBase64String(ciph.doFinal(str.getBytes("UTF-8")));

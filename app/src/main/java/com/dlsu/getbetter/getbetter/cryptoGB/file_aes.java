@@ -13,6 +13,7 @@ import java.io.OutputStream;
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
 import javax.crypto.CipherOutputStream;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 public class file_aes {
@@ -39,7 +40,7 @@ public class file_aes {
     public void encryptFile(File file){
         File encrypted = new File(file.getPath() + "_encrypted."+returnFileExt(file));
         Cipher cp = filealgo.getCipher();
-        SecretKeySpec k = filealgo.getKey();
+        SecretKey k = filealgo.getKey();
         try{
             FileInputStream in = new FileInputStream(file);
             cp.init(Cipher.ENCRYPT_MODE, k);
@@ -56,7 +57,7 @@ public class file_aes {
     public void decryptFile(File file){
         File decrypted = new File(file.getPath() + "//" + returnFileName(file)+"_decrypted."+returnFileExt(file));
         Cipher cp = filealgo.getCipher();
-        SecretKeySpec k = filealgo.getKey();
+        SecretKey k = filealgo.getKey();
         try{
             FileOutputStream os = new FileOutputStream(decrypted);
             cp.init(Cipher.DECRYPT_MODE, k);

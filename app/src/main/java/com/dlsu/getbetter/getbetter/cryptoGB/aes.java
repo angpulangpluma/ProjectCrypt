@@ -37,15 +37,17 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 
+import static android.util.Base64.DEFAULT;
+
 public class aes implements Serializable {
 
     private final int AES_Key_Size;
     private byte[] key;
 
-    private SecretKeySpec secretkey;
-    private Cipher cipher;
+    private SecretKey secretkey;
+    private transient Cipher cipher;
 
-    public aes(SecretKeySpec key){
+    public aes(SecretKey key){
         this.AES_Key_Size = 256;
         this.secretkey = key;
         this.key = secretkey.getEncoded();
@@ -53,6 +55,8 @@ public class aes implements Serializable {
 //
     public aes(){
         this.AES_Key_Size = 256;
+        this.setKey();
+        this.setCipher();
     }
 
     public void setKey(){
@@ -61,7 +65,8 @@ public class aes implements Serializable {
             kgen.init(AES_Key_Size);
             SecretKey aeskey = kgen.generateKey();
             key = aeskey.getEncoded();
-            secretkey = new SecretKeySpec(key, "AES");
+            String temp = android.util.Base64.encodeToString(key, DEFAULT);
+            secretkey = new SecretKeySpec(android.util.Base64.decode(temp, DEFAULT), "AES");
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -79,7 +84,7 @@ public class aes implements Serializable {
         return this.cipher;
     }
 
-    public SecretKeySpec getKey(){
+    public SecretKey getKey(){
         return this.secretkey;
     }
 
@@ -114,21 +119,40 @@ public class aes implements Serializable {
 
     private void writeObject(ObjectOutputStream out) throws IOException{
         Log.w("serial?", "writing!");
-        out.writeUTF(Integer.toString(this.key.length));
-        for(int i=0; i<this.key.length; i++){
-            out.writeUTF(Byte.toString(this.key[i]));
-        }
+        out.defaultWriteObject();
+//        out.writeInt(this.AES_Key_Size);
+////        for(int i=0; i<this.key.length; i++){
+////            Log.w("byte written", Byte.toString(this.key[i]));
+////            out.writeByte(this.key[i]);
+////        }
+//        out.writeObject(key);
+////        Log.w("key length", Integer.toString(this.key.length));
+////        out.writeUTF(Integer.toString(this.key.length));
+//
     }
 
-    private void readObject(ObjectInputStream in) throws IOException{
+    private void readObject(ObjectInputStream in)
+            throws IOException, ClassNotFoundException{
         Log.w("serial?", "reading!");
-        byte[] k = new byte[Integer.parseInt(in.readUTF())];
-        if(in.read(k, 0, k.length)>0){
-            Log.w("serial?", "got key!");
-            this.key = k;
-            setCipher();
-            this.secretkey = new SecretKeySpec(key, "AES");
-        } else Log.w("serial?", "no key...");
+        in.defaultReadObject();
+//        byte[] stuff = new byte[in.available()];
+//        in.readFully(stuff);
+//        for(int i=0; i<stuff.length; i++){
+//            Log.w("stuff", Byte.toString(stuff[i]));
+//        }
+////        in.defaultReadObject();
+////        byte[] k = new byte[in.readInt()];
+////        this.key = in.readObject();
+////        byte[] b = new byte[in.available()];
+//////        Log.w("reading", in.readFully(b));
+//////        Log.w("reading", in.readUTF());
+////        byte[] k = new byte[Integer.parseInt(in.readUTF())];
+////        if(in.read(k, 0, k.length)>0){
+////            Log.w("serial?", "got key!");
+////            this.key = k;
+////            setCipher();
+////            this.secretkey = new SecretKeySpec(key, "AES");
+////        } else Log.w("serial?", "no key...");
     }
 
 }
