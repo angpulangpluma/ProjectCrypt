@@ -100,6 +100,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         initBloodTypeAdapter(this);
         bindListeners(this);
 
+        cryptoInit();
     }
 
     private void bindViews(NewPatientInfoActivity activity) {

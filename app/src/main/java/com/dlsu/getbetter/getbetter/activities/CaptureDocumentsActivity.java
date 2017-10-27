@@ -131,6 +131,8 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
             this.socialFamilyActionButtons.setVisibility(View.VISIBLE);
         }
 
+        cryptoInit();
+
     }
 
     private void bindViews(CaptureDocumentsActivity activity) {

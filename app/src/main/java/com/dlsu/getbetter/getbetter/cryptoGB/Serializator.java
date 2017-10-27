@@ -28,6 +28,8 @@ public class Serializator {
              ObjectOutputStream oos = new ObjectOutputStream(fos))
         {
             oos.writeObject(objectToSerialize);
+            oos.close();
+            fos.close();
             Log.w("serializator", "Serialization of Object " + objectToSerialize + " completed.");
 //            out.println("Serialization of Object " + objectToSerialize + " completed.");
         }
@@ -54,6 +56,8 @@ public class Serializator {
         {
             objectOut = (T) ois.readObject();
             Log.w("deserialization", "Deserialization of Object " + objectOut + " is completed.");
+            ois.close();
+            fis.close();
 //            out.println("Deserialization of Object " + objectOut + " is completed.");
         }
         catch (IOException | ClassNotFoundException exception)

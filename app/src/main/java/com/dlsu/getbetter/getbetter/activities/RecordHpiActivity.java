@@ -106,6 +106,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
         } else {
             initializeMediaRecorder();
         }
+        cryptoInit();
     }
 
     private void bindViews (RecordHpiActivity activity) {

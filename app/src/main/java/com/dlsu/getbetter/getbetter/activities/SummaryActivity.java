@@ -174,6 +174,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         caseRecordId = generateCaseRecordId();
         controlNumber = generateControlNumber(patientId);
 
+        cryptoInit();
     }
 
     private void bindViews(SummaryActivity activity) {

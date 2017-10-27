@@ -113,6 +113,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         bindListeners(this);
 
 //        cserv = new CryptoFileService();
+        cryptoInit();
     }
 
     private void bindViews(UpdatePatientRecordActivity activity) {
