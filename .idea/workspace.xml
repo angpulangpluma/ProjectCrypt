@@ -12,8 +12,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f717c4a8-f2fa-4b44-9155-5298475a6fca" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/NewPatientInfoActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/NewPatientInfoActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/UpdatePatientRecordActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/UpdatePatientRecordActivity.java" />
     </list>
     <ignored path="ProjectCrypt.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -75,21 +74,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NewPatientInfoActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="NewPatientInfoActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/NewPatientInfoActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="350" column="67" selection-start-line="350" selection-start-column="67" selection-end-line="350" selection-end-column="67" />
+            <state relative-caret-position="379">
+              <caret line="361" column="44" selection-start-line="361" selection-start-column="44" selection-end-line="361" selection-end-column="44" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UpdatePatientRecordActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="UpdatePatientRecordActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/UpdatePatientRecordActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-170">
-              <caret line="61" column="13" selection-start-line="61" selection-start-column="13" selection-end-line="61" selection-end-column="13" />
+            <state relative-caret-position="85">
+              <caret line="526" column="67" selection-start-line="526" selection-start-column="67" selection-end-line="526" selection-end-column="67" />
               <folding />
             </state>
           </provider>
@@ -2003,7 +2002,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/DirectoryConstants.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/cryptoGB/CryptoFileService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/UpdatePatientRecordActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/CaptureDocumentsActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/ExistingPatientActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/cryptoGB/Serializator.java" />
@@ -2013,6 +2011,7 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/cryptoGB/aes.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/HealthCenterActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/NewPatientInfoActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/UpdatePatientRecordActivity.java" />
       </list>
     </option>
   </component>
@@ -2831,18 +2830,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/UpdatePatientRecordActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/NewPatientInfoActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-170">
-          <caret line="61" column="13" selection-start-line="61" selection-start-column="13" selection-end-line="61" selection-end-column="13" />
+        <state relative-caret-position="379">
+          <caret line="361" column="44" selection-start-line="361" selection-start-column="44" selection-end-line="361" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/NewPatientInfoActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/UpdatePatientRecordActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="350" column="67" selection-start-line="350" selection-start-column="67" selection-end-line="350" selection-end-column="67" />
+        <state relative-caret-position="85">
+          <caret line="526" column="67" selection-start-line="526" selection-start-column="67" selection-end-line="526" selection-end-column="67" />
           <folding />
         </state>
       </provider>
