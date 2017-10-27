@@ -37,12 +37,14 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 
+import static android.util.Base64.DEFAULT;
+
 public class aes implements Serializable {
 
     private final int AES_Key_Size;
     private byte[] key;
 
-    private SecretKeySpec secretkey;
+    private SecretKey secretkey;
     private Cipher cipher;
 
     public aes(SecretKeySpec key){
@@ -61,6 +63,8 @@ public class aes implements Serializable {
             kgen.init(AES_Key_Size);
             SecretKey aeskey = kgen.generateKey();
             key = aeskey.getEncoded();
+            String temp = android.util.Base64.encodeToString(key, DEFAULT);
+            key = android.util.Base64.decode(temp, DEFAULT);
             secretkey = new SecretKeySpec(key, "AES");
         } catch (Exception e){
             e.printStackTrace();
@@ -79,7 +83,7 @@ public class aes implements Serializable {
         return this.cipher;
     }
 
-    public SecretKeySpec getKey(){
+    public SecretKey getKey(){
         return this.secretkey;
     }
 
@@ -114,21 +118,35 @@ public class aes implements Serializable {
 
     private void writeObject(ObjectOutputStream out) throws IOException{
         Log.w("serial?", "writing!");
+//        String temp = android.util.Base64.encodeToString(key, DEFAULT);
+//        key = android.util.Base64.decode(temp, DEFAULT);
         out.writeUTF(Integer.toString(this.key.length));
-        for(int i=0; i<this.key.length; i++){
-            out.writeUTF(Byte.toString(this.key[i]));
-        }
+        String t = android.util.Base64.encodeToString(this.key, DEFAULT);
+        this.key = android.util.Base64.decode(t, DEFAULT);
+        out.write(this.key);
+//        for(int i=0; i<this.key.length; i++){
+//            out.writeUTF(Byte.toString(this.key[i]));
+//            out.write()
+//        }
     }
 
     private void readObject(ObjectInputStream in) throws IOException{
         Log.w("serial?", "reading!");
         byte[] k = new byte[Integer.parseInt(in.readUTF())];
-        if(in.read(k, 0, k.length)>0){
-            Log.w("serial?", "got key!");
+        try{
+            in.readFully(k);
             this.key = k;
             setCipher();
-            this.secretkey = new SecretKeySpec(key, "AES");
-        } else Log.w("serial?", "no key...");
+            this.secretkey = new SecretKeySpec(this.key, "AES");
+        } catch(Exception e){
+            Log.w("error", e.getMessage());
+        }
+//        if(in.read(k, 0, k.length)>0){
+//            Log.w("serial?", "got key!");
+//            this.key = k;
+//            setCipher();
+//            this.secretkey = new SecretKeySpec(key, "AES");
+//        } else Log.w("serial?", "no key...");
     }
 
 }

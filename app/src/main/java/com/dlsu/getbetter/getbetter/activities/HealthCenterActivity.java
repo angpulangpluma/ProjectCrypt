@@ -33,6 +33,7 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -116,10 +117,39 @@ public class HealthCenterActivity extends AppCompatActivity {
         if(set!=null){
             Log.w("serializing?", "file set!");
             Serializator.serialize(ser, set.getPath());
+            Log.w("path", set.getPath());
+            File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+                    DirectoryConstants.CRYPTO_FOLDER);
+            File dup = createFileDuplicate(path.getPath(), "datadb", set.getPath());
+            if (dup!=null)
+                Log.w("dup file?", "created!");
+            else {
+                copyData(set, new File(path, "datadb.dat"));
+            }
         } else Log.w("serializing?", "file not set...");
 
 //        Log.w("crypt", Boolean.toString(ser!=null));
 
+    }
+
+    private void copyData(File oldfile, File newfile){
+        checkPermissions(this);
+        File f = null;
+        InputStream in;
+        OutputStream out;
+        try {
+            if (oldfile.exists() && newfile.exists()){
+                in = new FileInputStream(oldfile);
+                out = new FileOutputStream(newfile);
+                if(IOUtils.copy(in, out)>0){
+                    Log.w("transfer?", "success!");
+                } else Log.w("transfer?", "fail...");
+                in.close();
+                out.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initializeDatabase () {
@@ -196,6 +226,46 @@ public class HealthCenterActivity extends AppCompatActivity {
                     } else Log.w("copy?", "no");
                 } else Log.w("file?", "no");
             } else Log.w("exists?", "yes");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return f;
+    }
+
+    private File createFileDuplicate(String path, String newname, String oldfile){
+        checkPermissions(this);
+        File f = null;
+        InputStream in;
+        OutputStream out;
+        boolean isFileUnlocked = false;
+        try {
+            f = new File(path, newname + "." +
+                    FilenameUtils.getExtension(oldfile));
+            if(f.createNewFile()) {
+                Log.w("file?", "yes");
+                in = new FileInputStream(new File(oldfile));
+                out = new FileOutputStream(f);
+                if (IOUtils.copy(in, out)>-1) {
+                    Log.w("copy?", "yes");
+                    out.close();
+                    in.close();
+                    if (f.canRead()) {
+                        Log.w("exists?", "yes");
+                        try {
+                            long lastmod = f.lastModified();
+                            Log.w("last modified", Long.toString(lastmod));
+                            org.apache.commons.io.FileUtils.touch(f);
+                            isFileUnlocked = true;
+                        } catch (IOException e) {
+                            //                            isFileUnlocked = false;
+                            Log.w("error", e.getMessage());
+                        }
+                    } else Log.w("exists?", "no");
+                } else Log.w("copy?", "no");
+            } else {
+                f = null;
+                Log.w("file?", "no");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

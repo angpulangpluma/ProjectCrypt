@@ -29,6 +29,8 @@ public class Serializator {
         {
             oos.writeObject(objectToSerialize);
             Log.w("serializator", "Serialization of Object " + objectToSerialize + " completed.");
+            oos.close();
+//            fos.close();
 //            out.println("Serialization of Object " + objectToSerialize + " completed.");
         }
         catch (IOException ioException)
@@ -54,6 +56,8 @@ public class Serializator {
         {
             objectOut = (T) ois.readObject();
             Log.w("deserialization", "Deserialization of Object " + objectOut + " is completed.");
+            ois.close();
+//            fis.close();
 //            out.println("Deserialization of Object " + objectOut + " is completed.");
         }
         catch (IOException | ClassNotFoundException exception)
