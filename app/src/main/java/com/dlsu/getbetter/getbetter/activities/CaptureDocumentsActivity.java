@@ -41,6 +41,7 @@ import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
 import com.dlsu.getbetter.getbetter.sessionmanagers.NewPatientSessionManager;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 
 import java.io.File;
@@ -511,6 +512,46 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
                     } else Log.w("copy?", "no");
                 } else Log.w("file?", "no");
             } else Log.w("exists?", "yes");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return f;
+    }
+
+    private File createFileDuplicate(String path, String newname, String oldfile){
+        checkPermissions(this);
+        File f = null;
+        InputStream in;
+        OutputStream out;
+        boolean isFileUnlocked = false;
+        try {
+            f = new File(path, newname + "." +
+                    FilenameUtils.getExtension(oldfile));
+            if(f.createNewFile()) {
+                Log.w("file?", "yes");
+                in = new FileInputStream(new File(oldfile));
+                out = new FileOutputStream(f);
+                if (IOUtils.copy(in, out)>-1) {
+                    Log.w("copy?", "yes");
+                    out.close();
+                    in.close();
+                    if (f.canRead()) {
+                        Log.w("exists?", "yes");
+                        try {
+                            long lastmod = f.lastModified();
+                            Log.w("last modified", Long.toString(lastmod));
+                            org.apache.commons.io.FileUtils.touch(f);
+                            isFileUnlocked = true;
+                        } catch (IOException e) {
+                            //                            isFileUnlocked = false;
+                            Log.w("error", e.getMessage());
+                        }
+                    } else Log.w("exists?", "no");
+                } else Log.w("copy?", "no");
+            } else {
+                f = null;
+                Log.w("file?", "no");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
