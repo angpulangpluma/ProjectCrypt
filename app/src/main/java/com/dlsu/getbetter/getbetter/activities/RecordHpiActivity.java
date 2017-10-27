@@ -335,7 +335,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
 
         Log.d("service in", "yes");
 
-        file_aes mastercry = new file_aes();
+        file_aes mastercry = new file_aes(cryptoInit());
         File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
                 DirectoryConstants.CRYPTO_FOLDER);
         path.mkdirs();
