@@ -478,6 +478,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
             mstr = Serializator.deserialize(set.getPath(), aes.class);
             Log.w("crypto", Boolean.toString(mstr!=null));
             Log.w("key", String.valueOf(mstr.getKey().getEncoded()));
+            Log.w("cipher", Boolean.toString(mstr.getCipher()!=null));
         }
         return mstr;
     }

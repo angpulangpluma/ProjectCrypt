@@ -135,6 +135,9 @@ public class aes implements Serializable {
             throws IOException, ClassNotFoundException{
         Log.w("serial?", "reading!");
         in.defaultReadObject();
+        this.setCipher();
+//        String temp = android.util.Base64.encodeToString(this.key, DEFAULT);
+//        this.secretkey = new SecretKeySpec(android.util.Base64.decode(temp, DEFAULT), "AES");
 //        byte[] stuff = new byte[in.available()];
 //        in.readFully(stuff);
 //        for(int i=0; i<stuff.length; i++){
