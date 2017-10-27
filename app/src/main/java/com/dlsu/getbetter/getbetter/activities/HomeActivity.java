@@ -20,10 +20,12 @@ import com.dlsu.getbetter.getbetter.DetailsFragment;
 import com.dlsu.getbetter.getbetter.DiagnosedCaseFragment;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.UrgentCaseFragment;
+import com.dlsu.getbetter.getbetter.cryptoGB.Serializator;
 import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.HashMap;
 
@@ -42,8 +44,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Log.w("sys", Boolean.toString(getIntent().getSerializableExtra("sys")!=null));
-        Log.w("key", String.valueOf(((aes)getIntent().getSerializableExtra("sys")).getKey().getEncoded()));
+//        Log.w("sys", Boolean.toString(getIntent().getSerializableExtra("sys")!=null));
+//        Log.w("key", String.valueOf(((aes)getIntent().getSerializableExtra("sys")).getKey().getEncoded()));
+        cryptoInit();
         systemSessionManager = new SystemSessionManager(this);
         if(systemSessionManager.checkLogin())
             finish();
@@ -115,6 +118,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    private void cryptoInit(){
+//        Serializator str = new Serializator();
+        aes f = Serializator.deserialize("data.dat", aes.class);
+        Log.w("crypto", Boolean.toString(f!=null));
+        Log.w("key", String.valueOf(f.getKey().getEncoded()));
+    }
+
     @Override
     public void onClick(View v) {
 
@@ -124,7 +134,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
 //            systemSessionManager.setHealthCenter(healthCenterName, String.valueOf(healthCenterId));
             Intent intent = new Intent(this, ExistingPatientActivity.class);
-            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             startActivity(intent);
 
 
@@ -134,7 +144,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
                 //            systemSessionManager.setHealthCenter(healthCenterName, String.valueOf(healthCenterId));
                 Intent intent = new Intent(this, DownloadContentActivity.class);
-                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
+//                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
                 startActivity(intent);
 
             } else {

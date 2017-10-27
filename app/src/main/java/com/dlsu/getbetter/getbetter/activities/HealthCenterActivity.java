@@ -16,6 +16,8 @@ import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.activities.HomeActivity;
 import com.dlsu.getbetter.getbetter.adapters.HealthCenterListAdapter;
 import com.dlsu.getbetter.getbetter.cryptoGB.KeySetter;
+import com.dlsu.getbetter.getbetter.cryptoGB.Serializator;
+import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.objects.DividerItemDecoration;
 import com.dlsu.getbetter.getbetter.objects.HealthCenter;
@@ -76,13 +78,21 @@ public class HealthCenterActivity extends AppCompatActivity {
                 ks.read(Integer.parseInt(systemSessionManager.getHealthCenter().get(SystemSessionManager.HEALTH_CENTER_ID)));
                 Log.w("crypt", Boolean.toString(ks.getCrypto()!=null));
                 Log.w("key", String.valueOf(ks.getCrypto().getKey().getEncoded()));
+                cryptoPrep(ks.getCrypto());
 
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                intent.putExtra("sys", ks.getCrypto());
+//                intent.putExtra("sys", ks.getCrypto());
                 startActivity(intent);
                 finish();
             }
         });
+    }
+
+    private void cryptoPrep(Serializable ser){
+//        Serializator srz = new Serializator();
+        Serializator.serialize(ser, "data.dat");
+//        Log.w("crypt", Boolean.toString(ser!=null));
+
     }
 
     private void initializeDatabase () {

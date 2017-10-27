@@ -14,6 +14,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -37,18 +39,19 @@ import org.apache.commons.codec.binary.Base64;
 
 public class aes implements Serializable {
 
-    private static final int AES_Key_Size = 256;
-    private transient byte[] key;
+    private final int AES_Key_Size;
+    private byte[] key;
 
-    private transient SecretKeySpec secretkey;
-    private transient Cipher cipher;
+    private SecretKeySpec secretkey;
+    private Cipher cipher;
 
     public aes(SecretKeySpec key){
+        this.AES_Key_Size = 256;
         this.secretkey = key;
     }
 //
     public aes(){
-
+        this.AES_Key_Size = 256;
     }
 
     public void setKey(){
@@ -79,33 +82,52 @@ public class aes implements Serializable {
         return this.secretkey;
     }
 
-    public void saveKey(String fileloc) throws Exception {
-        //save key to file
-        System.out.println("Trying to save key in " + fileloc);
-        OutputStream output = null;
-        try {
-            System.out.println("Saving key in file");
-            output = new BufferedOutputStream(new FileOutputStream(fileloc));
-            output.write(this.secretkey.getEncoded());
-        } finally{
-            output.close();
-            System.out.println("Successfully saved key");
-        }
+//    public void saveKey(String fileloc) throws Exception {
+//        //save key to file
+//        System.out.println("Trying to save key in " + fileloc);
+//        OutputStream output = null;
+//        try {
+//            System.out.println("Saving key in file");
+//            output = new BufferedOutputStream(new FileOutputStream(fileloc));
+//            output.write(this.secretkey.getEncoded());
+//        } finally{
+//            output.close();
+//            System.out.println("Successfully saved key");
+//        }
+//
+//    }
+//
+//    public void retrieveKey(String fileloc) throws IOException{
+//        //get key from file
+//        System.out.println("Trying to get key from " + fileloc);
+//        byte[] result = new byte[(int)new File(fileloc).length()];
+//        try{
+//         InputStream input = new BufferedInputStream(new FileInputStream(fileloc));
+//         input.read(result);
+//        } finally{
+//            this.secretkey = new SecretKeySpec(result, 0, result.length, "AES");
+//            System.out.println("Key successfully retrieved!");
+//        }
+//
+//    }
 
+    private void writeObject(ObjectOutputStream out) throws IOException{
+        Log.w("serial?", "writing!");
+        out.writeUTF(Integer.toString(this.key.length));
+        for(int i=0; i<this.key.length; i++){
+            out.writeUTF(Byte.toString(this.key[i]));
+        }
     }
 
-    public void retrieveKey(String fileloc) throws IOException{
-        //get key from file
-        System.out.println("Trying to get key from " + fileloc);
-        byte[] result = new byte[(int)new File(fileloc).length()];
-        try{
-         InputStream input = new BufferedInputStream(new FileInputStream(fileloc));
-         input.read(result);
-        } finally{
-            this.secretkey = new SecretKeySpec(result, 0, result.length, "AES");
-            System.out.println("Key successfully retrieved!");
-        }
-
+    private void readObject(ObjectInputStream in) throws IOException{
+        Log.w("serial?", "reading!");
+        byte[] k = new byte[Integer.parseInt(in.readUTF())];
+        if(in.read(k, 0, k.length)>0){
+            Log.w("serial?", "got key!");
+            this.key = k;
+            setCipher();
+            this.secretkey = new SecretKeySpec(key, "AES");
+        } else Log.w("serial?", "no key...");
     }
 
 }
