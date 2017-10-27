@@ -1,5 +1,6 @@
 package com.dlsu.getbetter.getbetter.activities;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
@@ -9,6 +10,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
@@ -16,6 +18,7 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,15 +35,20 @@ import android.widget.Toast;
 
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
+import com.dlsu.getbetter.getbetter.cryptoGB.Serializator;
+import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
 import com.dlsu.getbetter.getbetter.sessionmanagers.NewPatientSessionManager;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
+
+import org.apache.commons.io.IOUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -430,7 +438,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
 
         Log.d("service in", "yes");
 
-        file_aes mastercry = new file_aes();
+        file_aes mastercry = new file_aes(cryptoInit());
         File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
                 DirectoryConstants.CRYPTO_FOLDER);
         path.mkdirs();
@@ -455,5 +463,77 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
             }; break;
         }
 //
+    }
+
+    private aes cryptoInit(){
+//        Serializator str = new Serializator();
+        checkPermissions(this);
+        File set = null;
+        aes mstr = null;
+        set = createFile(this, "datadb.dat");
+        if(set!=null){
+            mstr = Serializator.deserialize(set.getPath(), aes.class);
+            Log.w("crypto", Boolean.toString(mstr!=null));
+            Log.w("key", String.valueOf(mstr.getKey().getEncoded()));
+        }
+        return mstr;
+    }
+
+    private File createFile(Context con, String newname){
+        checkPermissions(this);
+        File f = null;
+        InputStream in;
+        OutputStream out;
+        boolean isFileUnlocked = false;
+        try {
+            f = con.getFileStreamPath(newname);
+            if (!f.exists()) {
+                if (f.createNewFile()) {
+                    Log.w("file?", "new");
+                    in = new FileInputStream(f);
+                    out = new FileOutputStream(f);
+                    if (IOUtils.copy(in, out)>0) {
+                        Log.w("copy?", "yes");
+                        out.close();
+                        in.close();
+                        if (f.canRead()) {
+                            Log.w("read?", "yes");
+                            try {
+                                long lastmod = f.lastModified();
+                                Log.w("last modified", Long.toString(lastmod));
+                                org.apache.commons.io.FileUtils.touch(f);
+                                isFileUnlocked = true;
+                            } catch (IOException e) {
+                                //                            isFileUnlocked = false;
+                                Log.w("error", e.getMessage());
+                            }
+                        } else Log.w("read?", "no");
+                    } else Log.w("copy?", "no");
+                } else Log.w("file?", "no");
+            } else Log.w("exists?", "yes");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return f;
+    }
+
+    private void checkPermissions(Context context){
+        int readStuff = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+        int writeStuff = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+//        Log.w("read?", Integer.toString(readStuff));
+//        Log.w("write?", Integer.toString(writeStuff));
+        //for read stuff
+        if(readStuff == PackageManager.PERMISSION_GRANTED)
+            Log.w("read?", "yes");
+        else if(readStuff == PackageManager.PERMISSION_DENIED)
+            Log.w("read?", "no");
+
+        //for write stuff
+        if(writeStuff == PackageManager.PERMISSION_GRANTED)
+            Log.w("write?", "yes");
+        else if(writeStuff == PackageManager.PERMISSION_DENIED)
+            Log.w("write?", "no");
     }
 }
