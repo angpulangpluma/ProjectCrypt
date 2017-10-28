@@ -74,6 +74,7 @@ public class aes implements Serializable {
             key = aeskey.getEncoded();
             String temp = android.util.Base64.encodeToString(key, DEFAULT);
             secretkey = new SecretKeySpec(android.util.Base64.decode(temp, DEFAULT), "AES");
+//            secretkey = new SecretKeySpec(key, "AES");
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -110,7 +111,7 @@ public class aes implements Serializable {
             char[] ch = new char[encoded.length];
             for(int i=0; i<ch.length; i++)
                 ch[i] = Byte.valueOf(encoded[i]).toString().charAt(0);
-            Log.w("key", String.valueOf(ch));
+//            Log.w("key", String.valueOf(ch));
             Log.w("key orig", String.valueOf(ch));
         } else Log.w("key", "failed");
         writeStringToFile(file, data);
