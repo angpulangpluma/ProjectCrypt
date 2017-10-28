@@ -64,18 +64,22 @@ public class KeySetter{
         }
 
         ArrayList<HealthCenter> hcs = new ArrayList<HealthCenter>();
-        hcs.addAll(gbDatabase.getHealthCenters());
 
         try {
+            hcs.addAll(gbDatabase.getHealthCenters());
             for (HealthCenter hc : hcs){
                 master.setKey();
-                on.println(hc.getHealthCenterId() + " " + master.getKey().getEncoded());
+                byte[] encoded = master.getKey().getEncoded();
+                char[] ch = new char[encoded.length];
+                for(int i=0; i<ch.length; i++)
+                    ch[i] = Byte.valueOf(encoded[i]).toString().charAt(0);
+                on.println(hc.getHealthCenterId() + " " + String.valueOf(ch));
             }
             on.close();
             Log.w("key setter", "finished");
-        } catch(Exception e) { e.printStackTrace(); }
-        //get number of health centers
-        //for each health center
+        } catch(NullPointerException e) {
+            Log.w("error", e.getMessage());
+        }
     }
 
     public void read(int sel){

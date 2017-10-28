@@ -60,7 +60,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
 //        Log.w("sys", Boolean.toString(getIntent().getSerializableExtra("sys")!=null));
 //        Log.w("key", String.valueOf(((aes)getIntent().getSerializableExtra("sys")).getKey().getEncoded()));
-        cryptoInit(new File("crypto.dat"));
+//        cryptoInit(new File("crypto.dat"));
         systemSessionManager = new SystemSessionManager(this);
         if(systemSessionManager.checkLogin())
             finish();

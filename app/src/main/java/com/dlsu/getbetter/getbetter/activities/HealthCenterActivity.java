@@ -99,8 +99,6 @@ public class HealthCenterActivity extends AppCompatActivity {
                 for(int i=0; i<ch.length; i++)
                     ch[i] = Byte.valueOf(ky[i]).toString().charAt(0);
                 Log.w("key", String.valueOf(ch));
-//                    ch[i] = Byte.toString(ky[i]).;
-//                Log.w("key", String.valueOf(ks.getCrypto().getKey().getEncoded()));
                 cryptoPrep(ks.getCrypto());
 
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
