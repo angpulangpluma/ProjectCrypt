@@ -277,14 +277,14 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
         Log.w("service in", "yes");
 
         file_aes mastercry = new file_aes(cryptoInit(new File("crypto.dat")));
-        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
-                DirectoryConstants.CRYPTO_FOLDER);
+//        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+//                DirectoryConstants.CRYPTO_FOLDER);
 //        path.mkdirs();
 //        File output = new File(path.getPath() +"/" + input.getName());
-        File output = new File(path.getPath() +"/" + input.getName());
-        Log.w("output", output.getAbsolutePath());
+//        File output = new File(path.getPath() +"/" + input.getName());
+//        Log.w("output", output.getAbsolutePath());
         try {
-            FileOutputStream fos = new FileOutputStream(output);
+            FileOutputStream fos = new FileOutputStream(input);
             fos.write(read(input));
             fos.flush();
             fos.close();
@@ -293,7 +293,7 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
         }
         switch(dec){
             case "enc":{
-                mastercry.encryptFile(output);
+                mastercry.encryptFile(input);
                 Log.d("Action", "enc");
             }; break;
             case "dec":{
@@ -304,7 +304,7 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
 //
     }
 
-    private byte[] read(File file) throws IOException {
+    private byte[] read(File file) throws IOException{
         byte[] buffer = new byte[(int) file.length()];
         InputStream ios = null;
         try{
@@ -345,21 +345,6 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
         }
         return master;
     }
-
-//    private aes cryptoInit(){
-////        Serializator str = new Serializator();
-//        checkPermissions(this);
-//        File set = null;
-//        aes mstr = null;
-//        set = createFile(this, "datadb.dat");
-//        if(set!=null){
-//            mstr = Serializator.deserialize(set.getPath(), aes.class);
-//            Log.w("crypto", Boolean.toString(mstr!=null));
-//            Log.w("key", String.valueOf(mstr.getKey().getEncoded()));
-//            Log.w("cipher", Boolean.toString(mstr.getCipher()!=null));
-//        }
-//        return mstr;
-//    }
 
     private File createFile(Context con, String newname){
         checkPermissions(this);
