@@ -27,6 +27,7 @@ import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.UrgentCaseFragment;
 import com.dlsu.getbetter.getbetter.cryptoGB.Serializator;
 import com.dlsu.getbetter.getbetter.cryptoGB.aes;
+import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
 
@@ -132,7 +133,39 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void cryptoInit(File set) {
+    private void doSomethingCryptFile(String dec, File input){
+
+        Log.w("service in", "yes");
+
+        file_aes mastercry = new file_aes(cryptoInit(new File("crypto.dat")));
+//        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+//                DirectoryConstants.CRYPTO_FOLDER);
+//        path.mkdirs();
+//        File output = new File(path.getPath() +"/" + input.getName());
+//        File output = new File(path.getPath() +"/" + input.getName());
+//        Log.w("output", output.getAbsolutePath());
+//        try {
+//            FileOutputStream fos = new FileOutputStream(input);
+//            fos.write(read(input));
+//            fos.flush();
+//            fos.close();
+//        } catch(Exception e){
+//            Log.w("error", e.toString());
+//        }
+        switch(dec){
+            case "enc":{
+                mastercry.encryptFile(input);
+                Log.d("Action", "enc");
+            }; break;
+            case "dec":{
+                mastercry.decryptFile(input);
+                Log.d("Action", "dec");
+            }; break;
+        }
+//
+    }
+
+    private aes cryptoInit(File set) {
         checkPermissions(this);
 //        File set = null;
 //        OutputStream in = null;
@@ -151,6 +184,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 Log.w("error", e.getMessage());
             }
         }
+
+        return master;
     }
 
 //    private void cryptoInit(){
