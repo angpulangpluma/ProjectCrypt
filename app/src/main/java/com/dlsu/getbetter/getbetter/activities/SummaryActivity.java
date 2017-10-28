@@ -240,6 +240,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
 
                 if(attachments.get(position).getAttachmentType() == 1) {
                     Intent intent = new Intent(SummaryActivity.this, ViewImageActivity.class);
+                    doSomethingCryptFile("dec", new File(attachments.get(position).getAttachmentPath()));
                     intent.putExtra("imageUrl", attachments.get(position).getAttachmentPath());
                     intent.putExtra("imageTitle", attachments.get(position).getAttachmentDescription());
                     startActivity(intent);
@@ -670,14 +671,14 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
                 if(type == MEDIA_TYPE_IMAGE) {
-                    doSomethingCryptFile("enc", new File(fileUri.getPath()));
                     addPhotoAttachment(fileUri.getPath(), attachmentName, getDateStamp());
+//                    doSomethingCryptFile("enc", new File(fileUri.getPath()));
                 } else if(type == MEDIA_TYPE_VIDEO) {
-                    doSomethingCryptFile("enc", new File(fileUri.getPath()));
                     addVideoAttachment(fileUri.getPath(), attachmentName, getDateStamp());
+//                    doSomethingCryptFile("enc", new File(fileUri.getPath()));
                 } else if(type == MEDIA_TYPE_AUDIO) {
-                    doSomethingCryptFile("enc", new File(audioOutputFile));
                     addAudioAttachment(audioOutputFile, attachmentName, getDateStamp());
+//                    doSomethingCryptFile("enc", new File(audioOutputFile));
                 }
 
             }
@@ -788,6 +789,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         for(int i = 0; i < attachments.size(); i++) {
 
             Log.d(TAG, "insertCaseRecordAttachments: " + attachments.get(i).getAttachmentPath());
+            doSomethingCryptFile("enc", new File(attachments.get(i).getAttachmentPath()));
             attachments.get(i).setCaseRecordId(caseRecordId);
             attachments.get(i).setUploadedBy(userId);
             getBetterDb.insertCaseRecordAttachments(attachments.get(i));
@@ -813,6 +815,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
             insertCaseRecord();
             insertCaseRecordAttachments();
             insertCaseRecordHistory();
+//            doSomethingCryptFile("enc", new File(recordedHpiOutputFile));
 
             return null;
         }
@@ -951,14 +954,14 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         Log.w("service in", "yes");
 
         file_aes mastercry = new file_aes(cryptoInit(new File("crypto.dat")));
-        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
-                DirectoryConstants.CRYPTO_FOLDER);
+//        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+//                DirectoryConstants.CRYPTO_FOLDER);
 //        path.mkdirs();
 //        File output = new File(path.getPath() +"/" + input.getName());
-        File output = new File(path.getPath() +"/" + input.getName());
-        Log.w("output", output.getAbsolutePath());
+//        File output = new File(path.getPath() +"/" + input.getName());
+//        Log.w("output", output.getAbsolutePath());
         try {
-            FileOutputStream fos = new FileOutputStream(output);
+            FileOutputStream fos = new FileOutputStream(input);
             fos.write(read(input));
             fos.flush();
             fos.close();
@@ -967,7 +970,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         }
         switch(dec){
             case "enc":{
-                mastercry.encryptFile(output);
+                mastercry.encryptFile(input);
                 Log.d("Action", "enc");
             }; break;
             case "dec":{
