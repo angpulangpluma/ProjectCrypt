@@ -188,6 +188,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         Log.d(TAG, "savePatientInfo: " + genderSelected);
         Log.d(TAG, "savePatientInfo: " + civilStatusSelected);
 
+        doSomethingCryptFile("enc", new File(fileUri.getPath()));
         long patientId = getBetterDb.insertPatientInfo(firstName, middleName, lastName, birthDate,
                 genderSelected, civilStatusSelected, bloodTypeSelected, fileUri.getPath(), healthCenterId);
 
@@ -448,14 +449,14 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         Log.w("service in", "yes");
 
         file_aes mastercry = new file_aes(cryptoInit(new File("crypto.dat")));
-        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
-                DirectoryConstants.CRYPTO_FOLDER);
+//        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+//                DirectoryConstants.CRYPTO_FOLDER);
 //        path.mkdirs();
 //        File output = new File(path.getPath() +"/" + input.getName());
-        File output = new File(path.getPath() +"/" + input.getName());
-        Log.w("output", output.getAbsolutePath());
+//        File output = new File(path.getPath() +"/" + input.getName());
+//        Log.w("output", output.getAbsolutePath());
         try {
-            FileOutputStream fos = new FileOutputStream(output);
+            FileOutputStream fos = new FileOutputStream(input);
             fos.write(read(input));
             fos.flush();
             fos.close();
@@ -464,7 +465,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         }
         switch(dec){
             case "enc":{
-                mastercry.encryptFile(output);
+                mastercry.encryptFile(input);
                 Log.d("Action", "enc");
             }; break;
             case "dec":{
