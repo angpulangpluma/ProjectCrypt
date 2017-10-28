@@ -153,6 +153,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
 
         if(id == R.id.hpi_next_btn) {
 
+            doSomethingCryptFile("enc", new File(outputFile));
             newPatientSessionManager.setHPIRecord(outputFile, chiefComplaintName);
             Intent intent = new Intent(this, SummaryActivity.class);
             startActivity(intent);
@@ -204,8 +205,8 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
             secondsView.setText(R.string.recording_progress_zero);
             minutesView.setText(R.string.recording_progress_zero);
 
+            doSomethingCryptFile("dec", new File(outputFile));
             try {
-
                 mp.setDataSource(outputFile);
             } catch (IOException e ) {
 
