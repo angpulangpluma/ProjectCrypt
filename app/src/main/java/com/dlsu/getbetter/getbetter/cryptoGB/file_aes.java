@@ -4,6 +4,10 @@ package com.dlsu.getbetter.getbetter.cryptoGB;
  * Created by YING LOPEZ on 9/28/2017.
  */
 
+import android.util.Log;
+
+import org.apache.commons.io.FilenameUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -30,6 +34,7 @@ public class file_aes {
 
     public file_aes(aes enc){
         this.filealgo = enc;
+        filealgo.setCipher();
 //        this.ciph = filealgo.getCipher();
     }
 
@@ -38,7 +43,9 @@ public class file_aes {
     }
 
     public void encryptFile(File file){
-        File encrypted = new File(file.getPath() + "_encrypted."+returnFileExt(file));
+        Log.w("encrypt?", "start");
+        File encrypted = new File(file.getPath() + "_encrypted."+ FilenameUtils.getExtension(file.getName()));
+        Log.w("encrypt file", encrypted.getPath());
         Cipher cp = filealgo.getCipher();
         SecretKey k = filealgo.getKey();
         try{
@@ -47,10 +54,11 @@ public class file_aes {
             CipherOutputStream os = new CipherOutputStream(new FileOutputStream(encrypted),
                     cp);
             copy(in, os);
+            Log.w("encrypt?", "done");
             in.close();
             os.close();
         } catch(Exception ex){
-            ex.printStackTrace();
+            Log.w("error", ex.getMessage());
         }
     }
 
@@ -67,7 +75,7 @@ public class file_aes {
             is.close();
             os.close();
         } catch(Exception ex){
-            ex.printStackTrace();
+            Log.w("error", ex.getMessage());
         }
 
     }

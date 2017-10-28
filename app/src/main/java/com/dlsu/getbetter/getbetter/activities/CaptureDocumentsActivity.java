@@ -315,7 +315,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
 
             switch (requestCode) {
 
-                case REQUEST_PATIENT_INFO_IMAGE:
+                case REQUEST_PATIENT_INFO_IMAGE: {
 
                     setPic(this.patientInfoImage, this.patientInfoImagePath);
                     this.patientInfoActionButtons.setVisibility(View.VISIBLE);
@@ -323,8 +323,9 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
                     doSomethingCryptFile("enc", new File(this.patientInfoImagePath));
                     Log.d("patientinfoimgenc", "yes");
                     break;
+                }
 
-                case REQUEST_CHIEF_COMPLAINT_IMAGE:
+                case REQUEST_CHIEF_COMPLAINT_IMAGE: {
 
                     setPic(this.chiefComplaintImage, this.chiefComplaintImagePath);
                     this.chiefComplaintActionButtons.setVisibility(View.VISIBLE);
@@ -332,8 +333,9 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
                     doSomethingCryptFile("enc", new File(this.chiefComplaintImagePath));
                     Log.d("chiefcompimgenc", "yes");
                     break;
+                }
 
-                case REQUEST_FAMILY_SOCIAL_IMAGE:
+                case REQUEST_FAMILY_SOCIAL_IMAGE: {
 
                     setPic(this.familySocialImage, this.familySocialHistoryImagePath);
                     this.socialFamilyActionButtons.setVisibility(View.VISIBLE);
@@ -341,6 +343,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
                     doSomethingCryptFile("enc", new File(this.familySocialHistoryImagePath));
                     Log.d("famhistimgenc", "yes");
                     break;
+                }
             }
         }
     }
@@ -431,7 +434,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
             try {
                 if (ios != null) ios.close();
             } catch (IOException e){
-
+                Log.w("error", e.getMessage());
             }
         }
         return buffer;
@@ -439,21 +442,22 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
 
     private void doSomethingCryptFile(String dec, File input){
 
-        Log.d("service in", "yes");
+        Log.w("service in", "yes");
 
         file_aes mastercry = new file_aes(cryptoInit(new File("crypto.dat")));
         File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
                 DirectoryConstants.CRYPTO_FOLDER);
-        path.mkdirs();
+//        path.mkdirs();
+//        File output = new File(path.getPath() +"/" + input.getName());
         File output = new File(path.getPath() +"/" + input.getName());
-        Log.d("output", output.getAbsolutePath());
+        Log.w("output", output.getAbsolutePath());
         try {
             FileOutputStream fos = new FileOutputStream(output);
             fos.write(read(input));
             fos.flush();
             fos.close();
         } catch(Exception e){
-            Log.e("error", e.toString());
+            Log.w("error", e.toString());
         }
         switch(dec){
             case "enc":{
@@ -479,6 +483,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
             try{
                 master = new aes();
                 master.loadKey(set);
+                master.setCipher();
 //                master.saveKey(master.getKey(), set);
 //                in = new FileOutputStream(set);
 //                dos = new DataOutputStream(in);
