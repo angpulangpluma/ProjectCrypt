@@ -37,6 +37,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.binary.Hex;
 
 import static android.util.Base64.DEFAULT;
 import static org.apache.commons.codec.binary.Hex.decodeHex;
@@ -100,9 +101,18 @@ public class aes implements Serializable {
     */
     public void saveKey(SecretKey key, File file) throws IOException
     {
+        Log.w("savekey?", "yes!");
         byte[] encoded = key.getEncoded();
         char[] hex = encodeHex(encoded);
         String data = String.valueOf(hex);
+        if (!data.isEmpty()){
+            Log.w("key hexed", data);
+            char[] ch = new char[encoded.length];
+            for(int i=0; i<ch.length; i++)
+                ch[i] = Byte.valueOf(encoded[i]).toString().charAt(0);
+            Log.w("key", String.valueOf(ch));
+            Log.w("key orig", String.valueOf(ch));
+        } else Log.w("key", "failed");
         writeStringToFile(file, data);
     }
 
@@ -112,6 +122,7 @@ public class aes implements Serializable {
     */
     public void loadKey(File file) throws IOException
     {
+        Log.w("loadkey?", "yes");
         String data = new String(readFileToByteArray(file));
         char[] hex = data.toCharArray();
         byte[] encoded = null;
@@ -125,6 +136,11 @@ public class aes implements Serializable {
 //            return null;
         }
         if (encoded!=null) {
+            Log.w("file data", data);
+            char[] ch = new char[encoded.length];
+            for(int i=0; i<ch.length; i++)
+                ch[i] = Byte.valueOf(encoded[i]).toString().charAt(0);
+            Log.w("key", String.valueOf(ch));
             secretkey = new SecretKeySpec(encoded, ALGO);
             key = secretkey.getEncoded();
         }

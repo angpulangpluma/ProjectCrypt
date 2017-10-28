@@ -94,7 +94,13 @@ public class HealthCenterActivity extends AppCompatActivity {
                 ks = new KeySetter(view.getContext());
                 ks.read(Integer.parseInt(systemSessionManager.getHealthCenter().get(SystemSessionManager.HEALTH_CENTER_ID)));
                 Log.w("crypt", Boolean.toString(ks.getCrypto()!=null));
-                Log.w("key", String.valueOf(ks.getCrypto().getKey().getEncoded()));
+                byte[] ky = ks.getCrypto().getKey().getEncoded();
+                char[] ch = new char[ky.length];
+                for(int i=0; i<ch.length; i++)
+                    ch[i] = Byte.valueOf(ky[i]).toString().charAt(0);
+                Log.w("key", String.valueOf(ch));
+//                    ch[i] = Byte.toString(ky[i]).;
+//                Log.w("key", String.valueOf(ks.getCrypto().getKey().getEncoded()));
                 cryptoPrep(ks.getCrypto());
 
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
@@ -114,6 +120,9 @@ public class HealthCenterActivity extends AppCompatActivity {
         if(set!=null){
             try{
                 master.saveKey(master.getKey(), set);
+                File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+                    DirectoryConstants.CRYPTO_FOLDER);
+                copyFiles(set, new File(path, "datadb.dat"));
 //                in = new FileOutputStream(set);
 //                dos = new DataOutputStream(in);
 //                dos.write(master.getKey().getEncoded());
@@ -223,25 +232,27 @@ public class HealthCenterActivity extends AppCompatActivity {
         return f;
     }
 
-//    private void copyFiles(File oldfile, File newfile){
-//        checkPermissions(this);
-//        File f = null;
-//        InputStream in;
-//        OutputStream out;
-//        boolean isFileUnlocked = false;
-//        try {
-//            if(oldfile.exists() && newfile.exists()){
-//                Log.w("copy", "start!");
-//                in = new FileInputStream(oldfile);
-//                out = new FileOutputStream(newfile);
-//                IOUtils.copy(in, out);
-//                out.close();
-//                in.close();
-//            }
-//        } catch (IOException e) {
-//            Log.w("error", e.getMessage());
-//        }
-//    }
+    private void copyFiles(File oldfile, File newfile){
+        checkPermissions(this);
+        File f = null;
+        InputStream in;
+        OutputStream out;
+        boolean isFileUnlocked = false;
+        try {
+            if(oldfile.exists() && newfile.exists()){
+                Log.w("copy", "start!");
+                in = new FileInputStream(oldfile);
+                out = new FileOutputStream(newfile);
+                if(IOUtils.copy(in, out)>0){
+                    Log.w("copy?", "yes!");
+                } else Log.w("copy?", "no!");
+                out.close();
+                in.close();
+            }
+        } catch (IOException e) {
+            Log.w("error", e.getMessage());
+        }
+    }
 
     private void checkPermissions(Context context){
         int readStuff = ContextCompat.checkSelfPermission(context,
