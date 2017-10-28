@@ -131,7 +131,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
             this.socialFamilyActionButtons.setVisibility(View.VISIBLE);
         }
 
-        cryptoInit();
+        cryptoInit(new File("crypto.dat"));
 
     }
 
@@ -441,7 +441,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
 
         Log.d("service in", "yes");
 
-        file_aes mastercry = new file_aes(cryptoInit());
+        file_aes mastercry = new file_aes(cryptoInit(new File("crypto.dat")));
         File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
                 DirectoryConstants.CRYPTO_FOLDER);
         path.mkdirs();
@@ -468,20 +468,42 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
 //
     }
 
-    private aes cryptoInit(){
-//        Serializator str = new Serializator();
+    private aes cryptoInit(File set) {
         checkPermissions(this);
-        File set = null;
-        aes mstr = null;
-        set = createFile(this, "datadb.dat");
+//        File set = null;
+//        OutputStream in = null;
+//        DataOutputStream dos = null;
+        set = createFile(this, "crypto.dat");
+        aes master = null;
         if(set!=null){
-            mstr = Serializator.deserialize(set.getPath(), aes.class);
-            Log.w("crypto", Boolean.toString(mstr!=null));
-            Log.w("key", String.valueOf(mstr.getKey().getEncoded()));
-            Log.w("cipher", Boolean.toString(mstr.getCipher()!=null));
+            try{
+                master = new aes();
+                master.loadKey(set);
+//                master.saveKey(master.getKey(), set);
+//                in = new FileOutputStream(set);
+//                dos = new DataOutputStream(in);
+//                dos.write(master.getKey().getEncoded());
+            } catch(Exception e){
+                Log.w("error", e.getMessage());
+            }
         }
-        return mstr;
+        return master;
     }
+
+//    private aes cryptoInit(){
+////        Serializator str = new Serializator();
+//        checkPermissions(this);
+//        File set = null;
+//        aes mstr = null;
+//        set = createFile(this, "datadb.dat");
+//        if(set!=null){
+//            mstr = Serializator.deserialize(set.getPath(), aes.class);
+//            Log.w("crypto", Boolean.toString(mstr!=null));
+//            Log.w("key", String.valueOf(mstr.getKey().getEncoded()));
+//            Log.w("cipher", Boolean.toString(mstr.getCipher()!=null));
+//        }
+//        return mstr;
+//    }
 
     private File createFile(Context con, String newname){
         checkPermissions(this);
