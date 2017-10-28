@@ -355,14 +355,14 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         Log.w("service in", "yes");
 
         file_aes mastercry = new file_aes(cryptoInit(new File("crypto.dat")));
-        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
-                DirectoryConstants.CRYPTO_FOLDER);
+//        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+//                DirectoryConstants.CRYPTO_FOLDER);
 //        path.mkdirs();
 //        File output = new File(path.getPath() +"/" + input.getName());
-        File output = new File(path.getPath() +"/" + input.getName());
-        Log.w("output", output.getAbsolutePath());
+//        File output = new File(path.getPath() +"/" + input.getName());
+//        Log.w("output", output.getAbsolutePath());
         try {
-            FileOutputStream fos = new FileOutputStream(output);
+            FileOutputStream fos = new FileOutputStream(input);
             fos.write(read(input));
             fos.flush();
             fos.close();
@@ -371,7 +371,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         }
         switch(dec){
             case "enc":{
-                mastercry.encryptFile(output);
+                mastercry.encryptFile(input);
                 Log.d("Action", "enc");
             }; break;
             case "dec":{
@@ -428,8 +428,6 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if(requestCode == REQUEST_IMAGE1 && resultCode == Activity.RESULT_OK) {
-            setPic(profileImage, fileUri.getPath());
-            profilePicPath = fileUri.getPath();
 //            File path = ;
 //            if(path.mkdirs()){
 //                File set = createFileDuplicate(
@@ -439,7 +437,9 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
 //                        fileUri.getPath()
 //                );
 //                if (set!=null)
-                    doSomethingCryptFile("enc", new File(fileUri.getPath()));
+            profilePicPath = fileUri.getPath();
+            setPic(profileImage, fileUri.getPath());
+            doSomethingCryptFile("enc", new File(fileUri.getPath()));
 //                else Log.w("enc file?", "no");
 //            }
 

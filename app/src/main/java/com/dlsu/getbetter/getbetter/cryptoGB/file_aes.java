@@ -44,14 +44,14 @@ public class file_aes {
 
     public void encryptFile(File file){
         Log.w("encrypt?", "start");
-        File encrypted = new File(file.getPath() + "_encrypted."+ FilenameUtils.getExtension(file.getName()));
-        Log.w("encrypt file", encrypted.getPath());
+//        File encrypted = new File(file.getPath() + "_encrypted."+ FilenameUtils.getExtension(file.getName()));
+        Log.w("encrypt file", file.getPath());
         Cipher cp = filealgo.getCipher();
         SecretKey k = filealgo.getKey();
         try{
             FileInputStream in = new FileInputStream(file);
             cp.init(Cipher.ENCRYPT_MODE, k);
-            CipherOutputStream os = new CipherOutputStream(new FileOutputStream(encrypted),
+            CipherOutputStream os = new CipherOutputStream(new FileOutputStream(file),
                     cp);
             copy(in, os);
             Log.w("encrypt?", "done");
@@ -63,11 +63,11 @@ public class file_aes {
     }
 
     public void decryptFile(File file){
-        File decrypted = new File(file.getPath() + "//" + returnFileName(file)+"_decrypted."+returnFileExt(file));
+//        File decrypted = new File(file.getPath() + "//" + returnFileName(file)+"_decrypted."+returnFileExt(file));
         Cipher cp = filealgo.getCipher();
         SecretKey k = filealgo.getKey();
         try{
-            FileOutputStream os = new FileOutputStream(decrypted);
+            FileOutputStream os = new FileOutputStream(file);
             cp.init(Cipher.DECRYPT_MODE, k);
             CipherInputStream is = new CipherInputStream(new FileInputStream(file),
                     cp);
