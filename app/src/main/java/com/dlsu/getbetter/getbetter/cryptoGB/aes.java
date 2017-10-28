@@ -50,7 +50,7 @@ public class aes implements Serializable {
     private byte[] key;
 
     private SecretKey secretkey;
-    private transient Cipher cipher;
+    private Cipher cipher;
     private static final String ALGO = "AES";
 
     public aes(SecretKey key){
@@ -98,7 +98,7 @@ public class aes implements Serializable {
     * @author stuinzuri
     * @source https://github.com/stuinzuri/SimpleJavaKeyStore/blob/master/src/ch/geekomatic/sjks/KeyStoreUtils.java
     */
-    public static void saveKey(SecretKey key, File file) throws IOException
+    public void saveKey(SecretKey key, File file) throws IOException
     {
         byte[] encoded = key.getEncoded();
         char[] hex = encodeHex(encoded);
@@ -110,23 +110,26 @@ public class aes implements Serializable {
     * @author stuinzuri
     * @source https://github.com/stuinzuri/SimpleJavaKeyStore/blob/master/src/ch/geekomatic/sjks/KeyStoreUtils.java
     */
-    public static SecretKey loadKey(File file) throws IOException
+    public void loadKey(File file) throws IOException
     {
         String data = new String(readFileToByteArray(file));
         char[] hex = data.toCharArray();
-        byte[] encoded;
+        byte[] encoded = null;
         try
         {
             encoded = decodeHex(hex);
         }
         catch (DecoderException e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return null;
+            Log.w("error", e.getMessage());
+//            return null;
         }
-        SecretKey key = new SecretKeySpec(encoded, ALGO);
-        return key;
+        if (encoded!=null) {
+            secretkey = new SecretKeySpec(encoded, ALGO);
+            key = secretkey.getEncoded();
+        }
+//            SecretKey key = new SecretKeySpec(encoded, ALGO);
+//        return key;
     }
 
     private void writeObject(ObjectOutputStream out) throws IOException{

@@ -31,6 +31,7 @@ import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -104,25 +105,43 @@ public class HealthCenterActivity extends AppCompatActivity {
         });
     }
 
-    private void cryptoPrep(Serializable ser){
+    private void cryptoPrep(aes master) {
         checkPermissions(this);
         File set = null;
-        set = createFile(this, "datadb.dat");
-//        set = createFile(
-//                new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
-//                        DirectoryConstants.CRYPTO_FOLDER).getPath(),
-//                "data.dat");
+//        OutputStream in = null;
+//        DataOutputStream dos = null;
+        set = createFile(this, "crypto.dat");
         if(set!=null){
-            Log.w("serializing?", "file set!");
-            Serializator.serialize(ser, set.getPath());
-//            File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
-//                        DirectoryConstants.CRYPTO_FOLDER);
-//            copyFiles(set, new File(path, "datadb.dat"));
-        } else Log.w("serializing?", "file not set...");
-
-//        Log.w("crypt", Boolean.toString(ser!=null));
-
+            try{
+                master.saveKey(master.getKey(), set);
+//                in = new FileOutputStream(set);
+//                dos = new DataOutputStream(in);
+//                dos.write(master.getKey().getEncoded());
+            } catch(Exception e){
+                Log.w("error", e.getMessage());
+            }
+        }
     }
+
+//    private void cryptoPrep(Serializable ser){
+//        checkPermissions(this);
+//        File set = null;
+//        set = createFile(this, "datadb.dat");
+////        set = createFile(
+////                new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+////                        DirectoryConstants.CRYPTO_FOLDER).getPath(),
+////                "data.dat");
+//        if(set!=null){
+//            Log.w("serializing?", "file set!");
+//            Serializator.serialize(ser, set.getPath());
+////            File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+////                        DirectoryConstants.CRYPTO_FOLDER);
+////            copyFiles(set, new File(path, "datadb.dat"));
+//        } else Log.w("serializing?", "file not set...");
+//
+////        Log.w("crypt", Boolean.toString(ser!=null));
+//
+//    }
 
     private void initializeDatabase () {
 

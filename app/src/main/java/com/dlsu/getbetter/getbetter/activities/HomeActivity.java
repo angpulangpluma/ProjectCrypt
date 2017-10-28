@@ -60,7 +60,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
 //        Log.w("sys", Boolean.toString(getIntent().getSerializableExtra("sys")!=null));
 //        Log.w("key", String.valueOf(((aes)getIntent().getSerializableExtra("sys")).getKey().getEncoded()));
-        cryptoInit();
+        cryptoInit(new File("crypto.dat"));
         systemSessionManager = new SystemSessionManager(this);
         if(systemSessionManager.checkLogin())
             finish();
@@ -132,17 +132,38 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void cryptoInit(){
+    private void cryptoInit(File set) {
         checkPermissions(this);
-        File set = null;
-        set = createFile(this, "datadb.dat");
+//        File set = null;
+//        OutputStream in = null;
+//        DataOutputStream dos = null;
+        set = createFile(this, "crypto.dat");
+        aes master = null;
         if(set!=null){
-            aes f = Serializator.deserialize(set.getPath(), aes.class);
-            Log.w("crypto", Boolean.toString(f!=null));
-            Log.w("key", String.valueOf(f.getKey().getEncoded()));
-            Log.w("cipher", Boolean.toString(f.getCipher()!=null));
+            try{
+                master = new aes();
+                master.loadKey(set);
+//                master.saveKey(master.getKey(), set);
+//                in = new FileOutputStream(set);
+//                dos = new DataOutputStream(in);
+//                dos.write(master.getKey().getEncoded());
+            } catch(Exception e){
+                Log.w("error", e.getMessage());
+            }
         }
     }
+
+//    private void cryptoInit(){
+//        checkPermissions(this);
+//        File set = null;
+//        set = createFile(this, "datadb.dat");
+//        if(set!=null){
+//            aes f = Serializator.deserialize(set.getPath(), aes.class);
+//            Log.w("crypto", Boolean.toString(f!=null));
+//            Log.w("key", String.valueOf(f.getKey().getEncoded()));
+//            Log.w("cipher", Boolean.toString(f.getCipher()!=null));
+//        }
+//    }
 
     private File createFile(Context con, String newname){
         checkPermissions(this);
