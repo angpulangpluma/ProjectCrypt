@@ -100,7 +100,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         initBloodTypeAdapter(this);
         bindListeners(this);
 
-        cryptoInit();
+        cryptoInit(new File("crypto.dat"));
     }
 
     private void bindViews(NewPatientInfoActivity activity) {
@@ -445,21 +445,22 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
 
     private void doSomethingCryptFile(String dec, File input){
 
-        Log.d("service in", "yes");
+        Log.w("service in", "yes");
 
-        file_aes mastercry = new file_aes(cryptoInit());
+        file_aes mastercry = new file_aes(cryptoInit(new File("crypto.dat")));
         File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
                 DirectoryConstants.CRYPTO_FOLDER);
-        path.mkdirs();
+//        path.mkdirs();
+//        File output = new File(path.getPath() +"/" + input.getName());
         File output = new File(path.getPath() +"/" + input.getName());
-        Log.d("output", output.getAbsolutePath());
+        Log.w("output", output.getAbsolutePath());
         try {
             FileOutputStream fos = new FileOutputStream(output);
             fos.write(read(input));
             fos.flush();
             fos.close();
         } catch(Exception e){
-            Log.e("error", e.toString());
+            Log.w("error", e.toString());
         }
         switch(dec){
             case "enc":{
@@ -487,26 +488,49 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
             try {
                 if (ios != null) ios.close();
             } catch (IOException e){
-
+                Log.w("error", e.getMessage());
             }
         }
         return buffer;
     }
 
-    private aes cryptoInit(){
-//        Serializator str = new Serializator();
+    private aes cryptoInit(File set) {
         checkPermissions(this);
-        File set = null;
-        aes mstr = null;
-        set = createFile(this, "datadb.dat");
+//        File set = null;
+//        OutputStream in = null;
+//        DataOutputStream dos = null;
+        set = createFile(this, "crypto.dat");
+        aes master = null;
         if(set!=null){
-            mstr = Serializator.deserialize(set.getPath(), aes.class);
-            Log.w("crypto", Boolean.toString(mstr!=null));
-            Log.w("key", String.valueOf(mstr.getKey().getEncoded()));
-            Log.w("cipher", Boolean.toString(mstr.getCipher()!=null));
+            try{
+                master = new aes();
+                master.loadKey(set);
+                master.setCipher();
+//                master.saveKey(master.getKey(), set);
+//                in = new FileOutputStream(set);
+//                dos = new DataOutputStream(in);
+//                dos.write(master.getKey().getEncoded());
+            } catch(Exception e){
+                Log.w("error", e.getMessage());
+            }
         }
-        return mstr;
+        return master;
     }
+
+//    private aes cryptoInit(){
+////        Serializator str = new Serializator();
+//        checkPermissions(this);
+//        File set = null;
+//        aes mstr = null;
+//        set = createFile(this, "datadb.dat");
+//        if(set!=null){
+//            mstr = Serializator.deserialize(set.getPath(), aes.class);
+//            Log.w("crypto", Boolean.toString(mstr!=null));
+//            Log.w("key", String.valueOf(mstr.getKey().getEncoded()));
+//            Log.w("cipher", Boolean.toString(mstr.getCipher()!=null));
+//        }
+//        return mstr;
+//    }
 
     private File createFile(Context con, String newname){
         checkPermissions(this);
