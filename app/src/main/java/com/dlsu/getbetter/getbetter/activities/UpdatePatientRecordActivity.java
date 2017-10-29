@@ -214,6 +214,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         String lastName = lastNameInput.getText().toString();
         int result;
 
+        doSomethingCryptFile("enc", new File(profilePicPath));
         Patient newPatient = new Patient(firstName, middleName, lastName,
                 birthDate, genderSelected, civilStatusSelected, profilePicPath);
 
@@ -439,7 +440,6 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
 //                if (set!=null)
             profilePicPath = fileUri.getPath();
             setPic(profileImage, fileUri.getPath());
-            doSomethingCryptFile("enc", new File(fileUri.getPath()));
 //                else Log.w("enc file?", "no");
 //            }
 
