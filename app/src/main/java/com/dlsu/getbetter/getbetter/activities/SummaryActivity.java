@@ -147,6 +147,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         if(systemSessionManager.checkLogin())
             finish();
 
+        prepFilesDisplay();
 
         newPatientDetails = new NewPatientSessionManager(this);
         HashMap<String, String> user = systemSessionManager.getUserDetails();
@@ -238,9 +239,10 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onItemClick(View view, int position) {
 
+//                doSomethingCryptFile("dec", new File(attachments.get(position).getAttachmentPath()));
                 if(attachments.get(position).getAttachmentType() == 1) {
                     Intent intent = new Intent(SummaryActivity.this, ViewImageActivity.class);
-                    doSomethingCryptFile("dec", new File(attachments.get(position).getAttachmentPath()));
+//                    doSomethingCryptFile("dec", new File(attachments.get(position).getAttachmentPath()));
                     intent.putExtra("imageUrl", attachments.get(position).getAttachmentPath());
                     intent.putExtra("imageTitle", attachments.get(position).getAttachmentDescription());
                     startActivity(intent);
@@ -812,6 +814,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         @Override
         protected Void doInBackground(Void... params) {
 
+            prepFilesStore();
             insertCaseRecord();
             insertCaseRecordAttachments();
             insertCaseRecordHistory();
@@ -948,6 +951,24 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
             }
         }
     };
+
+    //decrypt files for display
+    private void prepFilesDisplay(){
+        doSomethingCryptFile("dec", new File(patientProfileImage));
+        if(attachments.size()>0){
+            for(int i=0; i<attachments.size(); i++)
+                doSomethingCryptFile("dec", new File(attachments.get(i).getAttachmentPath()));
+        }
+    }
+
+    //encrypt files for storage
+    private void prepFilesStore(){
+        doSomethingCryptFile("enc", new File(patientProfileImage));
+        if(attachments.size()>0){
+            for(int i=0; i<attachments.size(); i++)
+                doSomethingCryptFile("enc", new File(attachments.get(i).getAttachmentPath()));
+        }
+    }
 
     private void doSomethingCryptFile(String dec, File input){
 

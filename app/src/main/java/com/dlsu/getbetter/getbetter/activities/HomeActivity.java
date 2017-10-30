@@ -133,130 +133,130 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void doSomethingCryptFile(String dec, File input){
-
-        Log.w("service in", "yes");
-
-        file_aes mastercry = new file_aes(cryptoInit(new File("crypto.dat")));
-//        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
-//                DirectoryConstants.CRYPTO_FOLDER);
-//        path.mkdirs();
-//        File output = new File(path.getPath() +"/" + input.getName());
-//        File output = new File(path.getPath() +"/" + input.getName());
-//        Log.w("output", output.getAbsolutePath());
-//        try {
-//            FileOutputStream fos = new FileOutputStream(input);
-//            fos.write(read(input));
-//            fos.flush();
-//            fos.close();
-//        } catch(Exception e){
-//            Log.w("error", e.toString());
-//        }
-        switch(dec){
-            case "enc":{
-                mastercry.encryptFile(input);
-                Log.d("Action", "enc");
-            }; break;
-            case "dec":{
-                mastercry.decryptFile(input);
-                Log.d("Action", "dec");
-            }; break;
-        }
+//    private void doSomethingCryptFile(String dec, File input){
 //
-    }
-
-    private aes cryptoInit(File set) {
-        checkPermissions(this);
-//        File set = null;
-//        OutputStream in = null;
-//        DataOutputStream dos = null;
-        set = createFile(this, "crypto.dat");
-        aes master = null;
-        if(set!=null){
-            try{
-                master = new aes();
-                master.loadKey(set);
-//                master.saveKey(master.getKey(), set);
-//                in = new FileOutputStream(set);
-//                dos = new DataOutputStream(in);
-//                dos.write(master.getKey().getEncoded());
-            } catch(Exception e){
-                Log.w("error", e.getMessage());
-            }
-        }
-
-        return master;
-    }
-
-//    private void cryptoInit(){
-//        checkPermissions(this);
-//        File set = null;
-//        set = createFile(this, "datadb.dat");
-//        if(set!=null){
-//            aes f = Serializator.deserialize(set.getPath(), aes.class);
-//            Log.w("crypto", Boolean.toString(f!=null));
-//            Log.w("key", String.valueOf(f.getKey().getEncoded()));
-//            Log.w("cipher", Boolean.toString(f.getCipher()!=null));
+//        Log.w("service in", "yes");
+//
+//        file_aes mastercry = new file_aes(cryptoInit(new File("crypto.dat")));
+////        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+////                DirectoryConstants.CRYPTO_FOLDER);
+////        path.mkdirs();
+////        File output = new File(path.getPath() +"/" + input.getName());
+////        File output = new File(path.getPath() +"/" + input.getName());
+////        Log.w("output", output.getAbsolutePath());
+////        try {
+////            FileOutputStream fos = new FileOutputStream(input);
+////            fos.write(read(input));
+////            fos.flush();
+////            fos.close();
+////        } catch(Exception e){
+////            Log.w("error", e.toString());
+////        }
+//        switch(dec){
+//            case "enc":{
+//                mastercry.encryptFile(input);
+//                Log.d("Action", "enc");
+//            }; break;
+//            case "dec":{
+//                mastercry.decryptFile(input);
+//                Log.d("Action", "dec");
+//            }; break;
 //        }
+////
 //    }
-
-    private File createFile(Context con, String newname){
-        checkPermissions(this);
-        File f = null;
-        InputStream in;
-        OutputStream out;
-        boolean isFileUnlocked = false;
-        try {
-            f = con.getFileStreamPath(newname);
-            if (!f.exists()) {
-                if (f.createNewFile()) {
-                    Log.w("file?", "new");
-                    in = new FileInputStream(f);
-                    out = new FileOutputStream(f);
-                    if (IOUtils.copy(in, out)>0) {
-                        Log.w("copy?", "yes");
-                        out.close();
-                        in.close();
-                        if (f.canRead()) {
-                            Log.w("read?", "yes");
-                            try {
-                                long lastmod = f.lastModified();
-                                Log.w("last modified", Long.toString(lastmod));
-                                org.apache.commons.io.FileUtils.touch(f);
-                                isFileUnlocked = true;
-                            } catch (IOException e) {
-                                //                            isFileUnlocked = false;
-                                Log.w("error", e.getMessage());
-                            }
-                        } else Log.w("read?", "no");
-                    } else Log.w("copy?", "no");
-                } else Log.w("file?", "no");
-            } else Log.w("exists?", "yes");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return f;
-    }
-
-    private void checkPermissions(Context context){
-        int readStuff = ContextCompat.checkSelfPermission(context,
-                Manifest.permission.READ_EXTERNAL_STORAGE);
-        int writeStuff = ContextCompat.checkSelfPermission(context,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE);
-//        Log.w("read?", Integer.toString(readStuff));
-//        Log.w("write?", Integer.toString(writeStuff));
-        //for read stuff
-        if(readStuff == PackageManager.PERMISSION_GRANTED)
-            Log.w("read?", "yes");
-        else if(readStuff == PackageManager.PERMISSION_DENIED)
-            Log.w("read?", "no");
-
-        //for write stuff
-        if(writeStuff == PackageManager.PERMISSION_GRANTED)
-            Log.w("write?", "yes");
-        else if(writeStuff == PackageManager.PERMISSION_DENIED)
-            Log.w("write?", "no");
-    }
+//
+//    private aes cryptoInit(File set) {
+//        checkPermissions(this);
+////        File set = null;
+////        OutputStream in = null;
+////        DataOutputStream dos = null;
+//        set = createFile(this, "crypto.dat");
+//        aes master = null;
+//        if(set!=null){
+//            try{
+//                master = new aes();
+//                master.loadKey(set);
+////                master.saveKey(master.getKey(), set);
+////                in = new FileOutputStream(set);
+////                dos = new DataOutputStream(in);
+////                dos.write(master.getKey().getEncoded());
+//            } catch(Exception e){
+//                Log.w("error", e.getMessage());
+//            }
+//        }
+//
+//        return master;
+//    }
+//
+////    private void cryptoInit(){
+////        checkPermissions(this);
+////        File set = null;
+////        set = createFile(this, "datadb.dat");
+////        if(set!=null){
+////            aes f = Serializator.deserialize(set.getPath(), aes.class);
+////            Log.w("crypto", Boolean.toString(f!=null));
+////            Log.w("key", String.valueOf(f.getKey().getEncoded()));
+////            Log.w("cipher", Boolean.toString(f.getCipher()!=null));
+////        }
+////    }
+//
+//    private File createFile(Context con, String newname){
+//        checkPermissions(this);
+//        File f = null;
+//        InputStream in;
+//        OutputStream out;
+//        boolean isFileUnlocked = false;
+//        try {
+//            f = con.getFileStreamPath(newname);
+//            if (!f.exists()) {
+//                if (f.createNewFile()) {
+//                    Log.w("file?", "new");
+//                    in = new FileInputStream(f);
+//                    out = new FileOutputStream(f);
+//                    if (IOUtils.copy(in, out)>0) {
+//                        Log.w("copy?", "yes");
+//                        out.close();
+//                        in.close();
+//                        if (f.canRead()) {
+//                            Log.w("read?", "yes");
+//                            try {
+//                                long lastmod = f.lastModified();
+//                                Log.w("last modified", Long.toString(lastmod));
+//                                org.apache.commons.io.FileUtils.touch(f);
+//                                isFileUnlocked = true;
+//                            } catch (IOException e) {
+//                                //                            isFileUnlocked = false;
+//                                Log.w("error", e.getMessage());
+//                            }
+//                        } else Log.w("read?", "no");
+//                    } else Log.w("copy?", "no");
+//                } else Log.w("file?", "no");
+//            } else Log.w("exists?", "yes");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return f;
+//    }
+//
+//    private void checkPermissions(Context context){
+//        int readStuff = ContextCompat.checkSelfPermission(context,
+//                Manifest.permission.READ_EXTERNAL_STORAGE);
+//        int writeStuff = ContextCompat.checkSelfPermission(context,
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+////        Log.w("read?", Integer.toString(readStuff));
+////        Log.w("write?", Integer.toString(writeStuff));
+//        //for read stuff
+//        if(readStuff == PackageManager.PERMISSION_GRANTED)
+//            Log.w("read?", "yes");
+//        else if(readStuff == PackageManager.PERMISSION_DENIED)
+//            Log.w("read?", "no");
+//
+//        //for write stuff
+//        if(writeStuff == PackageManager.PERMISSION_GRANTED)
+//            Log.w("write?", "yes");
+//        else if(writeStuff == PackageManager.PERMISSION_DENIED)
+//            Log.w("write?", "no");
+//    }
 
     @Override
     public void onClick(View v) {
