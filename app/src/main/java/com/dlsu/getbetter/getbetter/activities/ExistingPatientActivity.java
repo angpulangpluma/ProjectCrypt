@@ -282,11 +282,13 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
     //decrypt files for display
     private void prepFilesDisplay(){
         if (existingPatients.size()>0){
+            Log.w("dec time?", "yes!");
             for(int i=0; i<existingPatients.size(); i++){
                 String prof = existingPatients.get(i).getProfileImageBytes();
+                Log.w("file", prof);
                 doSomethingCryptFile("dec", new File(prof));
             }
-        }
+        } else Log.w("dec time?", "no!");
 //        doSomethingCryptFile("dec", new File(patientProfileImage));
 //        if(attachments.size()>0){
 //            for(int i=0; i<attachments.size(); i++)
