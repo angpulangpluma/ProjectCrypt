@@ -116,6 +116,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
 
         if(!newPatientSessionManager.isDocumentsEmpty()) {
             Log.d(TAG, "if fired");
+            prepFilesDisplay();
             HashMap<String, String> documents = newPatientSessionManager.getPatientInfo();
             this.patientInfoImagePath = documents.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE1);
             this.familySocialHistoryImagePath = documents.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE2);
@@ -250,6 +251,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
 
             } else {
 
+                prepFilesStore();
                 newPatientSessionManager.setDocImages(this.patientInfoImagePath, this.familySocialHistoryImagePath, this.chiefComplaintImagePath,
                         PATIENT_INFO_FORM_TITLE, FAMILY_SOCIAL_HISTORY_FORM_TITLE, CHIEF_COMPLAINT_FORM_TITLE);
                 Intent intent = new Intent(this, RecordHpiActivity.class);
@@ -320,7 +322,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
                     setPic(this.patientInfoImage, this.patientInfoImagePath);
                     this.patientInfoActionButtons.setVisibility(View.VISIBLE);
                     this.capturePatientInfo.setVisibility(View.GONE);
-                    doSomethingCryptFile("enc", new File(this.patientInfoImagePath));
+//                    doSomethingCryptFile("enc", new File(this.patientInfoImagePath));
                     Log.d("patientinfoimgenc", "yes");
                     break;
                 }
@@ -330,7 +332,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
                     setPic(this.chiefComplaintImage, this.chiefComplaintImagePath);
                     this.chiefComplaintActionButtons.setVisibility(View.VISIBLE);
                     this.captureChiefComplaint.setVisibility(View.GONE);
-                    doSomethingCryptFile("enc", new File(this.chiefComplaintImagePath));
+//                    doSomethingCryptFile("enc", new File(this.chiefComplaintImagePath));
                     Log.d("chiefcompimgenc", "yes");
                     break;
                 }
@@ -340,7 +342,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
                     setPic(this.familySocialImage, this.familySocialHistoryImagePath);
                     this.socialFamilyActionButtons.setVisibility(View.VISIBLE);
                     this.captureFamilySocial.setVisibility(View.GONE);
-                    doSomethingCryptFile("enc", new File(this.familySocialHistoryImagePath));
+//                    doSomethingCryptFile("enc", new File(this.familySocialHistoryImagePath));
                     Log.d("famhistimgenc", "yes");
                     break;
                 }
@@ -421,6 +423,36 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
         return captureDocumentsActivity;
     }
 
+    //decrypt files for display
+    private void prepFilesDisplay(){
+        HashMap<String, String> documents = newPatientSessionManager.getPatientInfo();
+        if (!newPatientSessionManager.isDocumentsEmpty()){
+            doSomethingCryptFile("dec", new File(this.patientInfoImagePath));
+            doSomethingCryptFile("dec", new File(this.familySocialHistoryImagePath));
+            doSomethingCryptFile("dec", new File(this.chiefComplaintImagePath));
+        }
+//        doSomethingCryptFile("dec", new File(patientProfileImage));
+//        if(attachments.size()>0){
+//            for(int i=0; i<attachments.size(); i++)
+//                doSomethingCryptFile("dec", new File(attachments.get(i).getAttachmentPath()));
+//        }
+    }
+
+    //encrypt files for storage
+    private void prepFilesStore(){
+        HashMap<String, String> documents = newPatientSessionManager.getPatientInfo();
+        if (!newPatientSessionManager.isDocumentsEmpty()){
+            doSomethingCryptFile("enc", new File(this.patientInfoImagePath));
+            doSomethingCryptFile("enc", new File(this.familySocialHistoryImagePath));
+            doSomethingCryptFile("enc", new File(this.chiefComplaintImagePath));
+        }
+//        doSomethingCryptFile("enc", new File(patientProfileImage));
+//        if(attachments.size()>0){
+//            for(int i=0; i<attachments.size(); i++)
+//                doSomethingCryptFile("enc", new File(attachments.get(i).getAttachmentPath()));
+//        }
+    }
+
     private byte[] read(File file) throws IOException{
         byte[] buffer = new byte[(int) file.length()];
         InputStream ios = null;
@@ -445,14 +477,14 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
         Log.w("service in", "yes");
 
         file_aes mastercry = new file_aes(cryptoInit(new File("crypto.dat")));
-        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
-                DirectoryConstants.CRYPTO_FOLDER);
+//        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+//                DirectoryConstants.CRYPTO_FOLDER);
 //        path.mkdirs();
 //        File output = new File(path.getPath() +"/" + input.getName());
-        File output = new File(path.getPath() +"/" + input.getName());
-        Log.w("output", output.getAbsolutePath());
+//        File output = new File(path.getPath() +"/" + input.getName());
+//        Log.w("output", output.getAbsolutePath());
         try {
-            FileOutputStream fos = new FileOutputStream(output);
+            FileOutputStream fos = new FileOutputStream(input);
             fos.write(read(input));
             fos.flush();
             fos.close();
@@ -461,7 +493,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
         }
         switch(dec){
             case "enc":{
-                mastercry.encryptFile(output);
+                mastercry.encryptFile(input);
                 Log.d("Action", "enc");
             }; break;
             case "dec":{
