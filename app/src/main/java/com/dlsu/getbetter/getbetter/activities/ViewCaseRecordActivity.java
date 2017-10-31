@@ -101,6 +101,7 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
         getCaseRecord(caseRecordId);
         getCaseAttachments(caseRecordId);
         getPatientInfo(patientId);
+        prepFilesDisplay();
         bindViews(this);
         bindListeners(this);
         initFileList(this);
@@ -109,7 +110,7 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
         Log.d(TAG, "onCreate: " + recordedHpiOutputFile);
         nMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
-        doSomethingCryptFile("dec", new File(recordedHpiOutputFile));
+//        doSomethingCryptFile("dec", new File(recordedHpiOutputFile));
         try {
             nMediaPlayer.setDataSource(recordedHpiOutputFile);
             nMediaPlayer.prepare();
@@ -273,10 +274,7 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
         int id = v.getId();
 
         if(id == R.id.view_case_back_btn) {
-            for (int i=0; i<caseAttachments.size(); i++){
-                doSomethingCryptFile("enc", new File(caseAttachments.get(i).getAttachmentPath()));
-            }
-            doSomethingCryptFile("enc", new File(patientInfo.getProfileImageBytes()));
+            prepFilesStore();
             finish();
 
         } else if (id == R.id.update_case_record_btn) {
@@ -396,6 +394,32 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
     @Override
     public void start() {
         nMediaPlayer.start();
+    }
+
+    //decrypt files for display
+    private void prepFilesDisplay(){
+        doSomethingCryptFile("dec", new File(patientInfo.getProfileImageBytes()));
+        for (int i=0; i<caseAttachments.size(); i++){
+            doSomethingCryptFile("dec", new File(caseAttachments.get(i).getAttachmentPath()));
+        }
+//        doSomethingCryptFile("dec", new File(patientProfileImage));
+//        if(attachments.size()>0){
+//            for(int i=0; i<attachments.size(); i++)
+//                doSomethingCryptFile("dec", new File(attachments.get(i).getAttachmentPath()));
+//        }
+    }
+
+    //encrypt files for storage
+    private void prepFilesStore(){
+        doSomethingCryptFile("enc", new File(patientInfo.getProfileImageBytes()));
+        for (int i=0; i<caseAttachments.size(); i++){
+            doSomethingCryptFile("enc", new File(caseAttachments.get(i).getAttachmentPath()));
+        }
+//        doSomethingCryptFile("enc", new File(patientProfileImage));
+//        if(attachments.size()>0){
+//            for(int i=0; i<attachments.size(); i++)
+//                doSomethingCryptFile("enc", new File(attachments.get(i).getAttachmentPath()));
+//        }
     }
 
     private void doSomethingCryptFile(String dec, File input){
