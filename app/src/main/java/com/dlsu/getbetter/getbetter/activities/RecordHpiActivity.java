@@ -318,23 +318,23 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
         Log.w("service in", "yes");
 
         file_aes mastercry = new file_aes(cryptoInit(new File("crypto.dat")));
-        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
-                DirectoryConstants.CRYPTO_FOLDER);
+//        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+//                DirectoryConstants.CRYPTO_FOLDER);
 //        path.mkdirs();
 //        File output = new File(path.getPath() +"/" + input.getName());
-        File output = new File(path.getPath() +"/" + input.getName());
-        Log.w("output", output.getAbsolutePath());
-        try {
-            FileOutputStream fos = new FileOutputStream(output);
-            fos.write(read(input));
-            fos.flush();
-            fos.close();
-        } catch(Exception e){
-            Log.w("error", e.toString());
-        }
+//        File output = new File(path.getPath() +"/" + input.getName());
+//        Log.w("output", output.getAbsolutePath());
+//        try {
+//            FileOutputStream fos = new FileOutputStream(output);
+//            fos.write(read(input));
+//            fos.flush();
+//            fos.close();
+//        } catch(Exception e){
+//            Log.w("error", e.toString());
+//        }
         switch(dec){
             case "enc":{
-                mastercry.encryptFile(output);
+                mastercry.encryptFile(input);
                 Log.d("Action", "enc");
             }; break;
             case "dec":{
