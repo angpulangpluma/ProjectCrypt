@@ -27,7 +27,7 @@ public class file_aes {
 
     public file_aes(){
         filealgo = new aes();
-//        filealgo.setKey();
+        filealgo.setKey();
         filealgo.setCipher();
 //        ciph = filealgo.getCipher();
     }
