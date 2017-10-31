@@ -101,7 +101,7 @@ public class file_aes {
     */
     private void copy(InputStream is, OutputStream os){
         int i;
-        byte[] b = new byte[1024];
+        byte[] b = new byte[8];
         try{
             while((i=is.read(b))!=-1) {
                 os.write(b, 0, i);
