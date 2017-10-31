@@ -350,7 +350,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
 
         if(requestCode == REQUEST_IMAGE1 && resultCode == Activity.RESULT_OK) {
             setPic(profileImage, fileUri.getPath());
-            doSomethingCryptFile("enc", new File(fileUri.getPath()));
+
         }
     }
 
