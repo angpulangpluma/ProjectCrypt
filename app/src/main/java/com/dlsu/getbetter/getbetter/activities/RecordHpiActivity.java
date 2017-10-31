@@ -91,6 +91,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
 
         if(!newPatientSessionManager.isHpiEmpty()) {
 
+            prepFilesDisplay();
             HashMap<String, String> hpi = newPatientSessionManager.getPatientInfo();
             outputFile = hpi.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD);
             chiefComplaintName = hpi.get(NewPatientSessionManager.NEW_PATIENT_CHIEF_COMPLAINT);
@@ -154,6 +155,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
         if(id == R.id.hpi_next_btn) {
 
             newPatientSessionManager.setHPIRecord(outputFile, chiefComplaintName);
+            prepFilesStore();
             Intent intent = new Intent(this, SummaryActivity.class);
             startActivity(intent);
 
@@ -311,6 +313,34 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
 
     public static RecordHpiActivity getInstance() {
         return recordHpiActivity;
+    }
+
+    //decrypt files for display
+    private void prepFilesDisplay(){
+        HashMap<String, String> hpi = newPatientSessionManager.getPatientInfo();
+        if (!newPatientSessionManager.isHpiEmpty()){
+            outputFile = hpi.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD);
+            doSomethingCryptFile("dec", new File(outputFile));
+        }
+//        doSomethingCryptFile("dec", new File(patientProfileImage));
+//        if(attachments.size()>0){
+//            for(int i=0; i<attachments.size(); i++)
+//                doSomethingCryptFile("dec", new File(attachments.get(i).getAttachmentPath()));
+//        }
+    }
+
+    //encrypt files for storage
+    private void prepFilesStore(){
+        HashMap<String, String> hpi = newPatientSessionManager.getPatientInfo();
+        if (!newPatientSessionManager.isHpiEmpty()){
+            outputFile = hpi.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD);
+            doSomethingCryptFile("enc", new File(outputFile));
+        }
+//        doSomethingCryptFile("enc", new File(patientProfileImage));
+//        if(attachments.size()>0){
+//            for(int i=0; i<attachments.size(); i++)
+//                doSomethingCryptFile("enc", new File(attachments.get(i).getAttachmentPath()));
+//        }
     }
 
     private void doSomethingCryptFile(String dec, File input){
