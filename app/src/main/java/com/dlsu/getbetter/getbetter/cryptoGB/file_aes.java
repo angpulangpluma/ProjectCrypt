@@ -27,7 +27,7 @@ public class file_aes {
 
     public file_aes(){
         filealgo = new aes();
-        filealgo.setKey();
+//        filealgo.setKey();
         filealgo.setCipher();
 //        ciph = filealgo.getCipher();
     }
@@ -51,12 +51,18 @@ public class file_aes {
         try{
             FileInputStream in = new FileInputStream(file);
             cp.init(Cipher.ENCRYPT_MODE, k);
-            CipherOutputStream os = new CipherOutputStream(new FileOutputStream(file),
-                    cp);
-            copy(in, os);
-            Log.w("encrypt?", "done");
-            in.close();
-            os.close();
+            Log.w("file length", Long.toString(file.length()));
+            byte[] buffer = new byte[(int)file.length()];
+            Log.w("buffer length", Integer.toString(buffer.length));
+            byte[] encfile = null;
+            if (in.read(buffer)!=-1){
+                in.close();
+                encfile = cp.doFinal(buffer);
+                FileOutputStream os = new FileOutputStream(file);
+                os.write(encfile);
+                Log.w("encrypt file", "done");
+                os.close();
+            } else Log.w("encrypt file", "failed");
         } catch(Exception ex){
             Log.w("error", ex.getMessage());
         }
@@ -66,18 +72,26 @@ public class file_aes {
 //        File decrypted = new File(file.getPath() + "//" + returnFileName(file)+"_decrypted."+returnFileExt(file));
         Cipher cp = filealgo.getCipher();
         SecretKey k = filealgo.getKey();
+        Log.w("decrypt?", "start");
+        Log.w("file", file.toString());
         try{
-            FileOutputStream os = new FileOutputStream(file);
+            FileInputStream in = new FileInputStream(file);
             cp.init(Cipher.DECRYPT_MODE, k);
-            CipherInputStream is = new CipherInputStream(new FileInputStream(file),
-                    cp);
-            copy(is, os);
-            is.close();
-            os.close();
+            Log.w("file length", Long.toString(file.length()));
+            byte[] buffer = new byte[(int)file.length()];
+            Log.w("buffer length", Integer.toString(buffer.length));
+            byte[] encfile = null;
+            if (in.read(buffer)!=-1){
+                in.close();
+                encfile = cp.doFinal(buffer);
+                FileOutputStream os = new FileOutputStream(file);
+                os.write(encfile);
+                Log.w("decrypt file", "done");
+                os.close();
+            } else Log.w("decrypt file", "failed");
         } catch(Exception ex){
             Log.w("error", ex.getMessage());
         }
-
     }
 
     private String returnFileExt(File file){
