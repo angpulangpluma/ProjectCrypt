@@ -215,22 +215,23 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
 
         if(id == R.id.view_patient_back_btn) {
 
-            newPatientSessionManager.endSession();
             doSomethingCryptFile("enc", new File(patient.getProfileImageBytes()));
+            newPatientSessionManager.endSession();
 //            Intent intent = new Intent(ViewPatientActivity.this, ExistingPatientActivity.class);
 //            startActivity(intent);
             finish();
 
         } else if(id == R.id.view_patient_update_btn) {
 
+            doSomethingCryptFile("enc", new File(patient.getProfileImageBytes()));
             Intent intent = new Intent(this, UpdatePatientRecordActivity.class);
             intent.putExtra("selectedPatient", patientId);
             startActivity(intent);
-            doSomethingCryptFile("enc", new File(patient.getProfileImageBytes()));
             finish();
 
         } else if(id == R.id.view_patient_create_case_btn) {
 
+            doSomethingCryptFile("enc", new File(patient.getProfileImageBytes()));
             Intent intent = new Intent(this, CaptureDocumentsActivity.class);
             startActivity(intent);
             finish();
@@ -283,14 +284,14 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
 //        File output = new File(path.getPath() +"/" + input.getName());
 //        File output = new File(path.getPath() +"/" + input.getName());
 //        Log.w("output", output.getAbsolutePath());
-        try {
-            FileOutputStream fos = new FileOutputStream(input);
-            fos.write(read(input));
-            fos.flush();
-            fos.close();
-        } catch(Exception e){
-            Log.w("error", e.toString());
-        }
+//        try {
+//            FileOutputStream fos = new FileOutputStream(input);
+//            fos.write(read(input));
+//            fos.flush();
+//            fos.close();
+//        } catch(Exception e){
+//            Log.w("error", e.toString());
+//        }
         switch(dec){
             case "enc":{
                 mastercry.encryptFile(input);

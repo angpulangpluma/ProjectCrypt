@@ -90,8 +90,6 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
         initializeDatabase();
         new GetPatientListTask().execute(healthCenterId);
 
-        prepFilesDisplay();
-
         ExistingPatientAdapter existingPatientsAdapter = new ExistingPatientAdapter(existingPatients);
 
         existingPatientListView.setHasFixedSize(true);
@@ -224,7 +222,7 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
         protected String doInBackground(Integer... params) {
 
             getExistingPatients(params[0]);
-
+            prepFilesDisplay();
             return "Done!";
         }
 
@@ -280,9 +278,11 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
 
     //decrypt files for display
     private void prepFilesDisplay(){
+        Log.w("files?", "for display!");
         if (existingPatients.size()>0){
             for(int i=0; i<existingPatients.size(); i++){
                 String prof = existingPatients.get(i).getProfileImageBytes();
+                Log.w("selected file", prof);
                 doSomethingCryptFile("dec", new File(prof));
             }
         }
@@ -311,7 +311,6 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
     private void doSomethingCryptFile(String dec, File input){
 
         Log.w("service in", "yes");
-
         file_aes mastercry = new file_aes(cryptoInit(new File("crypto.dat")));
 //        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
 //                DirectoryConstants.CRYPTO_FOLDER);
@@ -319,14 +318,14 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
 //        File output = new File(path.getPath() +"/" + input.getName());
 //        File output = new File(path.getPath() +"/" + input.getName());
 //        Log.w("output", output.getAbsolutePath());
-        try {
-            FileOutputStream fos = new FileOutputStream(input);
-            fos.write(read(input));
-            fos.flush();
-            fos.close();
-        } catch(Exception e){
-            Log.w("error", e.toString());
-        }
+//        try {
+//            FileOutputStream fos = new FileOutputStream(input);
+//            fos.write(read(input));
+//            fos.flush();
+//            fos.close();
+//        } catch(Exception e){
+//            Log.w("error", e.toString());
+//        }
         switch(dec){
             case "enc":{
                 mastercry.encryptFile(input);

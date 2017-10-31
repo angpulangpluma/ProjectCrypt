@@ -147,8 +147,6 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         if(systemSessionManager.checkLogin())
             finish();
 
-        prepFilesDisplay();
-
         newPatientDetails = new NewPatientSessionManager(this);
         HashMap<String, String> user = systemSessionManager.getUserDetails();
         HashMap<String, String> hc = systemSessionManager.getHealthCenter();
@@ -170,6 +168,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         addPhotoAttachment(chiefComplaintFormImage, chiefComplaintFormImageTitle, getDateStamp());
         addHPIAttachment(recordedHpiOutputFile, chiefComplaint, getDateStamp());
         initializeAttachmentList(this);
+        prepFilesDisplay();
         initializeMediaPlayer(this);
 
         caseRecordId = generateCaseRecordId();
@@ -981,14 +980,14 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
 //        File output = new File(path.getPath() +"/" + input.getName());
 //        File output = new File(path.getPath() +"/" + input.getName());
 //        Log.w("output", output.getAbsolutePath());
-        try {
-            FileOutputStream fos = new FileOutputStream(input);
-            fos.write(read(input));
-            fos.flush();
-            fos.close();
-        } catch(Exception e){
-            Log.w("error", e.toString());
-        }
+//        try {
+//            FileOutputStream fos = new FileOutputStream(input);
+//            fos.write(read(input));
+//            fos.flush();
+//            fos.close();
+//        } catch(Exception e){
+//            Log.w("error", e.toString());
+//        }
         switch(dec){
             case "enc":{
                 mastercry.encryptFile(input);

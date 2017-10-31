@@ -187,7 +187,7 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
 
                 if(caseAttachments.get(position).getAttachmentType() == 1) {
                     Intent intent = new Intent(ViewCaseRecordActivity.this, ViewImageActivity.class);
-                    doSomethingCryptFile("dec", new File(caseAttachments.get(position).getAttachmentPath()));
+//                    doSomethingCryptFile("dec", new File(caseAttachments.get(position).getAttachmentPath()));
                     intent.putExtra("imageUrl", caseAttachments.get(position).getAttachmentPath());
                     intent.putExtra("imageTitle", caseAttachments.get(position).getAttachmentDescription());
                     startActivity(intent);
@@ -399,8 +399,9 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
     //decrypt files for display
     private void prepFilesDisplay(){
         doSomethingCryptFile("dec", new File(patientInfo.getProfileImageBytes()));
-        for (int i=0; i<caseAttachments.size(); i++){
-            doSomethingCryptFile("dec", new File(caseAttachments.get(i).getAttachmentPath()));
+        if(caseAttachments.size()>0){
+            for(int i=0; i<caseAttachments.size(); i++)
+                doSomethingCryptFile("dec", new File(caseAttachments.get(i).getAttachmentPath()));
         }
 //        doSomethingCryptFile("dec", new File(patientProfileImage));
 //        if(attachments.size()>0){
@@ -412,8 +413,9 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
     //encrypt files for storage
     private void prepFilesStore(){
         doSomethingCryptFile("enc", new File(patientInfo.getProfileImageBytes()));
-        for (int i=0; i<caseAttachments.size(); i++){
-            doSomethingCryptFile("enc", new File(caseAttachments.get(i).getAttachmentPath()));
+        if(caseAttachments.size()>0){
+            for(int i=0; i<caseAttachments.size(); i++)
+                doSomethingCryptFile("enc", new File(caseAttachments.get(i).getAttachmentPath()));
         }
 //        doSomethingCryptFile("enc", new File(patientProfileImage));
 //        if(attachments.size()>0){
@@ -433,14 +435,14 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
 //        File output = new File(path.getPath() +"/" + input.getName());
 //        File output = new File(path.getPath() +"/" + input.getName());
 //        Log.w("output", output.getAbsolutePath());
-        try {
-            FileOutputStream fos = new FileOutputStream(input);
-            fos.write(read(input));
-            fos.flush();
-            fos.close();
-        } catch(Exception e){
-            Log.w("error", e.toString());
-        }
+//        try {
+//            FileOutputStream fos = new FileOutputStream(input);
+//            fos.write(read(input));
+//            fos.flush();
+//            fos.close();
+//        } catch(Exception e){
+//            Log.w("error", e.toString());
+//        }
         switch(dec){
             case "enc":{
                 mastercry.encryptFile(input);

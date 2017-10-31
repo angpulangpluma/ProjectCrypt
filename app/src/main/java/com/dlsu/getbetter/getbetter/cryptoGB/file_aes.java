@@ -27,8 +27,8 @@ public class file_aes {
 
     public file_aes(){
         filealgo = new aes();
-        filealgo.setKey();
-        filealgo.setCipher();
+//        filealgo.setKey();
+//        filealgo.setCipher();
 //        ciph = filealgo.getCipher();
     }
 
@@ -51,64 +51,118 @@ public class file_aes {
         try{
             FileInputStream in = new FileInputStream(file);
             cp.init(Cipher.ENCRYPT_MODE, k);
-            CipherOutputStream os = new CipherOutputStream(new FileOutputStream(file),
-                    cp);
-            copy(in, os);
-            Log.w("encrypt?", "done");
-            in.close();
-            os.close();
+            Log.w("file length", Long.toString(file.length()));
+            byte[] buffer = new byte[(int)file.length()];
+            Log.w("buffer length", Integer.toString(buffer.length));
+            byte[] encfile = null;
+            if (in.read(buffer)!=-1){
+//                char[] data = new char[buffer.length];
+//                for(int i=0; i<data.length; i++) {
+//                    data[i] = Byte.valueOf(buffer[i]).toString().charAt(0);
+//                }
+//                Log.w("data", String.valueOf(data));
+//                in.close();
+                in.close();
+                encfile = cp.doFinal(buffer);
+                FileOutputStream os = new FileOutputStream(file);
+                os.write(encfile);
+                Log.w("encrypt file", "done");
+                os.close();
+            } else Log.w("encrypt file", "failed");
         } catch(Exception ex){
-            Log.w("error", ex.getMessage());
+            Log.w("error", ex.toString());
         }
+//        try{
+//            FileInputStream in = new FileInputStream(file);
+//            cp.init(Cipher.ENCRYPT_MODE, k);
+////            CipherOutputStream os = new CipherOutputStream(new FileOutputStream(file),
+////                    cp);
+//            InputStream is = new CipherInputStream(in,cp);
+//
+//            OutputStream os = new FileOutputStream(file);
+//            copy(is, os);
+//            Log.w("encrypt?", "done");
+////            os.flush();
+////            is.close();
+////            in.close();
+//            os.close();
+//        } catch(Exception ex){
+//            Log.w("error", ex.getMessage());
+//        }
     }
 
     public void decryptFile(File file){
+        Log.w("decrypt?", "start");
 //        File decrypted = new File(file.getPath() + "//" + returnFileName(file)+"_decrypted."+returnFileExt(file));
         Cipher cp = filealgo.getCipher();
         SecretKey k = filealgo.getKey();
+        Log.w("decrypt file", file.getPath());
         try{
-            FileOutputStream os = new FileOutputStream(file);
+            FileInputStream in = new FileInputStream(file);
             cp.init(Cipher.DECRYPT_MODE, k);
-            CipherInputStream is = new CipherInputStream(new FileInputStream(file),
-                    cp);
-            copy(is, os);
-            is.close();
-            os.close();
+            Log.w("file length", Long.toString(file.length()));
+            byte[] buffer = new byte[(int)file.length()];
+            Log.w("buffer length", Integer.toString(buffer.length));
+            byte[] encfile = null;
+            if (in.read(buffer)!=-1){
+                in.close();
+                encfile = cp.doFinal(buffer);
+                FileOutputStream os = new FileOutputStream(file);
+                os.write(encfile);
+                Log.w("encrypt file", "done");
+                os.close();
+            } else Log.w("decrypt file", "failed");
         } catch(Exception ex){
-            Log.w("error", ex.getMessage());
+            Log.w("error", ex.toString());
         }
+//        try{
+//            FileInputStream in = new FileInputStream(file);
+//            cp.init(Cipher.DECRYPT_MODE, k);
+////            CipherInputStream is = new CipherInputStream(new FileInputStream(file),
+////                    cp);
+//            InputStream is = new CipherInputStream(in, cp);
+//            OutputStream os = new FileOutputStream(file);
+//            copy(is, os);
+//            Log.w("decrypt?", "done");
+////            os.flush();
+////            is.close();
+////            in.close();
+//            os.close();
+//        } catch(Exception ex){
+//            Log.w("error", ex.getMessage());
+//        }
 
     }
 
-    private String returnFileExt(File file){
-        String ext = "";
-        int i = file.getName().lastIndexOf('.');
-        if (i >= 0)
-            ext = file.getName().substring(i+1);
-        return ext;
-    }
-
-    private String returnFileName(File file){
-        String filename = "";
-        int i = file.getName().lastIndexOf('.');
-        if (i >= 0)
-            filename = file.getName().substring(0, i);
-        return filename;
-    }
-
-    /*
-    Implementation for copy() from www.macs.hw.ac.uk/~ml355/lore/FileEncryption.java
-    */
-    private void copy(InputStream is, OutputStream os){
-        int i;
-        byte[] b = new byte[1024];
-        try{
-            while((i=is.read(b))!=-1) {
-                os.write(b, 0, i);
-            }
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-    }
+//    private String returnFileExt(File file){
+//        String ext = "";
+//        int i = file.getName().lastIndexOf('.');
+//        if (i >= 0)
+//            ext = file.getName().substring(i+1);
+//        return ext;
+//    }
+//
+//    private String returnFileName(File file){
+//        String filename = "";
+//        int i = file.getName().lastIndexOf('.');
+//        if (i >= 0)
+//            filename = file.getName().substring(0, i);
+//        return filename;
+//    }
+//
+//    /*
+//    Implementation for copy() from www.macs.hw.ac.uk/~ml355/lore/FileEncryption.java
+//    */
+//    private void copy(InputStream is, OutputStream os){
+//        int i;
+//        byte[] b = new byte[1024];
+//        try{
+//            while((i=is.read(b))!=-1) {
+//                os.write(b, 0, i);
+//            }
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        }
+//    }
 
 }

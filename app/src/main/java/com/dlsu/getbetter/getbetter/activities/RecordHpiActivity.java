@@ -293,7 +293,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 chiefComplaintName = input.getText().toString();
-                doSomethingCryptFile("enc", new File(outputFile));
+//                doSomethingCryptFile("enc", new File(outputFile));
                 Log.d("recorded", "yes");
             }
         });
