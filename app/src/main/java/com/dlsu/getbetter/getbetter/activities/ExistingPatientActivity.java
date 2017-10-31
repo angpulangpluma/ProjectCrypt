@@ -90,7 +90,7 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
         initializeDatabase();
         new GetPatientListTask().execute(healthCenterId);
 
-        prepFilesDisplay();
+//        prepFilesDisplay();
 
         ExistingPatientAdapter existingPatientsAdapter = new ExistingPatientAdapter(existingPatients);
 
@@ -224,6 +224,7 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
         protected String doInBackground(Integer... params) {
 
             getExistingPatients(params[0]);
+            prepFilesDisplay();
 
             return "Done!";
         }
