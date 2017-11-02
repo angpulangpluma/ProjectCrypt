@@ -36,7 +36,6 @@ public class file_aes {
     public file_aes(aes enc){
         this.filealgo = enc;
         filealgo.setCipher();
-        filealgo.setIV();
     }
 
     public aes getCrypt(){
