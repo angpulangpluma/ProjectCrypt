@@ -19,11 +19,13 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.SecureRandom;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Arrays;
@@ -33,6 +35,7 @@ import javax.crypto.CipherInputStream;
 import javax.crypto.CipherOutputStream;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.DecoderException;
@@ -53,18 +56,20 @@ public class aes implements Serializable {
     private SecretKey secretkey;
     private Cipher cipher;
     private static final String ALGO = "AES";
+    private IvParameterSpec ivParamSpec;
 
     public aes(SecretKey key){
         this.AES_Key_Size = 256;
         this.secretkey = key;
         this.key = secretkey.getEncoded();
-        this.setCipher();
+        this.setIV();
     }
-//
+    //
     public aes(){
         this.AES_Key_Size = 256;
         this.setKey();
         this.setCipher();
+        this.setIV();
     }
 
     public void setKey(){
@@ -72,17 +77,8 @@ public class aes implements Serializable {
             KeyGenerator kgen = KeyGenerator.getInstance("AES");
             kgen.init(AES_Key_Size);
             SecretKey aeskey = kgen.generateKey();
-            key = aeskey.getEncoded();
-//            String temp = android.util.Base64.encodeToString(key, DEFAULT);
-            char[] ch = new char[key.length];
-            for(int i=0; i<ch.length; i++) {
-                ch[i] = Byte.valueOf(key[i]).toString().charAt(0);
-                key[i] = (byte)ch[i];
-            }
-            String temp = android.util.Base64.encodeToString(key, DEFAULT);
-            secretkey = new SecretKeySpec(android.util.Base64.decode(temp, DEFAULT), "AES");
-            key = android.util.Base64.decode(temp, DEFAULT);
-//            secretkey = new SecretKeySpec(key, "AES");
+            secretkey = new SecretKeySpec(aeskey.getEncoded(), "AES");
+            key = secretkey.getEncoded();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -96,6 +92,13 @@ public class aes implements Serializable {
         }
     }
 
+    public void setIV(){
+        byte[] iv = new byte[cipher.getBlockSize()];
+        SecureRandom random = new SecureRandom();
+        random.nextBytes(iv);
+        ivParamSpec = new IvParameterSpec(iv);
+    }
+
     public Cipher getCipher(){
         return this.cipher;
     }
@@ -103,6 +106,8 @@ public class aes implements Serializable {
     public SecretKey getKey(){
         return this.secretkey;
     }
+
+    public IvParameterSpec getIvParamSpec(){ return this.ivParamSpec; }
 
     /*
     * @author stuinzuri
@@ -113,13 +118,12 @@ public class aes implements Serializable {
         Log.w("savekey?", "yes!");
         byte[] encoded = key.getEncoded();
         char[] hex = encodeHex(encoded);
+        char[] ch = new char[encoded.length];
         String data = String.valueOf(hex);
         if (!data.isEmpty()){
             Log.w("key hexed", data);
-            char[] ch = new char[encoded.length];
             for(int i=0; i<ch.length; i++)
                 ch[i] = Byte.valueOf(encoded[i]).toString().charAt(0);
-//            Log.w("key", String.valueOf(ch));
             Log.w("key orig", String.valueOf(ch));
         } else Log.w("key", "failed");
         writeStringToFile(file, data);
@@ -153,49 +157,6 @@ public class aes implements Serializable {
             secretkey = new SecretKeySpec(encoded, ALGO);
             key = secretkey.getEncoded();
         }
-//            SecretKey key = new SecretKeySpec(encoded, ALGO);
-//        return key;
     }
-
-//    private void writeObject(ObjectOutputStream out) throws IOException{
-//        Log.w("serial?", "writing!");
-//        out.defaultWriteObject();
-////        out.writeInt(this.AES_Key_Size);
-//////        for(int i=0; i<this.key.length; i++){
-//////            Log.w("byte written", Byte.toString(this.key[i]));
-//////            out.writeByte(this.key[i]);
-//////        }
-////        out.writeObject(key);
-//////        Log.w("key length", Integer.toString(this.key.length));
-//////        out.writeUTF(Integer.toString(this.key.length));
-////
-//    }
-//
-//    private void readObject(ObjectInputStream in)
-//            throws IOException, ClassNotFoundException{
-//        Log.w("serial?", "reading!");
-//        in.defaultReadObject();
-//        this.setCipher();
-////        String temp = android.util.Base64.encodeToString(this.key, DEFAULT);
-////        this.secretkey = new SecretKeySpec(android.util.Base64.decode(temp, DEFAULT), "AES");
-////        byte[] stuff = new byte[in.available()];
-////        in.readFully(stuff);
-////        for(int i=0; i<stuff.length; i++){
-////            Log.w("stuff", Byte.toString(stuff[i]));
-////        }
-//////        in.defaultReadObject();
-//////        byte[] k = new byte[in.readInt()];
-//////        this.key = in.readObject();
-//////        byte[] b = new byte[in.available()];
-////////        Log.w("reading", in.readFully(b));
-////////        Log.w("reading", in.readUTF());
-//////        byte[] k = new byte[Integer.parseInt(in.readUTF())];
-//////        if(in.read(k, 0, k.length)>0){
-//////            Log.w("serial?", "got key!");
-//////            this.key = k;
-//////            setCipher();
-//////            this.secretkey = new SecretKeySpec(key, "AES");
-//////        } else Log.w("serial?", "no key...");
-//    }
 
 }
