@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import static android.os.Environment.DIRECTORY_DOCUMENTS;
@@ -73,7 +74,11 @@ public class KeySetter{
                 char[] ch = new char[encoded.length];
                 for(int i=0; i<ch.length; i++)
                     ch[i] = Byte.valueOf(encoded[i]).toString().charAt(0);
-                on.println(hc.getHealthCenterId() + " " + String.valueOf(ch));
+                encoded = master.getIvParamSpec().getIV();
+                char[] en = new char[encoded.length];
+                for(int i=0; i<en.length; i++)
+                    en[i] = Byte.valueOf(encoded[i]).toString().charAt(0);
+                on.println(hc.getHealthCenterId() + " " + String.valueOf(ch) + " " + String.valueOf(en));
             }
             on.close();
             Log.w("key setter", "finished");
@@ -118,14 +123,14 @@ public class KeySetter{
             if (s.contains(Integer.toString(sel))){
                 String[] input = s.split(" ");
                 Log.w("key", input[1]);
-                cryptoInit(input[1]);
+                cryptoInit(input[1], input[2]);
             }
         }
     }
 
-    public void cryptoInit(String key){
+    public void cryptoInit(String key, String iSpect){
         try {
-            mscrypto = new aes(new SecretKeySpec(key.getBytes(), 0, key.length(), "AES"));
+            mscrypto = new aes(new SecretKeySpec(key.getBytes(), 0, key.length(), "AES"), new IvParameterSpec(iSpect.getBytes()));
             mscrypto.setCipher();
         } catch(Exception e){
             Log.e("keysetter-cryptoinit", e.toString());

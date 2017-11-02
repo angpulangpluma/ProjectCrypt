@@ -92,15 +92,15 @@ public class HealthCenterActivity extends AppCompatActivity {
                 systemSessionManager.setHealthCenter(healthCenterName, healthCenterId);
 
                 ks = new KeySetter(view.getContext());
-                ks.init();
-//                ks.read(Integer.parseInt(systemSessionManager.getHealthCenter().get(SystemSessionManager.HEALTH_CENTER_ID)));
-//                Log.w("crypt", Boolean.toString(ks.getCrypto()!=null));
-//                byte[] ky = ks.getCrypto().getKey().getEncoded();
-//                char[] ch = new char[ky.length];
-//                for(int i=0; i<ch.length; i++)
-//                    ch[i] = Byte.valueOf(ky[i]).toString().charAt(0);
-//                Log.w("key", String.valueOf(ch));
-//                cryptoPrep(ks.getCrypto());
+//                ks.init();
+                ks.read(Integer.parseInt(systemSessionManager.getHealthCenter().get(SystemSessionManager.HEALTH_CENTER_ID)));
+                Log.w("crypt", Boolean.toString(ks.getCrypto()!=null));
+                byte[] ky = ks.getCrypto().getKey().getEncoded();
+                char[] ch = new char[ky.length];
+                for(int i=0; i<ch.length; i++)
+                    ch[i] = Byte.valueOf(ky[i]).toString().charAt(0);
+                Log.w("key", String.valueOf(ch));
+                cryptoPrep(ks.getCrypto());
 
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
 //                intent.putExtra("sys", ks.getCrypto());

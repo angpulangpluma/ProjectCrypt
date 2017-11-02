@@ -59,6 +59,13 @@ public class aes implements Serializable {
     private static final String ALGO = "AES";
     private IvParameterSpec ivParamSpec;
 
+    public aes(SecretKey key, IvParameterSpec ivParamSpec){
+        this.AES_Key_Size = 256;
+        this.secretkey = key;
+        this.key = secretkey.getEncoded();
+        this.ivParamSpec = ivParamSpec;
+        this.iv = ivParamSpec.getIV();
+    }
     public aes(SecretKey key){
         this.AES_Key_Size = 256;
         this.secretkey = key;
