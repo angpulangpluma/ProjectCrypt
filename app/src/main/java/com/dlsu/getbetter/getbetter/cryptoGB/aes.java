@@ -52,6 +52,7 @@ public class aes implements Serializable {
 
     private final int AES_Key_Size;
     private byte[] key;
+    private byte[] iv;
 
     private SecretKey secretkey;
     private Cipher cipher;
@@ -93,7 +94,7 @@ public class aes implements Serializable {
     }
 
     public void setIV(){
-        byte[] iv = new byte[cipher.getBlockSize()];
+        iv = new byte[cipher.getBlockSize()];
         SecureRandom random = new SecureRandom();
         random.nextBytes(iv);
         ivParamSpec = new IvParameterSpec(iv);
@@ -120,13 +121,16 @@ public class aes implements Serializable {
         char[] hex = encodeHex(encoded);
         char[] ch = new char[encoded.length];
         String data = String.valueOf(hex);
+        String param = "";
         if (!data.isEmpty()){
             Log.w("key hexed", data);
             for(int i=0; i<ch.length; i++)
                 ch[i] = Byte.valueOf(encoded[i]).toString().charAt(0);
             Log.w("key orig", String.valueOf(ch));
+            hex = encodeHex(iv);
+            param = String.valueOf(hex);
         } else Log.w("key", "failed");
-        writeStringToFile(file, data);
+        writeStringToFile(file, data + " " + param);
     }
 
     /*
@@ -136,8 +140,8 @@ public class aes implements Serializable {
     public void loadKey(File file) throws IOException
     {
         Log.w("loadkey?", "yes");
-        String data = new String(readFileToByteArray(file));
-        char[] hex = data.toCharArray();
+        String[] data = new String(readFileToByteArray(file)).split(" ");
+        char[] hex = data[0].toCharArray();
         byte[] encoded = null;
         try
         {
@@ -149,13 +153,26 @@ public class aes implements Serializable {
 //            return null;
         }
         if (encoded!=null) {
-            Log.w("file data", data);
+            Log.w("file data", data[0]);
             char[] ch = new char[encoded.length];
             for(int i=0; i<ch.length; i++)
                 ch[i] = Byte.valueOf(encoded[i]).toString().charAt(0);
             Log.w("key", String.valueOf(ch));
             secretkey = new SecretKeySpec(encoded, ALGO);
             key = secretkey.getEncoded();
+            hex = data[1].toCharArray();
+            try{
+                encoded = decodeHex(hex);
+            } catch(DecoderException e){
+                Log.w("error", e.getMessage());
+            }
+            Log.w("file data", data[1]);
+            ch = new char[encoded.length];
+            for(int i=0; i<ch.length; i++)
+                ch[i] = Byte.valueOf(encoded[i]).toString().charAt(0);
+            Log.w("iv", String.valueOf(ch));
+            iv = encoded;
+            ivParamSpec = new IvParameterSpec(iv);
         }
     }
 
