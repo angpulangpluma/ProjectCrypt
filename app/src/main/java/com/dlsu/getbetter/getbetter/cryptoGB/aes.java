@@ -70,14 +70,14 @@ public class aes implements Serializable {
         this.AES_Key_Size = 256;
         this.secretkey = key;
         this.key = secretkey.getEncoded();
-        this.setIV();
+//        this.setIV();
     }
     //
     public aes(){
         this.AES_Key_Size = 256;
         this.setKey();
         this.setCipher();
-        this.setIV();
+//        this.setIV();
     }
 
     public void setKey(){
@@ -105,6 +105,11 @@ public class aes implements Serializable {
         SecureRandom random = new SecureRandom();
         random.nextBytes(iv);
         ivParamSpec = new IvParameterSpec(iv);
+    }
+
+    public void unsetIV(){
+        iv = null;
+        ivParamSpec = null;
     }
 
     public Cipher getCipher(){
@@ -145,6 +150,36 @@ public class aes implements Serializable {
     * @source https://github.com/stuinzuri/SimpleJavaKeyStore/blob/master/src/ch/geekomatic/sjks/KeyStoreUtils.java
     */
     public void loadKey(File file) throws IOException
+    {
+        Log.w("loadkey?", "yes");
+        String[] data = new String(readFileToByteArray(file)).split(" ");
+        char[] hex = data[0].toCharArray();
+        byte[] encoded = null;
+        try
+        {
+            encoded = decodeHex(hex);
+        }
+        catch (DecoderException e)
+        {
+            Log.w("error", e.getMessage());
+//            return null;
+        }
+        if (encoded!=null) {
+            Log.w("file data", data[0]);
+            char[] ch = new char[encoded.length];
+            for(int i=0; i<ch.length; i++)
+                ch[i] = Byte.valueOf(encoded[i]).toString().charAt(0);
+            Log.w("key", String.valueOf(ch));
+            secretkey = new SecretKeySpec(encoded, ALGO);
+            key = secretkey.getEncoded();
+        }
+    }
+
+    /*
+    * @author stuinzuri
+    * @source https://github.com/stuinzuri/SimpleJavaKeyStore/blob/master/src/ch/geekomatic/sjks/KeyStoreUtils.java
+    */
+    public void loadKeyFinal(File file) throws IOException
     {
         Log.w("loadkey?", "yes");
         String[] data = new String(readFileToByteArray(file)).split(" ");
