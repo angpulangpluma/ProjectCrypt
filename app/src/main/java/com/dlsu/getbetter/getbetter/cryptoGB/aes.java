@@ -43,6 +43,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 
 import static android.util.Base64.DEFAULT;
+import static android.util.Base64.decode;
 import static org.apache.commons.codec.binary.Hex.decodeHex;
 import static org.apache.commons.codec.binary.Hex.encodeHex;
 import static org.apache.commons.io.FileUtils.readFileToByteArray;
@@ -105,11 +106,11 @@ public class aes implements Serializable {
         SecureRandom random = new SecureRandom();
         random.nextBytes(iv);
         ivParamSpec = new IvParameterSpec(iv);
+
     }
 
-    public void unsetIV(){
-        iv = null;
-        ivParamSpec = null;
+    public void resetIV(){
+        ivParamSpec = new IvParameterSpec(iv);
     }
 
     public Cipher getCipher(){
@@ -172,6 +173,15 @@ public class aes implements Serializable {
             Log.w("key", String.valueOf(ch));
             secretkey = new SecretKeySpec(encoded, ALGO);
             key = secretkey.getEncoded();
+            hex = data[1].toCharArray();
+            try{
+                encoded = decodeHex(hex);
+            } catch(DecoderException e){
+                Log.w("error", e.getMessage());
+            }
+            Log.w("iv data", data[1]);
+            ivParamSpec = new IvParameterSpec(encoded);
+            iv = encoded;
         }
     }
 

@@ -45,8 +45,8 @@ public class file_aes {
     public void encryptFile(File file){
         Log.w("encrypt?", "start");
 //        File encrypted = new File(file.getPath() + "_encrypted."+ FilenameUtils.getExtension(file.getName()));
-        if (filealgo.getIvParamSpec()==null)
-            filealgo.setIV();
+//        if (filealgo.getIvParamSpec()==null)
+//            filealgo.setIV();
         Log.w("encrypt file", file.getPath());
         Cipher cp = filealgo.getCipher();
         SecretKey k = filealgo.getKey();
@@ -116,7 +116,7 @@ public class file_aes {
                 Log.w("decrypt file", "done");
                 os.close();
                 Log.w("file length", Long.toString(file.length()));
-                filealgo.unsetIV();
+                filealgo.resetIV();
             } else Log.w("decrypt file", "failed");
         } catch(GeneralSecurityException | IOException ex){
             Log.w("error", ex.getMessage());
