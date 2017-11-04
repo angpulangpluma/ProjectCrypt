@@ -103,6 +103,7 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
             @Override
             public void onItemClick(View view, int position) {
 
+                prepFilesStore();
                 selectedPatientId = existingPatients.get(position).getId();
                 Intent intent = new Intent(ExistingPatientActivity.this, ViewPatientActivity.class);
 //                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
@@ -112,6 +113,7 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
 
             }
         });
+        existingPatientsAdapter.notifyDataSetChanged();
 //        if(existingPatients.isEmpty()) {
 //            TextView textView = new TextView(this);
 //            textView.setText("Patient List Empty");
