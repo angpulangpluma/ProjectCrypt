@@ -76,6 +76,7 @@ public class file_aes {
                 Log.w("encrypt file", "done");
                 Log.w("file length", Long.toString(file.length()));
                 os.close();
+                filealgo.resetIV();
             } else Log.w("encrypt file", "failed");
         } catch(GeneralSecurityException | IOException ex){
             Log.w("error", ex.getMessage());
