@@ -94,8 +94,16 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
         getCaseRecords();
         createPatientSession(this);
 
-        doSomethingCryptFile("dec", new File(patient.getProfileImageBytes()));
-        setPic(profileImage, patient.getProfileImageBytes());
+        File profpic = checkFile("", FilenameUtils.getName(new File(patient.getProfileImageBytes()).getPath()));
+        if (profpic !=null){
+            Log.w("got inner pic", profpic.getPath());
+            setPic(profileImage, profpic.getPath());
+        } else{
+            Log.w("did not get inner pic", patient.getProfileImageBytes());
+            doSomethingCryptFile("dec", new File(patient.getProfileImageBytes()));
+            setPic(profileImage, patient.getProfileImageBytes());
+        }
+
         patientName.setText(patientFullName(patient.getLastName() + ", ", patient.getFirstName(), patient.getMiddleName()));
         age.append(": " + patient.getAge() + " Years Old");
         gender.append(": " + patient.getGender());
@@ -382,6 +390,16 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
             e.printStackTrace();
         }
         return f;
+    }
+
+    private File checkFile(String path, String name){
+        File result;
+        try {
+            result = new File(path, name);
+        } catch(NullPointerException ex){
+            result = null;
+        }
+        return result;
     }
 
     private File createFileDuplicate(String path, String newname, String oldfile){

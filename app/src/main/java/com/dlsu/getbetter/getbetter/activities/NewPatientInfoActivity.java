@@ -349,8 +349,16 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if(requestCode == REQUEST_IMAGE1 && resultCode == Activity.RESULT_OK) {
-            setPic(profileImage, fileUri.getPath());
-
+            File profpic = createFileDuplicate("", "", fileUri.getPath());
+            if (profpic!=null) {
+                Log.w("profile pic?", "set");
+                Log.w("new pic", profpic.getPath());
+                setPic(profileImage, profpic.getPath());
+            } else{
+                Log.w("profile pic?", "unset");
+                setPic(profileImage, fileUri.getPath());
+            }
+//            setPic(profileImage, fileUri.getPath());
         }
     }
 
