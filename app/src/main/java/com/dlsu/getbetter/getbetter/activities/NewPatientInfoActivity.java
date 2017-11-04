@@ -586,8 +586,9 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         OutputStream out;
         boolean isFileUnlocked = false;
         try {
-            f = new File(path, newname + "." +
+            File temp = new File(path, newname + "." +
                     FilenameUtils.getExtension(oldfile));
+            f = this.getFileStreamPath(newname);
             if(f.createNewFile()) {
                 Log.w("file?", "yes");
                 in = new FileInputStream(new File(oldfile));
