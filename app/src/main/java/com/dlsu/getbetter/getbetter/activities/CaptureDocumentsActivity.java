@@ -427,9 +427,9 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
     private void prepFilesDisplay(){
         HashMap<String, String> documents = newPatientSessionManager.getPatientInfo();
         if (!newPatientSessionManager.isDocumentsEmpty()){
-            doSomethingCryptFile("dec", new File(this.patientInfoImagePath));
-            doSomethingCryptFile("dec", new File(this.familySocialHistoryImagePath));
-            doSomethingCryptFile("dec", new File(this.chiefComplaintImagePath));
+            doSomethingCryptFile("dec", new File(documents.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE1)));
+            doSomethingCryptFile("dec", new File(documents.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE2)));
+            doSomethingCryptFile("dec", new File(documents.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE3)));
         }
 //        doSomethingCryptFile("dec", new File(patientProfileImage));
 //        if(attachments.size()>0){
@@ -442,9 +442,9 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
     private void prepFilesStore(){
         HashMap<String, String> documents = newPatientSessionManager.getPatientInfo();
         if (!newPatientSessionManager.isDocumentsEmpty()){
-            doSomethingCryptFile("enc", new File(this.patientInfoImagePath));
-            doSomethingCryptFile("enc", new File(this.familySocialHistoryImagePath));
-            doSomethingCryptFile("enc", new File(this.chiefComplaintImagePath));
+            doSomethingCryptFile("dec", new File(documents.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE1)));
+            doSomethingCryptFile("dec", new File(documents.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE2)));
+            doSomethingCryptFile("dec", new File(documents.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE3)));
         }
 //        doSomethingCryptFile("enc", new File(patientProfileImage));
 //        if(attachments.size()>0){
@@ -483,14 +483,14 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
 //        File output = new File(path.getPath() +"/" + input.getName());
 //        File output = new File(path.getPath() +"/" + input.getName());
 //        Log.w("output", output.getAbsolutePath());
-        try {
-            FileOutputStream fos = new FileOutputStream(input);
-            fos.write(read(input));
-            fos.flush();
-            fos.close();
-        } catch(Exception e){
-            Log.w("error", e.toString());
-        }
+//        try {
+//            FileOutputStream fos = new FileOutputStream(input);
+//            fos.write(read(input));
+//            fos.flush();
+//            fos.close();
+//        } catch(Exception e){
+//            Log.w("error", e.toString());
+//        }
         switch(dec){
             case "enc":{
                 mastercry.encryptFile(input);

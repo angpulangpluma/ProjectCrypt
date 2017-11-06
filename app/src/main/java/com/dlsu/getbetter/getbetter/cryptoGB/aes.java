@@ -71,22 +71,22 @@ public class aes implements Serializable {
         this.AES_Key_Size = 256;
         this.secretkey = key;
         this.key = secretkey.getEncoded();
-//        this.setIV();
+        this.setIV();
     }
     //
     public aes(){
         this.AES_Key_Size = 256;
         this.setKey();
         this.setCipher();
-//        this.setIV();
+        this.setIV();
     }
 
     public void setKey(){
         try{
-            KeyGenerator kgen = KeyGenerator.getInstance("AES");
+            KeyGenerator kgen = KeyGenerator.getInstance(ALGO);
             kgen.init(AES_Key_Size);
             SecretKey aeskey = kgen.generateKey();
-            secretkey = new SecretKeySpec(aeskey.getEncoded(), "AES");
+            secretkey = new SecretKeySpec(aeskey.getEncoded(), ALGO);
             key = secretkey.getEncoded();
         } catch (Exception e){
             e.printStackTrace();

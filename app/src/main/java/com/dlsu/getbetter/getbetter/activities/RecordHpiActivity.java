@@ -319,8 +319,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
     private void prepFilesDisplay(){
         HashMap<String, String> hpi = newPatientSessionManager.getPatientInfo();
         if (!newPatientSessionManager.isHpiEmpty()){
-            outputFile = hpi.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD);
-            doSomethingCryptFile("dec", new File(outputFile));
+            doSomethingCryptFile("dec", new File(hpi.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD)));
         }
 //        doSomethingCryptFile("dec", new File(patientProfileImage));
 //        if(attachments.size()>0){
@@ -333,8 +332,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
     private void prepFilesStore(){
         HashMap<String, String> hpi = newPatientSessionManager.getPatientInfo();
         if (!newPatientSessionManager.isHpiEmpty()){
-            outputFile = hpi.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD);
-            doSomethingCryptFile("enc", new File(outputFile));
+            doSomethingCryptFile("dec", new File(hpi.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD)));
         }
 //        doSomethingCryptFile("enc", new File(patientProfileImage));
 //        if(attachments.size()>0){

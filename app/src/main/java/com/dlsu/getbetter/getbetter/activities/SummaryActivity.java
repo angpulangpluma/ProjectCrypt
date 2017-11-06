@@ -954,16 +954,26 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
 
     //decrypt files for display
     private void prepFilesDisplay(){
-        doSomethingCryptFile("dec", new File(patientProfileImage));
-        if(attachments.size()>0){
-            for(int i=0; i<attachments.size(); i++)
-                doSomethingCryptFile("dec", new File(attachments.get(i).getAttachmentPath()));
-        }
+        HashMap<String, String> patientDetails = newPatientDetails.getPatientInfo();
+        doSomethingCryptFile("dec", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_PROFILE_IMAGE)));
+        doSomethingCryptFile("dec", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD)));
+        doSomethingCryptFile("dec", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE1)));
+        doSomethingCryptFile("dec", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE2)));
+        doSomethingCryptFile("dec", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE3)));
+//        if(attachments.size()>0){
+//            for(int i=0; i<attachments.size(); i++)
+//                doSomethingCryptFile("dec", new File(attachments.get(i).getAttachmentPath()));
+//        }
     }
 
     //encrypt files for storage
     private void prepFilesStore(){
-        doSomethingCryptFile("enc", new File(patientProfileImage));
+        HashMap<String, String> patientDetails = newPatientDetails.getPatientInfo();
+        doSomethingCryptFile("enc", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_PROFILE_IMAGE)));
+//        doSomethingCryptFile("dec", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD)));
+//        doSomethingCryptFile("dec", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE1)));
+//        doSomethingCryptFile("dec", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE2)));
+//        doSomethingCryptFile("dec", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE3)));
         if(attachments.size()>0){
             for(int i=0; i<attachments.size(); i++)
                 doSomethingCryptFile("enc", new File(attachments.get(i).getAttachmentPath()));
@@ -981,14 +991,14 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
 //        File output = new File(path.getPath() +"/" + input.getName());
 //        File output = new File(path.getPath() +"/" + input.getName());
 //        Log.w("output", output.getAbsolutePath());
-        try {
-            FileOutputStream fos = new FileOutputStream(input);
-            fos.write(read(input));
-            fos.flush();
-            fos.close();
-        } catch(Exception e){
-            Log.w("error", e.toString());
-        }
+//        try {
+//            FileOutputStream fos = new FileOutputStream(input);
+//            fos.write(read(input));
+//            fos.flush();
+//            fos.close();
+//        } catch(Exception e){
+//            Log.w("error", e.toString());
+//        }
         switch(dec){
             case "enc":{
                 mastercry.encryptFile(input);
