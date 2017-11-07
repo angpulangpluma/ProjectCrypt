@@ -155,7 +155,7 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
         String fullName = patientInfo.getFirstName() + " " + patientInfo.getMiddleName() + " " + patientInfo.getLastName();
         String gender = patientInfo.getGender();
         String patientAgeGender = patientInfo.getAge() + " yrs. old, " + gender;
-        doSomethingCryptFile("dec", new File(patientInfo.getProfileImageBytes()));
+//        doSomethingCryptFile("dec", new File(patientInfo.getProfileImageBytes()));
         setPic(profilePic, patientInfo.getProfileImageBytes());
 
         ageGender.setText(patientAgeGender);
