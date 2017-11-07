@@ -967,8 +967,22 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
 
     //encrypt files for storage
     private void prepFilesStore(){
-        HashMap<String, String> patientDetails = newPatientDetails.getPatientInfo();
-        doSomethingCryptFile("enc", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_PROFILE_IMAGE)));
+//        HashMap<String, String> patientDetails = newPatientDetails.getPatientInfo();
+//        patientId = Long.parseLong(patientDetails.get(NewPatientSessionManager.PATIENT_ID));
+//        patientProfileImage = patientDetails.get(NewPatientSessionManager.NEW_PATIENT_PROFILE_IMAGE);
+//        patientFirstName = patientDetails.get(NewPatientSessionManager.NEW_PATIENT_FIRST_NAME);
+//        patientLastName = patientDetails.get(NewPatientSessionManager.NEW_PATIENT_LAST_NAME);
+//        patientAge = patientDetails.get(NewPatientSessionManager.NEW_PATIENT_AGE);
+//        patientGender = patientDetails.get(NewPatientSessionManager.NEW_PATIENT_GENDER);
+//        chiefComplaint = patientDetails.get(NewPatientSessionManager.NEW_PATIENT_CHIEF_COMPLAINT);
+//        recordedHpiOutputFile = patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD);
+//        patientInfoFormImage = patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE1);
+//        familySocialHistoryFormImage = patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE2);
+//        chiefComplaintFormImage = patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE3);
+//        patientInfoFormImageTitle = patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE1_TITLE);
+//        familySocialHistoryFormImageTitle = patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE2_TITLE);
+//        chiefComplaintFormImageTitle = patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE3_TITLE);
+        doSomethingCryptFile("enc", new File(patientProfileImage));
 //        doSomethingCryptFile("dec", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD)));
 //        doSomethingCryptFile("dec", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE1)));
 //        doSomethingCryptFile("dec", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE2)));
