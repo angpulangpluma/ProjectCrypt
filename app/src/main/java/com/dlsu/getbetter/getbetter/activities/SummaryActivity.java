@@ -156,7 +156,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         getUserId(user.get(SystemSessionManager.LOGIN_USER_NAME));
         getHealthCenterName(healthCenterId);
         initializePatientInfo();
-        prepFilesDisplay();
+//        prepFilesDisplay();
         bindViews(this);
         bindListeners(this);
 
@@ -813,7 +813,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         @Override
         protected Void doInBackground(Void... params) {
 
-            prepFilesStore();
+//            prepFilesStore();
             insertCaseRecord();
             insertCaseRecordAttachments();
             insertCaseRecordHistory();

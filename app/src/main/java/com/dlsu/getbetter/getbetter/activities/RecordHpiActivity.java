@@ -94,7 +94,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
             HashMap<String, String> hpi = newPatientSessionManager.getPatientInfo();
             outputFile = hpi.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD);
             chiefComplaintName = hpi.get(NewPatientSessionManager.NEW_PATIENT_CHIEF_COMPLAINT);
-            prepFilesDisplay();
+//            prepFilesDisplay();
             stopRecord.setEnabled(false);
             playRecord.setEnabled(true);
             hpiRecorder = new MediaRecorder();
@@ -154,7 +154,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
         if(id == R.id.hpi_next_btn) {
 
             newPatientSessionManager.setHPIRecord(outputFile, chiefComplaintName);
-            prepFilesStore();
+//            prepFilesStore();
             Intent intent = new Intent(this, SummaryActivity.class);
             startActivity(intent);
 

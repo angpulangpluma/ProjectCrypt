@@ -103,7 +103,7 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
         getCaseRecord(caseRecordId);
         getCaseAttachments(caseRecordId);
         getPatientInfo(patientId);
-        prepFilesDisplay();
+//        prepFilesDisplay();
         bindViews(this);
         bindListeners(this);
         initFileList(this);
@@ -276,7 +276,7 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
         int id = v.getId();
 
         if(id == R.id.view_case_back_btn) {
-            prepFilesStore();
+//            prepFilesStore();
             finish();
 
         } else if (id == R.id.update_case_record_btn) {

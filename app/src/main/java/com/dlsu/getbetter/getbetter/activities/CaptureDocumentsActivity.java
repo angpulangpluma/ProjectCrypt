@@ -120,7 +120,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
             this.patientInfoImagePath = documents.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE1);
             this.familySocialHistoryImagePath = documents.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE2);
             this.chiefComplaintImagePath = documents.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE3);
-            prepFilesDisplay();
+//            prepFilesDisplay();
             setPic(this.patientInfoImage, this.patientInfoImagePath);
             setPic(this.familySocialImage, this.familySocialHistoryImagePath);
             setPic(this.chiefComplaintImage, this.chiefComplaintImagePath);
@@ -253,7 +253,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
 
                 newPatientSessionManager.setDocImages(this.patientInfoImagePath, this.familySocialHistoryImagePath, this.chiefComplaintImagePath,
                         PATIENT_INFO_FORM_TITLE, FAMILY_SOCIAL_HISTORY_FORM_TITLE, CHIEF_COMPLAINT_FORM_TITLE);
-                prepFilesStore();
+//                prepFilesStore();
                 Intent intent = new Intent(this, RecordHpiActivity.class);
                 startActivity(intent);
 

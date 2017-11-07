@@ -188,7 +188,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         Log.d(TAG, "savePatientInfo: " + genderSelected);
         Log.d(TAG, "savePatientInfo: " + civilStatusSelected);
 
-        doSomethingCryptFile("enc", new File(fileUri.getPath()));
+//        doSomethingCryptFile("enc", new File(fileUri.getPath()));
         long patientId = getBetterDb.insertPatientInfo(firstName, middleName, lastName, birthDate,
                 genderSelected, civilStatusSelected, bloodTypeSelected, fileUri.getPath(), healthCenterId);
 

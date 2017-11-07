@@ -94,7 +94,7 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
         getCaseRecords();
         createPatientSession(this);
 
-        doSomethingCryptFile("dec", new File(patient.getProfileImageBytes()));
+//        doSomethingCryptFile("dec", new File(patient.getProfileImageBytes()));
         setPic(profileImage, patient.getProfileImageBytes());
         patientName.setText(patientFullName(patient.getLastName() + ", ", patient.getFirstName(), patient.getMiddleName()));
         age.append(": " + patient.getAge() + " Years Old");
@@ -112,7 +112,7 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
         caseRecordAdapter.SetOnItemClickListener(new CaseRecordAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                doSomethingCryptFile("enc", new File(patient.getProfileImageBytes()));
+//                doSomethingCryptFile("enc", new File(patient.getProfileImageBytes()));
                 int selectedCaseRecordId = caseRecords.get(position).getCaseRecordId();
                 Intent intent = new Intent(ViewPatientActivity.this, ViewCaseRecordActivity.class);
                 intent.putExtra("caseRecordId", selectedCaseRecordId);
@@ -217,14 +217,14 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
         if(id == R.id.view_patient_back_btn) {
 
             newPatientSessionManager.endSession();
-            doSomethingCryptFile("enc", new File(patient.getProfileImageBytes()));
+//            doSomethingCryptFile("enc", new File(patient.getProfileImageBytes()));
 //            Intent intent = new Intent(ViewPatientActivity.this, ExistingPatientActivity.class);
 //            startActivity(intent);
             finish();
 
         } else if(id == R.id.view_patient_update_btn) {
 
-            doSomethingCryptFile("enc", new File(patient.getProfileImageBytes()));
+//            doSomethingCryptFile("enc", new File(patient.getProfileImageBytes()));
             Intent intent = new Intent(this, UpdatePatientRecordActivity.class);
             intent.putExtra("selectedPatient", patientId);
             startActivity(intent);
@@ -232,7 +232,7 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
 
         } else if(id == R.id.view_patient_create_case_btn) {
 
-            doSomethingCryptFile("enc", new File(patient.getProfileImageBytes()));
+//            doSomethingCryptFile("enc", new File(patient.getProfileImageBytes()));
             Intent intent = new Intent(this, CaptureDocumentsActivity.class);
             startActivity(intent);
             finish();

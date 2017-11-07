@@ -103,7 +103,7 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
             @Override
             public void onItemClick(View view, int position) {
 
-                prepFilesStore();
+//                prepFilesStore();
                 selectedPatientId = existingPatients.get(position).getId();
                 Intent intent = new Intent(ExistingPatientActivity.this, ViewPatientActivity.class);
 //                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
@@ -177,7 +177,7 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
 
         if (id == R.id.create_new_patient_btn) {
 
-            prepFilesStore();
+//            prepFilesStore();
             Intent intent = new Intent(this, NewPatientInfoActivity.class);
 //            intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
             startActivity(intent);
@@ -185,7 +185,7 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
         } else if (id == R.id.upload_patient_record) {
 
             if(isConnected) {
-                prepFilesStore();
+//                prepFilesStore();
                 Intent intent = new Intent(this, UploadPatientToServerActivity.class);
 //                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
                 startActivity(intent);
@@ -198,7 +198,7 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
         } else if (id == R.id.upload_case_record) {
 
             if(isConnected) {
-                prepFilesStore();
+//                prepFilesStore();
                 Intent intent = new Intent(this, UploadCaseRecordToServerActivity.class);
 //                intent.putExtra("sys", getIntent().getSerializableExtra("sys"));
                 startActivity(intent);
@@ -226,7 +226,7 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
         protected String doInBackground(Integer... params) {
 
             getExistingPatients(params[0]);
-            prepFilesDisplay();
+//            prepFilesDisplay();
 
             return "Done!";
         }
