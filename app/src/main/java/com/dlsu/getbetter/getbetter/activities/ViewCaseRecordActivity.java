@@ -433,14 +433,14 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
 //        File output = new File(path.getPath() +"/" + input.getName());
 //        File output = new File(path.getPath() +"/" + input.getName());
 //        Log.w("output", output.getAbsolutePath());
-        try {
-            FileOutputStream fos = new FileOutputStream(input);
-            fos.write(read(input));
-            fos.flush();
-            fos.close();
-        } catch(Exception e){
-            Log.w("error", e.toString());
-        }
+//        try {
+//            FileOutputStream fos = new FileOutputStream(input);
+//            fos.write(read(input));
+//            fos.flush();
+//            fos.close();
+//        } catch(Exception e){
+//            Log.w("error", e.toString());
+//        }
         switch(dec){
             case "enc":{
                 mastercry.encryptFile(input);
