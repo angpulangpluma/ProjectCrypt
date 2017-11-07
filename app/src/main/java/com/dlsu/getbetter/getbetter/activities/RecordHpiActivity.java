@@ -91,10 +91,10 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
 
         if(!newPatientSessionManager.isHpiEmpty()) {
 
-            prepFilesDisplay();
             HashMap<String, String> hpi = newPatientSessionManager.getPatientInfo();
             outputFile = hpi.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD);
             chiefComplaintName = hpi.get(NewPatientSessionManager.NEW_PATIENT_CHIEF_COMPLAINT);
+            prepFilesDisplay();
             stopRecord.setEnabled(false);
             playRecord.setEnabled(true);
             hpiRecorder = new MediaRecorder();
@@ -102,7 +102,6 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
             hpiRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
             hpiRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
             hpiRecorder.setOutputFile(outputFile);
-
 
         } else {
             initializeMediaRecorder();

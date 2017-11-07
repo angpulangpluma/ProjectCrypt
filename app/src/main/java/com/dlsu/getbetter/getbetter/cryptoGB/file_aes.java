@@ -58,19 +58,19 @@ public class file_aes {
             Log.w("buffer length", Integer.toString(buffer.length));
             byte[] encfile = null;
             if (in.read(buffer)!=-1){
-                char[] data = new char[buffer.length];
-                for(int i=0; i<data.length; i++) {
-                    data[i] = Byte.valueOf(buffer[i]).toString().charAt(0);
-                }
-                Log.w("data", String.valueOf(data));
+//                char[] data = new char[buffer.length];
+//                for(int i=0; i<data.length; i++) {
+//                    data[i] = Byte.valueOf(buffer[i]).toString().charAt(0);
+//                }
+//                Log.w("data", String.valueOf(data));
                 in.close();
                 Log.w("file length", Long.toString(file.length()));
                 encfile = cp.doFinal(buffer);
-                data = new char[encfile.length];
-                for(int i=0; i<data.length; i++) {
-                    data[i] = Byte.valueOf(encfile[i]).toString().charAt(0);
-                }
-                Log.w("data", String.valueOf(data));
+//                data = new char[encfile.length];
+//                for(int i=0; i<data.length; i++) {
+//                    data[i] = Byte.valueOf(encfile[i]).toString().charAt(0);
+//                }
+//                Log.w("data", String.valueOf(data));
                 FileOutputStream os = new FileOutputStream(file);
                 os.write(encfile);
                 Log.w("encrypt file", "done");
@@ -98,19 +98,19 @@ public class file_aes {
             Log.w("buffer length", Integer.toString(buffer.length));
             byte[] encfile = null;
             if (in.read(buffer)!=-1){
-                char[] data = new char[buffer.length];
-                for(int i=0; i<data.length; i++) {
-                    data[i] = Byte.valueOf(buffer[i]).toString().charAt(0);
-                }
-                Log.w("data", String.valueOf(data));
+//                char[] data = new char[buffer.length];
+//                for(int i=0; i<data.length; i++) {
+//                    data[i] = Byte.valueOf(buffer[i]).toString().charAt(0);
+//                }
+//                Log.w("data", String.valueOf(data));
                 in.close();
                 Log.w("file length", Long.toString(file.length()));
                 encfile = cp.doFinal(buffer);
-                data = new char[encfile.length];
-                for(int i=0; i<data.length; i++) {
-                    data[i] = Byte.valueOf(encfile[i]).toString().charAt(0);
-                }
-                Log.w("data", String.valueOf(data));
+//                data = new char[encfile.length];
+//                for(int i=0; i<data.length; i++) {
+//                    data[i] = Byte.valueOf(encfile[i]).toString().charAt(0);
+//                }
+//                Log.w("data", String.valueOf(data));
                 Log.w("decfile length", Integer.toString(encfile.length));
                 FileOutputStream os = new FileOutputStream(file);
                 os.write(encfile);

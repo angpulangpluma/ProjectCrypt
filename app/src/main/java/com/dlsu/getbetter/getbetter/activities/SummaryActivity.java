@@ -147,8 +147,6 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         if(systemSessionManager.checkLogin())
             finish();
 
-        prepFilesDisplay();
-
         newPatientDetails = new NewPatientSessionManager(this);
         HashMap<String, String> user = systemSessionManager.getUserDetails();
         HashMap<String, String> hc = systemSessionManager.getHealthCenter();
@@ -158,6 +156,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         getUserId(user.get(SystemSessionManager.LOGIN_USER_NAME));
         getHealthCenterName(healthCenterId);
         initializePatientInfo();
+        prepFilesDisplay();
         bindViews(this);
         bindListeners(this);
 
