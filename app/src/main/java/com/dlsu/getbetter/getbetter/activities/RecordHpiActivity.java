@@ -331,7 +331,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
     private void prepFilesStore(){
         HashMap<String, String> hpi = newPatientSessionManager.getPatientInfo();
         if (!newPatientSessionManager.isHpiEmpty()){
-            doSomethingCryptFile("dec", new File(hpi.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD)));
+            doSomethingCryptFile("enc", new File(hpi.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD)));
         }
 //        doSomethingCryptFile("enc", new File(patientProfileImage));
 //        if(attachments.size()>0){

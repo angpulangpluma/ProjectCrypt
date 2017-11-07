@@ -790,7 +790,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         for(int i = 0; i < attachments.size(); i++) {
 
             Log.d(TAG, "insertCaseRecordAttachments: " + attachments.get(i).getAttachmentPath());
-            doSomethingCryptFile("enc", new File(attachments.get(i).getAttachmentPath()));
+//            doSomethingCryptFile("enc", new File(attachments.get(i).getAttachmentPath()));
             attachments.get(i).setCaseRecordId(caseRecordId);
             attachments.get(i).setUploadedBy(userId);
             getBetterDb.insertCaseRecordAttachments(attachments.get(i));
