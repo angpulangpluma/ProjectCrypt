@@ -136,6 +136,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         lastNameInput.setText(patient.getLastName());
         profilePicPath = patient.getProfileImageBytes();
         activity.submitBtn.setText(R.string.save);
+        doSomethingCryptFile("dec", new File(profilePicPath));
         setPic(profileImage, patient.getProfileImageBytes());
 
     }
