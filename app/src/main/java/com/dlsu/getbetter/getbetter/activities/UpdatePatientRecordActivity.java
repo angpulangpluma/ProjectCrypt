@@ -98,13 +98,15 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         patientId = 0;
 
         if(extras != null) {
+            Log.w("patient?", "yes");
             patientId = extras.getLong("selectedPatient");
-        }
+        } else Log.w("patient?", "no!");
 
         Log.e("patient id", patientId + "");
 
         initializeDatabase();
         patient = getPatientInfo(patientId);
+        doSomethingCryptFile("dec", new File(patient.getProfileImageBytes()));
         bindViews(this);
         initGenderAdapter(this);
         initCivilStatusAdapter(this);
@@ -136,7 +138,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         lastNameInput.setText(patient.getLastName());
         profilePicPath = patient.getProfileImageBytes();
         activity.submitBtn.setText(R.string.save);
-        doSomethingCryptFile("dec", new File(profilePicPath));
+//        doSomethingCryptFile("dec", new File(profilePicPath));
         setPic(profileImage, patient.getProfileImageBytes());
 
     }
@@ -363,14 +365,14 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
 //        File output = new File(path.getPath() +"/" + input.getName());
 //        File output = new File(path.getPath() +"/" + input.getName());
 //        Log.w("output", output.getAbsolutePath());
-        try {
-            FileOutputStream fos = new FileOutputStream(input);
-            fos.write(read(input));
-            fos.flush();
-            fos.close();
-        } catch(Exception e){
-            Log.w("error", e.toString());
-        }
+//        try {
+//            FileOutputStream fos = new FileOutputStream(input);
+//            fos.write(read(input));
+//            fos.flush();
+//            fos.close();
+//        } catch(Exception e){
+//            Log.w("error", e.toString());
+//        }
         switch(dec){
             case "enc":{
                 mastercry.encryptFile(input);
