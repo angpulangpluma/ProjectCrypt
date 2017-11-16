@@ -119,9 +119,9 @@ public class HealthCenterActivity extends AppCompatActivity {
         if(set!=null){
             try{
                 master.saveKey(master.getKey(), set);
-                File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
-                    DirectoryConstants.CRYPTO_FOLDER);
-                copyFiles(set, new File(path, "datadb.dat"));
+//                File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+//                    DirectoryConstants.CRYPTO_FOLDER);
+//                copyFiles(set, new File(path, "datadb.dat"));
 //                in = new FileOutputStream(set);
 //                dos = new DataOutputStream(in);
 //                dos.write(master.getKey().getEncoded());
