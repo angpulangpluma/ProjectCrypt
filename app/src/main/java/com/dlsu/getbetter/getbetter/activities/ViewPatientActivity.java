@@ -300,27 +300,34 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
                 DirectoryConstants.CRYPTO_FOLDER);
         File test = new File(testpath.getPath(), "test_log.txt");
         try {
-            if (testpath.mkdirs() && (test.createNewFile() || test.exists())) {
-                FileWriter fw = new FileWriter(test, true);
-                tester.setFileLog(fw);
-                switch (dec) {
-                    case "enc": {
+//            if (test.createNewFile() || test.exists()) {
+            if (!test.exists()){
+                Log.w("test file?", "does not exist");
+                test.createNewFile();
+                Log.w("test file?", "now it does");
+            } else Log.w("test file?", "exists");
+
+//                Log.w("testing", "okay!");
+            FileWriter fw = new FileWriter(test, true);
+            tester.setFileLog(fw);
+            switch (dec) {
+                case "enc": {
 //                        mastercry.encryptFile(input);
-                        tester.writeEncTime(3, input, null);
-                        Log.d("Action", "enc");
-                    }
-                    ;
-                    break;
-                    case "dec": {
-//                        mastercry.decryptFile(input);
-                        tester.writeDecTime(3, input, null);
-                        Log.d("Action", "dec");
-                    }
-                    ;
-                    break;
+                    tester.writeEncTime(3, input, null);
+                    Log.d("Action", "enc");
                 }
-                tester.finishTest();
+                ;
+                break;
+                case "dec": {
+//                        mastercry.decryptFile(input);
+                    tester.writeDecTime(3, input, null);
+                    Log.d("Action", "dec");
+                }
+                ;
+                break;
             }
+            tester.finishTest();
+//            } else Log.w("testing", "not okay!");
         } catch(Exception e){
             Log.w("error", e.toString());
         }

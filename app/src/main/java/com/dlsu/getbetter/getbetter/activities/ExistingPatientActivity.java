@@ -215,6 +215,7 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
 
 
         } else if (id == R.id.existing_patient_back_btn) {
+            prepFilesStore();
             finish();
         }
     }
@@ -343,7 +344,14 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
                 DirectoryConstants.CRYPTO_FOLDER);
         File test = new File(testpath.getPath(), "test_log.txt");
         try {
-            if (testpath.mkdirs() && (test.createNewFile() || test.exists())) {
+//            if (test.createNewFile() || test.exists()) {
+            if (!test.exists()){
+                Log.w("test file?", "does not exist");
+                test.createNewFile();
+                Log.w("test file?", "now it does");
+            } else Log.w("test file?", "exists");
+
+//                Log.w("testing", "okay!");
                 FileWriter fw = new FileWriter(test, true);
                 tester.setFileLog(fw);
                 switch (dec) {
@@ -363,7 +371,7 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
                     break;
                 }
                 tester.finishTest();
-            }
+//            } else Log.w("testing", "not okay!");
         } catch(Exception e){
             Log.w("error", e.toString());
         }
