@@ -4,12 +4,12 @@
       <root url="jar://$USER_HOME$/.android/build-cache/c961f86939f586d3fd6afbaa7e538891a3de6b0a/output/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/93902ddf09ab782682480ccfec80cdcc2370dc0d/output/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/93902ddf09ab782682480ccfec80cdcc2370dc0d/output/res" />
+      <root url="file://$USER_HOME$/.android/build-cache/c961f86939f586d3fd6afbaa7e538891a3de6b0a/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/c961f86939f586d3fd6afbaa7e538891a3de6b0a/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../../../student/AppData/Local/Android/Sdk/extras/android/m2repository/com/android/support/support-media-compat/25.1.1/support-media-compat-25.1.1-sources.jar!/" />
+      <root url="jar://$USER_HOME$/AppData/Local/Android/Sdk/extras/android/m2repository/com/android/support/support-media-compat/25.1.1/support-media-compat-25.1.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
