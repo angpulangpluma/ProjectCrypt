@@ -34,12 +34,14 @@ import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
 import com.dlsu.getbetter.getbetter.cryptoGB.Serializator;
 import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
+import com.dlsu.getbetter.getbetter.cryptoGB.timealgo;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.objects.Patient;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -373,15 +375,34 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
 //        } catch(Exception e){
 //            Log.w("error", e.toString());
 //        }
-        switch(dec){
-            case "enc":{
-                mastercry.encryptFile(input);
-                Log.d("Action", "enc");
-            }; break;
-            case "dec":{
-                mastercry.decryptFile(input);
-                Log.d("Action", "dec");
-            }; break;
+        timealgo tester = new timealgo(mastercry);
+        File testpath = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+                DirectoryConstants.CRYPTO_FOLDER);
+        File test = new File(testpath.getPath(), "test_log.txt");
+        try {
+            if (testpath.mkdirs() && (test.createNewFile() || test.exists())) {
+                FileWriter fw = new FileWriter(test, true);
+                tester.setFileLog(fw);
+                switch (dec) {
+                    case "enc": {
+//                        mastercry.encryptFile(input);
+                        tester.writeEncTime(3, input, null);
+                        Log.d("Action", "enc");
+                    }
+                    ;
+                    break;
+                    case "dec": {
+//                        mastercry.decryptFile(input);
+                        tester.writeDecTime(3, input, null);
+                        Log.d("Action", "dec");
+                    }
+                    ;
+                    break;
+                }
+                tester.finishTest();
+            }
+        } catch(Exception e){
+            Log.w("error", e.toString());
         }
 //
     }

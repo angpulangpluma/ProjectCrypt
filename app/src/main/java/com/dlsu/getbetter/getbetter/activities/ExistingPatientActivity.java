@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -22,10 +23,12 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.adapters.ExistingPatientAdapter;
 import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
+import com.dlsu.getbetter.getbetter.cryptoGB.timealgo;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.objects.DividerItemDecoration;
 import com.dlsu.getbetter.getbetter.objects.Patient;
@@ -37,12 +40,15 @@ import org.apache.commons.io.IOUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static android.os.Environment.DIRECTORY_DOCUMENTS;
 
 
 public class ExistingPatientActivity extends AppCompatActivity implements View.OnClickListener {
@@ -332,15 +338,34 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
 //        } catch(Exception e){
 //            Log.w("error", e.toString());
 //        }
-        switch(dec){
-            case "enc":{
-                mastercry.encryptFile(input);
-                Log.d("Action", "enc");
-            }; break;
-            case "dec":{
-                mastercry.decryptFile(input);
-                Log.d("Action", "dec");
-            }; break;
+        timealgo tester = new timealgo(mastercry);
+        File testpath = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+                DirectoryConstants.CRYPTO_FOLDER);
+        File test = new File(testpath.getPath(), "test_log.txt");
+        try {
+            if (testpath.mkdirs() && (test.createNewFile() || test.exists())) {
+                FileWriter fw = new FileWriter(test, true);
+                tester.setFileLog(fw);
+                switch (dec) {
+                    case "enc": {
+//                        mastercry.encryptFile(input);
+                        tester.writeEncTime(3, input, null);
+                        Log.d("Action", "enc");
+                    }
+                    ;
+                    break;
+                    case "dec": {
+//                        mastercry.decryptFile(input);
+                        tester.writeDecTime(3, input, null);
+                        Log.d("Action", "dec");
+                    }
+                    ;
+                    break;
+                }
+                tester.finishTest();
+            }
+        } catch(Exception e){
+            Log.w("error", e.toString());
         }
 //
     }
