@@ -80,7 +80,9 @@ public class timealgo {
                 //before encrypting filesize
                 //after encrypting filesize
                 bw.write("input: " + file.getAbsolutePath() +"\\n");
+                bw.write("input file size: " + file.length() +"\\n");
                 bw.write("time elapsed: " + getEncTime(n, file, string)+"\\n");
+                bw.write("encrypted file size: " + file.length() +"\\n");
                 writeNewLine();
                 bw.flush();
             }; break;
@@ -106,7 +108,9 @@ public class timealgo {
                 //before encrypting filesize
                 //after encrypting filesize
                 bw.write("input: " + file.getAbsolutePath() +"\\n");
+                bw.write("input file size: " + file.length() +"\\n");
                 bw.write("time elapsed: " + getDecTime(n, file, string)+"\\n");
+                bw.write("decrypted file size: " + file.length() +"\\n");
                 writeNewLine();
                 bw.flush();
             }; break;
