@@ -216,6 +216,7 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
 
         } else if (id == R.id.existing_patient_back_btn) {
             finish();
+            prepFilesStore();
         }
     }
 
