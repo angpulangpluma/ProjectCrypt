@@ -221,6 +221,8 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
 //            Intent intent = new Intent(ViewPatientActivity.this, ExistingPatientActivity.class);
 //            startActivity(intent);
             finish();
+            Intent i = new Intent(this, HomeActivity.class);
+            startActivity(i);
 
         } else if(id == R.id.view_patient_update_btn) {
 

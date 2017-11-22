@@ -143,6 +143,8 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         } else if (id == R.id.new_patient_back_btn) {
 
             finish();
+            Intent i = new Intent(this, HomeActivity.class);
+            startActivity(i);
 
 
         } else if (id == R.id.new_patient_next_btn) {

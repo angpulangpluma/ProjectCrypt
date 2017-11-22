@@ -400,7 +400,7 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
 
     //decrypt files for display
     private void prepFilesDisplay(){
-        doSomethingCryptFile("dec", new File(patientInfo.getProfileImageBytes()));
+//        doSomethingCryptFile("dec", new File(patientInfo.getProfileImageBytes()));
         doSomethingCryptFile("dec", new File(getHpiOutputFile(getIntent().getExtras().getInt("caseRecordId"))));
         for (int i=0; i<caseAttachments.size(); i++){
             doSomethingCryptFile("dec", new File(caseAttachments.get(i).getAttachmentPath()));
@@ -414,7 +414,7 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
 
     //encrypt files for storage
     private void prepFilesStore(){
-        doSomethingCryptFile("enc", new File(patientInfo.getProfileImageBytes()));
+//        doSomethingCryptFile("enc", new File(patientInfo.getProfileImageBytes()));
         doSomethingCryptFile("enc", new File(getHpiOutputFile(getIntent().getExtras().getInt("caseRecordId"))));
         for (int i=0; i<caseAttachments.size(); i++){
             doSomethingCryptFile("enc", new File(caseAttachments.get(i).getAttachmentPath()));

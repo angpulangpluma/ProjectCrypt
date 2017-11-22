@@ -173,6 +173,9 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         } else if (id == R.id.new_patient_back_btn) {
 
             finish();
+            Intent i = new Intent(this, HomeActivity.class);
+            startActivity(i);
+
         } else if (id == R.id.birthdate_input) {
 
             datePickerDialog();
