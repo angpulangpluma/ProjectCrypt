@@ -39,6 +39,7 @@ import com.dlsu.getbetter.getbetter.adapters.FileAttachmentsAdapter;
 import com.dlsu.getbetter.getbetter.cryptoGB.Serializator;
 import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
+import com.dlsu.getbetter.getbetter.cryptoGB.timealgo;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.objects.Attachment;
 import com.dlsu.getbetter.getbetter.objects.DividerItemDecoration;
@@ -52,6 +53,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -1014,15 +1016,41 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
 //        } catch(Exception e){
 //            Log.w("error", e.toString());
 //        }
-        switch(dec){
-            case "enc":{
-                mastercry.encryptFile(input);
-                Log.d("Action", "enc");
-            }; break;
-            case "dec":{
-                mastercry.decryptFile(input);
-                Log.d("Action", "dec");
-            }; break;
+        timealgo tester = new timealgo(mastercry);
+        File testpath = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+                DirectoryConstants.CRYPTO_FOLDER);
+        File test = new File(testpath.getPath(), "test_log.txt");
+        try {
+//            if (test.createNewFile() || test.exists()) {
+            if (!test.exists()){
+                Log.w("test file?", "does not exist");
+                test.createNewFile();
+                Log.w("test file?", "now it does");
+            } else Log.w("test file?", "exists");
+
+//                Log.w("testing", "okay!");
+            FileWriter fw = new FileWriter(test, true);
+            tester.setFileLog(fw);
+            switch (dec) {
+                case "enc": {
+//                        mastercry.encryptFile(input);
+                    tester.writeEncTime(3, input, null);
+                    Log.d("Action", "enc");
+                }
+                ;
+                break;
+                case "dec": {
+//                        mastercry.decryptFile(input);
+                    tester.writeDecTime(3, input, null);
+                    Log.d("Action", "dec");
+                }
+                ;
+                break;
+            }
+            tester.finishTest();
+//            } else Log.w("testing", "not okay!");
+        } catch(Exception e){
+            Log.w("error", e.toString());
         }
 //
     }

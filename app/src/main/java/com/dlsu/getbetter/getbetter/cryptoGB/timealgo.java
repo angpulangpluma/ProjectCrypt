@@ -37,16 +37,16 @@ public class timealgo {
         writeNewLine();
         //write current time of entry
         if (textalgo!=null)
-            bw.write("testing text encryption algorithm");
+            bw.write("testing text encryption algorithm\\n");
         if (filealgo!=null)
-            bw.write("testing file encryption algorithm");
+            bw.write("testing file encryption algorithm\\n");
         writeNewLine();
         //find out what bw.flush() does again???
         bw.flush();
     }
 
     public void writeNewLine() throws Exception{
-        bw.write("-------");
+        bw.write("-------\\n");
         bw.newLine();
         //find out what bw.flush() does again???
         bw.flush();
@@ -57,29 +57,32 @@ public class timealgo {
         switch(n){
             case 21: //aes encryption - text
             {
-                bw.write("testing aes text encryption");
-                bw.write("input: " + string);
-                bw.write("output: " + textalgo.getEncString(string));
-                bw.write("time elapsed: " + getEncTime(n, file, string));
+                bw.write("testing aes text encryption\\n");
+                bw.write("input: " + string + "\\n");
+                bw.write("output: " + textalgo.getEncString(string) +"\\n");
+                bw.write("time elapsed: " + getEncTime(n, file, string)+"\\n");
                 writeNewLine();
                 bw.flush();
             }; break;
             case 22: //hash encryption - text
             {
-                bw.write("testing aes text encryption");
-                bw.write("input: " + string);
-                bw.write("output: " + textalgo.getHashedString(string));
-                bw.write("time elapsed: " + getEncTime(n, file, string));
+                bw.write("testing aes text encryption\\n");
+                bw.write("input: " + string+"\\n");
+                bw.write("output: " + textalgo.getHashedString(string)+"\\n");
+                bw.write("time elapsed: " + getEncTime(n, file, string)+"\\n");
                 writeNewLine();
                 bw.flush();
             }; break;
             case 3: //aes encryption - file
             {
-                bw.write("testing aes text encryption");
+                bw.write("testing aes text encryption\\n");
                 //find out how to know filesize through java
                 //before encrypting filesize
                 //after encrypting filesize
-                bw.write("time elapsed: " + getEncTime(n, file, string));
+                bw.write("input: " + file.getAbsolutePath() +"\\n");
+                bw.write("input file size: " + file.length() +"\\n");
+                bw.write("time elapsed: " + getEncTime(n, file, string)+"\\n");
+                bw.write("encrypted file size: " + file.length() +"\\n");
                 writeNewLine();
                 bw.flush();
             }; break;
@@ -91,20 +94,23 @@ public class timealgo {
         switch(n){
             case 2: //aes encryption - text
             {
-                bw.write("testing aes text encryption");
-                bw.write("input: " + string);
-                bw.write("output: " + textalgo.getDecString(string));
-                bw.write("time elapsed: " + getDecTime(n, file, string));
+                bw.write("testing aes text encryption\\n");
+                bw.write("input: " + string+"\\n");
+                bw.write("output: " + textalgo.getDecString(string)+"\\n");
+                bw.write("time elapsed: " + getDecTime(n, file, string)+"\\n");
                 writeNewLine();
                 bw.flush();
             }; break;
             case 3: //aes encryption - file
             {
-                bw.write("testing aes text encryption");
+                bw.write("testing aes text encryption\\n");
                 //find out how to know filesize through java
                 //before encrypting filesize
                 //after encrypting filesize
-                bw.write("time elapsed: " + getDecTime(n, file, string));
+                bw.write("input: " + file.getAbsolutePath() +"\\n");
+                bw.write("input file size: " + file.length() +"\\n");
+                bw.write("time elapsed: " + getDecTime(n, file, string)+"\\n");
+                bw.write("decrypted file size: " + file.length() +"\\n");
                 writeNewLine();
                 bw.flush();
             }; break;

@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -21,10 +22,12 @@ import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
 
+import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.adapters.FileAttachmentsAdapter;
 import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
+import com.dlsu.getbetter.getbetter.cryptoGB.timealgo;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.objects.Attachment;
 import com.dlsu.getbetter.getbetter.objects.CaseRecord;
@@ -38,6 +41,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -46,6 +50,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.os.Environment.DIRECTORY_DOCUMENTS;
 
 public class ViewCaseRecordActivity extends AppCompatActivity implements MediaController.MediaPlayerControl, View.OnClickListener {
 
@@ -445,15 +451,41 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
 //        } catch(Exception e){
 //            Log.w("error", e.toString());
 //        }
-        switch(dec){
-            case "enc":{
-                mastercry.encryptFile(input);
-                Log.d("Action", "enc");
-            }; break;
-            case "dec":{
-                mastercry.decryptFile(input);
-                Log.d("Action", "dec");
-            }; break;
+        timealgo tester = new timealgo(mastercry);
+        File testpath = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
+                DirectoryConstants.CRYPTO_FOLDER);
+        File test = new File(testpath.getPath(), "test_log.txt");
+        try {
+//            if (test.createNewFile() || test.exists()) {
+            if (!test.exists()){
+                Log.w("test file?", "does not exist");
+                test.createNewFile();
+                Log.w("test file?", "now it does");
+            } else Log.w("test file?", "exists");
+
+//                Log.w("testing", "okay!");
+            FileWriter fw = new FileWriter(test, true);
+            tester.setFileLog(fw);
+            switch (dec) {
+                case "enc": {
+//                        mastercry.encryptFile(input);
+                    tester.writeEncTime(3, input, null);
+                    Log.d("Action", "enc");
+                }
+                ;
+                break;
+                case "dec": {
+//                        mastercry.decryptFile(input);
+                    tester.writeDecTime(3, input, null);
+                    Log.d("Action", "dec");
+                }
+                ;
+                break;
+            }
+            tester.finishTest();
+//            } else Log.w("testing", "not okay!");
+        } catch(Exception e){
+            Log.w("error", e.toString());
         }
 //
     }
