@@ -330,6 +330,8 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
             CaptureDocumentsActivity.getInstance().finish();
             RecordHpiActivity.getInstance().finish();
             finish();
+            Intent i = new Intent(this, HomeActivity.class);
+            startActivity(i);
 
         } else if(id == R.id.summary_page_back_btn) {
 
