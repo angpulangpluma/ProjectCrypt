@@ -16,12 +16,8 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/NewPatientInfoActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/NewPatientInfoActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
     </list>
     <ignored path="ProjectCrypt.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -59,12 +55,9 @@
       <file leaf-file-name="ExistingPatientActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/ExistingPatientActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1067">
+            <state relative-caret-position="3264">
               <caret line="234" column="0" selection-start-line="234" selection-start-column="0" selection-end-line="234" selection-end-column="0" />
-              <folding>
-                <element signature="e#9441#9629#0" expanded="true" />
-                <element signature="e#9628#9629#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -72,8 +65,8 @@
       <file leaf-file-name="NewPatientInfoActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/NewPatientInfoActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="369" column="68" selection-start-line="369" selection-start-column="68" selection-end-line="369" selection-end-column="68" />
+            <state relative-caret-position="116">
+              <caret line="367" column="35" selection-start-line="367" selection-start-column="35" selection-end-line="367" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -86,13 +79,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2720">
               <caret line="215" column="70" selection-start-line="215" selection-start-column="70" selection-end-line="215" selection-end-column="70" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#18176#18177#0" expanded="false" />
-                <element signature="e#18223#18224#0" expanded="false" />
-                <element signature="e#18326#18327#0" expanded="false" />
-                <element signature="e#18373#18374#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -120,7 +107,7 @@
       <file leaf-file-name="ViewPatientActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/ViewPatientActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
+            <state relative-caret-position="2992">
               <caret line="224" column="29" selection-start-line="224" selection-start-column="29" selection-end-line="224" selection-end-column="29" />
               <folding />
             </state>
@@ -132,9 +119,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="340">
               <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -142,7 +127,7 @@
       <file leaf-file-name="HealthCenterActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/HealthCenterActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="726">
+            <state relative-caret-position="1156">
               <caret line="114" column="24" selection-start-line="114" selection-start-column="24" selection-end-line="114" selection-end-column="24" />
               <folding>
                 <marker date="1511223704117" expanded="true" signature="4920:5300" ph="//..." />
@@ -156,45 +141,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="4607">
               <caret line="338" column="0" selection-start-line="338" selection-start-column="0" selection-end-line="338" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#10268#11071#0" expanded="false" />
-                <element signature="e#11070#11071#0" expanded="false" />
-                <element signature="e#19367#19738#0" expanded="false" />
-                <element signature="e#19520#19712#0" expanded="false" />
-                <element signature="e#19711#19712#0" expanded="false" />
-                <element signature="e#19737#19738#0" expanded="false" />
-                <element signature="e#20989#20990#0" expanded="false" />
-                <element signature="e#21047#21048#0" expanded="false" />
-                <element signature="e#24043#25123#0" expanded="false" />
-                <element signature="e#25122#25123#0" expanded="false" />
-                <element signature="e#25171#25358#0" expanded="false" />
-                <element signature="e#25357#25358#0" expanded="false" />
-                <element signature="e#27142#27330#0" expanded="false" />
-                <element signature="e#27329#27330#0" expanded="false" />
-                <element signature="e#29634#29635#0" expanded="false" />
-                <element signature="e#29661#29662#0" expanded="false" />
-                <element signature="e#29715#29716#0" expanded="false" />
-                <element signature="e#29743#29744#0" expanded="false" />
-                <element signature="e#29796#29797#0" expanded="false" />
-                <element signature="e#29824#29825#0" expanded="false" />
-                <element signature="e#29876#29877#0" expanded="false" />
-                <element signature="e#29900#29901#0" expanded="false" />
-                <element signature="e#30101#30102#0" expanded="false" />
-                <element signature="e#30157#30158#0" expanded="false" />
-                <element signature="e#30203#30204#0" expanded="false" />
-                <element signature="e#30252#30253#0" expanded="false" />
-                <element signature="e#30300#30301#0" expanded="false" />
-                <element signature="e#30347#30348#0" expanded="false" />
-                <element signature="e#30514#30515#0" expanded="false" />
-                <element signature="e#30554#30555#0" expanded="false" />
-                <element signature="e#30595#30596#0" expanded="false" />
-                <element signature="e#30631#30632#0" expanded="false" />
-                <element signature="e#30954#31582#0" expanded="false" />
-                <element signature="e#31581#31582#0" expanded="false" />
-                <element signature="e#31615#32215#0" expanded="false" />
-                <element signature="e#32214#32215#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -2503,7 +2450,7 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.68717045" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.68707484" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -2814,9 +2761,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2824,13 +2769,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2720">
           <caret line="215" column="70" selection-start-line="215" selection-start-column="70" selection-end-line="215" selection-end-column="70" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#18176#18177#0" expanded="false" />
-            <element signature="e#18223#18224#0" expanded="false" />
-            <element signature="e#18326#18327#0" expanded="false" />
-            <element signature="e#18373#18374#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2846,7 +2785,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="35" column="37" selection-start-line="35" selection-start-column="37" selection-end-line="35" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2862,51 +2800,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4607">
           <caret line="338" column="0" selection-start-line="338" selection-start-column="0" selection-end-line="338" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#10268#11071#0" expanded="false" />
-            <element signature="e#11070#11071#0" expanded="false" />
-            <element signature="e#19367#19738#0" expanded="false" />
-            <element signature="e#19520#19712#0" expanded="false" />
-            <element signature="e#19711#19712#0" expanded="false" />
-            <element signature="e#19737#19738#0" expanded="false" />
-            <element signature="e#20989#20990#0" expanded="false" />
-            <element signature="e#21047#21048#0" expanded="false" />
-            <element signature="e#24043#25123#0" expanded="false" />
-            <element signature="e#25122#25123#0" expanded="false" />
-            <element signature="e#25171#25358#0" expanded="false" />
-            <element signature="e#25357#25358#0" expanded="false" />
-            <element signature="e#27142#27330#0" expanded="false" />
-            <element signature="e#27329#27330#0" expanded="false" />
-            <element signature="e#29634#29635#0" expanded="false" />
-            <element signature="e#29661#29662#0" expanded="false" />
-            <element signature="e#29715#29716#0" expanded="false" />
-            <element signature="e#29743#29744#0" expanded="false" />
-            <element signature="e#29796#29797#0" expanded="false" />
-            <element signature="e#29824#29825#0" expanded="false" />
-            <element signature="e#29876#29877#0" expanded="false" />
-            <element signature="e#29900#29901#0" expanded="false" />
-            <element signature="e#30101#30102#0" expanded="false" />
-            <element signature="e#30157#30158#0" expanded="false" />
-            <element signature="e#30203#30204#0" expanded="false" />
-            <element signature="e#30252#30253#0" expanded="false" />
-            <element signature="e#30300#30301#0" expanded="false" />
-            <element signature="e#30347#30348#0" expanded="false" />
-            <element signature="e#30514#30515#0" expanded="false" />
-            <element signature="e#30554#30555#0" expanded="false" />
-            <element signature="e#30595#30596#0" expanded="false" />
-            <element signature="e#30631#30632#0" expanded="false" />
-            <element signature="e#30954#31582#0" expanded="false" />
-            <element signature="e#31581#31582#0" expanded="false" />
-            <element signature="e#31615#32215#0" expanded="false" />
-            <element signature="e#32214#32215#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/ViewPatientActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
+        <state relative-caret-position="2992">
           <caret line="224" column="29" selection-start-line="224" selection-start-column="29" selection-end-line="224" selection-end-column="29" />
           <folding />
         </state>
@@ -2914,7 +2814,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/HealthCenterActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
+        <state relative-caret-position="1156">
           <caret line="114" column="24" selection-start-line="114" selection-start-column="24" selection-end-line="114" selection-end-column="24" />
           <folding>
             <marker date="1511223704117" expanded="true" signature="4920:5300" ph="//..." />
@@ -2924,12 +2824,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/ExistingPatientActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1067">
+        <state relative-caret-position="3264">
           <caret line="234" column="0" selection-start-line="234" selection-start-column="0" selection-end-line="234" selection-end-column="0" />
-          <folding>
-            <element signature="e#9441#9629#0" expanded="true" />
-            <element signature="e#9628#9629#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2937,7 +2834,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="33" column="19" selection-start-line="33" selection-start-column="19" selection-end-line="33" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2953,7 +2849,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="284">
           <caret line="1124" column="23" selection-start-line="1124" selection-start-column="23" selection-end-line="1124" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2967,8 +2862,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/NewPatientInfoActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="369" column="68" selection-start-line="369" selection-start-column="68" selection-end-line="369" selection-end-column="68" />
+        <state relative-caret-position="116">
+          <caret line="367" column="35" selection-start-line="367" selection-start-column="35" selection-end-line="367" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
