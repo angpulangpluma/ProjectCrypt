@@ -3,6 +3,7 @@ package com.dlsu.getbetter.getbetter.activities;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -125,6 +126,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
     private String patientInfoFormImageTitle;
     private String familySocialHistoryFormImageTitle;
     private String chiefComplaintFormImageTitle;
+    private String file;
 
     private static final int REQUEST_IMAGE_ATTACHMENT = 100;
     private static final int REQUEST_VIDEO_ATTACHMENT = 200;
@@ -175,6 +177,8 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         controlNumber = generateControlNumber(patientId);
 
         cryptoInit(new File("crypto.dat"));
+        fileUri = null;
+        file = null;
     }
 
     private void bindViews(SummaryActivity activity) {
@@ -582,7 +586,14 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
     private void takePicture() {
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+        if(fileUri==null){
+            Log.w("pic", "first time!");
+            fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+            file = new File(fileUri.getPath()).getName();
+        } else Log.w("pic", "second time!");
+
+        Log.w("fileUri", fileUri.toString());
+        Log.w("file", file);
 
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
         startActivityForResult(intent, REQUEST_IMAGE_ATTACHMENT);
@@ -594,6 +605,31 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         if(requestCode == REQUEST_IMAGE_ATTACHMENT) {
             if(resultCode == Activity.RESULT_OK) {
 
+                ContentResolver cr = getContentResolver();
+                Bitmap bmp;
+                try{
+                    Log.w("orig size", Long.toString(new File(fileUri.getPath()).length()));
+                    bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, fileUri);
+//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    File f = new File(getFilesDir(), file);
+                    if (f.createNewFile() || f.exists()){
+                        FileOutputStream fos = this.openFileOutput(f.getName(), Context.MODE_PRIVATE);
+                        bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+//                byte[] towrite = stream.toByteArray();
+//                Log.w("towrite size", Integer.toString(towrite.length));
+//                fos.write(towrite);
+                        fos.close();
+                        Log.w("private file?", "done!");
+                    } else Log.w("private file?", "nope.");
+                } catch(IOException ex){
+                    Log.w("error image", ex.toString());
+                    Log.w("private file?", "failed.");
+                } finally{
+//                    setPic(profileImage, new File(getFilesDir(), file).getPath());
+                    if (new File(fileUri.getPath()).delete())
+                        Log.w("deletion?", "success");
+                    else Log.w("deletion?", "failed");
+                }
                 editAttachmentName(MEDIA_TYPE_IMAGE);
 
             } else if(resultCode == Activity.RESULT_CANCELED) {
