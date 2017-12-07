@@ -3,6 +3,7 @@ package com.dlsu.getbetter.getbetter.activities;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -363,11 +364,18 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if(requestCode == REQUEST_IMAGE1 && resultCode == Activity.RESULT_OK) {
-            Bundle bund = data.getExtras();
-            for(String key : bund.keySet()){
-                Log.w("this", key);
+            ContentResolver cr = getContentResolver();
+            Bitmap bmp;
+            try{
+                Log.w("orig size", Long.toString(new File(fileUri.getPath()).length()));
+                bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, fileUri);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                byte[] towrite = stream.toByteArray();
+                Log.w("towrite size", Integer.toString(towrite.length));
+            } catch(IOException ex){
+                Log.w("error", ex.toString());
             }
-//            Bitmap bmp = (Bitmap)data.getExtras().get(MediaStore.EXTRA_OUTPUT);
 //            ByteArrayOutputStream stream = new ByteArrayOutputStream();
 //            bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 //            byte[] towrite = stream.toByteArray();
