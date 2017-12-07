@@ -325,7 +325,8 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
                     Bitmap bmp;
                     try{
                         Log.w("orig size", Long.toString(new File(this.patientInfoImagePath).length()));
-                        bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, Uri.parse(this.patientInfoImagePath));
+//                        bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, Uri.parse(this.patientInfoImagePath));
+                        bmp = BitmapFactory.decodeFile(this.patientInfoImagePath);
 //                ByteArrayOutputStream stream = new ByteArrayOutputStream();
                         File f = new File(getFilesDir(), new File(this.patientInfoImagePath).getName());
                         if (f.createNewFile() || f.exists()){
@@ -360,7 +361,8 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
                     Bitmap bmp;
                     try{
                         Log.w("orig size", Long.toString(new File(this.chiefComplaintImagePath).length()));
-                        bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, Uri.parse(this.chiefComplaintImagePath));
+//                        bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, Uri.parse(this.patientInfoImagePath));
+                        bmp = BitmapFactory.decodeFile(this.chiefComplaintImagePath);
 //                ByteArrayOutputStream stream = new ByteArrayOutputStream();
                         File f = new File(getFilesDir(), new File(this.chiefComplaintImagePath).getName());
                         if (f.createNewFile() || f.exists()){
@@ -398,7 +400,8 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
                     Bitmap bmp;
                     try{
                         Log.w("orig size", Long.toString(new File(this.familySocialHistoryImagePath).length()));
-                        bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, Uri.parse(this.familySocialHistoryImagePath));
+//                        bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, Uri.parse(this.patientInfoImagePath));
+                        bmp = BitmapFactory.decodeFile(this.familySocialHistoryImagePath);
 //                ByteArrayOutputStream stream = new ByteArrayOutputStream();
                         File f = new File(getFilesDir(), new File(this.familySocialHistoryImagePath).getName());
                         if (f.createNewFile() || f.exists()){
