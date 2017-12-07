@@ -7,6 +7,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -46,6 +47,7 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -319,31 +321,111 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
 
                 case REQUEST_PATIENT_INFO_IMAGE: {
 
-                    setPic(this.patientInfoImage, this.patientInfoImagePath);
-                    this.patientInfoActionButtons.setVisibility(View.VISIBLE);
-                    this.capturePatientInfo.setVisibility(View.GONE);
+                    ContentResolver cr = getContentResolver();
+                    Bitmap bmp;
+                    try{
+                        Log.w("orig size", Long.toString(new File(this.patientInfoImagePath).length()));
+                        bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, Uri.parse(this.patientInfoImagePath));
+//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        File f = new File(getFilesDir(), new File(this.patientInfoImagePath).getName());
+                        if (f.createNewFile() || f.exists()){
+                            FileOutputStream fos = this.openFileOutput(f.getName(), Context.MODE_PRIVATE);
+                            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+//                byte[] towrite = stream.toByteArray();
+//                Log.w("towrite size", Integer.toString(towrite.length));
+//                fos.write(towrite);
+                            fos.close();
+                            Log.w("private file?", "done!");
+                        } else Log.w("private file?", "nope.");
+                    } catch(IOException ex){
+                        Log.w("error image", ex.toString());
+                        Log.w("private file?", "failed.");
+                    } finally{
+                        setPic(this.patientInfoImage, new File(getFilesDir(), new File(this.patientInfoImagePath).getName()).getPath());
+                        this.patientInfoActionButtons.setVisibility(View.VISIBLE);
+                        this.capturePatientInfo.setVisibility(View.GONE);
 //                    doSomethingCryptFile("enc", new File(this.patientInfoImagePath));
-                    Log.d("patientinfoimgenc", "yes");
+                        Log.d("patientinfoimgenc", "yes");
+                        if (new File(this.patientInfoImagePath).delete())
+                            Log.w("deletion?", "success");
+                        else Log.w("deletion?", "failed");
+                    }
+
                     break;
                 }
 
                 case REQUEST_CHIEF_COMPLAINT_IMAGE: {
 
-                    setPic(this.chiefComplaintImage, this.chiefComplaintImagePath);
-                    this.chiefComplaintActionButtons.setVisibility(View.VISIBLE);
-                    this.captureChiefComplaint.setVisibility(View.GONE);
+                    ContentResolver cr = getContentResolver();
+                    Bitmap bmp;
+                    try{
+                        Log.w("orig size", Long.toString(new File(this.chiefComplaintImagePath).length()));
+                        bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, Uri.parse(this.chiefComplaintImagePath));
+//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        File f = new File(getFilesDir(), new File(this.chiefComplaintImagePath).getName());
+                        if (f.createNewFile() || f.exists()){
+                            FileOutputStream fos = this.openFileOutput(f.getName(), Context.MODE_PRIVATE);
+                            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+//                byte[] towrite = stream.toByteArray();
+//                Log.w("towrite size", Integer.toString(towrite.length));
+//                fos.write(towrite);
+                            fos.close();
+                            Log.w("private file?", "done!");
+                        } else Log.w("private file?", "nope.");
+                    } catch(IOException ex){
+                        Log.w("error image", ex.toString());
+                        Log.w("private file?", "failed.");
+                    } finally{
+                        setPic(this.chiefComplaintImage, new File(getFilesDir(), new File(this.chiefComplaintImagePath).getName()).getPath());
+                        this.chiefComplaintActionButtons.setVisibility(View.VISIBLE);
+                        this.captureChiefComplaint.setVisibility(View.GONE);
+//                    doSomethingCryptFile("enc", new File(this.patientInfoImagePath));
+                        Log.d("chiefcompimgenc", "yes");
+                        if (new File(this.patientInfoImagePath).delete())
+                            Log.w("deletion?", "success");
+                        else Log.w("deletion?", "failed");
+                    }
+
+//                    setPic(this.chiefComplaintImage, this.chiefComplaintImagePath);
 //                    doSomethingCryptFile("enc", new File(this.chiefComplaintImagePath));
-                    Log.d("chiefcompimgenc", "yes");
+//                    Log.d("chiefcompimgenc", "yes");
                     break;
                 }
 
                 case REQUEST_FAMILY_SOCIAL_IMAGE: {
 
-                    setPic(this.familySocialImage, this.familySocialHistoryImagePath);
-                    this.socialFamilyActionButtons.setVisibility(View.VISIBLE);
-                    this.captureFamilySocial.setVisibility(View.GONE);
+                    ContentResolver cr = getContentResolver();
+                    Bitmap bmp;
+                    try{
+                        Log.w("orig size", Long.toString(new File(this.familySocialHistoryImagePath).length()));
+                        bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, Uri.parse(this.familySocialHistoryImagePath));
+//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        File f = new File(getFilesDir(), new File(this.familySocialHistoryImagePath).getName());
+                        if (f.createNewFile() || f.exists()){
+                            FileOutputStream fos = this.openFileOutput(f.getName(), Context.MODE_PRIVATE);
+                            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+//                byte[] towrite = stream.toByteArray();
+//                Log.w("towrite size", Integer.toString(towrite.length));
+//                fos.write(towrite);
+                            fos.close();
+                            Log.w("private file?", "done!");
+                        } else Log.w("private file?", "nope.");
+                    } catch(IOException ex){
+                        Log.w("error image", ex.toString());
+                        Log.w("private file?", "failed.");
+                    } finally{
+                        setPic(this.familySocialImage, new File(getFilesDir(), new File(this.familySocialHistoryImagePath).getName()).getPath());
+                        this.socialFamilyActionButtons.setVisibility(View.VISIBLE);
+                        this.captureFamilySocial.setVisibility(View.GONE);
+//                    doSomethingCryptFile("enc", new File(this.patientInfoImagePath));
+                        Log.d("famhistimgenc", "yes");
+                        if (new File(this.patientInfoImagePath).delete())
+                            Log.w("deletion?", "success");
+                        else Log.w("deletion?", "failed");
+                    }
+
+//                    setPic(this.familySocialImage, this.familySocialHistoryImagePath);
 //                    doSomethingCryptFile("enc", new File(this.familySocialHistoryImagePath));
-                    Log.d("famhistimgenc", "yes");
                     break;
                 }
             }
@@ -369,8 +451,12 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
 
-        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        mImageView.setImageBitmap(bitmap);
+        try {
+            Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(mCurrentPhotoPath));
+            mImageView.setImageBitmap(bitmap);
+        } catch(FileNotFoundException ex){
+            Log.w("error", ex.toString());
+        }
     }
 
     private void removeImageDialog (final int type) {
