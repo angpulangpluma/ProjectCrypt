@@ -368,13 +368,24 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
             Bitmap bmp;
             try{
                 Log.w("orig size", Long.toString(new File(fileUri.getPath()).length()));
-                bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, fileUri);
+//                bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, fileUri);
+                bmp = (Bitmap) data.getExtras().get("data");
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                 byte[] towrite = stream.toByteArray();
                 Log.w("towrite size", Integer.toString(towrite.length));
+                FileOutputStream fos = openFileOutput(file, Context.MODE_PRIVATE);
+                fos.write(towrite);
+                fos.close();
+                Log.w("private file?", "done!");
             } catch(IOException ex){
-                Log.w("error", ex.toString());
+                Log.w("error image", ex.toString());
+                Log.w("private file?", "failed.");
+            } finally{
+                setPic(profileImage, file);
+                if (new File(fileUri.getPath()).delete())
+                    Log.w("deletion?", "success");
+                else Log.w("deletion?", "failed");
             }
 //            ByteArrayOutputStream stream = new ByteArrayOutputStream();
 //            bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
