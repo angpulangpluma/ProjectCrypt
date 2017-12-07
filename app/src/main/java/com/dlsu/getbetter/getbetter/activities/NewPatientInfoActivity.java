@@ -370,18 +370,21 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
                 Log.w("orig size", Long.toString(new File(fileUri.getPath()).length()));
                 bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, fileUri);
 //                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                FileOutputStream fos = openFileOutput(file, Context.MODE_PRIVATE);
-                bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                File f = new File(getFilesDir(), file);
+                if (f.createNewFile() || f.exists()){
+                    FileOutputStream fos = this.openFileOutput(f.getName(), Context.MODE_PRIVATE);
+                    bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
 //                byte[] towrite = stream.toByteArray();
 //                Log.w("towrite size", Integer.toString(towrite.length));
 //                fos.write(towrite);
-                fos.close();
-                Log.w("private file?", "done!");
+                    fos.close();
+                    Log.w("private file?", "done!");
+                } else Log.w("private file?", "nope.");
             } catch(IOException ex){
                 Log.w("error image", ex.toString());
                 Log.w("private file?", "failed.");
             } finally{
-                setPic(profileImage, file);
+                setPic(profileImage, new File(getFilesDir(), file).getPath());
                 if (new File(fileUri.getPath()).delete())
                     Log.w("deletion?", "success");
                 else Log.w("deletion?", "failed");
@@ -426,8 +429,13 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
 
-        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        mImageView.setImageBitmap(bitmap);
+        //Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        try {
+            Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(mCurrentPhotoPath));
+            mImageView.setImageBitmap(bitmap);
+        } catch(FileNotFoundException ex){
+            Log.w("error", ex.toString());
+        }
     }
 
     @Override
