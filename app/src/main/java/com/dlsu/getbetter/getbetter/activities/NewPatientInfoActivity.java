@@ -346,10 +346,13 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if(fileUri==null){
-            fileUri = Uri.fromFile(createImageFile());
-            file = fileUri.getPath();
             Log.w("prof pic", "first time!");
+            fileUri = Uri.fromFile(createImageFile());
+            file = new File(fileUri.getPath()).getName();
         } else Log.w("prof pic", "second time!");
+
+        Log.w("fileUri", fileUri.toString());
+        Log.w("file", file);
 
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
         startActivityForResult(intent, REQUEST_IMAGE1);
@@ -364,15 +367,20 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] towrite = stream.toByteArray();
+            Log.w("towrite size", Integer.toString(towrite.length));
             try {
                 FileOutputStream fos = openFileOutput(file, Context.MODE_PRIVATE);
                 fos.write(towrite);
                 fos.close();
+                Log.w("private file?", "done!");
             } catch(IOException ex){
                 Log.w("error image", ex.toString());
+                Log.w("private file?", "failed.");
             } finally{
                 setPic(profileImage, file);
-                new File(fileUri.getPath()).delete();
+                if (new File(fileUri.getPath()).delete())
+                    Log.w("deletion?", "success");
+                else Log.w("deletion?", "failed");
             }
         }
     }

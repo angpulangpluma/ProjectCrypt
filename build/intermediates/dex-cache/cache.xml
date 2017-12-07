@@ -3,15 +3,6 @@
 
     <item
         is-multidex="false"
-        jar="C:\Users\student\Documents\GitHub\ProjectCrypt\app\libs\commons-codec-1.10\commons-codec-1.10.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="4b95f4897fa13f2cd904aee711aeafc0c5295cd8">
-        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\commons-codec-1.10_90a0326c0dbcacd2a9df98ccd2e844311b79bec6.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="C:\Users\student\Documents\GitHub\ProjectCrypt\app\libs\commons-io-2.5.jar"
         jumboMode="false"
         optimize="true"
@@ -27,6 +18,15 @@
         revision="26.0.2"
         sha1="caf49e92eae4ca2805d530a92cb4777c1ef53f53">
         <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\PhotoUtil_b7bb72ca2cf1f40996982894fe38987d5468566b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\student\Documents\GitHub\ProjectCrypt\app\libs\commons-codec-1.10\commons-codec-1.10.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="4b95f4897fa13f2cd904aee711aeafc0c5295cd8">
+        <dex dex="C:\Users\student\Documents\GitHub\ProjectCrypt\app\build\intermediates\pre-dexed\debug\commons-codec-1.10_90a0326c0dbcacd2a9df98ccd2e844311b79bec6.jar" />
     </item>
 
 </items>
