@@ -348,7 +348,8 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         if(fileUri==null){
             fileUri = Uri.fromFile(createImageFile());
             file = fileUri.getPath();
-        }
+            Log.w("prof pic", "first time!");
+        } else Log.w("prof pic", "second time!");
 
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
         startActivityForResult(intent, REQUEST_IMAGE1);
