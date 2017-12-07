@@ -36,12 +36,15 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -72,6 +75,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
     private String civilStatusSelected;
     private String bloodTypeSelected;
     private String birthDate;
+    private String file;
     private int healthCenterId;
     private Uri fileUri;
     private DataAdapter getBetterDb;
@@ -101,6 +105,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         bindListeners(this);
 
         cryptoInit(new File("crypto.dat"));
+        fileUri = null;
     }
 
     private void bindViews(NewPatientInfoActivity activity) {
@@ -340,7 +345,10 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
     private void takePicture() {
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        fileUri = Uri.fromFile(createImageFile());
+        if(fileUri==null){
+            fileUri = Uri.fromFile(createImageFile());
+            file = fileUri.getPath();
+        }
 
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
         startActivityForResult(intent, REQUEST_IMAGE1);
@@ -351,8 +359,20 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if(requestCode == REQUEST_IMAGE1 && resultCode == Activity.RESULT_OK) {
-            setPic(profileImage, fileUri.getPath());
-
+            Bitmap bmp = (Bitmap)data.getExtras().get(MediaStore.EXTRA_OUTPUT);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] towrite = stream.toByteArray();
+            try {
+                FileOutputStream fos = openFileOutput(file, Context.MODE_PRIVATE);
+                fos.write(towrite);
+                fos.close();
+            } catch(IOException ex){
+                Log.w("error image", ex.toString());
+            } finally{
+                setPic(profileImage, file);
+                new File(fileUri.getPath()).delete();
+            }
         }
     }
 
