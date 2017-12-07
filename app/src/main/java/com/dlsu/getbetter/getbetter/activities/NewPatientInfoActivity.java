@@ -369,12 +369,12 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
             try{
                 Log.w("orig size", Long.toString(new File(fileUri.getPath()).length()));
                 bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, fileUri);
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                byte[] towrite = stream.toByteArray();
-                Log.w("towrite size", Integer.toString(towrite.length));
+//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 FileOutputStream fos = openFileOutput(file, Context.MODE_PRIVATE);
-                fos.write(towrite);
+                bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+//                byte[] towrite = stream.toByteArray();
+//                Log.w("towrite size", Integer.toString(towrite.length));
+//                fos.write(towrite);
                 fos.close();
                 Log.w("private file?", "done!");
             } catch(IOException ex){
