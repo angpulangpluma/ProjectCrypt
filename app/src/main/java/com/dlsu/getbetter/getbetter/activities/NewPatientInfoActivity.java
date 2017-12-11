@@ -162,6 +162,9 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
                 new InsertPatientTask().execute();
 
             }
+            finish();
+            Intent i = new Intent(this, HomeActivity.class);
+            startActivity(i);
 
 
         } else if (id == R.id.profile_picture_select) {
@@ -197,6 +200,9 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
         Log.d(TAG, "savePatientInfo: " + civilStatusSelected);
 
         doSomethingCryptFile("enc", new File(fileUri.getPath()));
+//        if (new File(fileUri.getPath()).delete())
+//            Log.w("deletion?", "success");
+//        else Log.w("deletion?", "failed");
         long patientId = getBetterDb.insertPatientInfo(firstName, middleName, lastName, birthDate,
                 genderSelected, civilStatusSelected, bloodTypeSelected, fileUri.getPath(), healthCenterId);
 
@@ -385,9 +391,10 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
                 Log.w("private file?", "failed.");
             } finally{
                 setPic(profileImage, new File(getFilesDir(), file).getPath());
-                if (new File(fileUri.getPath()).delete())
-                    Log.w("deletion?", "success");
-                else Log.w("deletion?", "failed");
+                //to do: place encryption here
+//                if (new File(fileUri.getPath()).delete())
+//                    Log.w("deletion?", "success");
+//                else Log.w("deletion?", "failed");
             }
 //            ByteArrayOutputStream stream = new ByteArrayOutputStream();
 //            bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);

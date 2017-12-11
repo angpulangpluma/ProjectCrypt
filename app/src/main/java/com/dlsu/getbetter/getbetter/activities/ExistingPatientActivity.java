@@ -319,6 +319,8 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
         Log.w("service in", "yes");
 
         file_aes mastercry = new file_aes(cryptoInit(new File("crypto.dat")));
+        File f = new File(getFilesDir(), input.getName());
+        try{
 //        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
 //                DirectoryConstants.CRYPTO_FOLDER);
 //        path.mkdirs();
@@ -333,15 +335,29 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
 //        } catch(Exception e){
 //            Log.w("error", e.toString());
 //        }
-        switch(dec){
-            case "enc":{
-                mastercry.encryptFile(input);
-                Log.d("Action", "enc");
-            }; break;
-            case "dec":{
-                mastercry.decryptFile(input);
-                Log.d("Action", "dec");
-            }; break;
+            switch (dec) {
+                case "enc": {
+                    mastercry.encryptFile(input);
+                    Log.d("Action", "enc");
+                }
+                ;
+                break;
+                case "dec": {
+                    if (f.createNewFile() || f.exists()) {
+                        Log.w("file?", "yep");
+                        byte[] file = mastercry.decryptFile(input);
+                        FileOutputStream fos = this.openFileOutput(f.getPath(), Context.MODE_PRIVATE);
+                        fos.write(file);
+                        fos.close();
+                        Log.d("Action", "dec");
+                    } else Log.w("file?", "nope");
+                }
+                ;
+                break;
+            }
+//        } else Log.w("error", "no file");
+        } catch(Exception e){
+            Log.w("error", e.toString());
         }
 //
     }
