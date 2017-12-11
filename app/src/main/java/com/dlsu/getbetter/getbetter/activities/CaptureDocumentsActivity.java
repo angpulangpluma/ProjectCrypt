@@ -497,7 +497,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
                 Log.d("Action", "enc");
             }; break;
             case "dec":{
-                mastercry.decryptFile(input);
+                mastercry.decryptFile(input, getContentResolver());
                 Log.d("Action", "dec");
             }; break;
         }

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -319,7 +320,6 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
         Log.w("service in", "yes");
 
         file_aes mastercry = new file_aes(cryptoInit(new File("crypto.dat")));
-        File f = new File(getFilesDir(), input.getName());
         try{
 //        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
 //                DirectoryConstants.CRYPTO_FOLDER);
@@ -343,9 +343,10 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
                 ;
                 break;
                 case "dec": {
+                    File f = new File(getFilesDir(), input.getName());
                     if (f.createNewFile() || f.exists()) {
                         Log.w("file?", "yep");
-                        byte[] file = mastercry.decryptFile(input);
+                        byte[] file = mastercry.decryptFile(input, getContentResolver());
                         FileOutputStream fos = this.openFileOutput(f.getPath(), Context.MODE_PRIVATE);
                         fos.write(file);
                         fos.close();

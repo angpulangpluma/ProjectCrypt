@@ -537,7 +537,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
                 Log.d("Action", "enc");
             }; break;
             case "dec":{
-                mastercry.decryptFile(input);
+                mastercry.decryptFile(input, getContentResolver());
                 Log.d("Action", "dec");
             }; break;
         }

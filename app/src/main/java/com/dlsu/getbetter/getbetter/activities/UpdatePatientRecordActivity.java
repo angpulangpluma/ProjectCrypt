@@ -380,7 +380,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
                 Log.d("Action", "enc");
             }; break;
             case "dec":{
-                mastercry.decryptFile(input);
+                mastercry.decryptFile(input, getContentResolver());
                 Log.d("Action", "dec");
             }; break;
         }

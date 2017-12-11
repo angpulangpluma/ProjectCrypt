@@ -4,6 +4,9 @@ package com.dlsu.getbetter.getbetter.cryptoGB;
  * Created by YING LOPEZ on 9/28/2017.
  */
 
+import android.content.ContentResolver;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.util.Log;
 
 import org.apache.commons.io.FilenameUtils;
@@ -83,7 +86,7 @@ public class file_aes {
         }
     }
 
-    public byte[] decryptFile(File file){
+    public byte[] decryptFile(File file, ContentResolver cr){
         Log.w("decrypt?", "start");
 //        File decrypted = new File(file.getPath() + "//" + returnFileName(file)+"_decrypted."+returnFileExt(file));
         Cipher cp = filealgo.getCipher();
@@ -92,6 +95,7 @@ public class file_aes {
         Log.w("decrypt file", file.getPath());
 //        byte[] output = null;
         byte[] encfile = null;
+//        Bitmap btmap = null;
         try{
             FileInputStream in = new FileInputStream(file);
             cp.init(Cipher.DECRYPT_MODE, k, filealgo.getIvParamSpec());
@@ -114,10 +118,11 @@ public class file_aes {
 //                }
 //                Log.w("data", String.valueOf(data));
 //                Log.w("decfile length", Integer.toString(encfile.length));
-//                FileOutputStream os = new FileOutputStream(file);
-//                os.write(encfile);
-//                Log.w("decrypt file", "done");
-//                os.close();
+                FileOutputStream os = new FileOutputStream(file);
+                os.write(encfile);
+                Log.w("decrypt file", "done");
+                os.close();
+//                btmap = android.provider.MediaStore.Images.Media.getBitmap(cr, Uri.fromFile(file));
 //                Log.w("file length", Long.toString(file.length()));
                 filealgo.resetIV();
             } else Log.w("decrypt file", "failed");

@@ -301,7 +301,7 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
                 Log.d("Action", "enc");
             }; break;
             case "dec":{
-                mastercry.decryptFile(input);
+                mastercry.decryptFile(input, getContentResolver());
                 Log.d("Action", "dec");
             }; break;
         }
