@@ -54,6 +54,7 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
     private String patientLastName;
     private ArrayList<Patient> existingPatients;
     private ProgressDialog pDialog;
+    private ArrayList<String> ePProfiles;
 
     private boolean isConnected;
 
@@ -289,9 +290,21 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
             Log.w("dec time?", "yes!");
             for(int i=0; i<existingPatients.size(); i++){
                 String prof = existingPatients.get(i).getProfileImageBytes();
+                String tprof = new File(getFilesDir(), new File(prof).getName()).toString();
                 Log.w("file", prof);
+                ePProfiles.add(prof);
                 doSomethingCryptFile("dec", new File(prof));
             }
+            ArrayList<Patient> p2 = new ArrayList<>();
+            for(int i=0; i<existingPatients.size(); i++){
+                Patient p = existingPatients.get(i);
+                p2.add(new Patient(p.getId(), p.getFirstName(), p.getMiddleName(), p.getLastName(),
+                        p.getBirthdate(), p.getGender(), p.getCivilStatus(), p.getBloodType(),
+                        new File(getFilesDir(), new File(p.getProfileImageBytes()).getName()).toString()));
+            }
+            existingPatients.clear();
+            existingPatients = p2;
+            p2.clear();
         } else Log.w("dec time?", "no!");
 //        doSomethingCryptFile("dec", new File(patientProfileImage));
 //        if(attachments.size()>0){
@@ -303,10 +316,20 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
     //encrypt files for storage
     private void prepFilesStore(){
         if (existingPatients.size()>0){
+//            for(int i=0; i<existingPatients.size(); i++){
+//                String prof = existingPatients.get(i).getProfileImageBytes();
+//                //doSomethingCryptFile("enc", new File(prof));
+//            }
+            ArrayList<Patient> p2 = new ArrayList<>();
             for(int i=0; i<existingPatients.size(); i++){
-                String prof = existingPatients.get(i).getProfileImageBytes();
-                doSomethingCryptFile("enc", new File(prof));
+                Patient p = existingPatients.get(i);
+                p2.add(new Patient(p.getId(), p.getFirstName(), p.getMiddleName(), p.getLastName(),
+                        p.getBirthdate(), p.getGender(), p.getCivilStatus(), p.getBloodType(),
+                        ePProfiles.get(i)));
             }
+            existingPatients.clear();
+            existingPatients = p2;
+            p2.clear();
         }
 //        doSomethingCryptFile("enc", new File(patientProfileImage));
 //        if(attachments.size()>0){
