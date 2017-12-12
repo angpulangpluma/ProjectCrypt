@@ -367,22 +367,36 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
 //        File output = new File(path.getPath() +"/" + input.getName());
 //        Log.w("output", output.getAbsolutePath());
         try {
-            FileOutputStream fos = new FileOutputStream(input);
-            fos.write(read(input));
-            fos.flush();
-            fos.close();
-        } catch(Exception e){
+            switch (dec) {
+                case "enc": {
+                    mastercry.encryptFile(input);
+                    Log.d("Action", "enc");
+                }
+                ;
+                break;
+                case "dec": {
+                    File f = new File(getFilesDir(), input.getName());
+                    if (f.createNewFile() || f.exists()) {
+                        Log.w("file?", "yep");
+                        if(FilenameUtils.getExtension(f.getName()).equals("jpg") ||
+                                FilenameUtils.getExtension(f.getName()).equals("JPG")) {
+                            Log.w("decrypt?", "image!");
+                            byte[] file = mastercry.decryptFileImage(input, getContentResolver());
+                            FileOutputStream fos = this.openFileOutput(f.getPath(), Context.MODE_PRIVATE);
+                            fos.write(file);
+                            fos.close();
+                        } else {
+                            Log.w("decrypt?", "other!");
+                            mastercry.decryptFileOther(input);
+                        }
+                        Log.d("Action", "dec");
+                    } else Log.w("file?", "nope");
+                }
+                ;
+                break;
+            }
+        } catch(IOException e){
             Log.w("error", e.toString());
-        }
-        switch(dec){
-            case "enc":{
-                mastercry.encryptFile(input);
-                Log.d("Action", "enc");
-            }; break;
-            case "dec":{
-                mastercry.decryptFile(input, getContentResolver());
-                Log.d("Action", "dec");
-            }; break;
         }
 //
     }

@@ -371,13 +371,17 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
                     File f = new File(getFilesDir(), input.getName());
                     if (f.createNewFile() || f.exists()) {
                         Log.w("file?", "yep");
-                        if (FilenameUtils.getExtension(f.getName()).equals("jpg") ||
+                        if(FilenameUtils.getExtension(f.getName()).equals("jpg") ||
                                 FilenameUtils.getExtension(f.getName()).equals("JPG")) {
+                            Log.w("decrypt?", "image!");
                             byte[] file = mastercry.decryptFileImage(input, getContentResolver());
                             FileOutputStream fos = this.openFileOutput(f.getPath(), Context.MODE_PRIVATE);
                             fos.write(file);
                             fos.close();
-                        } else mastercry.decryptFileOther(input);
+                        } else {
+                            Log.w("decrypt?", "other!");
+                            mastercry.decryptFileOther(input);
+                        }
                         Log.d("Action", "dec");
                     } else Log.w("file?", "nope");
                 }
