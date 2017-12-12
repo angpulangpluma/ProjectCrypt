@@ -1030,7 +1030,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
                                 FilenameUtils.getExtension(f.getName()).equals("JPG")) {
                             Log.w("decrypt?", "image!");
                             byte[] file = mastercry.decryptFileImage(input, getContentResolver());
-                            FileOutputStream fos = this.openFileOutput(f.getPath(), Context.MODE_PRIVATE);
+                            FileOutputStream fos = this.openFileOutput(f.getName(), Context.MODE_PRIVATE);
                             fos.write(file);
                             fos.close();
                         } else {
