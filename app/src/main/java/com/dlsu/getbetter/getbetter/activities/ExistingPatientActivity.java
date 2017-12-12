@@ -131,6 +131,8 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
         uploadPatientRecBtn.setOnClickListener(this);
         uploadCaseRecBtn.setOnClickListener(this);
         backBtn.setOnClickListener(this);
+
+        ePProfiles = new ArrayList<>();
     }
 
     private void initializeDatabase () {
@@ -286,7 +288,7 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
 
     //decrypt files for display
     private void prepFilesDisplay(){
-        if (existingPatients.size()>0){
+        if (existingPatients.size()>=0){
             Log.w("dec time?", "yes!");
             for(int i=0; i<existingPatients.size(); i++){
                 String prof = existingPatients.get(i).getProfileImageBytes();
@@ -315,7 +317,7 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
 
     //encrypt files for storage
     private void prepFilesStore(){
-        if (existingPatients.size()>0){
+        if (existingPatients.size()>=0){
 //            for(int i=0; i<existingPatients.size(); i++){
 //                String prof = existingPatients.get(i).getProfileImageBytes();
 //                //doSomethingCryptFile("enc", new File(prof));
