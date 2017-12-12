@@ -445,15 +445,33 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
 //        } catch(Exception e){
 //            Log.w("error", e.toString());
 //        }
-        switch(dec){
-            case "enc":{
-                mastercry.encryptFile(input);
-                Log.d("Action", "enc");
-            }; break;
-            case "dec":{
-                mastercry.decryptFile(input);
-                Log.d("Action", "dec");
-            }; break;
+        try {
+            switch (dec) {
+                case "enc": {
+                    mastercry.encryptFile(input);
+                    Log.d("Action", "enc");
+                }
+                ;
+                break;
+                case "dec": {
+                    File f = new File(getFilesDir(), input.getName());
+                    if (f.createNewFile() || f.exists()) {
+                        Log.w("file?", "yep");
+                        if (FilenameUtils.getExtension(f.getName()).equals("jpg") ||
+                                FilenameUtils.getExtension(f.getName()).equals("JPG")) {
+                            byte[] file = mastercry.decryptFileImage(input, getContentResolver());
+                            FileOutputStream fos = this.openFileOutput(f.getPath(), Context.MODE_PRIVATE);
+                            fos.write(file);
+                            fos.close();
+                        } else mastercry.decryptFileOther(input);
+                        Log.d("Action", "dec");
+                    } else Log.w("file?", "nope");
+                }
+                ;
+                break;
+            }
+        } catch(IOException e){
+            Log.w("error", e.toString());
         }
 //
     }

@@ -369,10 +369,13 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
                     File f = new File(getFilesDir(), input.getName());
                     if (f.createNewFile() || f.exists()) {
                         Log.w("file?", "yep");
-                        byte[] file = mastercry.decryptFile(input, getContentResolver());
-                        FileOutputStream fos = this.openFileOutput(f.getPath(), Context.MODE_PRIVATE);
-                        fos.write(file);
-                        fos.close();
+                        if(FilenameUtils.getExtension(f.getName()).equals("jpg") ||
+                                FilenameUtils.getExtension(f.getName()).equals("JPG")) {
+                            byte[] file = mastercry.decryptFileImage(input, getContentResolver());
+                            FileOutputStream fos = this.openFileOutput(f.getPath(), Context.MODE_PRIVATE);
+                            fos.write(file);
+                            fos.close();
+                        } else mastercry.decryptFileOther(input);
                         Log.d("Action", "dec");
                     } else Log.w("file?", "nope");
                 }
