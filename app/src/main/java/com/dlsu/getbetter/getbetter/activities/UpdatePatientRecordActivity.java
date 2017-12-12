@@ -30,7 +30,6 @@ import android.widget.TextView;
 
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
-import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
 import com.dlsu.getbetter.getbetter.cryptoGB.Serializator;
 import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
@@ -86,9 +85,6 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
 
     private Uri fileUri;
 
-//    private BackProcessResponseReciever reciever;
-//    private CryptoFileService cserv;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,7 +108,6 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         showDatePlaceholder();
         bindListeners(this);
 
-//        cserv = new CryptoFileService();
         cryptoInit(new File("crypto.dat"));
     }
 
