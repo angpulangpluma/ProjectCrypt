@@ -95,8 +95,9 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
         getCaseRecords();
         createPatientSession(this);
 
+        File f = new File(getFilesDir(), new File(patient.getProfileImageBytes()).getName());
         doSomethingCryptFile("dec", new File(patient.getProfileImageBytes()));
-        setPic(profileImage, patient.getProfileImageBytes());
+        setPic(profileImage, f.getPath());
         patientName.setText(patientFullName(patient.getLastName() + ", ", patient.getFirstName(), patient.getMiddleName()));
         age.append(": " + patient.getAge() + " Years Old");
         gender.append(": " + patient.getGender());
