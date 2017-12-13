@@ -95,18 +95,20 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
             outputFile = hpi.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD);
             chiefComplaintName = hpi.get(NewPatientSessionManager.NEW_PATIENT_CHIEF_COMPLAINT);
             prepFilesDisplay();
+            File f = new File(getFilesDir(), new File(outputFile).getName());
             stopRecord.setEnabled(false);
             playRecord.setEnabled(true);
             hpiRecorder = new MediaRecorder();
             hpiRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             hpiRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
             hpiRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-            hpiRecorder.setOutputFile(outputFile);
+            hpiRecorder.setOutputFile(f.getPath());
 
         } else {
             initializeMediaRecorder();
         }
         cryptoInit(new File("crypto.dat"));
+        outputFile = null;
     }
 
     private void bindViews (RecordHpiActivity activity) {
@@ -136,7 +138,8 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
 
         stopRecord.setEnabled(false);
         playRecord.setEnabled(false);
-        outputFile = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).getAbsolutePath() + "/" +
+        if (outputFile==null)
+            outputFile = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).getAbsolutePath() + "/" +
                 "hpi_recording_" + getTimeStamp() + ".3gp";
 
         hpiRecorder = new MediaRecorder();
@@ -331,7 +334,14 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
     private void prepFilesStore(){
         HashMap<String, String> hpi = newPatientSessionManager.getPatientInfo();
         if (!newPatientSessionManager.isHpiEmpty()){
-            doSomethingCryptFile("enc", new File(hpi.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD)));
+            File f = new File(getFilesDir(), new File(hpi.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD)).getName());
+            try {
+                if (f.createNewFile() || f.exists())
+                    doSomethingCryptFile("enc", f);
+                else Log.w("encrypt?", "no!");
+            } catch(Exception e){
+                Log.w("error", e.toString());
+            }
         }
 //        doSomethingCryptFile("enc", new File(patientProfileImage));
 //        if(attachments.size()>0){
@@ -345,6 +355,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
         Log.w("service in", "yes");
 
         file_aes mastercry = new file_aes(cryptoInit(new File("crypto.dat")));
+        File f = new File(getFilesDir(), input.getName());
 //        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
 //                DirectoryConstants.CRYPTO_FOLDER);
 //        path.mkdirs();
@@ -359,15 +370,29 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
 //        } catch(Exception e){
 //            Log.w("error", e.toString());
 //        }
-        switch(dec){
-            case "enc":{
-                mastercry.encryptFile(input);
-                Log.d("Action", "enc");
-            }; break;
-            case "dec":{
-                mastercry.decryptFile(input);
-                Log.d("Action", "dec");
-            }; break;
+        try{
+            switch (dec) {
+                case "enc": {
+                    mastercry.encryptFile(input);
+                    Log.d("Action", "enc");
+                }
+                ;
+                break;
+                case "dec": {
+                    if (f.createNewFile() || f.exists()) {
+                        Log.w("file?", "yep");
+                        byte[] file = mastercry.decryptFile(input);
+                        FileOutputStream fos = this.openFileOutput(f.getName(), Context.MODE_PRIVATE);
+                        fos.write(file);
+                        fos.close();
+                        Log.d("Action", "dec");
+                    } else Log.w("file?", "nope");
+                }
+                ;
+                break;
+            }
+        } catch(Exception e){
+            Log.w("error", e.toString());
         }
 //
     }
