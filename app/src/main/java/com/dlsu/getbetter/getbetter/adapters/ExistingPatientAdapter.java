@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.objects.Patient;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -121,7 +124,11 @@ public class ExistingPatientAdapter extends RecyclerView.Adapter<ExistingPatient
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
 
-        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        mImageView.setImageBitmap(bitmap);
+        try {
+            Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(mCurrentPhotoPath));
+            mImageView.setImageBitmap(bitmap);
+        } catch(FileNotFoundException ex){
+            Log.w("error", ex.toString());
+        }
     }
 }
