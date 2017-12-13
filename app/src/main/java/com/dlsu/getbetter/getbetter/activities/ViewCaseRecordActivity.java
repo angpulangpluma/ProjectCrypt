@@ -451,7 +451,7 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
                 Log.d("Action", "enc");
             }; break;
             case "dec":{
-                mastercry.decryptFile(input);
+                mastercry.decryptFileImage(input);
                 Log.d("Action", "dec");
             }; break;
         }

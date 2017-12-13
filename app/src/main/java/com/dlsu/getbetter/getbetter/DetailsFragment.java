@@ -416,7 +416,7 @@ public class DetailsFragment extends Fragment implements MediaController.MediaPl
                 Log.d("Action", "enc");
             }; break;
             case "dec":{
-                mastercry.decryptFile(input);
+                mastercry.decryptFileImage(input);
                 Log.d("Action", "dec");
             }; break;
         }

@@ -3,21 +3,17 @@ package com.dlsu.getbetter.getbetter.activities;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.TextInputEditText;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,12 +23,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
-import com.dlsu.getbetter.getbetter.cryptoGB.CryptoFileService;
-import com.dlsu.getbetter.getbetter.cryptoGB.Serializator;
 import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
@@ -56,8 +49,6 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
-
-import static android.os.Environment.DIRECTORY_DOCUMENTS;
 //import static com.dlsu.getbetter.getbetter.cryptoGB.BackProcessResponseReciever.ACTION_RESP;
 
 public class UpdatePatientRecordActivity extends AppCompatActivity implements View.OnClickListener,
@@ -384,7 +375,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
                 case "dec": {
                     if (f.createNewFile() || f.exists()) {
                         Log.w("file?", "yep");
-                        byte[] file = mastercry.decryptFile(input);
+                        byte[] file = mastercry.decryptFileImage(input);
                         FileOutputStream fos = this.openFileOutput(f.getName(), Context.MODE_PRIVATE);
                         fos.write(file);
                         fos.close();

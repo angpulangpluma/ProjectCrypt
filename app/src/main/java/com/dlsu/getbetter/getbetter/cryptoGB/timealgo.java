@@ -155,7 +155,7 @@ public class timealgo {
             case 3:
             {
                 starttime = System.currentTimeMillis();
-                filealgo.decryptFile(file);
+                filealgo.decryptFileImage(file);
                 endtime = System.currentTimeMillis();
             }; break;
         }

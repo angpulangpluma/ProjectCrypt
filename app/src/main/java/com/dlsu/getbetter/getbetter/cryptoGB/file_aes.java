@@ -83,7 +83,7 @@ public class file_aes {
         }
     }
 
-    public byte[] decryptFile(File file){
+    public byte[] decryptFileImage(File file){
         Log.w("decrypt?", "start");
 //        File decrypted = new File(file.getPath() + "//" + returnFileName(file)+"_decrypted."+returnFileExt(file));
         Cipher cp = filealgo.getCipher();

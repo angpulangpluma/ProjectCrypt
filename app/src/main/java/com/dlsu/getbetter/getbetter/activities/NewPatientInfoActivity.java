@@ -26,7 +26,6 @@ import android.widget.Spinner;
 
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
-import com.dlsu.getbetter.getbetter.cryptoGB.Serializator;
 import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
@@ -37,7 +36,6 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -45,7 +43,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.file.Files;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -54,8 +51,6 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static android.os.Environment.DIRECTORY_DOCUMENTS;
 
 public class NewPatientInfoActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,
         View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -537,7 +532,7 @@ public class NewPatientInfoActivity extends AppCompatActivity implements DatePic
                 Log.d("Action", "enc");
             }; break;
             case "dec":{
-                mastercry.decryptFile(input);
+                mastercry.decryptFileImage(input);
                 Log.d("Action", "dec");
             }; break;
         }
