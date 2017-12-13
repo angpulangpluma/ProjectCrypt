@@ -346,7 +346,7 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
                     if (f.createNewFile() || f.exists()) {
                         Log.w("file?", "yep");
                         byte[] file = mastercry.decryptFile(input);
-                        FileOutputStream fos = this.openFileOutput(f.getPath(), Context.MODE_PRIVATE);
+                        FileOutputStream fos = this.openFileOutput(f.getName(), Context.MODE_PRIVATE);
                         fos.write(file);
                         fos.close();
                         Log.d("Action", "dec");
