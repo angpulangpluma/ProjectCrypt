@@ -60,6 +60,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
     private boolean isRecording;
 
     private String outputFile;
+    private String file;
     private String chiefComplaintName = "";
     private int seconds, minutes, recordTime, playTime;
     private MediaRecorder hpiRecorder;
@@ -142,11 +143,13 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
             outputFile = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).getAbsolutePath() + "/" +
                 "hpi_recording_" + getTimeStamp() + ".3gp";
 
+        File f = new File(getFilesDir(), new File(outputFile).getName());
+        file = f.getPath();
         hpiRecorder = new MediaRecorder();
         hpiRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         hpiRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         hpiRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-        hpiRecorder.setOutputFile(outputFile);
+        hpiRecorder.setOutputFile(file);
     }
 
     @Override
@@ -334,14 +337,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
     private void prepFilesStore(){
         HashMap<String, String> hpi = newPatientSessionManager.getPatientInfo();
         if (!newPatientSessionManager.isHpiEmpty()){
-            File f = new File(getFilesDir(), new File(hpi.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD)).getName());
-            try {
-                if (f.createNewFile() || f.exists())
-                    doSomethingCryptFile("enc", f);
-                else Log.w("encrypt?", "no!");
-            } catch(Exception e){
-                Log.w("error", e.toString());
-            }
+            doSomethingCryptFile("enc", new File(hpi.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD)));
         }
 //        doSomethingCryptFile("enc", new File(patientProfileImage));
 //        if(attachments.size()>0){
