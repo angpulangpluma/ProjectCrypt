@@ -281,6 +281,7 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
         Log.w("service in", "yes");
 
         file_aes mastercry = new file_aes(cryptoInit(new File("crypto.dat")));
+        File f = new File(getFilesDir(), input.getName());
 //        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
 //                DirectoryConstants.CRYPTO_FOLDER);
 //        path.mkdirs();
@@ -295,17 +296,41 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
 //        } catch(Exception e){
 //            Log.w("error", e.toString());
 //        }
-        switch(dec){
-            case "enc":{
-                mastercry.encryptFile(input);
-                Log.d("Action", "enc");
-            }; break;
-            case "dec":{
-                mastercry.decryptFile(input);
-                Log.d("Action", "dec");
-            }; break;
-        }
+//        switch(dec){
+//            case "enc":{
+//                mastercry.encryptFile(input);
+//                Log.d("Action", "enc");
+//            }; break;
+//            case "dec":{
+//                mastercry.decryptFile(input);
+//                Log.d("Action", "dec");
+//            }; break;
+//        }
 //
+        try{
+            switch (dec) {
+                case "enc": {
+                    mastercry.encryptFile(input);
+                    Log.d("Action", "enc");
+                }
+                ;
+                break;
+                case "dec": {
+                    if (f.createNewFile() || f.exists()) {
+                        Log.w("file?", "yep");
+                        byte[] file = mastercry.decryptFile(input);
+                        FileOutputStream fos = this.openFileOutput(f.getPath(), Context.MODE_PRIVATE);
+                        fos.write(file);
+                        fos.close();
+                        Log.d("Action", "dec");
+                    } else Log.w("file?", "nope");
+                }
+                ;
+                break;
+            }
+        } catch(Exception e){
+            Log.w("error", e.toString());
+        }
     }
 
     private byte[] read(File file) throws IOException{
