@@ -108,6 +108,7 @@ public class ExistingPatientAdapter extends RecyclerView.Adapter<ExistingPatient
 
     private void setPic(ImageView mImageView, String mCurrentPhotoPath) {
         // Get the dimensions of the View
+        Log.w("mCurrentPhotoPath", mCurrentPhotoPath);
         int targetW = mImageView.getWidth();
         int targetH = mImageView.getHeight();
 

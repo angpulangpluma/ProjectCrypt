@@ -337,7 +337,7 @@ public class ExistingPatientActivity extends AppCompatActivity implements View.O
 //        }
             switch (dec) {
                 case "enc": {
-                    mastercry.encryptFile(input);
+                    //mastercry.encryptFile(input);
                     Log.d("Action", "enc");
                 }
                 ;

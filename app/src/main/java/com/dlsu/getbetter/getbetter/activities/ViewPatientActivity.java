@@ -317,7 +317,7 @@ public class ViewPatientActivity extends AppCompatActivity implements View.OnCli
         try{
             switch (dec) {
                 case "enc": {
-                    mastercry.encryptFile(input);
+                    //mastercry.encryptFile(input);
                     Log.d("Action", "enc");
                 }
                 ;
