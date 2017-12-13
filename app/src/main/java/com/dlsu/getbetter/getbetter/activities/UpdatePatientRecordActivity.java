@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -85,6 +86,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
     private static final int REQUEST_IMAGE1 = 100;
 
     private Uri fileUri;
+    private String file;
 
 //    private BackProcessResponseReciever reciever;
 //    private CryptoFileService cserv;
@@ -114,6 +116,9 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
 
 //        cserv = new CryptoFileService();
         cryptoInit(new File("crypto.dat"));
+
+        fileUri = null;
+        file = null;
     }
 
     private void bindViews(UpdatePatientRecordActivity activity) {
@@ -137,7 +142,8 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         profilePicPath = patient.getProfileImageBytes();
         activity.submitBtn.setText(R.string.save);
         doSomethingCryptFile("dec", new File(profilePicPath));
-        setPic(profileImage, patient.getProfileImageBytes());
+        File f = new File(getFilesDir(), new File(patient.getProfileImageBytes()).getName());
+        setPic(profileImage, f.getPath());
 
     }
 
@@ -360,29 +366,36 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         Log.w("service in", "yes");
 
         file_aes mastercry = new file_aes(cryptoInit(new File("crypto.dat")));
+        File f = new File(getFilesDir(), input.getName());
 //        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
 //                DirectoryConstants.CRYPTO_FOLDER);
 //        path.mkdirs();
 //        File output = new File(path.getPath() +"/" + input.getName());
 //        File output = new File(path.getPath() +"/" + input.getName());
 //        Log.w("output", output.getAbsolutePath());
-        try {
-            FileOutputStream fos = new FileOutputStream(input);
-            fos.write(read(input));
-            fos.flush();
-            fos.close();
+        try{
+            switch (dec) {
+                case "enc": {
+                    //mastercry.encryptFile(input);
+                    Log.d("Action", "enc");
+                }
+                ;
+                break;
+                case "dec": {
+                    if (f.createNewFile() || f.exists()) {
+                        Log.w("file?", "yep");
+                        byte[] file = mastercry.decryptFile(input);
+                        FileOutputStream fos = this.openFileOutput(f.getName(), Context.MODE_PRIVATE);
+                        fos.write(file);
+                        fos.close();
+                        Log.d("Action", "dec");
+                    } else Log.w("file?", "nope");
+                }
+                ;
+                break;
+            }
         } catch(Exception e){
             Log.w("error", e.toString());
-        }
-        switch(dec){
-            case "enc":{
-                mastercry.encryptFile(input);
-                Log.d("Action", "enc");
-            }; break;
-            case "dec":{
-                mastercry.decryptFile(input);
-                Log.d("Action", "dec");
-            }; break;
         }
 //
     }
@@ -442,10 +455,36 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
 //                        fileUri.getPath()
 //                );
 //                if (set!=null)
-            profilePicPath = fileUri.getPath();
-            setPic(profileImage, fileUri.getPath());
+//            profilePicPath = fileUri.getPath();
+            //setPic(profileImage, fileUri.getPath());
 //                else Log.w("enc file?", "no");
 //            }
+            ContentResolver cr = getContentResolver();
+            Bitmap bmp;
+            try{
+                Log.w("orig size", Long.toString(new File(fileUri.getPath()).length()));
+                bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, fileUri);
+//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                File f = new File(getFilesDir(), file);
+                if (f.createNewFile() || f.exists()){
+                    FileOutputStream fos = this.openFileOutput(f.getName(), Context.MODE_PRIVATE);
+                    bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+//                byte[] towrite = stream.toByteArray();
+//                Log.w("towrite size", Integer.toString(towrite.length));
+//                fos.write(towrite);
+                    fos.close();
+                    Log.w("private file?", "done!");
+                } else Log.w("private file?", "nope.");
+            } catch(IOException ex){
+                Log.w("error image", ex.toString());
+                Log.w("private file?", "failed.");
+            } finally{
+                setPic(profileImage, new File(getFilesDir(), file).getPath());
+                //to do: place encryption here
+//                if (new File(fileUri.getPath()).delete())
+//                    Log.w("deletion?", "success");
+//                else Log.w("deletion?", "failed");
+            }
 
         }
     }
@@ -474,8 +513,16 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
 //                MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File img = createImageFile();
-        fileUri = Uri.fromFile(img);
+//        File img = createImageFile();
+//        fileUri = Uri.fromFile(img);
+        if(fileUri==null){
+            Log.w("prof pic", "first time!");
+            fileUri = Uri.fromFile(createImageFile());
+            file = new File(fileUri.getPath()).getName();
+        } else Log.w("prof pic", "second time!");
+
+        Log.w("fileUri", fileUri.toString());
+        Log.w("file", file);
 
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
         startActivityForResult(intent, REQUEST_IMAGE1);
