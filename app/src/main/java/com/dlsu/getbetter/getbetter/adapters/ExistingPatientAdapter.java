@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.objects.Patient;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -91,7 +92,7 @@ public class ExistingPatientAdapter extends RecyclerView.Adapter<ExistingPatient
         holder.itemView.post(new Runnable() {
             @Override
             public void run() {
-                setPic(holder.patientImage, existingPatients.get(position).getProfileImageBytes());
+                setPic(holder.patientImage, new String("/data/data/com.dlsu.getbetter.getbetter/files/" + new File(existingPatients.get(position).getProfileImageBytes()).getName()));
             }
         });
 
