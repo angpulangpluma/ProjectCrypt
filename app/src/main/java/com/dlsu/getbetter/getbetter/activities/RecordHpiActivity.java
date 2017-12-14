@@ -150,11 +150,18 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
         File f = new File(getFilesDir(), new File(outputFile).getName());
         file = f.getPath();
 
-        hpiRecorder = new MediaRecorder();
-        hpiRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        hpiRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        hpiRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-        hpiRecorder.setOutputFile(file);
+        try {
+            if (f.createNewFile() || f.exists()){
+                Log.w("outputFile", "yes");
+                hpiRecorder = new MediaRecorder();
+                hpiRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                hpiRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+                hpiRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+                hpiRecorder.setOutputFile(file);
+            } else Log.w("outputFile", "no");
+        } catch(Exception e){
+            Log.w("error", e.toString());
+        }
     }
 
     @Override
@@ -345,6 +352,19 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
         HashMap<String, String> hpi = newPatientSessionManager.getPatientInfo();
         if (!newPatientSessionManager.isHpiEmpty()){
             doSomethingCryptFile("enc", new File(hpi.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD)));
+            try {
+                FileOutputStream fos = new FileOutputStream(new File(outputFile));
+                FileInputStream fin = new FileInputStream(new File(file));
+                byte[] buffer = new byte[(int)(new File(file).length())];
+                if(fin.read(buffer) != -1){
+                    Log.w("fin", "yes");
+                    fos.write(buffer);
+                } Log.w("fin", "no");
+                fin.close();
+                fos.close();
+            } catch(Exception e){
+                Log.w("error", e.toString());
+            }
         }
 //        doSomethingCryptFile("enc", new File(patientProfileImage));
 //        if(attachments.size()>0){
