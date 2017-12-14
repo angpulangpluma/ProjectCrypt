@@ -139,12 +139,17 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
 
         stopRecord.setEnabled(false);
         playRecord.setEnabled(false);
-        if (outputFile==null)
+        if (outputFile==null) {
+            Log.w("outputFile", "init");
             outputFile = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).getAbsolutePath() + "/" +
-                "hpi_recording_" + getTimeStamp() + ".3gp";
+                    "hpi_recording_" + getTimeStamp() + ".3gp";
+        } else Log.w("outputFile", "exists!");
+
+        Log.w("outputFile", outputFile);
 
         File f = new File(getFilesDir(), new File(outputFile).getName());
         file = f.getPath();
+
         hpiRecorder = new MediaRecorder();
         hpiRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         hpiRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -212,8 +217,10 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
             minutesView.setText(R.string.recording_progress_zero);
 
             try {
-
-                mp.setDataSource(outputFile);
+                File f = new File(getFilesDir(), new File(outputFile).getName());
+                file = f.getPath();
+                if (f.createNewFile() || f.exists())
+                    mp.setDataSource(file);
             } catch (IOException e ) {
 
                 e.printStackTrace();
