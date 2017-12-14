@@ -51,6 +51,7 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -198,7 +199,8 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         activity.saveRecording = (Button)activity.findViewById(R.id.summary_page_record_audio_done_btn);
 
         activity.healthCenter.setText(healthCenterName);
-        setPic(profilePicture, patientProfileImage);
+        File f = new File(getFilesDir(), new File(patientProfileImage).getName());
+        setPic(profilePicture, f.getPath());
         activity.patientNameText.setText(patientFullName(patientFirstName, patientLastName));
         String patientAgeGender = patientAge + ", " + patientGender;
         activity.ageGender.setText(patientAgeGender);
@@ -717,8 +719,12 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
 
-        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        mImageView.setImageBitmap(bitmap);
+        try {
+            Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(mCurrentPhotoPath));
+            mImageView.setImageBitmap(bitmap);
+        } catch(FileNotFoundException ex){
+            Log.w("error", ex.toString());
+        }
     }
 
     private String getTimeStamp() {
