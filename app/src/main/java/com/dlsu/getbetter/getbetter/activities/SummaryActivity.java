@@ -157,7 +157,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         getUserId(user.get(SystemSessionManager.LOGIN_USER_NAME));
         getHealthCenterName(healthCenterId);
         initializePatientInfo();
-        prepFilesDisplay();
+        //prepFilesDisplay();
         bindViews(this);
         bindListeners(this);
 
@@ -244,7 +244,8 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
                 if(attachments.get(position).getAttachmentType() == 1) {
                     Intent intent = new Intent(SummaryActivity.this, ViewImageActivity.class);
 //                    doSomethingCryptFile("dec", new File(attachments.get(position).getAttachmentPath()));
-                    intent.putExtra("imageUrl", attachments.get(position).getAttachmentPath());
+                    File f = new File(getFilesDir(), FilenameUtils.getName(attachments.get(position).getAttachmentPath()));
+                    intent.putExtra("imageUrl", f.getPath());
                     intent.putExtra("imageTitle", attachments.get(position).getAttachmentDescription());
                     startActivity(intent);
                 }
