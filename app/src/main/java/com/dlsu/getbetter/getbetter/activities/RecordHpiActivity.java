@@ -106,10 +106,10 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
             hpiRecorder.setOutputFile(f.getPath());
 
         } else {
+            outputFile = null;
             initializeMediaRecorder();
         }
         cryptoInit(new File("crypto.dat"));
-        outputFile = null;
     }
 
     private void bindViews (RecordHpiActivity activity) {
