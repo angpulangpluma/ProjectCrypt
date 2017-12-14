@@ -7,6 +7,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -46,6 +47,7 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -120,7 +122,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
             this.patientInfoImagePath = documents.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE1);
             this.familySocialHistoryImagePath = documents.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE2);
             this.chiefComplaintImagePath = documents.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE3);
-            prepFilesDisplay();
+            //prepFilesDisplay();
             File f = new File(getFilesDir(), new File(this.patientInfoImagePath).getName());
             setPic(this.patientInfoImage, f.getPath());
             f = new File(getFilesDir(), new File(this.familySocialHistoryImagePath).getName());
@@ -183,24 +185,28 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
 
         if(id == R.id.capture_docu_patient_info_image) {
 
-            this.patientInfoImagePath = captureDocument(PATIENT_INFO_FORM_FILENAME,
+            if (this.patientInfoImagePath.equals(""))
+                this.patientInfoImagePath = captureDocument(PATIENT_INFO_FORM_FILENAME,
                     REQUEST_PATIENT_INFO_IMAGE);
 
         } else if(id == R.id.capture_docu_chief_complaint_image) {
 
-            this.chiefComplaintImagePath = captureDocument(CHIEF_COMPLAINT_FORM_FILENAME,
+            if (this.chiefComplaintImagePath.equals(""))
+                this.chiefComplaintImagePath = captureDocument(CHIEF_COMPLAINT_FORM_FILENAME,
                     REQUEST_CHIEF_COMPLAINT_IMAGE);
 
         } else if(id == R.id.capture_docu_family_social_history_image) {
 
-           this.familySocialHistoryImagePath = captureDocument(FAMILY_SOCIAL_HISTORY_FORM_FILENAME,
+           if (this.familySocialHistoryImagePath.equals(""))
+                this.familySocialHistoryImagePath = captureDocument(FAMILY_SOCIAL_HISTORY_FORM_FILENAME,
                    REQUEST_FAMILY_SOCIAL_IMAGE);
 
         } else if(id == R.id.capture_docu_view_patient_info_image) {
 
 //            zoomImageFromThumb(viewPatientInfoImage, patientInfoImagePath);
+            File f = new File(getFilesDir(), new File(this.patientInfoImagePath).getName());
             Intent intent = new Intent(this, ViewImageActivity.class);
-            intent.putExtra("imageUrl", this.patientInfoImagePath);
+            intent.putExtra("imageUrl", f.getPath());
             intent.putExtra("imageTitle", PATIENT_INFO_FORM_TITLE);
             startActivity(intent);
 
@@ -208,16 +214,18 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
         } else if(id == R.id.capture_docu_view_chief_complaint_image) {
 
 //            zoomImageFromThumb(viewChiefComplaintImage, chiefComplaintImagePath);
+            File f = new File(getFilesDir(), new File(this.chiefComplaintImagePath).getName());
             Intent intent = new Intent(this, ViewImageActivity.class);
-            intent.putExtra("imageUrl", this.chiefComplaintImagePath);
+            intent.putExtra("imageUrl", f.getPath());
             intent.putExtra("imageTitle", CHIEF_COMPLAINT_FORM_TITLE);
             startActivity(intent);
 
         } else if(id == R.id.capture_docu_view_family_social_image) {
 
 //            zoomImageFromThumb(viewSocialFamilyImage, familySocialHistoryImagePath);
+            File f = new File(getFilesDir(), new File(this.familySocialHistoryImagePath).getName());
             Intent intent = new Intent(this, ViewImageActivity.class);
-            intent.putExtra("imageUrl", this.familySocialHistoryImagePath);
+            intent.putExtra("imageUrl", f.getPath());
             intent.putExtra("imageTitle", FAMILY_SOCIAL_HISTORY_FORM_TITLE);
             startActivity(intent);
 
@@ -316,37 +324,100 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        ContentResolver cr = getContentResolver();
+        Bitmap bmp;
+        File f;
         if(resultCode == Activity.RESULT_OK) {
 
             switch (requestCode) {
 
                 case REQUEST_PATIENT_INFO_IMAGE: {
 
-                    setPic(this.patientInfoImage, this.patientInfoImagePath);
-                    this.patientInfoActionButtons.setVisibility(View.VISIBLE);
-                    this.capturePatientInfo.setVisibility(View.GONE);
+                    f = new File(getFilesDir(), FilenameUtils.getName(this.patientInfoImagePath));
+                    try{
+                        Log.w("orig size", Long.toString(new File(this.patientInfoImagePath).length()));
+                        bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, Uri.fromFile(new File(this.patientInfoImagePath)));
+//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        if (f.createNewFile() || f.exists()){
+                            FileOutputStream fos = this.openFileOutput(f.getName(), Context.MODE_PRIVATE);
+                            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+//                byte[] towrite = stream.toByteArray();
+//                Log.w("towrite size", Integer.toString(towrite.length));
+//                fos.write(towrite);
+                            fos.close();
+                            Log.w("private file?", "done!");
+                        } else Log.w("private file?", "nope.");
+                    } catch(IOException ex){
+                        Log.w("error image", ex.toString());
+                        Log.w("private file?", "failed.");
+                    } finally{
+                        setPic(this.patientInfoImage, f.getPath());
+                        this.patientInfoActionButtons.setVisibility(View.VISIBLE);
+                        this.capturePatientInfo.setVisibility(View.GONE);
 //                    doSomethingCryptFile("enc", new File(this.patientInfoImagePath));
-                    Log.d("patientinfoimgenc", "yes");
+                        Log.d("patientinfoimgenc", "yes");
+                    }
+
                     break;
                 }
 
                 case REQUEST_CHIEF_COMPLAINT_IMAGE: {
 
-                    setPic(this.chiefComplaintImage, this.chiefComplaintImagePath);
-                    this.chiefComplaintActionButtons.setVisibility(View.VISIBLE);
-                    this.captureChiefComplaint.setVisibility(View.GONE);
+                    f = new File(getFilesDir(), FilenameUtils.getName(this.chiefComplaintImagePath));
+                    try{
+                        Log.w("orig size", Long.toString(new File(this.chiefComplaintImagePath).length()));
+                        bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, Uri.fromFile(new File(this.chiefComplaintImagePath)));
+//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        if (f.createNewFile() || f.exists()){
+                            FileOutputStream fos = this.openFileOutput(f.getName(), Context.MODE_PRIVATE);
+                            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+//                byte[] towrite = stream.toByteArray();
+//                Log.w("towrite size", Integer.toString(towrite.length));
+//                fos.write(towrite);
+                            fos.close();
+                            Log.w("private file?", "done!");
+                        } else Log.w("private file?", "nope.");
+                    } catch(IOException ex){
+                        Log.w("error image", ex.toString());
+                        Log.w("private file?", "failed.");
+                    } finally{
+                        setPic(this.chiefComplaintImage, f.getPath());
+                        this.chiefComplaintActionButtons.setVisibility(View.VISIBLE);
+                        this.captureChiefComplaint.setVisibility(View.GONE);
 //                    doSomethingCryptFile("enc", new File(this.chiefComplaintImagePath));
-                    Log.d("chiefcompimgenc", "yes");
+                        Log.d("chiefcompimgenc", "yes");
+                    }
+
                     break;
                 }
 
                 case REQUEST_FAMILY_SOCIAL_IMAGE: {
 
-                    setPic(this.familySocialImage, this.familySocialHistoryImagePath);
-                    this.socialFamilyActionButtons.setVisibility(View.VISIBLE);
-                    this.captureFamilySocial.setVisibility(View.GONE);
+                    f = new File(getFilesDir(), FilenameUtils.getName(this.familySocialHistoryImagePath));
+                    try{
+                        Log.w("orig size", Long.toString(new File(this.familySocialHistoryImagePath).length()));
+                        bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, Uri.fromFile(new File(this.familySocialHistoryImagePath)));
+//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        if (f.createNewFile() || f.exists()){
+                            FileOutputStream fos = this.openFileOutput(f.getName(), Context.MODE_PRIVATE);
+                            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+//                byte[] towrite = stream.toByteArray();
+//                Log.w("towrite size", Integer.toString(towrite.length));
+//                fos.write(towrite);
+                            fos.close();
+                            Log.w("private file?", "done!");
+                        } else Log.w("private file?", "nope.");
+                    } catch(IOException ex){
+                        Log.w("error image", ex.toString());
+                        Log.w("private file?", "failed.");
+                    } finally{
+                        setPic(this.familySocialImage, f.getPath());
+                        this.socialFamilyActionButtons.setVisibility(View.VISIBLE);
+                        this.captureFamilySocial.setVisibility(View.GONE);
 //                    doSomethingCryptFile("enc", new File(this.familySocialHistoryImagePath));
-                    Log.d("famhistimgenc", "yes");
+                        Log.d("famhistimgenc", "yes");
+                    }
+
                     break;
                 }
             }
@@ -372,8 +443,12 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
 
-        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        mImageView.setImageBitmap(bitmap);
+        try {
+            Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(mCurrentPhotoPath));
+            mImageView.setImageBitmap(bitmap);
+        } catch(FileNotFoundException ex){
+            Log.w("error", ex.toString());
+        }
     }
 
     private void removeImageDialog (final int type) {
@@ -498,7 +573,7 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
         try{
             switch (dec) {
                 case "enc": {
-                    //mastercry.encryptFile(input);
+                    mastercry.encryptFile(input);
                     Log.d("Action", "enc");
                 }
                 ;
