@@ -171,7 +171,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
 
         if(id == R.id.hpi_next_btn) {
 
-            newPatientSessionManager.setHPIRecord(outputFile, chiefComplaintName);
+            newPatientSessionManager.setHPIRecord(file, chiefComplaintName);
             prepFilesStore();
             Intent intent = new Intent(this, SummaryActivity.class);
             startActivity(intent);
@@ -224,10 +224,13 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
             minutesView.setText(R.string.recording_progress_zero);
 
             try {
-                File f = new File(getFilesDir(), new File(outputFile).getName());
-                file = f.getPath();
-                if (f.createNewFile() || f.exists())
+//                File f = new File(getFilesDir(), new File(outputFile).getName());
+//                file = f.getPath();
+                File f = new File(file);
+                if (f.createNewFile() || f.exists()) {
+                    Log.w("file?", "yes!");
                     mp.setDataSource(file);
+                } else Log.w("file?", "no!");
             } catch (IOException e ) {
 
                 e.printStackTrace();
