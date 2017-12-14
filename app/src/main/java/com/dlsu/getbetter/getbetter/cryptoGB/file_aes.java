@@ -42,7 +42,7 @@ public class file_aes {
         return filealgo;
     }
 
-    public void encryptFile(File file){
+    public byte[] encryptFile(File file){
         Log.w("encrypt?", "start");
 //        File encrypted = new File(file.getPath() + "_encrypted."+ FilenameUtils.getExtension(file.getName()));
 //        if (filealgo.getIvParamSpec()==null)
@@ -50,13 +50,13 @@ public class file_aes {
         Log.w("encrypt file", file.getPath());
         Cipher cp = filealgo.getCipher();
         SecretKey k = filealgo.getKey();
+        byte[] encfile = null;
         try{
             FileInputStream in = new FileInputStream(file);
             cp.init(Cipher.ENCRYPT_MODE, k, filealgo.getIvParamSpec());
             Log.w("file length", Long.toString(file.length()));
             byte[] buffer = new byte[(int)file.length()];
             Log.w("buffer length", Integer.toString(buffer.length));
-            byte[] encfile = null;
             if (in.read(buffer)!=-1){
 //                char[] data = new char[buffer.length];
 //                for(int i=0; i<data.length; i++) {
@@ -66,21 +66,23 @@ public class file_aes {
                 in.close();
                 Log.w("file length", Long.toString(file.length()));
                 encfile = cp.doFinal(buffer);
+                Log.w("encrypted file length", Integer.toString(encfile.length));
 //                data = new char[encfile.length];
 //                for(int i=0; i<data.length; i++) {
 //                    data[i] = Byte.valueOf(encfile[i]).toString().charAt(0);
 //                }
 //                Log.w("data", String.valueOf(data));
-                FileOutputStream os = new FileOutputStream(file);
-                os.write(encfile);
-                Log.w("encrypt file", "done");
-                Log.w("file length", Long.toString(file.length()));
-                os.close();
+//                FileOutputStream os = new FileOutputStream(file);
+//                os.write(encfile);
+//                Log.w("encrypt file", "done");
+//                Log.w("file length", Long.toString(file.length()));
+//                os.close();
                 filealgo.resetIV();
             } else Log.w("encrypt file", "failed");
         } catch(GeneralSecurityException | IOException ex){
             Log.w("error", ex.getMessage());
         }
+        return encfile;
     }
 
     public byte[] decryptFile(File file){

@@ -18,11 +18,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
-import com.dlsu.getbetter.getbetter.cryptoGB.Serializator;
 import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
 import com.dlsu.getbetter.getbetter.sessionmanagers.NewPatientSessionManager;
@@ -41,9 +38,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.logging.Handler;
-
-import static android.os.Environment.DIRECTORY_DOCUMENTS;
 
 public class RecordHpiActivity extends AppCompatActivity implements View.OnClickListener {
 

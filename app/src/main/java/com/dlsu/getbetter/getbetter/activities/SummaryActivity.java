@@ -36,13 +36,11 @@ import android.widget.TextView;
 import com.dlsu.getbetter.getbetter.DirectoryConstants;
 import com.dlsu.getbetter.getbetter.R;
 import com.dlsu.getbetter.getbetter.adapters.FileAttachmentsAdapter;
-import com.dlsu.getbetter.getbetter.cryptoGB.Serializator;
 import com.dlsu.getbetter.getbetter.cryptoGB.aes;
 import com.dlsu.getbetter.getbetter.cryptoGB.file_aes;
 import com.dlsu.getbetter.getbetter.database.DataAdapter;
 import com.dlsu.getbetter.getbetter.objects.Attachment;
 import com.dlsu.getbetter.getbetter.objects.DividerItemDecoration;
-import com.dlsu.getbetter.getbetter.objects.Patient;
 import com.dlsu.getbetter.getbetter.sessionmanagers.NewPatientSessionManager;
 import com.dlsu.getbetter.getbetter.sessionmanagers.SystemSessionManager;
 
@@ -63,8 +61,6 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static android.os.Environment.DIRECTORY_DOCUMENTS;
 
 // TODO: 06/12/2016 record audio function
 
