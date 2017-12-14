@@ -141,13 +141,15 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
         playRecord.setEnabled(false);
         if (outputFile==null) {
             Log.w("outputFile", "init");
-            outputFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).getAbsolutePath() + "/" +
-                    "hpi_recording_" + getTimeStamp() + ".3gp").getPath();
+            outputFile = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).getAbsolutePath() + File.separator +
+                    "hpi_recording_" + getTimeStamp() + ".3gp";
             File oFile = new File(outputFile);
             try{
                 if (!oFile.exists()) {
                     Log.w("outputFile?", "created!");
-                    oFile.createNewFile();
+                    if (oFile.createNewFile())
+                        Log.w("outputFile?", "new!");
+                    else Log.w("outputFile?", "nothing...");
                 } else Log.w("outputFile?", "not created.");
             } catch(Exception e){
                 Log.w("error", e.toString());
@@ -166,7 +168,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
                 hpiRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
                 hpiRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
                 hpiRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-                hpiRecorder.setOutputFile(file);
+                hpiRecorder.setOutputFile(outputFile);
             } else Log.w("outputFile", "no");
         } catch(Exception e){
             Log.w("error", e.toString());
@@ -201,7 +203,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
 
             } catch (IllegalStateException | IOException e) {
 
-                e.printStackTrace();
+                Log.w("error", e.toString());
 
             }
 
@@ -235,14 +237,14 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
             try {
 //                File f = new File(getFilesDir(), new File(outputFile).getName());
 //                file = f.getPath();
-                File f = new File(file);
+                File f = new File(outputFile);
                 if (f.createNewFile() || f.exists()) {
                     Log.w("file?", "yes!");
-                    mp.setDataSource(file);
+                    mp.setDataSource(outputFile);
                 } else Log.w("file?", "no!");
             } catch (IOException e ) {
 
-                e.printStackTrace();
+                Log.w("error", e.toString());
 
             }
 
@@ -362,11 +364,14 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
     //encrypt files for storage
     private void prepFilesStore(){
         HashMap<String, String> hpi = newPatientSessionManager.getPatientInfo();
+        Log.w("store file", file);
+        Log.w("store outputfile", outputFile);
+        Log.w("outputfile exists", Boolean.toString(new File(outputFile).exists()));
         if (!newPatientSessionManager.isHpiEmpty()){
             try {
-                FileOutputStream fos = new FileOutputStream(new File(outputFile));
-                FileInputStream fin = new FileInputStream(new File(file));
-                byte[] buffer = new byte[(int)(new File(file).length())];
+                FileOutputStream fos = new FileOutputStream(new File(file));
+                FileInputStream fin = new FileInputStream(new File(outputFile));
+                byte[] buffer = new byte[(int)(new File(outputFile).length())];
                 if(fin.read(buffer) != -1){
                     Log.w("fin", "yes");
                     fos.write(buffer);
