@@ -143,6 +143,15 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
             Log.w("outputFile", "init");
             outputFile = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).getAbsolutePath() + "/" +
                     "hpi_recording_" + getTimeStamp() + ".3gp";
+            File oFile = new File(outputFile);
+            try{
+                if (!oFile.exists()) {
+                    Log.w("outputFile?", "created!");
+                    oFile.createNewFile();
+                } else Log.w("outputFile?", "not created.");
+            } catch(Exception e){
+                Log.w("error", e.toString());
+            }
         } else Log.w("outputFile", "exists!");
 
         Log.w("outputFile", outputFile);
