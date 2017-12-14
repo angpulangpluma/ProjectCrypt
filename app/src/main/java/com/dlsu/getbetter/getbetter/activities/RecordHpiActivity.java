@@ -171,7 +171,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
 
         if(id == R.id.hpi_next_btn) {
 
-            newPatientSessionManager.setHPIRecord(file, chiefComplaintName);
+            newPatientSessionManager.setHPIRecord(outputFile, chiefComplaintName);
             prepFilesStore();
             Intent intent = new Intent(this, SummaryActivity.class);
             startActivity(intent);
@@ -354,7 +354,6 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
     private void prepFilesStore(){
         HashMap<String, String> hpi = newPatientSessionManager.getPatientInfo();
         if (!newPatientSessionManager.isHpiEmpty()){
-            doSomethingCryptFile("enc", new File(hpi.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD)));
             try {
                 FileOutputStream fos = new FileOutputStream(new File(outputFile));
                 FileInputStream fin = new FileInputStream(new File(file));
@@ -368,6 +367,7 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
             } catch(Exception e){
                 Log.w("error", e.toString());
             }
+            doSomethingCryptFile("enc", new File(hpi.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD)));
         }
 //        doSomethingCryptFile("enc", new File(patientProfileImage));
 //        if(attachments.size()>0){
