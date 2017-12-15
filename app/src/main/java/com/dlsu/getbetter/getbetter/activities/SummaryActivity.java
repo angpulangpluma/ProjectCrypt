@@ -715,7 +715,20 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
                     }
 //                    doSomethingCryptFile("enc", new File(fileUri.getPath()));
                 } else if(type == MEDIA_TYPE_VIDEO) {
-                    addVideoAttachment(fileUri.getPath(), attachmentName, getDateStamp());
+                    try{
+                        FileInputStream fin = new FileInputStream(fileUri.getPath());
+                        FileOutputStream fout = new FileOutputStream(file);
+                        byte[] buffer = new byte[(int)new File(fileUri.getPath()).length()];
+                        if(fin.read(buffer)!=-1){
+                            fin.close();
+                            fout.write(buffer);
+                            fout.close();
+                        }
+                    } catch(Exception e){
+                        Log.w("error", e.toString());
+                    } finally {
+                        addVideoAttachment(fileUri.getPath(), attachmentName, getDateStamp());
+                    }
 //                    doSomethingCryptFile("enc", new File(fileUri.getPath()));
                 } else if(type == MEDIA_TYPE_AUDIO) {
                     addAudioAttachment(audioOutputFile, attachmentName, getDateStamp());
