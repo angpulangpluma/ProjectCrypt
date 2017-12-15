@@ -178,6 +178,14 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
 
         } else if (id == R.id.new_patient_back_btn) {
 
+            File orig, priv;
+            if(fileUri!=null) {
+                orig = new File(fileUri.getPath());
+                priv = new File(getFilesDir(), orig.getName());
+                if (orig.delete() && priv.delete())
+                    Log.w("new patient img", "exit");
+                else Log.w("new patient img", "stay");
+            }
             finish();
             Intent i = new Intent(this, HomeActivity.class);
             startActivity(i);
