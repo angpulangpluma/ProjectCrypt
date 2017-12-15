@@ -189,6 +189,15 @@ public class RecordHpiActivity extends AppCompatActivity implements View.OnClick
 
         } else if (id == R.id.hpi_back_btn) {
 
+            File orig, priv;
+            if(outputFile!=null){
+                orig = new File(outputFile);
+                priv = new File(this.getFilesDir(), orig.getName());
+                if (orig.delete() && priv.delete())
+                    Log.w("hpi", "exit");
+                else Log.w("hpi", "stay");
+            }
+            
             finish();
 
         } else if (id == R.id.hpi_record_btn) {

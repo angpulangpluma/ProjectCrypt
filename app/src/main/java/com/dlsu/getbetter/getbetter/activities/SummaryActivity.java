@@ -352,7 +352,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
                    else Log.w("attachment", "stay");
                }
             }
-            
+
             finish();
 
         } else if(id == R.id.summary_page_take_pic_btn) {
