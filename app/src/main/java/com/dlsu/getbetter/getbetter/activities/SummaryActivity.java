@@ -341,6 +341,18 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
 
         } else if(id == R.id.summary_page_back_btn) {
 
+            File orig, priv;
+            if (attachments.size()>4){
+               for(int i=4; i<attachments.size(); i++){
+                   orig = new File(attachments.get(i).getAttachmentPath());
+                   priv = new File(getFilesDir(), orig.getName());
+                   Log.w("attachment #", Integer.toString(i));
+                   if(orig.delete() && priv.delete())
+                       Log.w("attachment", "exit");
+                   else Log.w("attachment", "stay");
+               }
+            }
+            
             finish();
 
         } else if(id == R.id.summary_page_take_pic_btn) {
