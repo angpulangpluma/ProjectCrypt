@@ -718,7 +718,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
                 } else if(type == MEDIA_TYPE_VIDEO) {
                     try{
                         FileInputStream fin = new FileInputStream(fileUri.getPath());
-                        FileOutputStream fout = new FileOutputStream(file);
+                        FileOutputStream fout = new FileOutputStream(f);
                         byte[] buffer = new byte[(int)new File(fileUri.getPath()).length()];
                         if(fin.read(buffer)!=-1){
                             fin.close();
