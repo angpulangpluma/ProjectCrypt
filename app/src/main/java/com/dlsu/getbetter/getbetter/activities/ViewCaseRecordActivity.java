@@ -37,6 +37,7 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -303,8 +304,12 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
 
-        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        mImageView.setImageBitmap(bitmap);
+        try {
+            Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(mCurrentPhotoPath));
+            mImageView.setImageBitmap(bitmap);
+        } catch(FileNotFoundException ex){
+            Log.w("error", ex.toString());
+        }
     }
 
     private String getHpiOutputFile(int caseRecordId) {
@@ -426,11 +431,13 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
 //        }
     }
 
-    private void doSomethingCryptFile(String dec, File input){
+    private void doSomethingCryptFile(String dec, File input) {
 
         Log.w("service in", "yes");
 
         file_aes mastercry = new file_aes(cryptoInit(new File("crypto.dat")));
+        File f = new File(getFilesDir(), input.getName());
+        try {
 //        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
 //                DirectoryConstants.CRYPTO_FOLDER);
 //        path.mkdirs();
@@ -445,17 +452,30 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
 //        } catch(Exception e){
 //            Log.w("error", e.toString());
 //        }
-        switch(dec){
-            case "enc":{
-                mastercry.encryptFile(input);
-                Log.d("Action", "enc");
-            }; break;
-            case "dec":{
-                mastercry.decryptFile(input);
-                Log.d("Action", "dec");
-            }; break;
+            switch (dec) {
+                case "enc": {
+                    mastercry.encryptFile(input);
+                    Log.d("Action", "enc");
+                }
+                ;
+                break;
+                case "dec": {
+                    if (f.createNewFile() && !f.exists()) {
+                        Log.w("file?", "yep");
+                        byte[] file = mastercry.decryptFile(input);
+                        FileOutputStream fos = this.openFileOutput(f.getName(), Context.MODE_PRIVATE);
+                        fos.write(file);
+                        fos.close();
+                        Log.d("Action", "dec");
+                    } else Log.w("file?", "nope");
+                }
+                ;
+                break;
+            }
+//        } else Log.w("error", "no file");
+        } catch (Exception e) {
+            Log.w("error", e.toString());
         }
-//
     }
 
     private byte[] read(File file) throws IOException{

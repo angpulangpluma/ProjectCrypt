@@ -632,6 +632,8 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_VIDEO);
         file = new File(fileUri.getPath()).getName();
 
+        Log.w("file", file);
+
         intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
 //        intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 5491520L);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
@@ -686,6 +688,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
                 imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
 
                 File f = new File(getFilesDir(), file);
+                Log.w("f", f.getPath());
 
                 if(type == MEDIA_TYPE_IMAGE) {
                     ContentResolver cr = getContentResolver();
