@@ -16,9 +16,11 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/ViewCaseRecordActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/ViewCaseRecordActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/SummaryActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/SummaryActivity.java" />
     </list>
     <ignored path="ProjectCrypt.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -56,7 +58,7 @@
       <file leaf-file-name="ExistingPatientActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/ExistingPatientActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
+            <state relative-caret-position="4777">
               <caret line="325" column="24" selection-start-line="325" selection-start-column="24" selection-end-line="325" selection-end-column="24" />
               <folding />
             </state>
@@ -93,59 +95,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SummaryActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SummaryActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/SummaryActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="474">
-              <caret line="249" column="20" selection-start-line="249" selection-start-column="20" selection-end-line="249" selection-end-column="20" />
+            <state relative-caret-position="68">
+              <caret line="1051" column="23" selection-start-line="1051" selection-start-column="23" selection-end-line="1051" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#10449#11342#0" expanded="true" />
-                <element signature="e#11341#11342#0" expanded="true" />
-                <element signature="e#19797#20168#0" expanded="true" />
-                <element signature="e#19950#20142#0" expanded="true" />
-                <element signature="e#20141#20142#0" expanded="true" />
-                <element signature="e#20167#20168#0" expanded="true" />
-                <element signature="e#21419#21420#0" expanded="true" />
-                <element signature="e#21477#21478#0" expanded="true" />
-                <element signature="e#24611#27930#0" expanded="true" />
-                <element signature="e#27929#27930#0" expanded="true" />
-                <element signature="e#27978#28165#0" expanded="true" />
-                <element signature="e#28164#28165#0" expanded="true" />
-                <element signature="e#30079#30267#0" expanded="true" />
-                <element signature="e#30266#30267#0" expanded="true" />
-                <element signature="e#32571#32572#0" expanded="true" />
-                <element signature="e#32598#32599#0" expanded="true" />
-                <element signature="e#32652#32653#0" expanded="true" />
-                <element signature="e#32680#32681#0" expanded="true" />
-                <element signature="e#32733#32734#0" expanded="true" />
-                <element signature="e#32761#32762#0" expanded="true" />
-                <element signature="e#32813#32814#0" expanded="true" />
-                <element signature="e#32837#32838#0" expanded="true" />
-                <element signature="e#33038#33039#0" expanded="true" />
-                <element signature="e#33094#33095#0" expanded="true" />
-                <element signature="e#33140#33141#0" expanded="true" />
-                <element signature="e#33189#33190#0" expanded="true" />
-                <element signature="e#33237#33238#0" expanded="true" />
-                <element signature="e#33284#33285#0" expanded="true" />
-                <element signature="e#33451#33452#0" expanded="true" />
-                <element signature="e#33491#33492#0" expanded="true" />
-                <element signature="e#33532#33533#0" expanded="true" />
-                <element signature="e#33568#33569#0" expanded="true" />
-                <element signature="e#33891#34519#0" expanded="true" />
-                <element signature="e#34518#34519#0" expanded="true" />
-                <element signature="e#34552#35152#0" expanded="true" />
-                <element signature="e#35151#35152#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ViewCaseRecordActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ViewCaseRecordActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/ViewCaseRecordActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="697">
-              <caret line="196" column="61" selection-start-line="196" selection-start-column="61" selection-end-line="196" selection-end-column="61" />
+            <state relative-caret-position="238">
+              <caret line="167" column="72" selection-start-line="167" selection-start-column="72" selection-end-line="167" selection-end-column="72" />
               <folding />
             </state>
           </provider>
@@ -2072,8 +2038,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/UpdatePatientRecordActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/CaptureDocumentsActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/RecordHpiActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/SummaryActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/ViewCaseRecordActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/SummaryActivity.java" />
       </list>
     </option>
   </component>
@@ -2469,7 +2435,7 @@
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4047619" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4047619" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2812,63 +2778,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/ExistingPatientActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
+        <state relative-caret-position="4777">
           <caret line="325" column="24" selection-start-line="325" selection-start-column="24" selection-end-line="325" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/ViewCaseRecordActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="167" column="72" selection-start-line="167" selection-start-column="72" selection-end-line="167" selection-end-column="72" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/SummaryActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="474">
-          <caret line="249" column="20" selection-start-line="249" selection-start-column="20" selection-end-line="249" selection-end-column="20" />
+        <state relative-caret-position="68">
+          <caret line="1051" column="23" selection-start-line="1051" selection-start-column="23" selection-end-line="1051" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#10449#11342#0" expanded="true" />
-            <element signature="e#11341#11342#0" expanded="true" />
-            <element signature="e#19797#20168#0" expanded="true" />
-            <element signature="e#19950#20142#0" expanded="true" />
-            <element signature="e#20141#20142#0" expanded="true" />
-            <element signature="e#20167#20168#0" expanded="true" />
-            <element signature="e#21419#21420#0" expanded="true" />
-            <element signature="e#21477#21478#0" expanded="true" />
-            <element signature="e#24611#27930#0" expanded="true" />
-            <element signature="e#27929#27930#0" expanded="true" />
-            <element signature="e#27978#28165#0" expanded="true" />
-            <element signature="e#28164#28165#0" expanded="true" />
-            <element signature="e#30079#30267#0" expanded="true" />
-            <element signature="e#30266#30267#0" expanded="true" />
-            <element signature="e#32571#32572#0" expanded="true" />
-            <element signature="e#32598#32599#0" expanded="true" />
-            <element signature="e#32652#32653#0" expanded="true" />
-            <element signature="e#32680#32681#0" expanded="true" />
-            <element signature="e#32733#32734#0" expanded="true" />
-            <element signature="e#32761#32762#0" expanded="true" />
-            <element signature="e#32813#32814#0" expanded="true" />
-            <element signature="e#32837#32838#0" expanded="true" />
-            <element signature="e#33038#33039#0" expanded="true" />
-            <element signature="e#33094#33095#0" expanded="true" />
-            <element signature="e#33140#33141#0" expanded="true" />
-            <element signature="e#33189#33190#0" expanded="true" />
-            <element signature="e#33237#33238#0" expanded="true" />
-            <element signature="e#33284#33285#0" expanded="true" />
-            <element signature="e#33451#33452#0" expanded="true" />
-            <element signature="e#33491#33492#0" expanded="true" />
-            <element signature="e#33532#33533#0" expanded="true" />
-            <element signature="e#33568#33569#0" expanded="true" />
-            <element signature="e#33891#34519#0" expanded="true" />
-            <element signature="e#34518#34519#0" expanded="true" />
-            <element signature="e#34552#35152#0" expanded="true" />
-            <element signature="e#35151#35152#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/ViewCaseRecordActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="196" column="61" selection-start-line="196" selection-start-column="61" selection-end-line="196" selection-end-column="61" />
-          <folding />
         </state>
       </provider>
     </entry>
