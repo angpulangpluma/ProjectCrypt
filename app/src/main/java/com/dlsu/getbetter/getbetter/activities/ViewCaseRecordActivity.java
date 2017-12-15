@@ -115,10 +115,11 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
 
 //        doSomethingCryptFile("dec", new File(recordedHpiOutputFile));
         try {
-            nMediaPlayer.setDataSource(recordedHpiOutputFile);
+            File f = new File(this.getFilesDir(), FilenameUtils.getName(recordedHpiOutputFile));
+            nMediaPlayer.setDataSource(f.getPath());
             nMediaPlayer.prepare();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.w("error", e.toString());
             Log.d(TAG, "onCreate: " + e.toString());
         }
 
