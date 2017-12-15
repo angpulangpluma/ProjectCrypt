@@ -520,8 +520,11 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         nMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
         try {
-            nMediaPlayer.setDataSource(recordedHpiOutputFile);
-            nMediaPlayer.prepare();
+            File f = new File(this.getFilesDir(), FilenameUtils.getName(recordedHpiOutputFile));
+            if (f.exists() || f.createNewFile()){
+                nMediaPlayer.setDataSource(f.getPath());
+                nMediaPlayer.prepare();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
