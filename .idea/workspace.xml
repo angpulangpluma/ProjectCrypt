@@ -12,14 +12,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f717c4a8-f2fa-4b44-9155-5298475a6fca" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/SummaryActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/SummaryActivity.java" />
     </list>
     <ignored path="ProjectCrypt.iws" />
@@ -98,8 +90,8 @@
       <file leaf-file-name="SummaryActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/SummaryActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="1219" column="17" selection-start-line="1219" selection-start-column="17" selection-end-line="1219" selection-end-column="17" />
+            <state relative-caret-position="697">
+              <caret line="731" column="21" selection-start-line="731" selection-start-column="21" selection-end-line="731" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#10449#11342#0" expanded="true" />
@@ -110,34 +102,34 @@
                 <element signature="e#20167#20168#0" expanded="true" />
                 <element signature="e#21419#21420#0" expanded="true" />
                 <element signature="e#21477#21478#0" expanded="true" />
-                <element signature="e#24581#27221#0" expanded="true" />
-                <element signature="e#27220#27221#0" expanded="true" />
-                <element signature="e#27269#27456#0" expanded="true" />
-                <element signature="e#27455#27456#0" expanded="true" />
-                <element signature="e#29370#29558#0" expanded="true" />
-                <element signature="e#29557#29558#0" expanded="true" />
-                <element signature="e#31862#31863#0" expanded="true" />
-                <element signature="e#31889#31890#0" expanded="true" />
-                <element signature="e#31943#31944#0" expanded="true" />
-                <element signature="e#31971#31972#0" expanded="true" />
-                <element signature="e#32024#32025#0" expanded="true" />
-                <element signature="e#32052#32053#0" expanded="true" />
-                <element signature="e#32104#32105#0" expanded="true" />
-                <element signature="e#32128#32129#0" expanded="true" />
-                <element signature="e#32329#32330#0" expanded="true" />
-                <element signature="e#32385#32386#0" expanded="true" />
-                <element signature="e#32431#32432#0" expanded="true" />
-                <element signature="e#32480#32481#0" expanded="true" />
-                <element signature="e#32528#32529#0" expanded="true" />
-                <element signature="e#32575#32576#0" expanded="true" />
-                <element signature="e#32742#32743#0" expanded="true" />
-                <element signature="e#32782#32783#0" expanded="true" />
-                <element signature="e#32823#32824#0" expanded="true" />
-                <element signature="e#32859#32860#0" expanded="true" />
-                <element signature="e#33182#33810#0" expanded="true" />
-                <element signature="e#33809#33810#0" expanded="true" />
-                <element signature="e#33843#34443#0" expanded="true" />
-                <element signature="e#34442#34443#0" expanded="true" />
+                <element signature="e#24581#27862#0" expanded="true" />
+                <element signature="e#27861#27862#0" expanded="true" />
+                <element signature="e#27910#28097#0" expanded="true" />
+                <element signature="e#28096#28097#0" expanded="true" />
+                <element signature="e#30011#30199#0" expanded="true" />
+                <element signature="e#30198#30199#0" expanded="true" />
+                <element signature="e#32503#32504#0" expanded="true" />
+                <element signature="e#32530#32531#0" expanded="true" />
+                <element signature="e#32584#32585#0" expanded="true" />
+                <element signature="e#32612#32613#0" expanded="true" />
+                <element signature="e#32665#32666#0" expanded="true" />
+                <element signature="e#32693#32694#0" expanded="true" />
+                <element signature="e#32745#32746#0" expanded="true" />
+                <element signature="e#32769#32770#0" expanded="true" />
+                <element signature="e#32970#32971#0" expanded="true" />
+                <element signature="e#33026#33027#0" expanded="true" />
+                <element signature="e#33072#33073#0" expanded="true" />
+                <element signature="e#33121#33122#0" expanded="true" />
+                <element signature="e#33169#33170#0" expanded="true" />
+                <element signature="e#33216#33217#0" expanded="true" />
+                <element signature="e#33383#33384#0" expanded="true" />
+                <element signature="e#33423#33424#0" expanded="true" />
+                <element signature="e#33464#33465#0" expanded="true" />
+                <element signature="e#33500#33501#0" expanded="true" />
+                <element signature="e#33823#34451#0" expanded="true" />
+                <element signature="e#34450#34451#0" expanded="true" />
+                <element signature="e#34484#35084#0" expanded="true" />
+                <element signature="e#35083#35084#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -2451,7 +2443,7 @@
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4047619" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4047619" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2809,8 +2801,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/SummaryActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="1219" column="17" selection-start-line="1219" selection-start-column="17" selection-end-line="1219" selection-end-column="17" />
+        <state relative-caret-position="697">
+          <caret line="731" column="21" selection-start-line="731" selection-start-column="21" selection-end-line="731" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#10449#11342#0" expanded="true" />
@@ -2821,34 +2813,34 @@
             <element signature="e#20167#20168#0" expanded="true" />
             <element signature="e#21419#21420#0" expanded="true" />
             <element signature="e#21477#21478#0" expanded="true" />
-            <element signature="e#24581#27221#0" expanded="true" />
-            <element signature="e#27220#27221#0" expanded="true" />
-            <element signature="e#27269#27456#0" expanded="true" />
-            <element signature="e#27455#27456#0" expanded="true" />
-            <element signature="e#29370#29558#0" expanded="true" />
-            <element signature="e#29557#29558#0" expanded="true" />
-            <element signature="e#31862#31863#0" expanded="true" />
-            <element signature="e#31889#31890#0" expanded="true" />
-            <element signature="e#31943#31944#0" expanded="true" />
-            <element signature="e#31971#31972#0" expanded="true" />
-            <element signature="e#32024#32025#0" expanded="true" />
-            <element signature="e#32052#32053#0" expanded="true" />
-            <element signature="e#32104#32105#0" expanded="true" />
-            <element signature="e#32128#32129#0" expanded="true" />
-            <element signature="e#32329#32330#0" expanded="true" />
-            <element signature="e#32385#32386#0" expanded="true" />
-            <element signature="e#32431#32432#0" expanded="true" />
-            <element signature="e#32480#32481#0" expanded="true" />
-            <element signature="e#32528#32529#0" expanded="true" />
-            <element signature="e#32575#32576#0" expanded="true" />
-            <element signature="e#32742#32743#0" expanded="true" />
-            <element signature="e#32782#32783#0" expanded="true" />
-            <element signature="e#32823#32824#0" expanded="true" />
-            <element signature="e#32859#32860#0" expanded="true" />
-            <element signature="e#33182#33810#0" expanded="true" />
-            <element signature="e#33809#33810#0" expanded="true" />
-            <element signature="e#33843#34443#0" expanded="true" />
-            <element signature="e#34442#34443#0" expanded="true" />
+            <element signature="e#24581#27862#0" expanded="true" />
+            <element signature="e#27861#27862#0" expanded="true" />
+            <element signature="e#27910#28097#0" expanded="true" />
+            <element signature="e#28096#28097#0" expanded="true" />
+            <element signature="e#30011#30199#0" expanded="true" />
+            <element signature="e#30198#30199#0" expanded="true" />
+            <element signature="e#32503#32504#0" expanded="true" />
+            <element signature="e#32530#32531#0" expanded="true" />
+            <element signature="e#32584#32585#0" expanded="true" />
+            <element signature="e#32612#32613#0" expanded="true" />
+            <element signature="e#32665#32666#0" expanded="true" />
+            <element signature="e#32693#32694#0" expanded="true" />
+            <element signature="e#32745#32746#0" expanded="true" />
+            <element signature="e#32769#32770#0" expanded="true" />
+            <element signature="e#32970#32971#0" expanded="true" />
+            <element signature="e#33026#33027#0" expanded="true" />
+            <element signature="e#33072#33073#0" expanded="true" />
+            <element signature="e#33121#33122#0" expanded="true" />
+            <element signature="e#33169#33170#0" expanded="true" />
+            <element signature="e#33216#33217#0" expanded="true" />
+            <element signature="e#33383#33384#0" expanded="true" />
+            <element signature="e#33423#33424#0" expanded="true" />
+            <element signature="e#33464#33465#0" expanded="true" />
+            <element signature="e#33500#33501#0" expanded="true" />
+            <element signature="e#33823#34451#0" expanded="true" />
+            <element signature="e#34450#34451#0" expanded="true" />
+            <element signature="e#34484#35084#0" expanded="true" />
+            <element signature="e#35083#35084#0" expanded="true" />
           </folding>
         </state>
       </provider>
