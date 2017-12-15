@@ -3,6 +3,7 @@ package com.dlsu.getbetter.getbetter.activities;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -102,6 +103,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
     private Handler nHandler = new Handler();
     private Uri fileUri;
     private String audioOutputFile;
+    private String file;
 
     private DataAdapter getBetterDb;
     private FileAttachmentsAdapter fileAdapter;
@@ -589,6 +591,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+        file = new File(fileUri.getPath()).getName();
 
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
         startActivityForResult(intent, REQUEST_IMAGE_ATTACHMENT);
@@ -680,7 +683,33 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
                 if(type == MEDIA_TYPE_IMAGE) {
-                    addPhotoAttachment(fileUri.getPath(), attachmentName, getDateStamp());
+                    ContentResolver cr = getContentResolver();
+                    Bitmap bmp;
+                    File f = new File(getFilesDir(), file);
+                    try{
+                        Log.w("orig size", Long.toString(new File(fileUri.getPath()).length()));
+                        bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, fileUri);
+//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        if (f.createNewFile() || f.exists()){
+                            FileOutputStream fos = openFileOutput(f.getName(), Context.MODE_PRIVATE);
+                            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+//                byte[] towrite = stream.toByteArray();
+//                Log.w("towrite size", Integer.toString(towrite.length));
+//                fos.write(towrite);
+                            fos.close();
+                            Log.w("private file?", "done!");
+                        } else Log.w("private file?", "nope.");
+                    } catch(IOException ex){
+                        Log.w("error image", ex.toString());
+                        Log.w("private file?", "failed.");
+                    } finally{
+                        addPhotoAttachment(f.getPath(), attachmentName, getDateStamp());
+//                        setPic(profileImage, new File(getFilesDir(), file).getPath());
+                        //to do: place encryption here
+//                if (new File(fileUri.getPath()).delete())
+//                    Log.w("deletion?", "success");
+//                else Log.w("deletion?", "failed");
+                    }
 //                    doSomethingCryptFile("enc", new File(fileUri.getPath()));
                 } else if(type == MEDIA_TYPE_VIDEO) {
                     addVideoAttachment(fileUri.getPath(), attachmentName, getDateStamp());
