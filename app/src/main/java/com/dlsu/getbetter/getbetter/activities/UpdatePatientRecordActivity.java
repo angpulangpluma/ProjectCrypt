@@ -226,11 +226,13 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         Patient newPatient;
 
         if (fileUri!=null) {
+            Log.w("profile pic?", "new!");
             doSomethingCryptFile("enc", new File(fileUri.getPath()));
             newPatient = new Patient(firstName, middleName, lastName,
                     birthDate, genderSelected, civilStatusSelected, fileUri.getPath());
         } else{
-            doSomethingCryptFile("enc", new File(profilePicPath));
+            Log.w("profile pic?", "old.");
+            //doSomethingCryptFile("enc", new File(profilePicPath));
             newPatient = new Patient(firstName, middleName, lastName,
                     birthDate, genderSelected, civilStatusSelected, profilePicPath);
         }
@@ -383,7 +385,7 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         try{
             switch (dec) {
                 case "enc": {
-                    //mastercry.encryptFile(input);
+                    mastercry.encryptFile(input);
                     Log.d("Action", "enc");
                 }
                 ;
