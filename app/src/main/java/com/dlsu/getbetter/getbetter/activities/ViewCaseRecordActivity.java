@@ -193,7 +193,8 @@ public class ViewCaseRecordActivity extends AppCompatActivity implements MediaCo
                 if(caseAttachments.get(position).getAttachmentType() == 1) {
                     Intent intent = new Intent(ViewCaseRecordActivity.this, ViewImageActivity.class);
 //                    doSomethingCryptFile("dec", new File(caseAttachments.get(position).getAttachmentPath()));
-                    intent.putExtra("imageUrl", caseAttachments.get(position).getAttachmentPath());
+                    File f = new File(getFilesDir(), FilenameUtils.getName(caseAttachments.get(position).getAttachmentPath()));
+                    intent.putExtra("imageUrl", f.getPath());
                     intent.putExtra("imageTitle", caseAttachments.get(position).getAttachmentDescription());
                     startActivity(intent);
                 } else {
