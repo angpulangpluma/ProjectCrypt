@@ -629,6 +629,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
 
         Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_VIDEO);
+        file = new File(fileUri.getPath()).getName();
 
         intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
 //        intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 5491520L);
@@ -682,10 +683,12 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
                 attachmentName = input.getText().toString();
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
+
+                File f = new File(getFilesDir(), file);
+
                 if(type == MEDIA_TYPE_IMAGE) {
                     ContentResolver cr = getContentResolver();
                     Bitmap bmp;
-                    File f = new File(getFilesDir(), file);
                     try{
                         Log.w("orig size", Long.toString(new File(fileUri.getPath()).length()));
                         bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, fileUri);
@@ -703,7 +706,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
                         Log.w("error image", ex.toString());
                         Log.w("private file?", "failed.");
                     } finally{
-                        addPhotoAttachment(f.getPath(), attachmentName, getDateStamp());
+                        addPhotoAttachment(fileUri.getPath(), attachmentName, getDateStamp());
 //                        setPic(profileImage, new File(getFilesDir(), file).getPath());
                         //to do: place encryption here
 //                if (new File(fileUri.getPath()).delete())
