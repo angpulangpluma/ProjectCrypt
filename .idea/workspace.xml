@@ -12,13 +12,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f717c4a8-f2fa-4b44-9155-5298475a6fca" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/UpdatePatientRecordActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/UpdatePatientRecordActivity.java" />
     </list>
     <ignored path="ProjectCrypt.iws" />
@@ -109,8 +102,8 @@
       <file leaf-file-name="UpdatePatientRecordActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/UpdatePatientRecordActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="229" column="85" selection-start-line="229" selection-start-column="85" selection-end-line="229" selection-end-column="85" />
+            <state relative-caret-position="660">
+              <caret line="249" column="70" selection-start-line="249" selection-start-column="70" selection-end-line="249" selection-end-column="70" />
               <folding />
             </state>
           </provider>
@@ -2807,8 +2800,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dlsu/getbetter/getbetter/activities/UpdatePatientRecordActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="229" column="85" selection-start-line="229" selection-start-column="85" selection-end-line="229" selection-end-column="85" />
+        <state relative-caret-position="660">
+          <caret line="249" column="70" selection-start-line="249" selection-start-column="70" selection-end-line="249" selection-end-column="70" />
           <folding />
         </state>
       </provider>

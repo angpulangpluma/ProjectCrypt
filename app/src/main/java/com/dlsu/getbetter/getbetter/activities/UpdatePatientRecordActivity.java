@@ -223,14 +223,15 @@ public class UpdatePatientRecordActivity extends AppCompatActivity implements Vi
         String middleName = middleNameInput.getText().toString();
         String lastName = lastNameInput.getText().toString();
         int result;
+        Patient newPatient;
 
         if (fileUri!=null) {
             doSomethingCryptFile("enc", new File(fileUri.getPath()));
-            Patient newPatient = new Patient(firstName, middleName, lastName,
+            newPatient = new Patient(firstName, middleName, lastName,
                     birthDate, genderSelected, civilStatusSelected, fileUri.getPath());
         } else{
             doSomethingCryptFile("enc", new File(profilePicPath));
-            Patient newPatient = new Patient(firstName, middleName, lastName,
+            newPatient = new Patient(firstName, middleName, lastName,
                     birthDate, genderSelected, civilStatusSelected, profilePicPath);
         }
 
