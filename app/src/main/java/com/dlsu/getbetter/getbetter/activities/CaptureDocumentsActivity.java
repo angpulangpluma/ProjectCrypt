@@ -243,6 +243,27 @@ public class CaptureDocumentsActivity extends AppCompatActivity implements View.
 
         } else if(id == R.id.capture_document_back_btn) {
 
+            File orig, priv;
+            if(!this.patientInfoImagePath.equals("")) {
+                orig = new File(this.patientInfoImagePath);
+                priv = new File(getFilesDir(), orig.getName());
+                if (orig.delete() && priv.delete())
+                    Log.w("patientInfoImagePath", "exit");
+                else Log.w("patientInfoImagePath", "stay");
+            } if(!this.familySocialHistoryImagePath.equals("")) {
+                orig = new File(this.familySocialHistoryImagePath);
+                priv = new File(getFilesDir(), orig.getName());
+                if (orig.delete() && priv.delete())
+                    Log.w("fSocialHistoryImagePath", "exit");
+                else Log.w("fSocialHistoryImagePath", "stay");
+            } if(!this.chiefComplaintImagePath.equals("")) {
+                orig = new File(this.chiefComplaintImagePath);
+                priv = new File(getFilesDir(), orig.getName());
+                if (orig.delete() && priv.delete())
+                    Log.w("chiComplaintImagePath", "exit");
+                else Log.w("chiComplaintImagePath", "stay");
+            }
+
             Intent intent = new Intent(this, ExistingPatientActivity.class);
 //            Intent intent = new Intent(this, ViewPatientActivity.class);
 //            Log.d(TAG, "" + newPatientSessionManager.getPatientInfo().get(NewPatientSessionManager.PATIENT_ID));
