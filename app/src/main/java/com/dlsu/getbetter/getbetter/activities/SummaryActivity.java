@@ -1,8 +1,10 @@
 package com.dlsu.getbetter.getbetter.activities;
 
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -102,6 +104,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
     private Handler nHandler = new Handler();
     private Uri fileUri;
     private String audioOutputFile;
+    private String file;
 
     private DataAdapter getBetterDb;
     private FileAttachmentsAdapter fileAdapter;
@@ -589,6 +592,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+        file = new File(fileUri.getPath()).getName();
 
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
         startActivityForResult(intent, REQUEST_IMAGE_ATTACHMENT);
@@ -626,6 +630,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
 
         Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_VIDEO);
+        file = new File(fileUri.getPath()).getName();
 
         intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
 //        intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 5491520L);
@@ -679,8 +684,36 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
                 attachmentName = input.getText().toString();
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
+
+                File f = new File(getFilesDir(), file);
+
                 if(type == MEDIA_TYPE_IMAGE) {
-                    addPhotoAttachment(fileUri.getPath(), attachmentName, getDateStamp());
+                    ContentResolver cr = getContentResolver();
+                    Bitmap bmp;
+                    try{
+                        Log.w("orig size", Long.toString(new File(fileUri.getPath()).length()));
+                        bmp = android.provider.MediaStore.Images.Media.getBitmap(cr, fileUri);
+//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        if (f.createNewFile() || f.exists()){
+                            FileOutputStream fos = openFileOutput(f.getName(), Context.MODE_PRIVATE);
+                            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+//                byte[] towrite = stream.toByteArray();
+//                Log.w("towrite size", Integer.toString(towrite.length));
+//                fos.write(towrite);
+                            fos.close();
+                            Log.w("private file?", "done!");
+                        } else Log.w("private file?", "nope.");
+                    } catch(IOException ex){
+                        Log.w("error image", ex.toString());
+                        Log.w("private file?", "failed.");
+                    } finally{
+                        addPhotoAttachment(fileUri.getPath(), attachmentName, getDateStamp());
+//                        setPic(profileImage, new File(getFilesDir(), file).getPath());
+                        //to do: place encryption here
+//                if (new File(fileUri.getPath()).delete())
+//                    Log.w("deletion?", "success");
+//                else Log.w("deletion?", "failed");
+                    }
 //                    doSomethingCryptFile("enc", new File(fileUri.getPath()));
                 } else if(type == MEDIA_TYPE_VIDEO) {
                     addVideoAttachment(fileUri.getPath(), attachmentName, getDateStamp());
@@ -994,22 +1027,24 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
 //        patientInfoFormImageTitle = patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE1_TITLE);
 //        familySocialHistoryFormImageTitle = patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE2_TITLE);
 //        chiefComplaintFormImageTitle = patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE3_TITLE);
-        doSomethingCryptFile("enc", new File(patientProfileImage));
+        //doSomethingCryptFile("enc", new File(patientProfileImage));
 //        doSomethingCryptFile("dec", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD)));
 //        doSomethingCryptFile("dec", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE1)));
 //        doSomethingCryptFile("dec", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE2)));
 //        doSomethingCryptFile("dec", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE3)));
-        if(attachments.size()>0){
-            for(int i=0; i<attachments.size(); i++)
+        if(attachments.size()>4){
+            for(int i=5; i<attachments.size(); i++)
                 doSomethingCryptFile("enc", new File(attachments.get(i).getAttachmentPath()));
         }
     }
 
-    private void doSomethingCryptFile(String dec, File input){
+    private void doSomethingCryptFile(String dec, File input) {
 
         Log.w("service in", "yes");
 
         file_aes mastercry = new file_aes(cryptoInit(new File("crypto.dat")));
+        File f = new File(getFilesDir(), input.getName());
+        try {
 //        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
 //                DirectoryConstants.CRYPTO_FOLDER);
 //        path.mkdirs();
@@ -1024,17 +1059,30 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
 //        } catch(Exception e){
 //            Log.w("error", e.toString());
 //        }
-        switch(dec){
-            case "enc":{
-                mastercry.encryptFile(input);
-                Log.d("Action", "enc");
-            }; break;
-            case "dec":{
-                mastercry.decryptFile(input);
-                Log.d("Action", "dec");
-            }; break;
+            switch (dec) {
+                case "enc": {
+                    mastercry.encryptFile(input);
+                    Log.d("Action", "enc");
+                }
+                ;
+                break;
+                case "dec": {
+                    if (f.createNewFile() && !f.exists()) {
+                        Log.w("file?", "yep");
+                        byte[] file = mastercry.decryptFile(input);
+                        FileOutputStream fos = this.openFileOutput(f.getName(), Context.MODE_PRIVATE);
+                        fos.write(file);
+                        fos.close();
+                        Log.d("Action", "dec");
+                    } else Log.w("file?", "nope");
+                }
+                ;
+                break;
+            }
+//        } else Log.w("error", "no file");
+        } catch (Exception e) {
+            Log.w("error", e.toString());
         }
-//
     }
 
     private byte[] read(File file) throws IOException{
