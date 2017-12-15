@@ -1023,22 +1023,24 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
 //        patientInfoFormImageTitle = patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE1_TITLE);
 //        familySocialHistoryFormImageTitle = patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE2_TITLE);
 //        chiefComplaintFormImageTitle = patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE3_TITLE);
-        doSomethingCryptFile("enc", new File(patientProfileImage));
+        //doSomethingCryptFile("enc", new File(patientProfileImage));
 //        doSomethingCryptFile("dec", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_HPI_RECORD)));
 //        doSomethingCryptFile("dec", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE1)));
 //        doSomethingCryptFile("dec", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE2)));
 //        doSomethingCryptFile("dec", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE3)));
-        if(attachments.size()>0){
-            for(int i=0; i<attachments.size(); i++)
+        if(attachments.size()>4){
+            for(int i=5; i<attachments.size(); i++)
                 doSomethingCryptFile("enc", new File(attachments.get(i).getAttachmentPath()));
         }
     }
 
-    private void doSomethingCryptFile(String dec, File input){
+    private void doSomethingCryptFile(String dec, File input) {
 
         Log.w("service in", "yes");
 
         file_aes mastercry = new file_aes(cryptoInit(new File("crypto.dat")));
+        File f = new File(getFilesDir(), input.getName());
+        try {
 //        File path = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),
 //                DirectoryConstants.CRYPTO_FOLDER);
 //        path.mkdirs();
@@ -1053,17 +1055,30 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
 //        } catch(Exception e){
 //            Log.w("error", e.toString());
 //        }
-        switch(dec){
-            case "enc":{
-                mastercry.encryptFile(input);
-                Log.d("Action", "enc");
-            }; break;
-            case "dec":{
-                mastercry.decryptFile(input);
-                Log.d("Action", "dec");
-            }; break;
+            switch (dec) {
+                case "enc": {
+                    mastercry.encryptFile(input);
+                    Log.d("Action", "enc");
+                }
+                ;
+                break;
+                case "dec": {
+                    if (f.createNewFile() && !f.exists()) {
+                        Log.w("file?", "yep");
+                        byte[] file = mastercry.decryptFile(input);
+                        FileOutputStream fos = this.openFileOutput(f.getName(), Context.MODE_PRIVATE);
+                        fos.write(file);
+                        fos.close();
+                        Log.d("Action", "dec");
+                    } else Log.w("file?", "nope");
+                }
+                ;
+                break;
+            }
+//        } else Log.w("error", "no file");
+        } catch (Exception e) {
+            Log.w("error", e.toString());
         }
-//
     }
 
     private byte[] read(File file) throws IOException{
