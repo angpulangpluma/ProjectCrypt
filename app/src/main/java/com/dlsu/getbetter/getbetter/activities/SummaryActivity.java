@@ -1049,7 +1049,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
 //        doSomethingCryptFile("dec", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE2)));
 //        doSomethingCryptFile("dec", new File(patientDetails.get(NewPatientSessionManager.NEW_PATIENT_DOC_IMAGE3)));
         if(attachments.size()>4){
-            for(int i=5; i<attachments.size(); i++)
+            for(int i=4; i<attachments.size(); i++)
                 doSomethingCryptFile("enc", new File(attachments.get(i).getAttachmentPath()));
         }
     }
